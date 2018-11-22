@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Elasticsearch,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="横向扩容上文中有提到有两个es节点的环境下shard和replica的分配   两个node环境下replica和shard的分配目前集群中有两个es节点,创建一个index,设置有3个shard每个shard对应一个replica,如下图:   新添加一个节点到集群中前面有说到过es集群会自动做负载均衡,如果我们现在加一个es节点到集群中来的话,es会按照一定的规则(一个shard和它对应的re">
+<meta name="keywords" content="Elasticsearch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch-7-扩容机制">
+<meta property="og:url" content="http://yoursite.com/2018/11/16/Elasticsearch-7-扩容机制/index.html">
+<meta property="og:site_name" content="八度空间">
+<meta property="og:description" content="横向扩容上文中有提到有两个es节点的环境下shard和replica的分配   两个node环境下replica和shard的分配目前集群中有两个es节点,创建一个index,设置有3个shard每个shard对应一个replica,如下图:   新添加一个节点到集群中前面有说到过es集群会自动做负载均衡,如果我们现在加一个es节点到集群中来的话,es会按照一定的规则(一个shard和它对应的re">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/wwTfrNUzkcHXsab7OH83sGkeZSjEdkVMDRs.Xxic7qg!/r/dDQBAAAAAAAA">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/6l*XXVYLqpA5KIgL0uGg.OQV3pm8CKXIEHzdrFAsZ7A!/r/dFMBAAAAAAAA">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/sYPAty2SHtxEkjtHLfN2NTPEfK5gyY1Tlz0msMAbWQ0!/r/dDABAAAAAAAA">
+<meta property="og:updated_time" content="2018-11-22T09:48:11.977Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Elasticsearch-7-扩容机制">
+<meta name="twitter:description" content="横向扩容上文中有提到有两个es节点的环境下shard和replica的分配   两个node环境下replica和shard的分配目前集群中有两个es节点,创建一个index,设置有3个shard每个shard对应一个replica,如下图:   新添加一个节点到集群中前面有说到过es集群会自动做负载均衡,如果我们现在加一个es节点到集群中来的话,es会按照一定的规则(一个shard和它对应的re">
+<meta name="twitter:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/wwTfrNUzkcHXsab7OH83sGkeZSjEdkVMDRs.Xxic7qg!/r/dDQBAAAAAAAA">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/16/Elasticsearch-7-扩容机制/">
+
+
+
+
+
+  <title>Elasticsearch-7-扩容机制 | 八度空间</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">八度空间</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/16/Elasticsearch-7-扩容机制/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="周泽">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八度空间">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Elasticsearch-7-扩容机制</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-16T17:50:17+08:00">
+                2018-11-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
+                    <span itemprop="name">Elasticsearch</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="横向扩容"><a href="#横向扩容" class="headerlink" title="横向扩容"></a>横向扩容</h4><p>上文中有提到有两个es节点的环境下shard和replica的分配  </p>
+<h5 id="两个node环境下replica和shard的分配"><a href="#两个node环境下replica和shard的分配" class="headerlink" title="两个node环境下replica和shard的分配"></a>两个node环境下replica和shard的分配</h5><p>目前集群中有两个es节点,创建一个index,设置有3个shard每个shard对应一个replica,如下图:<br><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/wwTfrNUzkcHXsab7OH83sGkeZSjEdkVMDRs.Xxic7qg!/r/dDQBAAAAAAAA" alt="两个es节点shard分配">  </p>
+<h5 id="新添加一个节点到集群中"><a href="#新添加一个节点到集群中" class="headerlink" title="新添加一个节点到集群中"></a>新添加一个节点到集群中</h5><p>前面有说到过es集群会自动做负载均衡,如果我们现在加一个es节点到集群中来的话,es会按照一定的规则(一个shard和它对应的replica不会被分配到同一个节点上去)将部分shard分配到新的节点上去,如图:<br><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/6l*XXVYLqpA5KIgL0uGg.OQV3pm8CKXIEHzdrFAsZ7A!/r/dFMBAAAAAAAA" alt="新加一个节点到集群中"></p>
+<h5 id="横向扩容的好处"><a href="#横向扩容的好处" class="headerlink" title="横向扩容的好处"></a>横向扩容的好处</h5><p>横向扩容后,每台节点上的shard会减少,就意味着每个shard可以占用节点上的更多资源比如IO/CPU/Memory,整个系统的性能会更好   </p>
+<h5 id="扩容的极限"><a href="#扩容的极限" class="headerlink" title="扩容的极限"></a>扩容的极限</h5><p>上面我们一共有6个shard(3个shard 3个replica),最多扩容到6个节点,就是说每个节点上都有一个shard,这个时候每个shard可以占用他所在服务器的所有资源,性能是最好的</p>
+<h5 id="突破扩容瓶颈"><a href="#突破扩容瓶颈" class="headerlink" title="突破扩容瓶颈"></a>突破扩容瓶颈</h5><p>如何超出系统的扩容瓶颈呢, 比如现在我们有6个shard但是要扩容到9个节点,同时想让系统的性能更好,这个时候我们可以增加replica的数量,因为primary shard的数量是不能变的,我们只能改变replica的数量,比如有3个primary shard,设置replica的数量为2, 这个时候总共有 3 + 3 x 2 = 9个shard 就可以分布到9个节点上去,因为 replica 也可以处理读请求 所以整个集群的性能会更好. </p>
+<h5 id="集群容错性"><a href="#集群容错性" class="headerlink" title="集群容错性"></a>集群容错性</h5><p>比如集群中有3个节点,一共6个shard,这个时候 如果某一个节点宕机,比如node3宕机了,如下图:<br><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/sYPAty2SHtxEkjtHLfN2NTPEfK5gyY1Tlz0msMAbWQ0!/r/dDABAAAAAAAA" alt="node3宕机"></p>
+<p>这个时候shard3 和 replica1已经丢失了,剩下其他两个节点上的shard1 replica2 shard2 replica3 ,replica3 因为replica3 是shard3的副本,所以node3 宕机是是不会造成数据的丢失的, 所以3个shard 3个replica分布在3个节点上任意一个节点宕机都不会造成数据的丢失  </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Elasticsearch/" <i="" class="fa fa-tag"> Elasticsearch</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/16/Elasticsearch-6-shard-replica机制/" rel="next" title="Elasticsearch-6-shard&replica机制">
+                <i class="fa fa-chevron-left"></i> Elasticsearch-6-shard&replica机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/16/Elasticsearch-8-容错机制/" rel="prev" title="Elasticsearch-8-容错机制">
+                Elasticsearch-8-容错机制 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTEyNi8xNzY1MQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">周泽</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#横向扩容"><span class="nav-number">1.</span> <span class="nav-text">横向扩容</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#两个node环境下replica和shard的分配"><span class="nav-number">1.1.</span> <span class="nav-text">两个node环境下replica和shard的分配</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#新添加一个节点到集群中"><span class="nav-number">1.2.</span> <span class="nav-text">新添加一个节点到集群中</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#横向扩容的好处"><span class="nav-number">1.3.</span> <span class="nav-text">横向扩容的好处</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#扩容的极限"><span class="nav-number">1.4.</span> <span class="nav-text">扩容的极限</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#突破扩容瓶颈"><span class="nav-number">1.5.</span> <span class="nav-text">突破扩容瓶颈</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#集群容错性"><span class="nav-number">1.6.</span> <span class="nav-text">集群容错性</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">周泽</span>
+
+  
+</div>
+
+<!-- 
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+ -->
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共21.2k字</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>

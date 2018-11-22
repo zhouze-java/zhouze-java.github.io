@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Elasticsearch,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="全文检索把要搜索的内容 进行分词储存为倒排索引, 搜索的时候,去扫描的是内容中的所有关键词而不是去扫描内容本身内容中能拆分出来多少词 倒排索引中就会有多少行 先遍历倒排索引中的关键词,然后去数据源中找到数据返回   Lucene封装了建立倒排索引,以及搜索的代码,包括各种算法, 提供了java使用的api,用Lucene可以将已有的数据建立索引,Lucene会在本地磁盘上组织索引的数据结构,另外可">
+<meta name="keywords" content="Elasticsearch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch-0-核心概念">
+<meta property="og:url" content="http://yoursite.com/2018/11/16/Elasticsearch-0-核心概念/index.html">
+<meta property="og:site_name" content="八度空间">
+<meta property="og:description" content="全文检索把要搜索的内容 进行分词储存为倒排索引, 搜索的时候,去扫描的是内容中的所有关键词而不是去扫描内容本身内容中能拆分出来多少词 倒排索引中就会有多少行 先遍历倒排索引中的关键词,然后去数据源中找到数据返回   Lucene封装了建立倒排索引,以及搜索的代码,包括各种算法, 提供了java使用的api,用Lucene可以将已有的数据建立索引,Lucene会在本地磁盘上组织索引的数据结构,另外可">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/dBcHDEuP3md.Uggy598aIm9CgQZ7t8GZy0R.dfW9ZC0!/r/dDQBAAAAAAAA">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/*k*GzQWb9cyrBfywqy5u8FRfwZpWa7SiDDJ2q5fTCOU!/r/dEcBAAAAAAAA">
+<meta property="og:updated_time" content="2018-11-22T09:47:43.875Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Elasticsearch-0-核心概念">
+<meta name="twitter:description" content="全文检索把要搜索的内容 进行分词储存为倒排索引, 搜索的时候,去扫描的是内容中的所有关键词而不是去扫描内容本身内容中能拆分出来多少词 倒排索引中就会有多少行 先遍历倒排索引中的关键词,然后去数据源中找到数据返回   Lucene封装了建立倒排索引,以及搜索的代码,包括各种算法, 提供了java使用的api,用Lucene可以将已有的数据建立索引,Lucene会在本地磁盘上组织索引的数据结构,另外可">
+<meta name="twitter:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/dBcHDEuP3md.Uggy598aIm9CgQZ7t8GZy0R.dfW9ZC0!/r/dDQBAAAAAAAA">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/16/Elasticsearch-0-核心概念/">
+
+
+
+
+
+  <title>Elasticsearch-0-核心概念 | 八度空间</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">八度空间</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/16/Elasticsearch-0-核心概念/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="周泽">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八度空间">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Elasticsearch-0-核心概念</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-16T15:24:43+08:00">
+                2018-11-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
+                    <span itemprop="name">Elasticsearch</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="全文检索"><a href="#全文检索" class="headerlink" title="全文检索"></a>全文检索</h4><p>把要搜索的内容 进行分词储存为倒排索引, 搜索的时候,去扫描的是内容中的所有关键词而不是去扫描内容本身<br>内容中能拆分出来多少词 倒排索引中就会有多少行 先遍历倒排索引中的关键词,然后去数据源中找到数据返回<br><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/dBcHDEuP3md.Uggy598aIm9CgQZ7t8GZy0R.dfW9ZC0!/r/dDQBAAAAAAAA" alt="倒排索引流程图">  </p>
+<h4 id="Lucene"><a href="#Lucene" class="headerlink" title="Lucene"></a>Lucene</h4><p>封装了建立倒排索引,以及搜索的代码,包括各种算法, 提供了java使用的api,用Lucene可以将已有的数据建立索引,Lucene会在本地磁盘上组织索引的数据结构,另外可以用Lucene提供的提供的功能和api对磁盘上的索引数据进行搜索  </p>
+<h4 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h4><p>Lucene索引是建立在磁盘上的,当数据量大的时候,建立的索引数据占用的空间也会越来越大, 可能会需要多台机器来存放索引数据,这时前端搜索关键字的时候,就需要去判断去哪台机器上的索引搜索,而且服务器宕机的情况下索引数据可能会丢失等.<br>这个时候就需要Elasticsearch,ES底层封装了Lucene,可以配置多个ES节点<br><strong>优点</strong>:  </p>
+<ol>
+<li>自动维护数据的分布到多个节点的索引建立,还有搜索请求分布到多个节点的执行</li>
+<li>自动维护数据的冗余副本,保证某些机器宕机之后不会丢失数据</li>
+<li>封装了更多的高级功能,便于快速开发应用,提供更复杂的搜索功能,聚合分析的功能,基于地理位置的搜索等</li>
+</ol>
+<p><strong>功能</strong>:</p>
+<ol>
+<li>分布式的搜索引擎和数据分析引擎<ul>
+<li>数据分析:比如查询一个电商网站中,某一类商品销量前10的店铺;某类商品中一个月内访问量最高的商品等</li>
+</ul>
+</li>
+<li>全文检索,结构化检索,数据分析<ul>
+<li>结构化检索:比如搜索某一类的商品有哪些</li>
+</ul>
+</li>
+<li>对海量的数据进行实时的处理<ul>
+<li>ES可以自动将海量的数据分散到多台服务器上存储和检索</li>
+<li>进实时是指秒级别的数据搜索和分析</li>
+</ul>
+</li>
+</ol>
+<p><strong>特点:</strong></p>
+<ol>
+<li>可以作为一个大型分布式集群技术,处理PB级别的数据, 也可以运行在单机上</li>
+<li>将全文检索和数据分析合并在了一起</li>
+<li>对用户而言 开箱即用</li>
+<li>对传统数据库的补充,提供了很多数据库不能提供的功能,如全文检索,同义词处理,相关度排名,复杂数据分析,海量数据的近实时处理等</li>
+</ol>
+<h4 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h4><p>Near RealTime(NRT): 近实时, 从数据写入到可以被搜索到大概有1s的延迟; 基于ES执行搜索和分析可以达到秒级  </p>
+<p>Cluster: 集群,包含多个节点,节点可以通过配置集群名称来标识是属于哪个集群的  </p>
+<p>Node:节点 集群中的一个节点, 节点也有名称(默认是随机分配的), 默认节点会被加入到名为”elasticsearch”的集群 </p>
+<p>Document&amp;field: 文档,ES中的最小数据单元,一个document可以是任意一条数据, 数据结构通常是JSON 一个document中会有多个field,每个field就是json中的一个字段  </p>
+<p>Index:索引,包含一堆相似结构的文档数据, 比如有一个订单索引,商品分类索引,索引会有一个名称,一个index代表了一类类似的或者相同的document,index可以包含多个document,比如创建一个product index(商品索引),里面就可能存放了所有的商品数据  </p>
+<p>Type:类型,每个索引里可以有一个或多个type, type是index中的一个逻辑分类,一个type下的document都有相同的filed  </p>
+<p>shard:单机无法存储大量数据,ES可以将一个索引中的数据拆分成多个shard,分布在多台服务器上存储.有了shard就可以横向扩展,当数据量增加的时候,直接再增加一个es节点就可以了,搜索和分析的操作分布到多台服务器上执行可以提高吞吐量和性能.  </p>
+<p>replica: 服务器可能随时故障或宕机,此时shard节点会丢失,因此可以为每个shard创建多个replica副本, replica可以在shard宕机的情况下提供备用服务 同时可以提升搜索操作的吞吐量和性能.<br>primary shard(建立索引时一次设置,不能修改,默认5个)<br>replica shard(随时修改数量,默认1个&lt;对应每个primary shard的1个&gt;), 默认每个索引10个shard,5个 primary shard,5个replica shard 最小的高可用配置是两台服务器</p>
+<p><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/*k*GzQWb9cyrBfywqy5u8FRfwZpWa7SiDDJ2q5fTCOU!/r/dEcBAAAAAAAA" alt="shard和replica"></p>
+<p>ES对应到数据库<br>document    —&gt;      行<br>type        —&gt;      表<br>index       —&gt;      库  </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Elasticsearch/" <i="" class="fa fa-tag"> Elasticsearch</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/16/Elasticsearch-1-Windows下安装Es/" rel="prev" title="Elasticsearch-1-Windows下安装Es">
+                Elasticsearch-1-Windows下安装Es <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTEyNi8xNzY1MQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">周泽</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#全文检索"><span class="nav-number">1.</span> <span class="nav-text">全文检索</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Lucene"><span class="nav-number">2.</span> <span class="nav-text">Lucene</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Elasticsearch"><span class="nav-number">3.</span> <span class="nav-text">Elasticsearch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#核心概念"><span class="nav-number">4.</span> <span class="nav-text">核心概念</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">周泽</span>
+
+  
+</div>
+
+<!-- 
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+ -->
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共21.2k字</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>

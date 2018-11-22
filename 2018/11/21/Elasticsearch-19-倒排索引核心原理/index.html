@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Elasticsearch,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="场景假设我们现在有两个document.   document1: I really liked my small dogs, and I think my mom also liked them.   document2: He never liked any dogs, so I hope that my mom will not expect me to liked him.    第一步">
+<meta name="keywords" content="Elasticsearch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch-19-倒排索引核心原理">
+<meta property="og:url" content="http://yoursite.com/2018/11/21/Elasticsearch-19-倒排索引核心原理/index.html">
+<meta property="og:site_name" content="八度空间">
+<meta property="og:description" content="场景假设我们现在有两个document.   document1: I really liked my small dogs, and I think my mom also liked them.   document2: He never liked any dogs, so I hope that my mom will not expect me to liked him.    第一步">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-22T09:47:22.175Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Elasticsearch-19-倒排索引核心原理">
+<meta name="twitter:description" content="场景假设我们现在有两个document.   document1: I really liked my small dogs, and I think my mom also liked them.   document2: He never liked any dogs, so I hope that my mom will not expect me to liked him.    第一步">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/21/Elasticsearch-19-倒排索引核心原理/">
+
+
+
+
+
+  <title>Elasticsearch-19-倒排索引核心原理 | 八度空间</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">八度空间</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/Elasticsearch-19-倒排索引核心原理/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="周泽">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八度空间">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Elasticsearch-19-倒排索引核心原理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-21T19:47:32+08:00">
+                2018-11-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
+                    <span itemprop="name">Elasticsearch</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h4><p>假设我们现在有两个document.  </p>
+<p>document1: I really liked my small dogs, and I think my mom also liked them.  </p>
+<p>document2: He never liked any dogs, so I hope that my mom will not expect me to liked him.   </p>
+<h4 id="第一步-分词-初步建立倒排索引"><a href="#第一步-分词-初步建立倒排索引" class="headerlink" title="第一步 分词,初步建立倒排索引"></a>第一步 分词,初步建立倒排索引</h4><p>两个document中的数据将会被分词,比如分成这样  </p>
+<table>
+<thead>
+<tr>
+<th>word</th>
+<th style="text-align:center">document1</th>
+<th style="text-align:center">document2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√ </td>
+</tr>
+<tr>
+<td>really</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>liked</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√ </td>
+</tr>
+<tr>
+<td>my</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√ </td>
+</tr>
+<tr>
+<td>small</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>dogs</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>and</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>think</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>mom</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√ </td>
+</tr>
+<tr>
+<td>also</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>them</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>He</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√ </td>
+</tr>
+<tr>
+<td>never</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√ </td>
+</tr>
+<tr>
+<td>any</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√ </td>
+</tr>
+<tr>
+<td>so</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√ </td>
+</tr>
+<tr>
+<td>hope</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√ </td>
+</tr>
+<tr>
+<td>that</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√ </td>
+</tr>
+<tr>
+<td>will</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√ </td>
+</tr>
+<tr>
+<td>not</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√ </td>
+</tr>
+<tr>
+<td>expect</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√ </td>
+</tr>
+<tr>
+<td>me</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√ </td>
+</tr>
+<tr>
+<td>to</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√ </td>
+</tr>
+<tr>
+<td>him</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√ </td>
+</tr>
+</tbody>
+</table>
+<p>这个时候我们如果搜索 mother like little dog 的时候,不会有任何结果的<br>先回对搜索条件拆词,拆分为<br>mother<br>like<br>little<br>dog  </p>
+<p>这个时候去上面的倒排索引去匹配,发现没有一个词是可以匹配的到的. 这显然不是我门想要的搜索结果  </p>
+<p>其实建立倒排索引的时候,还会做一件事,就是进行normalization标准化,包括时态转换，复数，同义词，大小写等,对拆出的各个单词进行相应的处理,以便后面搜索的时候能够搜索到相关联document的概率  </p>
+<p>进行normalization后的倒排索引:  </p>
+<table>
+<thead>
+<tr>
+<th>word</th>
+<th style="text-align:center">document1</th>
+<th style="text-align:center">document2</th>
+<th>normalization</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td></td>
+</tr>
+<tr>
+<td>really</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td>like</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td>liked – &gt;like</td>
+</tr>
+<tr>
+<td>my</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td></td>
+</tr>
+<tr>
+<td>little</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center"></td>
+<td>small –&gt; little</td>
+</tr>
+<tr>
+<td>dog</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td>dogs –&gt; dog</td>
+</tr>
+<tr>
+<td>and</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td>think</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td>mom</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td></td>
+</tr>
+<tr>
+<td>also</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td>them</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+<tr>
+<td>He</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√</td>
+<td></td>
+</tr>
+<tr>
+<td>never</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√</td>
+<td></td>
+</tr>
+<tr>
+<td>any</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√</td>
+<td></td>
+</tr>
+<tr>
+<td>so</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√</td>
+<td></td>
+</tr>
+<tr>
+<td>hope</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√</td>
+<td></td>
+</tr>
+<tr>
+<td>that</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√</td>
+<td></td>
+</tr>
+<tr>
+<td>will</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√</td>
+<td></td>
+</tr>
+<tr>
+<td>not</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√</td>
+<td></td>
+</tr>
+<tr>
+<td>expect</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√</td>
+<td></td>
+</tr>
+<tr>
+<td>me</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√</td>
+<td></td>
+</tr>
+<tr>
+<td>to</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√</td>
+<td></td>
+</tr>
+<tr>
+<td>him</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>这时候再按上面的搜索条件  mother like little dog 搜索,将搜索条件分词,进行normalization后<br>mother    –&gt; mom<br>like    –&gt; like<br>little    –&gt; little<br>dog        –&gt; dog  </p>
+<p>这时候拿关键词去匹配上面的倒排索引,就能把document1和document2都搜索出来  </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Elasticsearch/" <i="" class="fa fa-tag"> Elasticsearch</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/21/Elasticsearch-18-精确匹配与全文检索/" rel="next" title="Elasticsearch-18-精确匹配与全文检索">
+                <i class="fa fa-chevron-left"></i> Elasticsearch-18-精确匹配与全文检索
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/22/Elasticsearch-20-分词器详解/" rel="prev" title="Elasticsearch-20-分词器详解">
+                Elasticsearch-20-分词器详解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTEyNi8xNzY1MQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">周泽</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#场景"><span class="nav-number">1.</span> <span class="nav-text">场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第一步-分词-初步建立倒排索引"><span class="nav-number">2.</span> <span class="nav-text">第一步 分词,初步建立倒排索引</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">周泽</span>
+
+  
+</div>
+
+<!-- 
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+ -->
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共21.2k字</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>

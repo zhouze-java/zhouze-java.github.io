@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Elasticsearch,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="什么是mapping往es里面直接插入数据,es会自动建立索引,同时建立type以及对应的mapping.    mapping中就定义了每个field的数据类型   不同的数据类型,可能有的是精确搜索(exact value),有的是全文检索(full text).    exact value在建立倒排索引的时候,分词是将整个值一起作为一个关键词建立到倒排索引中的;而full text是会经过">
+<meta name="keywords" content="Elasticsearch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch-22-mapping详解">
+<meta property="og:url" content="http://yoursite.com/2018/11/22/Elasticsearch-22-mapping详解/index.html">
+<meta property="og:site_name" content="八度空间">
+<meta property="og:description" content="什么是mapping往es里面直接插入数据,es会自动建立索引,同时建立type以及对应的mapping.    mapping中就定义了每个field的数据类型   不同的数据类型,可能有的是精确搜索(exact value),有的是全文检索(full text).    exact value在建立倒排索引的时候,分词是将整个值一起作为一个关键词建立到倒排索引中的;而full text是会经过">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-22T09:47:37.341Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Elasticsearch-22-mapping详解">
+<meta name="twitter:description" content="什么是mapping往es里面直接插入数据,es会自动建立索引,同时建立type以及对应的mapping.    mapping中就定义了每个field的数据类型   不同的数据类型,可能有的是精确搜索(exact value),有的是全文检索(full text).    exact value在建立倒排索引的时候,分词是将整个值一起作为一个关键词建立到倒排索引中的;而full text是会经过">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/22/Elasticsearch-22-mapping详解/">
+
+
+
+
+
+  <title>Elasticsearch-22-mapping详解 | 八度空间</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">八度空间</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/22/Elasticsearch-22-mapping详解/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="周泽">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八度空间">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Elasticsearch-22-mapping详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-22T16:12:35+08:00">
+                2018-11-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
+                    <span itemprop="name">Elasticsearch</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="什么是mapping"><a href="#什么是mapping" class="headerlink" title="什么是mapping"></a>什么是mapping</h4><p>往es里面直接插入数据,es会自动建立索引,同时建立type以及对应的mapping.   </p>
+<p>mapping中就定义了每个field的数据类型  </p>
+<p>不同的数据类型,可能有的是精确搜索(exact value),有的是全文检索(full text).   </p>
+<p>exact value在建立倒排索引的时候,分词是将整个值一起作为一个关键词建立到倒排索引中的;而full text是会经过各种处理的,分词 normalization 才会建立到倒排索引中.  </p>
+<p>一个搜索过来的时候对exact value field或者是full text field进行搜索的行为也是不一样的,会跟建立倒排索引的行为保持一致;比如说exact value搜索的时候,就是直接按照整个值进行匹配;full text query string,也会进行分词和normalization再去倒排索引中去搜索  </p>
+<p>可以用es的dynamic mapping 让其自动建立mapping,包括自动设置数据类型,也可以提前手动创建index的type的mapping,自己对各自的field进行设置,包括数据类型,索引行为,分词器等等.</p>
+<p><strong>总结:</strong> mapping,就是index的type的元数据,每个type都有一个自己的mapping,决定了数据类型,建立倒排索引的行为,还有进行搜索的行为  </p>
+<h4 id="核心数据类型"><a href="#核心数据类型" class="headerlink" title="核心数据类型"></a>核心数据类型</h4><p>mapping 下的核心数据类型有:  </p>
+<p>字符串: String<br>整型: byte, short, integer, long<br>浮点型: float, double<br>布尔型: boolean<br>日期类型: date  </p>
+<h4 id="dynamic-mapping-数据类型映射"><a href="#dynamic-mapping-数据类型映射" class="headerlink" title="dynamic mapping 数据类型映射"></a>dynamic mapping 数据类型映射</h4><table>
+<thead>
+<tr>
+<th>数据</th>
+<th>映射后的数据类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>true/fasle</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>123</td>
+<td>long</td>
+</tr>
+<tr>
+<td>123.45</td>
+<td>double </td>
+</tr>
+<tr>
+<td>2017-01-01</td>
+<td>date</td>
+</tr>
+<tr>
+<td>“hello world”</td>
+<td>string/text  </td>
+</tr>
+</tbody>
+</table>
+<h4 id="查询mapping"><a href="#查询mapping" class="headerlink" title="查询mapping"></a>查询mapping</h4><p>语法:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /index/_mapping/type</span><br></pre></td></tr></table></figure></p>
+<h4 id="手动建立mapping"><a href="#手动建立mapping" class="headerlink" title="手动建立mapping"></a>手动建立mapping</h4><p>只能在创建index的时候手动建立mapping,或者新增field mapping, <strong>不能修改 filed mapping</strong>  </p>
+<p>之间我们建立过一个website的index,我们先删掉.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE /website</span><br></pre></td></tr></table></figure></p>
+<p>现在来手动建立这个索引,并手动创建mapping<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">PUT /website</span><br><span class="line">&#123;</span><br><span class="line">  &quot;mappings&quot;: &#123;</span><br><span class="line">    &quot;article&quot;: &#123;</span><br><span class="line">      &quot;properties&quot;: &#123;</span><br><span class="line">        &quot;author_id&quot;:&#123;       // field</span><br><span class="line">          &quot;type&quot;: &quot;long&quot;    // 类型</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;title&quot;:&#123;</span><br><span class="line">          &quot;type&quot;: &quot;text&quot;,</span><br><span class="line">          &quot;analyzer&quot;: &quot;english&quot; // 指定分词器</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;content&quot;:&#123;</span><br><span class="line">          &quot;type&quot;: &quot;text&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;post_date&quot;:&#123;</span><br><span class="line">          &quot;type&quot;: &quot;date&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;publisher_id&quot;:&#123;</span><br><span class="line">          &quot;type&quot;: &quot;string&quot;, </span><br><span class="line">          &quot;index&quot;: &quot;not_analyzed&quot; // 不分词,就是 exact value ,上面的类型一定要写string,否则不生效</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>analyzed:分词<br>not_analyzed:不分词<br>no:直接不建立到倒排索引里,也就是说 搜索不到  </p>
+<p>好了,创建完成,然后我们来尝试修改一下这个mapping.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">PUT /website</span><br><span class="line">&#123;</span><br><span class="line">  &quot;mappings&quot;: &#123;</span><br><span class="line">    &quot;article&quot;: &#123;</span><br><span class="line">      &quot;properties&quot;: &#123;</span><br><span class="line">        &quot;author_id&quot;:&#123;</span><br><span class="line">          &quot;type&quot;: &quot;text&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>返回值:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;error&quot;: &#123;</span><br><span class="line">    &quot;root_cause&quot;: [</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;type&quot;: &quot;index_already_exists_exception&quot;,</span><br><span class="line">        &quot;reason&quot;: &quot;index [website/-6NKQPj3TPWDrrlxhalkmw] already exists&quot;,</span><br><span class="line">        &quot;index_uuid&quot;: &quot;-6NKQPj3TPWDrrlxhalkmw&quot;,</span><br><span class="line">        &quot;index&quot;: &quot;website&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">    &quot;type&quot;: &quot;index_already_exists_exception&quot;,</span><br><span class="line">    &quot;reason&quot;: &quot;index [website/-6NKQPj3TPWDrrlxhalkmw] already exists&quot;,</span><br><span class="line">    &quot;index_uuid&quot;: &quot;-6NKQPj3TPWDrrlxhalkmw&quot;,</span><br><span class="line">    &quot;index&quot;: &quot;website&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;status&quot;: 400</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行后发现,报错了,原因就是建立好的field mapping是不能去修改的,但是我们可以新增一个field,并指定type等<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">PUT /website/_mapping/article</span><br><span class="line">&#123;</span><br><span class="line">  &quot;properties&quot;: &#123;</span><br><span class="line">    &quot;new_field&quot;:&#123;</span><br><span class="line">      &quot;type&quot;: &quot;string&quot;,</span><br><span class="line">      &quot;index&quot;: &quot;not_analyzed&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>返回值:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;acknowledged&quot;: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到已经新增成功了.   </p>
+<h4 id="测试mapping"><a href="#测试mapping" class="headerlink" title="测试mapping"></a>测试mapping</h4><p>完成后我们测试一下分词的效果, content这个field是普通的text类型,我们来测试一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GET /website/_analyze</span><br><span class="line">&#123;</span><br><span class="line">  &quot;field&quot;: &quot;content&quot;,</span><br><span class="line">  &quot;text&quot;: &quot;my-dogs&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>返回值:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;tokens&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;token&quot;: &quot;my&quot;,</span><br><span class="line">      &quot;start_offset&quot;: 0,</span><br><span class="line">      &quot;end_offset&quot;: 2,</span><br><span class="line">      &quot;type&quot;: &quot;&lt;ALPHANUM&gt;&quot;,</span><br><span class="line">      &quot;position&quot;: 0</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;token&quot;: &quot;dogs&quot;,</span><br><span class="line">      &quot;start_offset&quot;: 3,</span><br><span class="line">      &quot;end_offset&quot;: 7,</span><br><span class="line">      &quot;type&quot;: &quot;&lt;ALPHANUM&gt;&quot;,</span><br><span class="line">      &quot;position&quot;: 1</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到my-dogs 被拆分为 my dogs,去掉了 - ,没有进行单复数转换等,因为默认的分词器就是standard analyzer(标准分词器)  </p>
+<p>再来试一下new_field,我们在设置的时候这个filed是不能分词的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GET website/_analyze</span><br><span class="line">&#123;</span><br><span class="line">  &quot;field&quot;: &quot;new_field&quot;,</span><br><span class="line">  &quot;text&quot;: &quot;my dogs&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>返回值:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;error&quot;: &#123;</span><br><span class="line">    &quot;root_cause&quot;: [</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;type&quot;: &quot;remote_transport_exception&quot;,</span><br><span class="line">        &quot;reason&quot;: &quot;[f57uV91][127.0.0.1:9300][indices:admin/analyze[s]]&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">    &quot;type&quot;: &quot;illegal_argument_exception&quot;,</span><br><span class="line">    &quot;reason&quot;: &quot;Can&apos;t process field [new_field], Analysis requests are only supported on tokenized fields&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;status&quot;: 400</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>报错了,因为这个field是不能分词的.   </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Elasticsearch/" <i="" class="fa fa-tag"> Elasticsearch</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/22/Elasticsearch-21-query-string分词和mapping案例遗留问题揭秘/" rel="next" title="Elasticsearch-21-query string分词和mapping案例遗留问题揭秘">
+                <i class="fa fa-chevron-left"></i> Elasticsearch-21-query string分词和mapping案例遗留问题揭秘
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/22/Elasticsearch-23-mapping复杂数据类型和object类型底层数据存储/" rel="prev" title="Elasticsearch-23-_mapping复杂数据类型和object类型底层数据存储">
+                Elasticsearch-23-_mapping复杂数据类型和object类型底层数据存储 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTEyNi8xNzY1MQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">周泽</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是mapping"><span class="nav-number">1.</span> <span class="nav-text">什么是mapping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#核心数据类型"><span class="nav-number">2.</span> <span class="nav-text">核心数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dynamic-mapping-数据类型映射"><span class="nav-number">3.</span> <span class="nav-text">dynamic mapping 数据类型映射</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询mapping"><span class="nav-number">4.</span> <span class="nav-text">查询mapping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#手动建立mapping"><span class="nav-number">5.</span> <span class="nav-text">手动建立mapping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试mapping"><span class="nav-number">6.</span> <span class="nav-text">测试mapping</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">周泽</span>
+
+  
+</div>
+
+<!-- 
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+ -->
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共21.2k字</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>

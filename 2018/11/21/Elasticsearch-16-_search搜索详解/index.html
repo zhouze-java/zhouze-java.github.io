@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Elasticsearch,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="multi-index和multi-type搜索模式就是一次性搜索多个index和type下的数据   示例 搜索所有index,所有type下的所有数据 1GET /_search  指定一个index,搜索其下所有的type的数据 1GET /index/_search  查询某个index下指定的type的数据 1GET /index/type/_search  同时搜索多个index下的所">
+<meta name="keywords" content="Elasticsearch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch-16-_search搜索详解">
+<meta property="og:url" content="http://yoursite.com/2018/11/21/Elasticsearch-16-_search搜索详解/index.html">
+<meta property="og:site_name" content="八度空间">
+<meta property="og:description" content="multi-index和multi-type搜索模式就是一次性搜索多个index和type下的数据   示例 搜索所有index,所有type下的所有数据 1GET /_search  指定一个index,搜索其下所有的type的数据 1GET /index/_search  查询某个index下指定的type的数据 1GET /index/type/_search  同时搜索多个index下的所">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/bOtFAVJPx7kFQiCth2*z0cURyLFuuTP1fl9INkRjxy8!/r/dEkBAAAAAAAA">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/hvF4FlmnbhQ4aVsy.pahPuYjG2XWXYWJPE1EdgoPqJk!/r/dDQBAAAAAAAA">
+<meta property="og:updated_time" content="2018-11-22T09:47:01.003Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Elasticsearch-16-_search搜索详解">
+<meta name="twitter:description" content="multi-index和multi-type搜索模式就是一次性搜索多个index和type下的数据   示例 搜索所有index,所有type下的所有数据 1GET /_search  指定一个index,搜索其下所有的type的数据 1GET /index/_search  查询某个index下指定的type的数据 1GET /index/type/_search  同时搜索多个index下的所">
+<meta name="twitter:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/bOtFAVJPx7kFQiCth2*z0cURyLFuuTP1fl9INkRjxy8!/r/dEkBAAAAAAAA">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/21/Elasticsearch-16-_search搜索详解/">
+
+
+
+
+
+  <title>Elasticsearch-16-_search搜索详解 | 八度空间</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">八度空间</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/Elasticsearch-16-_search搜索详解/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="周泽">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八度空间">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Elasticsearch-16-_search搜索详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-21T16:43:02+08:00">
+                2018-11-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
+                    <span itemprop="name">Elasticsearch</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="multi-index和multi-type搜索模式"><a href="#multi-index和multi-type搜索模式" class="headerlink" title="multi-index和multi-type搜索模式"></a>multi-index和multi-type搜索模式</h4><p>就是一次性搜索多个index和type下的数据  </p>
+<h5 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h5><ol>
+<li><p>搜索所有index,所有type下的所有数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /_search</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>指定一个index,搜索其下所有的type的数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /index/_search</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询某个index下指定的type的数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /index/type/_search</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>同时搜索多个index下的所有数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /index1,index2,index3,.../_search</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>按照通配符去匹配多个index </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET /*1,*2/_search</span><br><span class="line"># 查询以 1 和 2 结尾的index</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>搜索一个index下指定的多个type的数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /index/type1,type2/_search</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>搜索多个index下的多个type的数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /index1,index2/type1,type2/_search</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>搜索所有index下的指定type的数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /_all/type1,type2/_search</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="搜索原理"><a href="#搜索原理" class="headerlink" title="搜索原理"></a>搜索原理</h4><p>客户端发送一个请求,会把请求打到所有的primary shard上去执行,因为每个shard都包含部分数据,所以每个shard上都可能包含搜索请求的结果<br>但是如果primary shard有replica shard,那么请求也可以打到replica shard上面  </p>
+<h4 id="分页搜索"><a href="#分页搜索" class="headerlink" title="分页搜索"></a>分页搜索</h4><p>查询时传入参数 size 和 from 即可</p>
+<h5 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h5><p>比如我们要查询movies/movie下的数据一共是6条,分三页查询<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 查询第一页</span><br><span class="line">GET /movies/movie/_search?size=2&amp;from=0</span><br><span class="line"></span><br><span class="line"># 查询第二页</span><br><span class="line">GET /movies/movie/_search?size=2&amp;from=2</span><br><span class="line"></span><br><span class="line"># 查询第三页</span><br><span class="line">GET /movies/movie/_search?size=2&amp;from=4</span><br></pre></td></tr></table></figure></p>
+<p>from 是从0开始的  </p>
+<h5 id="deep-paging问题"><a href="#deep-paging问题" class="headerlink" title="deep paging问题"></a>deep paging问题</h5><p>什么是deep paging问题?  为什么会产生这个问题? 他的底层原理是什么?  </p>
+<p>场景,比如我们现在有4个shard 一共有60000条数据,在其中3个shard中,每个有20000条数据,这个时候要进行搜索第1000页的数据,每页显示10条,实际上这里拿到的是第10001~10010条数据  </p>
+<p>假设这个请求先打到一个不包含这些数据的节点上去,那么这个节点就是一个协调节点(coordinate node),然后这个协调节点会将请求转发到包含数据的节点上去,如图:  </p>
+<p><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/bOtFAVJPx7kFQiCth2*z0cURyLFuuTP1fl9INkRjxy8!/r/dEkBAAAAAAAA" alt="分页查询">  </p>
+<p>查询60000条数据中的第1000页,实际上每个shard都要将内部的20000条数据中的1000页,也就是10001~10010条的数据拿出来, 这时候实际上不是只返回这10条数据 是返回第一条到10010条数据, 3个shard都返回10010条数据给coordinate node,coordinate node 总共会受到30030条数据,然后进行排序,在这30030条数据中取到第10页,也就是这些数据中的第10001~10010条数据返回. </p>
+<p><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/hvF4FlmnbhQ4aVsy.pahPuYjG2XWXYWJPE1EdgoPqJk!/r/dDQBAAAAAAAA" alt="分页查询2">  </p>
+<p>总的来说就是先要把所有shard上的数据集中起来排序后再去分页.  </p>
+<p>搜索过深的时候,就要在coordinate node上保存大量的数据,还要进行排序,排序之后,再取出对应的那一页,所以这个过程,既耗费网络带宽,耗费内存,还耗费CPU,影响性能,我们应该尽量避免出现这种deep paging的操作  </p>
+<h4 id="query-string"><a href="#query-string" class="headerlink" title="query string"></a>query string</h4><p>其实就是在http请求中,把一些搜索的参数做为query string附加到url上面.  </p>
+<h5 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h5><p>查询 /movies/movie 下title包含kill这个词的数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /movies/movie/_search?q=title:kill</span><br></pre></td></tr></table></figure></p>
+<p>查询 /movies/movie 下title<strong>必须包含</strong>kill这个词的数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /movies/movie/_search?q=+title:kill</span><br></pre></td></tr></table></figure></p>
+<p>查询/movies/movie 下title<strong>不包含</strong>kill这个词的数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /movies/movie/_search?q=-title:kill</span><br></pre></td></tr></table></figure></p>
+<p>其实第一个和第二个的作用是差不多的,主要是 “+” 和 “-“ 的区别 一个是必须包含,一个是不包含   </p>
+<h5 id="all-metadata-原理和作用"><a href="#all-metadata-原理和作用" class="headerlink" title="_all metadata 原理和作用"></a>_all metadata 原理和作用</h5><p>查询所有filed下包含kill的数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /movies/movie/_search?q=kill</span><br></pre></td></tr></table></figure></p>
+<p>上面这个查询中并没有指定具体是哪个field包含kill这个词,是直接搜索的所有field的.<br>当我们添加一个document的时候,它里面包含了多个field,此时es会自动将多个field的值,用字符串的方式串联起来,变成一个长字符串,作为_all 的值,同时对 _all进行分词建立索引.<br>当我们搜索没有指定具体哪一个field的时候,就默认对_all 进行搜索,其实它里面就包含了所有field的值  </p>
+<h6 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明"></a>举例说明</h6><p>我们新添加一个document,内容是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;name&quot;:&quot;jack&quot;,</span><br><span class="line">    &quot;age&quot;:26,</span><br><span class="line">    &quot;email&quot; : &quot;jack@sina.com&quot;,</span><br><span class="line">    &quot;address&quot;:&quot;hangzhou&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>“jack 26 <a href="mailto:jack@sina.com" target="_blank" rel="noopener">jack@sina.com</a> hangzhou”,就作为这一条document的_all元数据的值,同时进行分词后建立对应的倒排索引  </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Elasticsearch/" <i="" class="fa fa-tag"> Elasticsearch</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/20/Elasticsearch-15-写一致性原理及quorum机制/" rel="next" title="Elasticsearch-15-写一致性原理及quorum机制">
+                <i class="fa fa-chevron-left"></i> Elasticsearch-15-写一致性原理及quorum机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/21/Elasticsearch-17-初识mapping/" rel="prev" title="Elasticsearch-17-初识mapping">
+                Elasticsearch-17-初识mapping <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTEyNi8xNzY1MQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">周泽</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#multi-index和multi-type搜索模式"><span class="nav-number">1.</span> <span class="nav-text">multi-index和multi-type搜索模式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#示例"><span class="nav-number">1.1.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#搜索原理"><span class="nav-number">2.</span> <span class="nav-text">搜索原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分页搜索"><span class="nav-number">3.</span> <span class="nav-text">分页搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#示例-1"><span class="nav-number">3.1.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#deep-paging问题"><span class="nav-number">3.2.</span> <span class="nav-text">deep paging问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#query-string"><span class="nav-number">4.</span> <span class="nav-text">query string</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#示例-2"><span class="nav-number">4.1.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#all-metadata-原理和作用"><span class="nav-number">4.2.</span> <span class="nav-text">_all metadata 原理和作用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#举例说明"><span class="nav-number">4.2.1.</span> <span class="nav-text">举例说明</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">周泽</span>
+
+  
+</div>
+
+<!-- 
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+ -->
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共21.2k字</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>
