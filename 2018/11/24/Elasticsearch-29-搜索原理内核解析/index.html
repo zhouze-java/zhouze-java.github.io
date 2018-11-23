@@ -79,18 +79,25 @@
 
 
 
-<meta name="description" content="基于groovy脚本进行partial update首先添加一条数据到es中12345PUT test_index/test_type/2&amp;#123;  &amp;quot;num&amp;quot;:0,  &amp;quot;tags&amp;quot;:[]&amp;#125; 内置脚本1234POST test_index/test_type/2/_update&amp;#123;  &amp;quot;script&amp;quot;: &amp;quot;">
+<meta name="description" content="query phase假设我们有一个index里面的数据分布在3个primary shard上(对应的replica也有),现在总共有7个shard,我们现在要搜索这个index中的数据的第10000条到10010条.如图所示   请求发送给某一个shard时,这个shard就是coordinate node, coordinate node会构建一个 priority queue,队列长度是查询">
 <meta name="keywords" content="Elasticsearch">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Elasticsearch-11-基于groovy脚本进行partial update">
-<meta property="og:url" content="http://yoursite.com/2018/11/19/Elasticsearch-11-基于groovy脚本进行partial-update/index.html">
+<meta property="og:title" content="Elasticsearch-29-搜索原理内核解析">
+<meta property="og:url" content="http://yoursite.com/2018/11/24/Elasticsearch-29-搜索原理内核解析/index.html">
 <meta property="og:site_name" content="八度空间">
-<meta property="og:description" content="基于groovy脚本进行partial update首先添加一条数据到es中12345PUT test_index/test_type/2&amp;#123;  &amp;quot;num&amp;quot;:0,  &amp;quot;tags&amp;quot;:[]&amp;#125; 内置脚本1234POST test_index/test_type/2/_update&amp;#123;  &amp;quot;script&amp;quot;: &amp;quot;">
+<meta property="og:description" content="query phase假设我们有一个index里面的数据分布在3个primary shard上(对应的replica也有),现在总共有7个shard,我们现在要搜索这个index中的数据的第10000条到10010条.如图所示   请求发送给某一个shard时,这个shard就是coordinate node, coordinate node会构建一个 priority queue,队列长度是查询">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-22T09:46:37.250Z">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/KIOQwiBwZR.PA1LELQcleaw5.Zkj57GNyc0kRdto7y0!/r/dDYBAAAAAAAA">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/r0gdIL2R1LpCszWCVnXLZ2Bt3UqWOtm9ej8t8Wdh2DA!/r/dDMBAAAAAAAA">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/0ytkAEXW73P5mWQE5BQaO3XvyKIC*a8tYB4MKiNo.*M!/r/dD4BAAAAAAAA">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/IAfRQOriLjwwtuhf59Uct6KsZfGi*WPgynqLKUJB4XA!/r/dEkBAAAAAAAA">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/I5jEY8L*VJ0UaZXVWzIu1sdQZSR.4CoxGSLft*2qdSQ!/r/dFMBAAAAAAAA">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/b8EYpAKaXB8alSiNo7AhkXZ5ZIhjk0Z2ekmlPH.rqGE!/r/dFMBAAAAAAAA">
+<meta property="og:updated_time" content="2018-11-23T17:04:04.704Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Elasticsearch-11-基于groovy脚本进行partial update">
-<meta name="twitter:description" content="基于groovy脚本进行partial update首先添加一条数据到es中12345PUT test_index/test_type/2&amp;#123;  &amp;quot;num&amp;quot;:0,  &amp;quot;tags&amp;quot;:[]&amp;#125; 内置脚本1234POST test_index/test_type/2/_update&amp;#123;  &amp;quot;script&amp;quot;: &amp;quot;">
+<meta name="twitter:title" content="Elasticsearch-29-搜索原理内核解析">
+<meta name="twitter:description" content="query phase假设我们有一个index里面的数据分布在3个primary shard上(对应的replica也有),现在总共有7个shard,我们现在要搜索这个index中的数据的第10000条到10010条.如图所示   请求发送给某一个shard时,这个shard就是coordinate node, coordinate node会构建一个 priority queue,队列长度是查询">
+<meta name="twitter:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/KIOQwiBwZR.PA1LELQcleaw5.Zkj57GNyc0kRdto7y0!/r/dDYBAAAAAAAA">
 
 
 
@@ -120,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/19/Elasticsearch-11-基于groovy脚本进行partial-update/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/24/Elasticsearch-29-搜索原理内核解析/">
 
 
 
 
 
-  <title>Elasticsearch-11-基于groovy脚本进行partial update | 八度空间</title>
+  <title>Elasticsearch-29-搜索原理内核解析 | 八度空间</title>
   
 
 
@@ -253,7 +260,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/Elasticsearch-11-基于groovy脚本进行partial-update/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/24/Elasticsearch-29-搜索原理内核解析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -270,7 +277,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Elasticsearch-11-基于groovy脚本进行partial update</h1>
+          <h1 class="post-title" itemprop="name headline">Elasticsearch-29-搜索原理内核解析</h1>
         
 
         <div class="post-meta">
@@ -282,8 +289,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-19T15:01:09+08:00">
-                2018-11-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-24T01:03:40+08:00">
+                2018-11-24
               </time>
             
 
@@ -342,20 +349,19 @@
       
 
       
-        <h3 id="基于groovy脚本进行partial-update"><a href="#基于groovy脚本进行partial-update" class="headerlink" title="基于groovy脚本进行partial update"></a>基于groovy脚本进行partial update</h3><p>首先添加一条数据到es中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PUT test_index/test_type/2</span><br><span class="line">&#123;</span><br><span class="line">  &quot;num&quot;:0,</span><br><span class="line">  &quot;tags&quot;:[]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="内置脚本"><a href="#内置脚本" class="headerlink" title="内置脚本"></a>内置脚本</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">POST test_index/test_type/2/_update</span><br><span class="line">&#123;</span><br><span class="line">  &quot;script&quot;: &quot;ctx._source.num+=1&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>通过ctx._source.filed 去操作filed的值  </p>
-<p>执行完毕后去查询一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET test_index/test_type/2</span><br></pre></td></tr></table></figure></p>
-<p>返回值:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;_index&quot;: &quot;test_index&quot;,</span><br><span class="line">  &quot;_type&quot;: &quot;test_type&quot;,</span><br><span class="line">  &quot;_id&quot;: &quot;2&quot;,</span><br><span class="line">  &quot;_version&quot;: 2,</span><br><span class="line">  &quot;found&quot;: true,</span><br><span class="line">  &quot;_source&quot;: &#123;</span><br><span class="line">    &quot;num&quot;: 1,</span><br><span class="line">    &quot;tags&quot;: []</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>可以看到num已经变成了1  </p>
-<h4 id="外部脚本"><a href="#外部脚本" class="headerlink" title="外部脚本"></a>外部脚本</h4><h5 id="用外部脚本进行partial-update"><a href="#用外部脚本进行partial-update" class="headerlink" title="用外部脚本进行partial update"></a>用外部脚本进行partial update</h5><p>首先要在es的config/scripts目录下新建groovy脚本,比如我们要在tags下加一个值,新建脚本test-add-tags.groovy,文件内容是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ctx._source.tags+=new_tag</span><br></pre></td></tr></table></figure></p>
-<p>然后用外部脚本进行更新<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">POST test_index/test_type/2/_update</span><br><span class="line">&#123;</span><br><span class="line">  &quot;script&quot;: &#123;</span><br><span class="line">    &quot;lang&quot;: &quot;groovy&quot;,   // 指定脚本语言</span><br><span class="line">    &quot;file&quot;: &quot;test-add-tags&quot;,  // 文件名称(不包含文件后缀名)</span><br><span class="line">    &quot;params&quot;: &#123; // 参数的集合</span><br><span class="line">      &quot;new_tag&quot;:&quot;tag1&quot;      // 参数名和值</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h5 id="用外部脚本删除document"><a href="#用外部脚本删除document" class="headerlink" title="用外部脚本删除document"></a>用外部脚本删除document</h5><p>同样需要在config/scripts目录下新建groovy脚本, 脚本名称:test-delete-document,脚本内容是:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ctx.op=ctx._source.num == count ? &apos;delete&apos; : &apos;none&apos;</span><br></pre></td></tr></table></figure></p>
-<p>就是num的值跟count相等的时候才删除,如果不相等,什么都不做.<br>然后执行partial update<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">POST test_index/test_type/2/_update</span><br><span class="line">&#123;</span><br><span class="line">  &quot;script&quot;: &#123;</span><br><span class="line">    &quot;lang&quot;: &quot;groovy&quot;,</span><br><span class="line">    &quot;file&quot;: &quot;test-delete-document&quot;,</span><br><span class="line">    &quot;params&quot;: &#123;</span><br><span class="line">      &quot;count&quot;:1</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>传入的参数count是1,这个时候document中的num的值也是1,所以这document会被删除掉  </p>
-<h5 id="upsert操作"><a href="#upsert操作" class="headerlink" title="upsert操作"></a>upsert操作</h5><p>此时这个id是2的document已经被删除,如果这个时候直接去进行partial update,会报错,因为这个document不存在<br>这时候可以使用upsert去进行初始化操作<br>执行:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">POST /test_index/test_type/2/_update</span><br><span class="line">&#123;</span><br><span class="line">  &quot;script&quot;: &quot;ctx._source.num+=1&quot;,</span><br><span class="line">  &quot;upsert&quot;: &#123;</span><br><span class="line">    &quot;num&quot;:0,</span><br><span class="line">    &quot;tags&quot;:[]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>执行完成后,查询发现num是0 tags是[],并没有去执行script中的脚本.<br>再次运行上面的代码, 查询后发现num已经更新为1  </p>
-<p>upsert操作:如果指定的document不存在,就执行upsert中的初始化操作,如果指定的document存在,就执行doc或者script中指定的partial update操作.</p>
+        <h4 id="query-phase"><a href="#query-phase" class="headerlink" title="query phase"></a>query phase</h4><p>假设我们有一个index里面的数据分布在3个primary shard上(对应的replica也有),现在总共有7个shard,我们现在要搜索这个index中的数据的第10000条到10010条.如图所示<br><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/KIOQwiBwZR.PA1LELQcleaw5.Zkj57GNyc0kRdto7y0!/r/dDYBAAAAAAAA" alt="phase1">  </p>
+<p>请求发送给某一个shard时,这个shard就是coordinate node, coordinate node会构建一个 priority queue,队列长度是查询时的from和size的和,默认是0 + 10 = 10;  </p>
+<p>我们要查询的是10000-10010条数据,所以请求的from = 9999,size = 10,这个时候coordinate node会在它本地建立一个长度是 9999 + 10 = 10009 的 priority queue, 然后coordinate node将请求打到其他的shard上去  </p>
+<p><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/r0gdIL2R1LpCszWCVnXLZ2Bt3UqWOtm9ej8t8Wdh2DA!/r/dDMBAAAAAAAA" alt="phase2">  </p>
+<p>接收到请求的每个shard,也会在本地建立一个 from + size大小的priority queue,每个shard将自己下标是0 - 10009的数据放到这个队列中, 也就是10010条数据,返回给coordinate node.<br><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/0ytkAEXW73P5mWQE5BQaO3XvyKIC*a8tYB4MKiNo.*M!/r/dD4BAAAAAAAA" alt="phase3">  </p>
+<p>coordinate node 将返回的所有数据进行合并,合并成一份<strong>from * size</strong>大小的priority queue,全局排序后,放到自己队列中去  </p>
+<p><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/IAfRQOriLjwwtuhf59Uct6KsZfGi*WPgynqLKUJB4XA!/r/dEkBAAAAAAAA" alt="phase4">  </p>
+<p>最后在自己的队列中取出当前要获取的那一页的数据.  </p>
+<p>这里也可以看出我们之前提到过的deep paging问题,就是说,from * size分页太深,那么每个shard都要返回大量的数据给coordinate node,消耗大量的带宽,内存, CPU  </p>
+<h4 id="fetch-phase"><a href="#fetch-phase" class="headerlink" title="fetch phase"></a>fetch phase</h4><p>在上面的query phase的工作处理完成之后,coordinate node 在priority queue里面找到了需要的数据, 但是其实这个队列时存的document的id, 这个时候,coordinate node就发送mget请求(批量查询)到所有shard上去获取对应的document  </p>
+<p><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/I5jEY8L*VJ0UaZXVWzIu1sdQZSR.4CoxGSLft*2qdSQ!/r/dFMBAAAAAAAA" alt="phase6">  </p>
+<p>然后各个shard将document返回给coordinate node, coordinate node将合并后的document结果返回给客户端  </p>
+<p><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/b8EYpAKaXB8alSiNo7AhkXZ5ZIhjk0Z2ekmlPH.rqGE!/r/dFMBAAAAAAAA" alt="phase7"></p>
 
       
     </div>
@@ -386,8 +392,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/17/Elasticsearch-10-并发控制方案/" rel="next" title="Elasticsearch-10-并发控制方案">
-                <i class="fa fa-chevron-left"></i> Elasticsearch-10-并发控制方案
+              <a href="/2018/11/23/Elasticsearch-28-doc-values初步了解/" rel="next" title="Elasticsearch-28-doc values初步了解">
+                <i class="fa fa-chevron-left"></i> Elasticsearch-28-doc values初步了解
               </a>
             
           </div>
@@ -395,10 +401,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/19/Elasticsearch-12-批量增删改查操作/" rel="prev" title="Elasticsearch-12-批量增删改查操作">
-                Elasticsearch-12-批量增删改查操作 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -535,7 +537,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于groovy脚本进行partial-update"><span class="nav-number">1.</span> <span class="nav-text">基于groovy脚本进行partial update</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#内置脚本"><span class="nav-number">1.1.</span> <span class="nav-text">内置脚本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外部脚本"><span class="nav-number">1.2.</span> <span class="nav-text">外部脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#用外部脚本进行partial-update"><span class="nav-number">1.2.1.</span> <span class="nav-text">用外部脚本进行partial update</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用外部脚本删除document"><span class="nav-number">1.2.2.</span> <span class="nav-text">用外部脚本删除document</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#upsert操作"><span class="nav-number">1.2.3.</span> <span class="nav-text">upsert操作</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#query-phase"><span class="nav-number">1.</span> <span class="nav-text">query phase</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fetch-phase"><span class="nav-number">2.</span> <span class="nav-text">fetch phase</span></a></li></ol></div>
             
 
           </div>
