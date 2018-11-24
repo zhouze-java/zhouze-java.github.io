@@ -93,7 +93,7 @@
 <meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/IAfRQOriLjwwtuhf59Uct6KsZfGi*WPgynqLKUJB4XA!/r/dEkBAAAAAAAA">
 <meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/I5jEY8L*VJ0UaZXVWzIu1sdQZSR.4CoxGSLft*2qdSQ!/r/dFMBAAAAAAAA">
 <meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/b8EYpAKaXB8alSiNo7AhkXZ5ZIhjk0Z2ekmlPH.rqGE!/r/dFMBAAAAAAAA">
-<meta property="og:updated_time" content="2018-11-23T17:04:04.704Z">
+<meta property="og:updated_time" content="2018-11-24T06:59:44.910Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Elasticsearch-29-搜索原理内核解析">
 <meta name="twitter:description" content="query phase假设我们有一个index里面的数据分布在3个primary shard上(对应的replica也有),现在总共有7个shard,我们现在要搜索这个index中的数据的第10000条到10010条.如图所示   请求发送给某一个shard时,这个shard就是coordinate node, coordinate node会构建一个 priority queue,队列长度是查询">
@@ -362,6 +362,9 @@
 <p><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/I5jEY8L*VJ0UaZXVWzIu1sdQZSR.4CoxGSLft*2qdSQ!/r/dFMBAAAAAAAA" alt="phase6">  </p>
 <p>然后各个shard将document返回给coordinate node, coordinate node将合并后的document结果返回给客户端  </p>
 <p><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/b8EYpAKaXB8alSiNo7AhkXZ5ZIhjk0Z2ekmlPH.rqGE!/r/dFMBAAAAAAAA" alt="phase7"></p>
+<h4 id="bouncing-results问题"><a href="#bouncing-results问题" class="headerlink" title="bouncing results问题"></a>bouncing results问题</h4><p>比如说有两个document,field值相同;但是分布在不同的shard上面,在不同的shard上可能排序也不相同, 每次请求轮询打到不同的shard上去,页面上看到的搜索结果的排序可能都不一样, 这就是 bouncing results,也就是跳跃的结果.  </p>
+<h5 id="preference"><a href="#preference" class="headerlink" title="preference"></a>preference</h5><p>preference 决定了哪些shard会执行搜索请求.   </p>
+<h5 id="bouncing-results问题解决"><a href="#bouncing-results问题解决" class="headerlink" title="bouncing results问题解决"></a>bouncing results问题解决</h5><p>将preference设置为一个字符串,比如说user_id,让每个user每次搜索的时候,都使用同一个shard去执行,就不会看到bouncing results了  </p>
 
       
     </div>
@@ -537,7 +540,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#query-phase"><span class="nav-number">1.</span> <span class="nav-text">query phase</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fetch-phase"><span class="nav-number">2.</span> <span class="nav-text">fetch phase</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#query-phase"><span class="nav-number">1.</span> <span class="nav-text">query phase</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fetch-phase"><span class="nav-number">2.</span> <span class="nav-text">fetch phase</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bouncing-results问题"><span class="nav-number">3.</span> <span class="nav-text">bouncing results问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#preference"><span class="nav-number">3.1.</span> <span class="nav-text">preference</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#bouncing-results问题解决"><span class="nav-number">3.2.</span> <span class="nav-text">bouncing results问题解决</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -588,7 +591,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共24k字</span>
+  <span class="post-count">博客全站共24.2k字</span>
 </div>
         
 
