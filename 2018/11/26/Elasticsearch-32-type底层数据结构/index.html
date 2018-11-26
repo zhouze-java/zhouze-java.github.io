@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="scroll查询如果我们要一次性查询10万条数据,那么性能会很差,此时一般会采用scroll滚动查询,一批一批的查,直到所有的数据都查询处理完成.   使用scroll滚动搜索,可以先搜索一批数据,然后下次再搜索一批数据,以此类推,直到搜索出全部的数据来   scroll搜索会在第一次搜索的时候,保存一个当前识图的快照,之后只会基于该旧的视图快照提供数据搜索,如果这个期间数据变更是不会让用户看到的">
+<meta name="description" content="type的底层数据结构type是一个index中用来区分类似的数据的,类似的数据有可能有不同的field,而且有不同的属性来控制索引的建立   es是基于Lucene的,在es中每个field都有自己的数据类型,比如date,text等,但在底层的Lucene建立索引的时候,全部是opaque bytes类型,不区分类型的.    Lucene是没有type的概念的,在document中,实际上是">
 <meta name="keywords" content="Elasticsearch">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Elasticsearch-30-scroll滚动查询">
-<meta property="og:url" content="http://yoursite.com/2018/11/24/Elasticsearch-30-scroll滚动查询/index.html">
+<meta property="og:title" content="Elasticsearch-32-type底层数据结构">
+<meta property="og:url" content="http://yoursite.com/2018/11/26/Elasticsearch-32-type底层数据结构/index.html">
 <meta property="og:site_name" content="八度空间">
-<meta property="og:description" content="scroll查询如果我们要一次性查询10万条数据,那么性能会很差,此时一般会采用scroll滚动查询,一批一批的查,直到所有的数据都查询处理完成.   使用scroll滚动搜索,可以先搜索一批数据,然后下次再搜索一批数据,以此类推,直到搜索出全部的数据来   scroll搜索会在第一次搜索的时候,保存一个当前识图的快照,之后只会基于该旧的视图快照提供数据搜索,如果这个期间数据变更是不会让用户看到的">
+<meta property="og:description" content="type的底层数据结构type是一个index中用来区分类似的数据的,类似的数据有可能有不同的field,而且有不同的属性来控制索引的建立   es是基于Lucene的,在es中每个field都有自己的数据类型,比如date,text等,但在底层的Lucene建立索引的时候,全部是opaque bytes类型,不区分类型的.    Lucene是没有type的概念的,在document中,实际上是">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-24T07:34:31.585Z">
+<meta property="og:updated_time" content="2018-11-26T06:55:11.310Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Elasticsearch-30-scroll滚动查询">
-<meta name="twitter:description" content="scroll查询如果我们要一次性查询10万条数据,那么性能会很差,此时一般会采用scroll滚动查询,一批一批的查,直到所有的数据都查询处理完成.   使用scroll滚动搜索,可以先搜索一批数据,然后下次再搜索一批数据,以此类推,直到搜索出全部的数据来   scroll搜索会在第一次搜索的时候,保存一个当前识图的快照,之后只会基于该旧的视图快照提供数据搜索,如果这个期间数据变更是不会让用户看到的">
+<meta name="twitter:title" content="Elasticsearch-32-type底层数据结构">
+<meta name="twitter:description" content="type的底层数据结构type是一个index中用来区分类似的数据的,类似的数据有可能有不同的field,而且有不同的属性来控制索引的建立   es是基于Lucene的,在es中每个field都有自己的数据类型,比如date,text等,但在底层的Lucene建立索引的时候,全部是opaque bytes类型,不区分类型的.    Lucene是没有type的概念的,在document中,实际上是">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/24/Elasticsearch-30-scroll滚动查询/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/26/Elasticsearch-32-type底层数据结构/">
 
 
 
 
 
-  <title>Elasticsearch-30-scroll滚动查询 | 八度空间</title>
+  <title>Elasticsearch-32-type底层数据结构 | 八度空间</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/24/Elasticsearch-30-scroll滚动查询/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/26/Elasticsearch-32-type底层数据结构/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Elasticsearch-30-scroll滚动查询</h1>
+          <h1 class="post-title" itemprop="name headline">Elasticsearch-32-type底层数据结构</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-24T15:34:11+08:00">
-                2018-11-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-26T14:54:50+08:00">
+                2018-11-26
               </time>
             
 
@@ -342,20 +342,18 @@
       
 
       
-        <h4 id="scroll查询"><a href="#scroll查询" class="headerlink" title="scroll查询"></a>scroll查询</h4><p>如果我们要一次性查询10万条数据,那么性能会很差,此时一般会采用scroll滚动查询,一批一批的查,直到所有的数据都查询处理完成.  </p>
-<p>使用scroll滚动搜索,可以先搜索一批数据,然后下次再搜索一批数据,以此类推,直到搜索出全部的数据来  </p>
-<p>scroll搜索会在第一次搜索的时候,保存一个当前识图的快照,之后只会基于该旧的视图快照提供数据搜索,如果这个期间数据变更是不会让用户看到的.  </p>
-<p>scroll搜索一般不会用_score相关分数去排序, 采用基于 _doc进行排序,性能比较高.  </p>
-<p>每次发送scroll请求,我们还需要指定一个scroll参数,指定一个时间窗口,每次搜索请求只要在这个时间窗口内能完成就可以了  </p>
-<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><p>在test_index/test_type下一共有5条数据,然后使用scroll滚动搜索,每次查询2条<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">GET test_index/test_type/_search?scroll=1m</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;match_all&quot;: &#123;&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;sort&quot;: [</span><br><span class="line">    &quot;_doc&quot;</span><br><span class="line">  ],</span><br><span class="line">  &quot;size&quot;: 2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>返回值:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;_scroll_id&quot;: &quot;DnF1ZXJ5VGhlbkZldGNoBQAAAAAAAAJcFmY1N3VWOTF4U19HUlRRUzJIbzgxcmcAAAAAAAACWBZmNTd1VjkxeFNfR1JUUVMySG84MXJnAAAAAAAAAlsWZjU3dVY5MXhTX0dSVFFTMkhvODFyZwAAAAAAAAJaFmY1N3VWOTF4U19HUlRRUzJIbzgxcmcAAAAAAAACWRZmNTd1VjkxeFNfR1JUUVMySG84MXJn&quot;,</span><br><span class="line">  &quot;took&quot;: 3,</span><br><span class="line">  &quot;timed_out&quot;: false,</span><br><span class="line">  &quot;_shards&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 5,</span><br><span class="line">    &quot;successful&quot;: 5,</span><br><span class="line">    &quot;failed&quot;: 0</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;hits&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 5,</span><br><span class="line">    &quot;max_score&quot;: null,</span><br><span class="line">    &quot;hits&quot;: [</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;_index&quot;: &quot;test_index&quot;,</span><br><span class="line">        &quot;_type&quot;: &quot;test_type&quot;,</span><br><span class="line">        &quot;_id&quot;: &quot;AWccvc7blcpuqacodv57&quot;,</span><br><span class="line">        &quot;_score&quot;: null,</span><br><span class="line">        &quot;_source&quot;: &#123;</span><br><span class="line">          &quot;test_content&quot;: &quot;test1&quot;,</span><br><span class="line">          &quot;test_title&quot;: &quot;test2&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;sort&quot;: [</span><br><span class="line">          0</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;_index&quot;: &quot;test_index&quot;,</span><br><span class="line">        &quot;_type&quot;: &quot;test_type&quot;,</span><br><span class="line">        &quot;_id&quot;: &quot;AWcctb8Zlcpuqacodv55&quot;,</span><br><span class="line">        &quot;_score&quot;: null,</span><br><span class="line">        &quot;_source&quot;: &#123;</span><br><span class="line">          &quot;test_content&quot;: &quot;test1&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;sort&quot;: [</span><br><span class="line">          0</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>可以看到,返回值中有一个scroll_id,下次请求时要把这个scroll_id传过去,而且要在上次查询传过去的时间窗口scroll=1m,这个时间内进行第二次查询  </p>
-<pre><code>GET /_search/scroll
-{
-  &quot;scroll&quot;:&quot;1m&quot;,
-  &quot;scroll_id&quot;:&quot;DnF1ZXJ5VGhlbkZldGNoBQAAAAAAAAJcFmY1N3VWOTF4U19HUlRRUzJIbzgxcmcAAAAAAAACWBZmNTd1VjkxeFNfR1JUUVMySG84MXJnAAAAAAAAAlsWZjU3dVY5MXhTX0dSVFFTMkhvODFyZwAAAAAAAAJaFmY1N3VWOTF4U19HUlRRUzJIbzgxcmcAAAAAAAACWRZmNTd1VjkxeFNfR1JUUVMySG84MXJn&quot;
-}
-</code></pre><p>scroll查询看起来挺像分页的,但是其实使用场景不一样,分页主要是用来一页一页搜索,给用户看的,scroll查询主要是用来一批一批检索数据的,让系统进行处理</p>
+        <h4 id="type的底层数据结构"><a href="#type的底层数据结构" class="headerlink" title="type的底层数据结构"></a>type的底层数据结构</h4><p>type是一个index中用来区分类似的数据的,类似的数据有可能有不同的field,而且有不同的属性来控制索引的建立  </p>
+<p>es是基于Lucene的,在es中每个field都有自己的数据类型,比如date,text等,但在底层的Lucene建立索引的时候,全部是opaque bytes类型,不区分类型的.   </p>
+<p>Lucene是没有type的概念的,在document中,实际上是将type作为document的一个field类存储,即_type,es通过_type来进行过滤和筛选  </p>
+<p>一个index中的多个type,实际上是放在一起存储的,因此一个index下,不能有多个type重名.  </p>
+<h4 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明"></a>举例说明</h4><p>现在,在ecommerce这个index下,有两个type,一个是elactronic_goods,另一个是fresh_goods,如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   &quot;ecommerce&quot;: &#123;</span><br><span class="line">      &quot;mappings&quot;: &#123;</span><br><span class="line">         &quot;elactronic_goods&quot;: &#123;</span><br><span class="line">            &quot;properties&quot;: &#123;</span><br><span class="line">               &quot;name&quot;: &#123;</span><br><span class="line">                  &quot;type&quot;: &quot;string&quot;,</span><br><span class="line">               &#125;,</span><br><span class="line">               &quot;price&quot;: &#123;</span><br><span class="line">                  &quot;type&quot;: &quot;double&quot;</span><br><span class="line">               &#125;,</span><br><span class="line">	       &quot;service_period&quot;: &#123;</span><br><span class="line">		  &quot;type&quot;: &quot;string&quot;</span><br><span class="line">	       &#125;			</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;,</span><br><span class="line">         &quot;fresh_goods&quot;: &#123;</span><br><span class="line">            &quot;properties&quot;: &#123;</span><br><span class="line">               &quot;name&quot;: &#123;</span><br><span class="line">                  &quot;type&quot;: &quot;string&quot;,</span><br><span class="line">               &#125;,</span><br><span class="line">               &quot;price&quot;: &#123;</span><br><span class="line">                  &quot;type&quot;: &quot;double&quot;</span><br><span class="line">               &#125;,</span><br><span class="line">	       &quot;eat_period&quot;: &#123;</span><br><span class="line">		  &quot;type&quot;: &quot;string&quot;</span><br><span class="line">	       &#125;</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们现在有两个document,分别是两个type下的数据,如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// type是elactronic_goods</span><br><span class="line">&#123;</span><br><span class="line">    &quot;name&quot;: &quot;geli kongtiao&quot;,</span><br><span class="line">    &quot;price&quot;: 1999.0,</span><br><span class="line">    &quot;service_period&quot;: &quot;one year&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// type是fresh_goods</span><br><span class="line">&#123;</span><br><span class="line">    &quot;name&quot;: &quot;aozhou dalongxia&quot;,</span><br><span class="line">    &quot;price&quot;: 199.0,</span><br><span class="line">    &quot;eat_period&quot;: &quot;one week&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个index的底层存储是这样的:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   &quot;ecommerce&quot;: &#123;</span><br><span class="line">      &quot;mappings&quot;: &#123;</span><br><span class="line">        &quot;_type&quot;: &#123;</span><br><span class="line">          &quot;type&quot;: &quot;string&quot;,</span><br><span class="line">          &quot;index&quot;: &quot;not_analyzed&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;name&quot;: &#123;</span><br><span class="line">          &quot;type&quot;: &quot;string&quot;</span><br><span class="line">        &#125;</span><br><span class="line">        &quot;price&quot;: &#123;</span><br><span class="line">          &quot;type&quot;: &quot;double&quot;</span><br><span class="line">        &#125;</span><br><span class="line">        &quot;service_period&quot;: &#123;</span><br><span class="line">          &quot;type&quot;: &quot;string&quot;</span><br><span class="line">        &#125;</span><br><span class="line">        &quot;eat_period&quot;: &#123;</span><br><span class="line">          &quot;type&quot;: &quot;string&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到type被当做了一个属性放到了document中, elactronic_goods,fresh_goods这两个type中不同的属性也被放到了一起  </p>
+<p>这两个document在底层的存储是:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;_type&quot;: &quot;elactronic_goods&quot;,</span><br><span class="line">  &quot;name&quot;: &quot;geli kongtiao&quot;,</span><br><span class="line">  &quot;price&quot;: 1999.0,</span><br><span class="line">  &quot;service_period&quot;: &quot;one year&quot;,</span><br><span class="line">  &quot;eat_period&quot;: &quot;&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;_type&quot;: &quot;fresh_goods&quot;,</span><br><span class="line">  &quot;name&quot;: &quot;aozhou dalongxia&quot;,</span><br><span class="line">  &quot;price&quot;: 199.0,</span><br><span class="line">  &quot;service_period&quot;: &quot;&quot;,</span><br><span class="line">  &quot;eat_period&quot;: &quot;one week&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以说,将类似结构的type放在一个index下,这些type应该有多个field是相同的. 假如说,两个type的field完全不同,放在一个index下,那么每条数据的很多field在底层的Lucene中是空置,会有严重的性能问题  </p>
 
       
     </div>
@@ -386,8 +384,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/24/Elasticsearch-29-搜索原理内核解析/" rel="next" title="Elasticsearch-29-搜索原理内核解析">
-                <i class="fa fa-chevron-left"></i> Elasticsearch-29-搜索原理内核解析
+              <a href="/2018/11/24/Elasticsearch-31-手动创建索引以及定制分词器/" rel="next" title="Elasticsearch-31-手动创建索引以及定制分词器">
+                <i class="fa fa-chevron-left"></i> Elasticsearch-31-手动创建索引以及定制分词器
               </a>
             
           </div>
@@ -395,10 +393,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/24/Elasticsearch-31-手动创建索引以及定制分词器/" rel="prev" title="Elasticsearch-31-手动创建索引以及定制分词器">
-                Elasticsearch-31-手动创建索引以及定制分词器 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -535,7 +529,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#scroll查询"><span class="nav-number">1.</span> <span class="nav-text">scroll查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例"><span class="nav-number">2.</span> <span class="nav-text">示例</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#type的底层数据结构"><span class="nav-number">1.</span> <span class="nav-text">type的底层数据结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#举例说明"><span class="nav-number">2.</span> <span class="nav-text">举例说明</span></a></li></ol></div>
             
 
           </div>
