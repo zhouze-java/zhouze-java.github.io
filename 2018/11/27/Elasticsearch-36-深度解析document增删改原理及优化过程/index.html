@@ -82,16 +82,18 @@
 <meta name="description" content="document写入原理在es底层,用的是Lucene,Lucene底层的index是分为多个segment的,每个segment都会存放部分数据 图中,客户端写入一个document的时候:    先写到了操作系统中的buffer缓存中 然后进行commit point buffer中的数据写入了新的index segment 然后写入操作系统的缓存中 缓存中的index segment被fsy">
 <meta name="keywords" content="Elasticsearch">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Elasticsearch-36-深度解析document增删改原理">
-<meta property="og:url" content="http://yoursite.com/2018/11/27/Elasticsearch-36-深度解析document增删改原理/index.html">
+<meta property="og:title" content="Elasticsearch-36-深度解析document增删改原理及优化过程">
+<meta property="og:url" content="http://yoursite.com/2018/11/27/Elasticsearch-36-深度解析document增删改原理及优化过程/index.html">
 <meta property="og:site_name" content="八度空间">
 <meta property="og:description" content="document写入原理在es底层,用的是Lucene,Lucene底层的index是分为多个segment的,每个segment都会存放部分数据 图中,客户端写入一个document的时候:    先写到了操作系统中的buffer缓存中 然后进行commit point buffer中的数据写入了新的index segment 然后写入操作系统的缓存中 缓存中的index segment被fsy">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/YlENvmUfvVVdmSx4oFXmCeeXH9yq03AM9mf0eAWO8FQ!/r/dDQBAAAAAAAA">
 <meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/TrRgzoMbGVFmIQ*SOxKYZX7gz9QBeP*pOjJQvqC42u0!/r/dDYBAAAAAAAA">
-<meta property="og:updated_time" content="2018-11-27T07:29:51.732Z">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/N5WwA9TmBH15dDXffh8EYnVrvzWXAdcEYEEfiDNn9cU!/r/dFMBAAAAAAAA">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/122*EJHQMalBLOZH80jzuLsZAg0FAaKC43z7U*259MI!/r/dFMBAAAAAAAA">
+<meta property="og:updated_time" content="2018-11-27T10:25:35.268Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Elasticsearch-36-深度解析document增删改原理">
+<meta name="twitter:title" content="Elasticsearch-36-深度解析document增删改原理及优化过程">
 <meta name="twitter:description" content="document写入原理在es底层,用的是Lucene,Lucene底层的index是分为多个segment的,每个segment都会存放部分数据 图中,客户端写入一个document的时候:    先写到了操作系统中的buffer缓存中 然后进行commit point buffer中的数据写入了新的index segment 然后写入操作系统的缓存中 缓存中的index segment被fsy">
 <meta name="twitter:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/YlENvmUfvVVdmSx4oFXmCeeXH9yq03AM9mf0eAWO8FQ!/r/dDQBAAAAAAAA">
 
@@ -123,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/27/Elasticsearch-36-深度解析document增删改原理/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/27/Elasticsearch-36-深度解析document增删改原理及优化过程/">
 
 
 
 
 
-  <title>Elasticsearch-36-深度解析document增删改原理 | 八度空间</title>
+  <title>Elasticsearch-36-深度解析document增删改原理及优化过程 | 八度空间</title>
   
 
 
@@ -256,7 +258,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/27/Elasticsearch-36-深度解析document增删改原理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/27/Elasticsearch-36-深度解析document增删改原理及优化过程/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -273,7 +275,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Elasticsearch-36-深度解析document增删改原理</h1>
+          <h1 class="post-title" itemprop="name headline">Elasticsearch-36-深度解析document增删改原理及优化过程</h1>
         
 
         <div class="post-meta">
@@ -359,6 +361,41 @@
 <h4 id="更新删除原理"><a href="#更新删除原理" class="headerlink" title="更新删除原理"></a>更新删除原理</h4><p>如果是更新操作,实际上是将现有的document标记为deleted,然后将新的document写入新的index segment中,下次search过来的时候,也许会匹配到一个document的多个版本,但是之前的版本已经被标记为deleted了,所以会被过滤掉,不会作为搜索结果返回,删除操作同理.  </p>
 <p><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/TrRgzoMbGVFmIQ*SOxKYZX7gz9QBeP*pOjJQvqC42u0!/r/dDYBAAAAAAAA" alt="更新/删除"></p>
 <p>每次commit point时,会有一个.del文件,标记了哪些segment中的哪些document被标记为deleted了<br>搜索的时候回依次查询所有的segment,从旧的到新的,比如被修改过的document,在旧的segment中,会被标记为deleted,在新的segment中会有其新的数据  </p>
+<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p>如果按照上面的流程的话,每次都必须等待fsync将segment刷入磁盘,才能将segment打开供search使用,这样的话,从一个document写入,到它可以被搜索,可能会超过1分钟,这就不是近实时的搜索了, 主要瓶颈在于fsync实际发生磁盘IO写数据进磁盘是很耗时的.  </p>
+<h4 id="流程改进"><a href="#流程改进" class="headerlink" title="流程改进"></a>流程改进</h4><p><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/N5WwA9TmBH15dDXffh8EYnVrvzWXAdcEYEEfiDNn9cU!/r/dFMBAAAAAAAA" alt="流程改进">  </p>
+<ol>
+<li>数据写入buffer中</li>
+<li>每隔一定的时间(默认是1s),buffer中的数据被写入新的segment文件,然后写入os cache中</li>
+<li>只要segment写入到了os cache中了,那就直接打开index segment 供使用,不立即commit.</li>
+<li>最后把buffer清空  </li>
+</ol>
+<p>数据写入os cache并被打开供搜索的过程,叫做refresh,默认是每隔1s refresh一次,就是说每隔一秒,就会将buffer中的数据写入一个新的index segment文件,先写入os cache中.所以es是近实时的,数据写入到可以搜索,默认是1秒.  </p>
+<p>我们也可以手动去设置refresh的间隔时间,比如时效性要求较低,写入数据一分钟后被搜索到就可以了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PUT /my_index</span><br><span class="line">&#123;</span><br><span class="line">  &quot;settings&quot;: &#123;</span><br><span class="line">    &quot;refresh_interval&quot;: &quot;60s&quot; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h4><p>数据不及时写入到磁盘中,而是在缓存中,如果宕机的话,数据就会丢失,就不可靠了  </p>
+<h4 id="再次优化写入流程"><a href="#再次优化写入流程" class="headerlink" title="再次优化写入流程"></a>再次优化写入流程</h4><p><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/122*EJHQMalBLOZH80jzuLsZAg0FAaKC43z7U*259MI!/r/dFMBAAAAAAAA" alt="再次改进">  </p>
+<ol>
+<li>写入document的时候,数据同时写入buffer缓冲和translog日志文件 </li>
+<li>每隔1秒中,buffer中的数据被写入新的segment file,并进入os  cache中,此时segment被打开并供search使用</li>
+<li>buffer被清空  </li>
+<li>重复1-3,新的segment不断添加,buffer不断被清空,而translog中的数据不断累加  </li>
+<li>当translog长度达到一定的程度的时候,commit操作发生.<br>5.1. buffer中所有数据写入一个新的segment中,并写入os cache 打开供使用.<br>5.2. buffer被清空<br>5.3. 一个commit point被写入磁盘,标明了所有的index segment<br>5.4. os cache中的所有 数据被fsync强行刷到磁盘上去<br>5.5. 现有的translog被清空,创建一个新的translog  </li>
+</ol>
+<h4 id="基于translog和commit-point进行数据恢复"><a href="#基于translog和commit-point进行数据恢复" class="headerlink" title="基于translog和commit point进行数据恢复"></a>基于translog和commit point进行数据恢复</h4><p>磁盘上存储的是上次commit point为止,所有的segment file,那么translog中存储的就是上一次flush(commit point)知道现在最近的数据变更记录<br>如果说 os cache中已经囤积了一些数据,没有被刷到磁盘上,这个时候宕机了, 这时候机器重启,此时会将translog文件中的变更记录进行回放,重新执行之前的各种操作,等待下次commit即可  </p>
+<p>每次flush 会自动清空translog,默认每隔30分钟flush一次,或者当translog过大的时候,也会flush.<br>我们也可以手动flush,POST /my_index/_flush,一般来说别手动flush,让它自动执行就可以了  </p>
+<p>translog,也是先放在缓存中的,每隔5秒被fsync一次到磁盘上.一般是在一次增删改操作之后.  </p>
+<p>如果说在一次增删改操作的时候正好要fsync translog到磁盘上,那么会等待primary shard和replica shard都成功之后,这次增删改操作才会成功    </p>
+<p>但是这种在一次增删改时强行fsync translog可能会导致部分操作比较耗时<br>如果可以允许部分数据丢失,可以设置异步fsync translog  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PUT /my_index/_settings</span><br><span class="line">&#123;</span><br><span class="line">    &quot;index.translog.durability&quot;: &quot;async&quot;,</span><br><span class="line">    &quot;index.translog.sync_interval&quot;: &quot;5s&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="终极优化"><a href="#终极优化" class="headerlink" title="终极优化"></a>终极优化</h4><p>上面说的,每秒生成一个segment文件,文件会越来越多,而且每次search都要搜索所有的segment,很耗时<br>es会默认在后台执行合并的操作,在merge的时候,被标记为deleted的document 也会被彻底物理删除  </p>
+<p>每次merge的流程是  </p>
+<ol>
+<li>选择一些有相似大小的segment,merge成一个大的segment  </li>
+<li>将新的segment flush到磁盘上去</li>
+<li>写一个新的commit point,包括了新的segment,并排除旧的那些segment  </li>
+<li>将新的segment打开供搜索</li>
+<li>将旧的segment删除</li>
+</ol>
+<p>也可以通过 POST /my_index/_optimize?max_num_segments=1 来手动合并,但是尽量不要手动执行</p>
 
       
     </div>
@@ -534,7 +571,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#document写入原理"><span class="nav-number">1.</span> <span class="nav-text">document写入原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新删除原理"><span class="nav-number">2.</span> <span class="nav-text">更新删除原理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#document写入原理"><span class="nav-number">1.</span> <span class="nav-text">document写入原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新删除原理"><span class="nav-number">2.</span> <span class="nav-text">更新删除原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题"><span class="nav-number">3.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流程改进"><span class="nav-number">4.</span> <span class="nav-text">流程改进</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题-1"><span class="nav-number">5.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#再次优化写入流程"><span class="nav-number">6.</span> <span class="nav-text">再次优化写入流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于translog和commit-point进行数据恢复"><span class="nav-number">7.</span> <span class="nav-text">基于translog和commit point进行数据恢复</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#终极优化"><span class="nav-number">8.</span> <span class="nav-text">终极优化</span></a></li></ol></div>
             
 
           </div>
@@ -585,7 +622,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共29k字</span>
+  <span class="post-count">博客全站共30k字</span>
 </div>
         
 
