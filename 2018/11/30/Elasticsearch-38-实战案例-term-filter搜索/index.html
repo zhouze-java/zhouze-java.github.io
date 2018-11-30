@@ -79,21 +79,18 @@
 
 
 
-<meta name="description" content="并发场景假设现在是矮子电商场景下,用户需要去购买商品,程序的工作流程是:    读取商品信息,比如商品名称价格等. 用户下单去购买商品 更新商品库存es的工作流程:   先查询document数据,商品信息等,显示到页面,同时在内存中缓存该document的数据 当网页发生购买以后,直接基于内存中的数据进行计算和操作 将计算后的结果返回到es中  现在有两个线程同时去执行这个流程,比如购买一台电脑">
+<meta name="description" content="之前都是随便写的一些demo来测试es的api,本文及以后将会基于一个案例,来更加深入使用这些api,之后会再使用Java api来实现具体功能.   场景以一个IT论坛为背景,来置顶搜索需求,以及实现.   测试数据123456789POST /forum/article/_bulk&amp;#123; &amp;quot;index&amp;quot;: &amp;#123; &amp;quot;_id&amp;quot;: 1 &amp;#125">
 <meta name="keywords" content="Elasticsearch">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Elasticsearch-10-并发控制方案">
-<meta property="og:url" content="http://yoursite.com/2018/11/17/Elasticsearch-10-并发控制方案/index.html">
+<meta property="og:title" content="Elasticsearch-38-实战案例-term filter搜索">
+<meta property="og:url" content="http://yoursite.com/2018/11/30/Elasticsearch-38-实战案例-term-filter搜索/index.html">
 <meta property="og:site_name" content="八度空间">
-<meta property="og:description" content="并发场景假设现在是矮子电商场景下,用户需要去购买商品,程序的工作流程是:    读取商品信息,比如商品名称价格等. 用户下单去购买商品 更新商品库存es的工作流程:   先查询document数据,商品信息等,显示到页面,同时在内存中缓存该document的数据 当网页发生购买以后,直接基于内存中的数据进行计算和操作 将计算后的结果返回到es中  现在有两个线程同时去执行这个流程,比如购买一台电脑">
+<meta property="og:description" content="之前都是随便写的一些demo来测试es的api,本文及以后将会基于一个案例,来更加深入使用这些api,之后会再使用Java api来实现具体功能.   场景以一个IT论坛为背景,来置顶搜索需求,以及实现.   测试数据123456789POST /forum/article/_bulk&amp;#123; &amp;quot;index&amp;quot;: &amp;#123; &amp;quot;_id&amp;quot;: 1 &amp;#125">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/jljBjGjXm5AE*7RDpmY1WlTwSx0FCN29J.k4mHBPfyM!/r/dDYBAAAAAAAA">
-<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/uFT8efLP627zOTeWUvVRxPvGxG4ir8u7QhLb1Y3fdm4!/r/dDUBAAAAAAAA">
-<meta property="og:updated_time" content="2018-11-22T09:48:24.231Z">
+<meta property="og:updated_time" content="2018-11-30T14:31:17.240Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Elasticsearch-10-并发控制方案">
-<meta name="twitter:description" content="并发场景假设现在是矮子电商场景下,用户需要去购买商品,程序的工作流程是:    读取商品信息,比如商品名称价格等. 用户下单去购买商品 更新商品库存es的工作流程:   先查询document数据,商品信息等,显示到页面,同时在内存中缓存该document的数据 当网页发生购买以后,直接基于内存中的数据进行计算和操作 将计算后的结果返回到es中  现在有两个线程同时去执行这个流程,比如购买一台电脑">
-<meta name="twitter:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/jljBjGjXm5AE*7RDpmY1WlTwSx0FCN29J.k4mHBPfyM!/r/dDYBAAAAAAAA">
+<meta name="twitter:title" content="Elasticsearch-38-实战案例-term filter搜索">
+<meta name="twitter:description" content="之前都是随便写的一些demo来测试es的api,本文及以后将会基于一个案例,来更加深入使用这些api,之后会再使用Java api来实现具体功能.   场景以一个IT论坛为背景,来置顶搜索需求,以及实现.   测试数据123456789POST /forum/article/_bulk&amp;#123; &amp;quot;index&amp;quot;: &amp;#123; &amp;quot;_id&amp;quot;: 1 &amp;#125">
 
 
 
@@ -123,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/17/Elasticsearch-10-并发控制方案/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/30/Elasticsearch-38-实战案例-term-filter搜索/">
 
 
 
 
 
-  <title>Elasticsearch-10-并发控制方案 | 八度空间</title>
+  <title>Elasticsearch-38-实战案例-term filter搜索 | 八度空间</title>
   
 
 
@@ -289,7 +286,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/17/Elasticsearch-10-并发控制方案/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/30/Elasticsearch-38-实战案例-term-filter搜索/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -306,7 +303,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Elasticsearch-10-并发控制方案</h1>
+          <h1 class="post-title" itemprop="name headline">Elasticsearch-38-实战案例-term filter搜索</h1>
         
 
         <div class="post-meta">
@@ -318,8 +315,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-17T17:26:22+08:00">
-                2018-11-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-30T22:30:42+08:00">
+                2018-11-30
               </time>
             
 
@@ -378,40 +375,34 @@
       
 
       
-        <h4 id="并发场景"><a href="#并发场景" class="headerlink" title="并发场景"></a>并发场景</h4><p>假设现在是矮子电商场景下,用户需要去购买商品,程序的工作流程是:  </p>
-<ol>
-<li>读取商品信息,比如商品名称价格等.</li>
-<li>用户下单去购买商品</li>
-<li>更新商品库存<br>es的工作流程:  </li>
-<li>先查询document数据,商品信息等,显示到页面,同时在内存中缓存该document的数据</li>
-<li>当网页发生购买以后,直接基于内存中的数据进行计算和操作</li>
-<li>将计算后的结果返回到es中</li>
+        <p>之前都是随便写的一些demo来测试es的api,本文及以后将会基于一个案例,来更加深入使用这些api,之后会再使用Java api来实现具体功能.  </p>
+<h4 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h4><p>以一个IT论坛为背景,来置顶搜索需求,以及实现.  </p>
+<h5 id="测试数据"><a href="#测试数据" class="headerlink" title="测试数据"></a>测试数据</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">POST /forum/article/_bulk</span><br><span class="line">&#123; &quot;index&quot;: &#123; &quot;_id&quot;: 1 &#125;&#125;</span><br><span class="line">&#123; &quot;articleID&quot; : &quot;XHDK-A-1293-#fJ3&quot;, &quot;userID&quot; : 1, &quot;hidden&quot;: false, &quot;postDate&quot;: &quot;2017-01-01&quot; &#125;</span><br><span class="line">&#123; &quot;index&quot;: &#123; &quot;_id&quot;: 2 &#125;&#125;</span><br><span class="line">&#123; &quot;articleID&quot; : &quot;KDKE-B-9947-#kL5&quot;, &quot;userID&quot; : 1, &quot;hidden&quot;: false, &quot;postDate&quot;: &quot;2017-01-02&quot; &#125;</span><br><span class="line">&#123; &quot;index&quot;: &#123; &quot;_id&quot;: 3 &#125;&#125;</span><br><span class="line">&#123; &quot;articleID&quot; : &quot;JODL-X-1937-#pV7&quot;, &quot;userID&quot; : 2, &quot;hidden&quot;: false, &quot;postDate&quot;: &quot;2017-01-01&quot; &#125;</span><br><span class="line">&#123; &quot;index&quot;: &#123; &quot;_id&quot;: 4 &#125;&#125;</span><br><span class="line">&#123; &quot;articleID&quot; : &quot;QQPX-R-3956-#aD8&quot;, &quot;userID&quot; : 2, &quot;hidden&quot;: true, &quot;postDate&quot;: &quot;2017-01-02&quot; &#125;</span><br></pre></td></tr></table></figure>
+<p>使用_bulk api来添加数据,目前我们只添加这几个field,articleID,userId,hidden  </p>
+<p>执行完毕以后,我们来查看一下dynamic mapping给我建立的mapping<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /forum/_mapping/article</span><br></pre></td></tr></table></figure></p>
+<p>返回值:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;forum&quot;: &#123;</span><br><span class="line">    &quot;mappings&quot;: &#123;</span><br><span class="line">      &quot;article&quot;: &#123;</span><br><span class="line">        &quot;properties&quot;: &#123;</span><br><span class="line">          &quot;articleID&quot;: &#123;</span><br><span class="line">            &quot;type&quot;: &quot;text&quot;,</span><br><span class="line">            &quot;fields&quot;: &#123;</span><br><span class="line">              &quot;keyword&quot;: &#123;  // 1</span><br><span class="line">                &quot;type&quot;: &quot;keyword&quot;,</span><br><span class="line">                &quot;ignore_above&quot;: 256</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;,</span><br><span class="line">          &quot;hidden&quot;: &#123;</span><br><span class="line">            &quot;type&quot;: &quot;boolean&quot;</span><br><span class="line">          &#125;,</span><br><span class="line">          &quot;postDate&quot;: &#123;</span><br><span class="line">            &quot;type&quot;: &quot;date&quot;</span><br><span class="line">          &#125;,</span><br><span class="line">          &quot;userID&quot;: &#123;</span><br><span class="line">            &quot;type&quot;: &quot;long&quot;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里我们看1处,”articleID”的类型是text,里面还有一个”articleID.keyword”,这个东西是干嘛的呢?  </p>
+<p>在新版es中,type=text的时候,默认会设置两个field,一个是field本身,比如”articleID”,他是分词的,还有一个就是field.keyword,比如”articleID.keyword”,默认是不分词的, keyword里面还有一个属性是”ignore_above”:256,意思就是最多会保留256个字符  </p>
+<h4 id="term-filter的使用"><a href="#term-filter的使用" class="headerlink" title="term filter的使用"></a>term filter的使用</h4><p>term filter/query: 对搜索文本不分词,直接拿去倒排索引中去匹配,你输入的是什么,就去匹配什么</p>
+<h5 id="需求1-根据用户id来搜索帖子"><a href="#需求1-根据用户id来搜索帖子" class="headerlink" title="需求1:根据用户id来搜索帖子"></a>需求1:根据用户id来搜索帖子</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">GET /forum/article/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;constant_score&quot;: &#123;</span><br><span class="line">      &quot;filter&quot;: &#123;</span><br><span class="line">        &quot;term&quot;: &#123;</span><br><span class="line">          &quot;userID&quot;: 1</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="需求2-搜索没有隐藏的帖子"><a href="#需求2-搜索没有隐藏的帖子" class="headerlink" title="需求2:搜索没有隐藏的帖子"></a>需求2:搜索没有隐藏的帖子</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">GET /forum/article/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;constant_score&quot;: &#123;</span><br><span class="line">      &quot;filter&quot;: &#123;</span><br><span class="line">        &quot;term&quot;: &#123;</span><br><span class="line">          &quot;hidden&quot;: false</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="需求3-根据发帖日期搜索帖子"><a href="#需求3-根据发帖日期搜索帖子" class="headerlink" title="需求3:根据发帖日期搜索帖子"></a>需求3:根据发帖日期搜索帖子</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">GET /forum/article/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;constant_score&quot;: &#123;</span><br><span class="line">      &quot;filter&quot;: &#123;</span><br><span class="line">        &quot;term&quot;: &#123;</span><br><span class="line">          &quot;postDate&quot;: &quot;2017-01-01&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="需求4-根据帖子id搜索帖子"><a href="#需求4-根据帖子id搜索帖子" class="headerlink" title="需求4:根据帖子id搜索帖子"></a>需求4:根据帖子id搜索帖子</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">GET /forum/article/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;constant_score&quot;: &#123;</span><br><span class="line">      &quot;filter&quot;: &#123;</span><br><span class="line">        &quot;term&quot;: &#123;</span><br><span class="line">          &quot;articleID&quot;: &quot;XHDK-A-1293-#fJ3&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>返回值:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;took&quot;: 5,</span><br><span class="line">  &quot;timed_out&quot;: false,</span><br><span class="line">  &quot;_shards&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 5,</span><br><span class="line">    &quot;successful&quot;: 5,</span><br><span class="line">    &quot;failed&quot;: 0</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;hits&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 0,</span><br><span class="line">    &quot;max_score&quot;: null,</span><br><span class="line">    &quot;hits&quot;: []</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里可以看到,一条结果也没有,但是应该是有这个数据的,为什么呢?  </p>
+<p>在添加数据的时候,字符串是默认会去分词,然后建立倒排索引的,而term是不去分词的,所以是查不到的  </p>
+<p>我们可以用上面es自动建立的keyword来进行搜索<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">GET /forum/article/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;constant_score&quot;: &#123;</span><br><span class="line">      &quot;filter&quot;: &#123;</span><br><span class="line">        &quot;term&quot;: &#123;</span><br><span class="line">          &quot;articleID.keyword&quot;: &quot;XHDK-A-1293-#fJ3&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>返回值:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;took&quot;: 2,</span><br><span class="line">  &quot;timed_out&quot;: false,</span><br><span class="line">  &quot;_shards&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 5,</span><br><span class="line">    &quot;successful&quot;: 5,</span><br><span class="line">    &quot;failed&quot;: 0</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;hits&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 1,</span><br><span class="line">    &quot;max_score&quot;: 1,</span><br><span class="line">    &quot;hits&quot;: [</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;_index&quot;: &quot;forum&quot;,</span><br><span class="line">        &quot;_type&quot;: &quot;article&quot;,</span><br><span class="line">        &quot;_id&quot;: &quot;1&quot;,</span><br><span class="line">        &quot;_score&quot;: 1,</span><br><span class="line">        &quot;_source&quot;: &#123;</span><br><span class="line">          &quot;articleID&quot;: &quot;XHDK-A-1293-#fJ3&quot;,</span><br><span class="line">          &quot;userID&quot;: 1,</span><br><span class="line">          &quot;hidden&quot;: false,</span><br><span class="line">          &quot;postDate&quot;: &quot;2017-01-01&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样就可以搜索到了,但是同时也有一个问题,就是keyword只会保留256个字符,如果这个字段太长的话那就还是搜索不到的.这时候,我们最好重建索引,手动设置mapping  </p>
+<p>删除索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE /forum</span><br></pre></td></tr></table></figure></p>
+<p>手动创建索引,指定articleID不分词<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">PUT /forum</span><br><span class="line">&#123;</span><br><span class="line">  &quot;mappings&quot;: &#123;</span><br><span class="line">    &quot;article&quot;:&#123;</span><br><span class="line">      &quot;properties&quot;: &#123;</span><br><span class="line">        &quot;articleID&quot;:&#123;</span><br><span class="line">          &quot;type&quot;: &quot;keyword&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后把上面的数据重新添加进去.<br>现在,再用articleID来进行查询<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">GET /forum/article/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;constant_score&quot;: &#123;</span><br><span class="line">      &quot;filter&quot;: &#123;</span><br><span class="line">        &quot;term&quot;: &#123;</span><br><span class="line">          &quot;articleID&quot;: &quot;XHDK-A-1293-#fJ3&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>返回值:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;took&quot;: 2,</span><br><span class="line">  &quot;timed_out&quot;: false,</span><br><span class="line">  &quot;_shards&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 5,</span><br><span class="line">    &quot;successful&quot;: 5,</span><br><span class="line">    &quot;failed&quot;: 0</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;hits&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 1,</span><br><span class="line">    &quot;max_score&quot;: 1,</span><br><span class="line">    &quot;hits&quot;: [</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;_index&quot;: &quot;forum&quot;,</span><br><span class="line">        &quot;_type&quot;: &quot;article&quot;,</span><br><span class="line">        &quot;_id&quot;: &quot;1&quot;,</span><br><span class="line">        &quot;_score&quot;: 1,</span><br><span class="line">        &quot;_source&quot;: &#123;</span><br><span class="line">          &quot;articleID&quot;: &quot;XHDK-A-1293-#fJ3&quot;,</span><br><span class="line">          &quot;userID&quot;: 1,</span><br><span class="line">          &quot;hidden&quot;: false,</span><br><span class="line">          &quot;postDate&quot;: &quot;2017-01-01&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这时候就可以查询的到了  </p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ol>
+<li>term filter:根据exact value来进行搜索,数字,Boolean,date类型的天然支持  </li>
+<li>text类型的field需要在建立的索引的时候指定not_analyzed(新版中可以直接指定type为keyword),才可以使用term </li>
 </ol>
-<p>现在有两个线程同时去执行这个流程,比如购买一台电脑库存是100,线程A 线程B并发执行,两个线程查询到的库存都是100,这个时候用户去下单购买,线程A 将商品库存减一是99件,线程B也将库存减一也是99件,然后A先更新es的中的商品库存,更新为99,此时线程B也去更新商品库存为99,这个时候一共是发生了两次购买操作,正常结果是库存应该减少两件,但其实只减少了一件,这就导致了并发冲突,使得数据结果不正确.  </p>
-<p>有些场景下,在不管数据正不正确的情况下这样操作是无所谓,比如我们只管将数据写入es,不管数据是什么样的,或者是说算错了也没关系的这些情况,但是一般情况下我们是需要做并发控制的防止数据错乱</p>
-<h4 id="并发控制方案"><a href="#并发控制方案" class="headerlink" title="并发控制方案"></a>并发控制方案</h4><h5 id="悲观锁并发控制方案"><a href="#悲观锁并发控制方案" class="headerlink" title="悲观锁并发控制方案"></a>悲观锁并发控制方案</h5><p>还是上面的这个场景,使用悲观锁控制并发,就是线程A去读取商品信息,读取的时候给这个商品信息加锁,然后进行一系列的操作,比如减少库存等,将库存减一后,再更新到商品信息中去,然后释放锁,在这个过程中,线程B如果去请求这个商品数据是请求不到的,在线程A释放锁之前,B是获取不到的,当A释放锁之后,这个时候商品库存已经变化了,B拿到的数据就是A已经操作完成后的数据,同时线程B也会对数据加锁,操作完成之后再释放.  </p>
-<p>悲观锁的并发控制方案,就是在各种情况下都上锁,上锁之后,就只有一个线程可以操作这条数据了,当然,不同场景下上的锁也不同,比如行级锁 表级锁 读锁 写锁等.</p>
-<h5 id="乐观锁并发控制方案"><a href="#乐观锁并发控制方案" class="headerlink" title="乐观锁并发控制方案"></a>乐观锁并发控制方案</h5><p><strong>es就是使用的乐观锁</strong>,使用乐观锁控制并发的时候,并不会对数据进行加锁,而是通过版本号控制(version),这点和zookeeper相似,还是上面的场景,线程A B 同时去请求商品信息,然后拿到的都是一样的,比如库存是100, 这时候比如数据的version=1, 假设线程A先把库存-1然后更新到es中,这时候es会拿版本号和线程A中的数据的版本号进行对比,这时候version都是1写入成功,库存更新为99 es中数据的版本号变更为2,这时候线程B也去进行更新,发现es中数据的版本号是2,但是线程B的版本号还是1,版本号不同的情况下,线程B重新请求es的数据 然后再将库存-1,版本号也变为2,然后再去更新es中的数据,这个时候库存变为98 版本号变为3.</p>
-<h5 id="es内部基于乐观锁控制并发的原理"><a href="#es内部基于乐观锁控制并发的原理" class="headerlink" title="es内部基于乐观锁控制并发的原理"></a>es内部基于乐观锁控制并发的原理</h5><p>假设现在有两个节点一个shard一个replica,里面有一条document 数据是test1 version也是1<br><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/jljBjGjXm5AE*7RDpmY1WlTwSx0FCN29J.k4mHBPfyM!/r/dDYBAAAAAAAA" alt="集群"></p>
-<p>现在有两个请求同时去修改document数据,我们期待的结果是1先修改为test2,然后2再修改为test3<br><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/uFT8efLP627zOTeWUvVRxPvGxG4ir8u7QhLb1Y3fdm4!/r/dDUBAAAAAAAA" alt="修改document">  </p>
-<p>但是这个两个请求时并发的所以第2个请求可能先到达es先进性修改, 如果没有乐观锁并发控制的话,第2个请求先到达将内容修改为test3,第1个请求后到,再去修改为test2,这个时候数据就变成了test,跟我们预期的结果就不一样了,因为按照顺序来说是先修改为test2 再修改为test3  </p>
-<p>同理shard去将数据同步到replica的时候也会多线程异步执行的,如果没有乐观锁的控制,数据也可能发生错误<br>但是在有乐观锁的情况下,基于version去控制,如果说第二个请求先到先修改了数据 version已经加1了比如变为2,replica先同步了第二个请求的数据,第一个请求再去同步的时候去比对一下版本号,version还是1,那么es就会直接把这条数据扔掉,这个时候数据就会保持一个正确的状态  </p>
-<h6 id="基于external-version进行乐观锁并发控制"><a href="#基于external-version进行乐观锁并发控制" class="headerlink" title="基于external version进行乐观锁并发控制"></a>基于external version进行乐观锁并发控制</h6><p>es提供了一个feature,就是说你可以不用他提供的内部版本号来进行并发控制,可以基于你自己维护的一个版本号来进行并发控制.<br>举个例子,假如你的数据在mysql里面也有一份,然后你的应用本身就维护了一个版本号,无论是自己生成的或者是程序控制的.这个时候进行乐观锁并发控制的时候可能并不是想要用内部的_version来进行控制,而是用你自己维护的那个版本号来控制.  </p>
-<p>基于内部的_version进行控制时,只需要在请求后面加 _version=版本号即可,基于自己的version控制的话需要在请求后面加?_version=版本号&amp;version_type=external<br>这两种版本控制的唯一区别就在于 基于内部_version控制时,只有当你提供的version和es中的version一毛一样的时候才能修改,只要不一样就报错,而基于自己的版本号控制时,只有当你提供的version比es中的_version大的时候才能完成修改  </p>
-<h5 id="两种锁的优缺点"><a href="#两种锁的优缺点" class="headerlink" title="两种锁的优缺点"></a>两种锁的优缺点</h5><ol>
-<li>悲观锁</li>
-</ol>
-<ul>
-<li>优点:方便,直接加锁,对应用程序来说是透明的,不需要做额外的操作</li>
-<li>缺点:并发能力很低,同一时间只能有一个线程访问操作数据</li>
-</ul>
-<ol start="2">
-<li>乐观锁</li>
-</ol>
-<ul>
-<li>优点:并发能力高,不给数据加锁,可以有大量线程并发操作</li>
-<li>缺点:麻烦,每次更新的时候都要先去比对版本号,然后版本号不一致时,可能需要重新加载数据,再次修改然后再写,而且这个过程可能要重复好几次</li>
-</ul>
 
       
     </div>
@@ -442,8 +433,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/16/Elasticsearch-9-document核心元数据解析/" rel="next" title="Elasticsearch-9-document核心元数据解析">
-                <i class="fa fa-chevron-left"></i> Elasticsearch-9-document核心元数据解析
+              <a href="/2018/11/29/Elasticsearch-37-Java-API-document-增删改查/" rel="next" title="Elasticsearch-37-Java API document 增删改查">
+                <i class="fa fa-chevron-left"></i> Elasticsearch-37-Java API document 增删改查
               </a>
             
           </div>
@@ -452,8 +443,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/11/19/Elasticsearch-11-基于groovy脚本进行partial-update/" rel="prev" title="Elasticsearch-11-基于groovy脚本进行partial update">
-                Elasticsearch-11-基于groovy脚本进行partial update <i class="fa fa-chevron-right"></i>
+              <a href="/2018/11/30/Elasticsearch-39-filter原理深度剖析/" rel="prev" title="Elasticsearch-39-filter原理深度剖析">
+                Elasticsearch-39-filter原理深度剖析 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -591,7 +582,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#并发场景"><span class="nav-number">1.</span> <span class="nav-text">并发场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#并发控制方案"><span class="nav-number">2.</span> <span class="nav-text">并发控制方案</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#悲观锁并发控制方案"><span class="nav-number">2.1.</span> <span class="nav-text">悲观锁并发控制方案</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#乐观锁并发控制方案"><span class="nav-number">2.2.</span> <span class="nav-text">乐观锁并发控制方案</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#es内部基于乐观锁控制并发的原理"><span class="nav-number">2.3.</span> <span class="nav-text">es内部基于乐观锁控制并发的原理</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#基于external-version进行乐观锁并发控制"><span class="nav-number">2.3.1.</span> <span class="nav-text">基于external version进行乐观锁并发控制</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#两种锁的优缺点"><span class="nav-number">2.4.</span> <span class="nav-text">两种锁的优缺点</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#场景"><span class="nav-number">1.</span> <span class="nav-text">场景</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#测试数据"><span class="nav-number">1.1.</span> <span class="nav-text">测试数据</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#term-filter的使用"><span class="nav-number">2.</span> <span class="nav-text">term filter的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#需求1-根据用户id来搜索帖子"><span class="nav-number">2.1.</span> <span class="nav-text">需求1:根据用户id来搜索帖子</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#需求2-搜索没有隐藏的帖子"><span class="nav-number">2.2.</span> <span class="nav-text">需求2:搜索没有隐藏的帖子</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#需求3-根据发帖日期搜索帖子"><span class="nav-number">2.3.</span> <span class="nav-text">需求3:根据发帖日期搜索帖子</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#需求4-根据帖子id搜索帖子"><span class="nav-number">2.4.</span> <span class="nav-text">需求4:根据帖子id搜索帖子</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
