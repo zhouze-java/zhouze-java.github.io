@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://yoursite.com/2018/12/19/Elasticsearch-51-cross-fields%E6%90%9C%E7%B4%A2%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</loc>
+    <lastmod>2018-12-19T03:16:34.502Z</lastmod>
+  </url>  <url>
+    <loc>http://yoursite.com/2018/12/19/Elasticsearch-50-most-fields%E7%AD%96%E7%95%A5%E8%BF%9B%E8%A1%8Ccross-fields%E6%90%9C%E7%B4%A2%E7%9A%84%E5%BC%8A%E7%AB%AF/</loc>
+    <lastmod>2018-12-19T03:16:01.733Z</lastmod>
+  </url>  <url>
     <loc>http://yoursite.com/2018/12/17/Elasticsearch-49-%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B-most-fields%E7%AD%96%E7%95%A5/</loc>
     <lastmod>2018-12-17T10:01:24.380Z</lastmod>
   </url>  <url>
