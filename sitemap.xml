@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/12/26/Elasticsearch-52-phrase-match%E6%90%9C%E7%B4%A2%E5%8F%8A%E5%8E%9F%E7%90%86/</loc>
+    
+    <lastmod>2018-12-26T07:28:18.281Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/12/19/Elasticsearch-51-cross-fields%E6%90%9C%E7%B4%A2%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</loc>
     
     <lastmod>2018-12-19T03:16:34.502Z</lastmod>
