@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Elasticsearch,">
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -79,18 +79,13 @@
 
 
 
-<meta name="description" content="场景如果我们一开始新建了一个索引,并且依靠dynamic mapping,这个时候插入一条数据是2018-01-01这种格式的,这field就会被自动映射成了date类型,但是其实他应该是个string类型的,这时候应该怎么做呢? 解决方案一个field的设置是不能被修改的,如果要修改一个field,那么应该重新按照新的mapping来创建一个index,然后将旧的index中的数据查询出来,用_">
-<meta name="keywords" content="Elasticsearch">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Elasticsearch-35-使用scroll+bulk+索引别名实现零停机重建索引">
-<meta property="og:url" content="http://yoursite.com/2018/11/27/Elasticsearch-35-使用scroll-bulk-索引别名实现零停机重建索引/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="八度空间">
+<meta property="og:url" content="http://yoursite.com/archives/2019/index.html">
 <meta property="og:site_name" content="八度空间">
-<meta property="og:description" content="场景如果我们一开始新建了一个索引,并且依靠dynamic mapping,这个时候插入一条数据是2018-01-01这种格式的,这field就会被自动映射成了date类型,但是其实他应该是个string类型的,这时候应该怎么做呢? 解决方案一个field的设置是不能被修改的,如果要修改一个field,那么应该重新按照新的mapping来创建一个index,然后将旧的index中的数据查询出来,用_">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-27T02:21:28.663Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Elasticsearch-35-使用scroll+bulk+索引别名实现零停机重建索引">
-<meta name="twitter:description" content="场景如果我们一开始新建了一个索引,并且依靠dynamic mapping,这个时候插入一条数据是2018-01-01这种格式的,这field就会被自动映射成了date类型,但是其实他应该是个string类型的,这时候应该怎么做呢? 解决方案一个field的设置是不能被修改的,如果要修改一个field,那么应该重新按照新的mapping来创建一个index,然后将旧的index中的数据查询出来,用_">
+<meta name="twitter:title" content="八度空间">
 
 
 
@@ -120,13 +115,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/27/Elasticsearch-35-使用scroll-bulk-索引别名实现零停机重建索引/">
+  <link rel="canonical" href="http://yoursite.com/archives/2019/">
 
 
 
 
 
-  <title>Elasticsearch-35-使用scroll+bulk+索引别名实现零停机重建索引 | 八度空间</title>
+  <title>归档 | 八度空间</title>
   
 
 
@@ -145,7 +140,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left page-archive">
     <div class="headband"></div>
 	<a href="https://github.com/zhouze-java" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 	
@@ -272,194 +267,71 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
+  
+  
+  
+  <div class="post-block archive">
+    <div id="posts" class="posts-collapse">
+      <span class="archive-move-on"></span>
 
-  
+      <span class="archive-page-counter">
+        
+        
+         
+          
+        好! 目前共计 56 篇日志。 继续努力。
+      </span>
 
-  
-  
-  
+      
+
+        
+        
+        
+
+        
+          
+          <div class="collection-title">
+            <h1 class="archive-year" id="archive-year-2019">2019</h1>
+          </div>
+        
+        
+
+        
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/27/Elasticsearch-35-使用scroll-bulk-索引别名实现零停机重建索引/">
+    <header class="post-header">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="周泽">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="八度空间">
-    </span>
-
-    
-      <header class="post-header">
-
+      <h2 class="post-title">
         
+            <a class="post-title-link" href="/2019/01/02/Elasticsearch-55-使用rescoring机制优化近似匹配的性能/" itemprop="url">
+              
+                <span itemprop="name">Elasticsearch-55-使用rescoring机制优化近似匹配的性能</span>
+              
+            </a>
         
-          <h1 class="post-title" itemprop="name headline">Elasticsearch-35-使用scroll+bulk+索引别名实现零停机重建索引</h1>
-        
+      </h2>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-27T10:21:01+08:00">
-                2018-11-27
-              </time>
-            
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated" datetime="2019-01-02T16:02:51+08:00" content="2019-01-02">
+          01-02
+        </time>
+      </div>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h4 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h4><p>如果我们一开始新建了一个索引,并且依靠dynamic mapping,这个时候插入一条数据是2018-01-01这种格式的,这field就会被自动映射成了date类型,但是其实他应该是个string类型的,这时候应该怎么做呢?</p>
-<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>一个field的设置是不能被修改的,如果要修改一个field,那么应该重新按照新的mapping来创建一个index,然后将旧的index中的数据查询出来,用_bulk api批量插入到新的索引中去   </p>
-<p>批量查询的时候,建议采用scroll api,采用多线程并发的方式来reindex数据.  </p>
-<h4 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h4><p>我们先插入一条数据如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PUT /old_my_index/my_type/1</span><br><span class="line">&#123;</span><br><span class="line">  &quot;title&quot;:&quot;2017-01-01&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然后获取这个index的mapping  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;old_my_index&quot;: &#123;</span><br><span class="line">    &quot;mappings&quot;: &#123;</span><br><span class="line">      &quot;my_type&quot;: &#123;</span><br><span class="line">        &quot;properties&quot;: &#123;</span><br><span class="line">          &quot;title&quot;: &#123;</span><br><span class="line">            &quot;type&quot;: &quot;date&quot;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以看到title已经被映射成了date类型,这时 如果我们在添加一个字符串的值是添加不进去的. 而且如果想修改这个field的类型也是不可能的   </p>
-<p>此时唯一的办法就是进行reindex,也就是说重新建立一个索引,将旧索引中的数据查询出来,导入新索引  </p>
-<p>这里可能会有一个问题,旧的索引名称是old_my_index,假如新的索引名称是new_my_index, 这时候已经有一个java应用在使用old_my_index在操作了, 那么这时候是不是要先停止应用,修改索引,然后重启呢? 这样的话会导致java应用停机,降低可用性   </p>
-<p>针对上面的问题呢,我们可以先给java应用一个旧索引的别名, java用的只是一个别名,指向旧的索引  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PUT /old_my_index/_alias/my_index</span><br></pre></td></tr></table></figure>
-<p>执行上面的代码,就是给了old_my_index一个别名(my_index),然后我们新建一个索引,将title这个field调整为string类型的  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">PUT /new_my_index</span><br><span class="line">&#123;</span><br><span class="line">  &quot;mappings&quot;: &#123;</span><br><span class="line">    &quot;my_type&quot;:&#123;</span><br><span class="line">      &quot;properties&quot;: &#123;</span><br><span class="line">        &quot;title&quot;:&#123;</span><br><span class="line">          &quot;type&quot;: &quot;text&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>新建完成以后,用scroll api从旧的索引中查询数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GET old_my_index/my_type/_search?scroll=1m</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;match_all&quot;: &#123;&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;sort&quot;: [&quot;_doc&quot;],</span><br><span class="line">  &quot;size&quot;: 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>返回值:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;_scroll_id&quot;: &quot;DnF1ZXJ5VGhlbkZldGNoBQAAAAAAAAHVFmY1N3VWOTF4U19HUlRRUzJIbzgxcmcAAAAAAAAB1xZmNTd1VjkxeFNfR1JUUVMySG84MXJnAAAAAAAAAdQWZjU3dVY5MXhTX0dSVFFTMkhvODFyZwAAAAAAAAHYFmY1N3VWOTF4U19HUlRRUzJIbzgxcmcAAAAAAAAB1hZmNTd1VjkxeFNfR1JUUVMySG84MXJn&quot;,</span><br><span class="line">  &quot;took&quot;: 3,</span><br><span class="line">  &quot;timed_out&quot;: false,</span><br><span class="line">  &quot;_shards&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 5,</span><br><span class="line">    &quot;successful&quot;: 5,</span><br><span class="line">    &quot;failed&quot;: 0</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;hits&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 1,</span><br><span class="line">    &quot;max_score&quot;: null,</span><br><span class="line">    &quot;hits&quot;: [</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;_index&quot;: &quot;old_my_index&quot;,</span><br><span class="line">        &quot;_type&quot;: &quot;my_type&quot;,</span><br><span class="line">        &quot;_id&quot;: &quot;1&quot;,</span><br><span class="line">        &quot;_score&quot;: null,</span><br><span class="line">        &quot;_source&quot;: &#123;</span><br><span class="line">          &quot;title&quot;: &quot;2017-01-01&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;sort&quot;: [</span><br><span class="line">          0</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>查询出来以后用bulk api将scroll查出来的一批数据,批量写入新的索引.  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">POST /_bulk</span><br><span class="line">&#123;&quot;index&quot;:&#123;&quot;_index&quot;:&quot;new_my_index&quot;,&quot;_type&quot;:&quot;my_type&quot;,&quot;_id&quot;:&quot;1&quot;&#125;&#125;</span><br><span class="line">&#123;&quot;title&quot;:&quot;2017-01-01&quot;&#125;</span><br></pre></td></tr></table></figure>
-<p>重复循环scroll查询和bulk批量插入,直到所有的数据都添加到了新的索引中   </p>
-<p>添加完成后,将别名切换到新的索引上去,这样的话java应用就直接通过别名使用新的索引中的数据了,不需要停机重启,高可用   </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">POST /_aliases</span><br><span class="line">&#123;</span><br><span class="line">  &quot;actions&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;remove&quot;: &#123;       // 把别名从旧的索引上先移除</span><br><span class="line">        &quot;index&quot;: &quot;old_my_index&quot;,</span><br><span class="line">        &quot;alias&quot;: &quot;my_index&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;add&quot;: &#123;</span><br><span class="line">        &quot;index&quot;: &quot;new_my_index&quot;, // 将别名指向新的索引</span><br><span class="line">        &quot;alias&quot;: &quot;my_index&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>总体来说,就是最开始就给索引一个别名去让客户端去使用,然后如果要切换索引的话,就先建一个索引,然后查询旧的索引数据,将数据插入到新的索引中,完成后将别名指向新的索引,就实现了零停机重建索引  </p>
-
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Elasticsearch/" <i="" class="fa fa-tag"> Elasticsearch</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/11/26/Elasticsearch-34-定制自己的dynamic-mapping策略/" rel="next" title="Elasticsearch-34-定制自己的dynamic mapping策略">
-                <i class="fa fa-chevron-left"></i> Elasticsearch-34-定制自己的dynamic mapping策略
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/27/Elasticsearch-36-深度解析document增删改原理及优化过程/" rel="prev" title="Elasticsearch-36-深度解析document增删改原理及优化过程">
-                Elasticsearch-36-深度解析document增删改原理及优化过程 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+    </header>
   </article>
 
 
 
-    <div class="post-spread">
       
+
     </div>
   </div>
+  
+  
+  
+
+  
+
 
 
           </div>
@@ -467,15 +339,6 @@
 
 
           
-
-  
-    <div class="comments" id="comments">
-      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTEyNi8xNzY1MQ=="></div>
-    </div>
-
-  
-
-
 
         </div>
         
@@ -496,17 +359,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -566,22 +420,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#场景"><span class="nav-number">1.</span> <span class="nav-text">场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方案"><span class="nav-number">2.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#案例"><span class="nav-number">3.</span> <span class="nav-text">案例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -745,10 +583,6 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
 
   
 
@@ -777,17 +611,6 @@
 
 
 
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
   
 
 
