@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2019/01/03/Elasticsearch-60-%E6%B7%B1%E5%85%A5%E6%8F%AD%E7%A7%98lucene%E7%9A%84%E7%9B%B8%E5%85%B3%E5%BA%A6%E5%88%86%E6%95%B0%E7%AE%97%E6%B3%95/</loc>
+    
+    <lastmod>2019-01-03T09:59:55.992Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2019/01/03/Elasticsearch-59-%E6%B7%B1%E5%85%A5%E6%8F%AD%E7%A7%98TF-IDF%E7%AE%97%E6%B3%95%E4%BB%A5%E5%8F%8A%E5%90%91%E9%87%8F%E7%A9%BA%E9%97%B4%E6%A8%A1%E5%9E%8B%E7%AE%97%E6%B3%95/</loc>
     
     <lastmod>2019-01-03T08:46:50.045Z</lastmod>
