@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2019/01/03/Elasticsearch-59-%E6%B7%B1%E5%85%A5%E6%8F%AD%E7%A7%98TF-IDF%E7%AE%97%E6%B3%95%E4%BB%A5%E5%8F%8A%E5%90%91%E9%87%8F%E7%A9%BA%E9%97%B4%E6%A8%A1%E5%9E%8B%E7%AE%97%E6%B3%95/</loc>
+    
+    <lastmod>2019-01-03T08:46:50.045Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2019/01/03/Elasticsearch-58-%E9%80%9A%E8%BF%87ngram%E5%88%86%E8%AF%8D%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0index-time%E6%90%9C%E7%B4%A2%E8%81%94%E6%83%B3/</loc>
     
     <lastmod>2019-01-03T06:35:22.443Z</lastmod>
