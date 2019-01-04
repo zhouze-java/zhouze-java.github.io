@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://yoursite.com/2019/01/04/Elasticsearch-62-%E7%94%A8function-score%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9B%B8%E5%85%B3%E5%BA%A6%E5%88%86%E6%95%B0%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2019-01-04T07:52:47.481Z</lastmod>
+  </url>  <url>
     <loc>http://yoursite.com/2019/01/03/Elasticsearch-61-%E5%B8%B8%E8%A7%81%E7%9B%B8%E5%85%B3%E5%BA%A6%E5%88%86%E6%95%B0%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/</loc>
     <lastmod>2019-01-03T12:20:57.013Z</lastmod>
   </url>  <url>
