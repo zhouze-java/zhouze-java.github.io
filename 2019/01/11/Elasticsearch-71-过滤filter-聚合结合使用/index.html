@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="query string 分词query string必须以和index建立时相同的analyzer进行分词.   比如,我们有一个document,其中有一个field,它的值是:hello you and me,建立倒排索引.我们要搜索这个document对应的index,搜索文本是hello me ,搜索请求就是:1GET /index/type/_search?q=field:hello">
+<meta name="description" content="filter过滤+聚合分析需求: 统计价格大于1200的电视的平均价格    请求:12345678910111213141516171819202122GET tvs/sales/_search&amp;#123;  &amp;quot;size&amp;quot;: 0,  &amp;quot;query&amp;quot;: &amp;#123;    &amp;quot;constant_score&amp;quot;: &amp;#123;      &amp;qu">
 <meta name="keywords" content="Elasticsearch">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Elasticsearch-21-query string分词和mapping案例遗留问题揭秘">
-<meta property="og:url" content="http://yoursite.com/2018/11/22/Elasticsearch-21-query-string分词和mapping案例遗留问题揭秘/index.html">
+<meta property="og:title" content="Elasticsearch-71-过滤filter 聚合结合使用">
+<meta property="og:url" content="http://yoursite.com/2019/01/11/Elasticsearch-71-过滤filter-聚合结合使用/index.html">
 <meta property="og:site_name" content="八度空间">
-<meta property="og:description" content="query string 分词query string必须以和index建立时相同的analyzer进行分词.   比如,我们有一个document,其中有一个field,它的值是:hello you and me,建立倒排索引.我们要搜索这个document对应的index,搜索文本是hello me ,搜索请求就是:1GET /index/type/_search?q=field:hello">
+<meta property="og:description" content="filter过滤+聚合分析需求: 统计价格大于1200的电视的平均价格    请求:12345678910111213141516171819202122GET tvs/sales/_search&amp;#123;  &amp;quot;size&amp;quot;: 0,  &amp;quot;query&amp;quot;: &amp;#123;    &amp;quot;constant_score&amp;quot;: &amp;#123;      &amp;qu">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-22T09:47:33.189Z">
+<meta property="og:updated_time" content="2019-01-11T03:09:43.114Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Elasticsearch-21-query string分词和mapping案例遗留问题揭秘">
-<meta name="twitter:description" content="query string 分词query string必须以和index建立时相同的analyzer进行分词.   比如,我们有一个document,其中有一个field,它的值是:hello you and me,建立倒排索引.我们要搜索这个document对应的index,搜索文本是hello me ,搜索请求就是:1GET /index/type/_search?q=field:hello">
+<meta name="twitter:title" content="Elasticsearch-71-过滤filter 聚合结合使用">
+<meta name="twitter:description" content="filter过滤+聚合分析需求: 统计价格大于1200的电视的平均价格    请求:12345678910111213141516171819202122GET tvs/sales/_search&amp;#123;  &amp;quot;size&amp;quot;: 0,  &amp;quot;query&amp;quot;: &amp;#123;    &amp;quot;constant_score&amp;quot;: &amp;#123;      &amp;qu">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/22/Elasticsearch-21-query-string分词和mapping案例遗留问题揭秘/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/11/Elasticsearch-71-过滤filter-聚合结合使用/">
 
 
 
 
 
-  <title>Elasticsearch-21-query string分词和mapping案例遗留问题揭秘 | 八度空间</title>
+  <title>Elasticsearch-71-过滤filter 聚合结合使用 | 八度空间</title>
   
 
 
@@ -286,7 +286,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/22/Elasticsearch-21-query-string分词和mapping案例遗留问题揭秘/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/11/Elasticsearch-71-过滤filter-聚合结合使用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -303,7 +303,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Elasticsearch-21-query string分词和mapping案例遗留问题揭秘</h1>
+          <h1 class="post-title" itemprop="name headline">Elasticsearch-71-过滤filter 聚合结合使用</h1>
         
 
         <div class="post-meta">
@@ -315,8 +315,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-22T12:00:09+08:00">
-                2018-11-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-11T11:09:19+08:00">
+                2019-01-11
               </time>
             
 
@@ -375,87 +375,13 @@
       
 
       
-        <h4 id="query-string-分词"><a href="#query-string-分词" class="headerlink" title="query string 分词"></a>query string 分词</h4><p>query string必须以和index建立时相同的analyzer进行分词.  </p>
-<p>比如,我们有一个document,其中有一个field,它的值是:hello you and me,建立倒排索引.<br>我们要搜索这个document对应的index,搜索文本是hello me ,搜索请求就是:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /index/type/_search?q=field:hello me</span><br></pre></td></tr></table></figure></p>
-<p>“hello me”就是query string,默认情况下,es会使用它对应的field建立倒排索引时相同的分词器进行分词和normalization,只有这样,才能实现正确的搜索.  </p>
-<p>举个例子,document在建立倒排索引的时候,会把dogs转为dog,然后我们在搜索的时候传一个dogs过去,就找不到了,所以搜索传过去的dogs也必须变为dog才能实现正确的搜索.   </p>
-<h4 id="mapping引入案例遗留问题揭秘"><a href="#mapping引入案例遗留问题揭秘" class="headerlink" title="mapping引入案例遗留问题揭秘"></a>mapping引入案例遗留问题揭秘</h4><p>这里有一个知识点: 不同类型的field,可能有的就是full text(全文检索),有的就是exact value(精确搜索)   </p>
-<p>在初始mapping中,我们引入了一个小案例,当时的查询结果是:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GET /website/article/_search?q=2017		            	3条结果             </span><br><span class="line">GET /website/article/_search?q=2017-01-01        	    3条结果</span><br><span class="line">GET /website/article/_search?q=post_date:2017-01-01   	1条结果</span><br><span class="line">GET /website/article/_search?q=post_date:2017         	1条结果</span><br></pre></td></tr></table></figure></p>
-<p>首先看第一个查询,我们没有指定用哪一个field进行查询,那默认的就是 _all 查询,之前有说过 _all的话会把document中的所有field的值当做字符串拼接, _all搜索的时候是full text,要分词进行normalization后查询   </p>
-<p>我们来看一下第一个document中的数据:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;post_date&quot;: &quot;2017-01-01&quot;,</span><br><span class="line">  &quot;title&quot;: &quot;my first article&quot;,</span><br><span class="line">  &quot;content&quot;: &quot;this is my first article in this website&quot;,</span><br><span class="line">  &quot;author_id&quot;: 11400</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>它的_all就是 “2017-01-01 my first article this is my first article in this website 11400” </p>
-<p>三个document的 _all中分别有  2017-01-01 2017-01-02 2017-01-03 这个建立倒排索引就是  </p>
-<table>
-<thead>
-<tr>
-<th>word</th>
-<th style="text-align:center">document1</th>
-<th style="text-align:center">document2</th>
-<th style="text-align:center">document3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2017</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-</tr>
-<tr>
-<td>01</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td>02</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">√</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td>03</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">√ </td>
-</tr>
-</tbody>
-</table>
-<p>这时候第一个搜索 _all 查询2017 肯定能查到3条<br>第二个搜索请求的query string 会被分为 2017,01,01, 所以也能查到3条数据  </p>
-<p>然后是第三个请求,是指定post_date这个filed去查询, post_date 是个date类型的,而不是字符串类型, date类型的数据会按照exact value去建立索引    </p>
-<table>
-<thead>
-<tr>
-<th>word</th>
-<th style="text-align:center">document1</th>
-<th style="text-align:center">document2</th>
-<th style="text-align:center">document3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2017-01-01</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td>2017-01-02</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">√</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td>2017-01-03</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">√  </td>
-</tr>
-</tbody>
-</table>
-<p>所以搜索第三个请求时可以搜索到1条结果.  </p>
-<p>按照上面的说法的话,第4个请求应该是搜索不到结果的,但是实际上有一条结果,这个在这里不讲解,因为是es 5.2以后做的一个优化  </p>
-<h4 id="分词器测试"><a href="#分词器测试" class="headerlink" title="分词器测试"></a>分词器测试</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GET /_analyze</span><br><span class="line">&#123;</span><br><span class="line">  &quot;analyzer&quot;: &quot;standard&quot;,       // 指定分词器</span><br><span class="line">  &quot;text&quot;: &quot;Text to analyze&quot;     // 要拆分的文本</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h4 id="filter过滤-聚合分析"><a href="#filter过滤-聚合分析" class="headerlink" title="filter过滤+聚合分析"></a>filter过滤+聚合分析</h4><p>需求: 统计价格大于1200的电视的平均价格   </p>
+<p>请求:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">GET tvs/sales/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;size&quot;: 0,</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;constant_score&quot;: &#123;</span><br><span class="line">      &quot;filter&quot;: &#123;</span><br><span class="line">        &quot;range&quot;: &#123;</span><br><span class="line">          &quot;price&quot;: &#123;</span><br><span class="line">            &quot;gte&quot;: 1200</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;aggs&quot;: &#123;</span><br><span class="line">    &quot;avg_of_price&quot;: &#123;</span><br><span class="line">      &quot;avg&quot;: &#123;</span><br><span class="line">        &quot;field&quot;: &quot;price&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>返回值:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;took&quot;: 15,</span><br><span class="line">  &quot;timed_out&quot;: false,</span><br><span class="line">  &quot;_shards&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 5,</span><br><span class="line">    &quot;successful&quot;: 5,</span><br><span class="line">    &quot;failed&quot;: 0</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;hits&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 7,</span><br><span class="line">    &quot;max_score&quot;: 0,</span><br><span class="line">    &quot;hits&quot;: []</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;aggregations&quot;: &#123;</span><br><span class="line">    &quot;avg_of_price&quot;: &#123;</span><br><span class="line">      &quot;value&quot;: 2885.714285714286</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>跟搜索聚合的结合使用其实是一样的,就是把match换成了filter   </p>
+<h4 id="bucket-filter"><a href="#bucket-filter" class="headerlink" title="bucket filter"></a>bucket filter</h4><p>先来看一个请求:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">GET tvs/sales/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;size&quot;: 0,</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;term&quot;: &#123;</span><br><span class="line">      &quot;brand&quot;: &#123;</span><br><span class="line">        &quot;value&quot;: &quot;长虹&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;aggs&quot;: &#123;</span><br><span class="line">    &quot;recent_150d&quot;: &#123;</span><br><span class="line">      &quot;filter&quot;: &#123;</span><br><span class="line">        &quot;range&quot;: &#123;</span><br><span class="line">          &quot;sold_date&quot;: &#123;</span><br><span class="line">            &quot;gte&quot;: &quot;now-150d&quot;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;aggs&quot;: &#123;</span><br><span class="line">        &quot;recent_150d_avg_price&quot;: &#123;</span><br><span class="line">          &quot;avg&quot;: &#123;</span><br><span class="line">            &quot;field&quot;: &quot;price&quot;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;recent_140d&quot;:&#123;</span><br><span class="line">      &quot;filter&quot;: &#123;</span><br><span class="line">        &quot;range&quot;: &#123;</span><br><span class="line">          &quot;sold_date&quot;: &#123;</span><br><span class="line">            &quot;gte&quot;: &quot;now-140d&quot;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;aggs&quot;: &#123;</span><br><span class="line">        &quot;recent_140d_avg_price&quot;: &#123;</span><br><span class="line">          &quot;avg&quot;: &#123;</span><br><span class="line">            &quot;field&quot;: &quot;price&quot;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>先是query去搜索数据,过滤出只是长虹牌的数据,然后下面的aggs就是针对搜索结果的聚合, 然后每一个聚合分析里面有一个filter和aggs,  filter呢,是用来过滤数据的,他是只针对这一个聚合去过滤的,然后filter下面aggs是再对filter过滤后的数据进行聚合分析.   </p>
+<p>每组聚合分析里面的数据,都是在query的结果上去过滤的,互不影响  </p>
 
       
     </div>
@@ -486,8 +412,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/22/Elasticsearch-20-分词器详解/" rel="next" title="Elasticsearch-20-分词器详解">
-                <i class="fa fa-chevron-left"></i> Elasticsearch-20-分词器详解
+              <a href="/2019/01/10/Elasticsearch-70-搜索-聚合分析结合使用/" rel="next" title="Elasticsearch-70-搜索 聚合分析结合使用">
+                <i class="fa fa-chevron-left"></i> Elasticsearch-70-搜索 聚合分析结合使用
               </a>
             
           </div>
@@ -495,10 +421,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/22/Elasticsearch-22-mapping详解/" rel="prev" title="Elasticsearch-22-mapping详解">
-                Elasticsearch-22-mapping详解 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -635,7 +557,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#query-string-分词"><span class="nav-number">1.</span> <span class="nav-text">query string 分词</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mapping引入案例遗留问题揭秘"><span class="nav-number">2.</span> <span class="nav-text">mapping引入案例遗留问题揭秘</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分词器测试"><span class="nav-number">3.</span> <span class="nav-text">分词器测试</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#filter过滤-聚合分析"><span class="nav-number">1.</span> <span class="nav-text">filter过滤+聚合分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bucket-filter"><span class="nav-number">2.</span> <span class="nav-text">bucket filter</span></a></li></ol></div>
             
 
           </div>
