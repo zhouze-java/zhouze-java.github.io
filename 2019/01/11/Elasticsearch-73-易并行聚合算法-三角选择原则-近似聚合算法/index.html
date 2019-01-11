@@ -79,18 +79,22 @@
 
 
 
-<meta name="description" content="近似匹配假设现在有两个document,他们的content的值分别是:java is my favourite programming language, and I also think spark is a very good big data system.java spark are very related, because scala is spark’s programming l">
+<meta name="description" content="易并行聚合算法有些聚合分析的算法是很容易并行的,比如说max函数,如图   比如说,现在一共有三个shard,一个查询最大值的搜索请求过来了,那么coordinate node(协调节点)会把请求打到这三个shard上       这个时候,3个shard把他们各自的最大值返回给coordinate node,然后coordinate node再取到这三个里面的最大值,返回给客户端就可以了   有">
 <meta name="keywords" content="Elasticsearch">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Elasticsearch-52-phrase match搜索及原理">
-<meta property="og:url" content="http://yoursite.com/2018/12/26/Elasticsearch-52-phrase-match搜索及原理/index.html">
+<meta property="og:title" content="Elasticsearch-73-易并行聚合算法 三角选择原则 近似聚合算法">
+<meta property="og:url" content="http://yoursite.com/2019/01/11/Elasticsearch-73-易并行聚合算法-三角选择原则-近似聚合算法/index.html">
 <meta property="og:site_name" content="八度空间">
-<meta property="og:description" content="近似匹配假设现在有两个document,他们的content的值分别是:java is my favourite programming language, and I also think spark is a very good big data system.java spark are very related, because scala is spark’s programming l">
+<meta property="og:description" content="易并行聚合算法有些聚合分析的算法是很容易并行的,比如说max函数,如图   比如说,现在一共有三个shard,一个查询最大值的搜索请求过来了,那么coordinate node(协调节点)会把请求打到这三个shard上       这个时候,3个shard把他们各自的最大值返回给coordinate node,然后coordinate node再取到这三个里面的最大值,返回给客户端就可以了   有">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-26T07:28:18.281Z">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/QyKn1iG1wQfAnb68gjpHqyBc5y1NwqoSJ4ykq1cOXlI!/r/dLYAAAAAAAAA">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/2N3.AMqEihpceUm3kKXJiC4n24cvqqbROAsAF4WMuTU!/r/dLgAAAAAAAAA">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/J1R9pywFOIOETazZXIYHU.krBYLutBUjy0YsngkP7Is!/r/dDUBAAAAAAAA">
+<meta property="og:updated_time" content="2019-01-11T08:03:00.289Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Elasticsearch-52-phrase match搜索及原理">
-<meta name="twitter:description" content="近似匹配假设现在有两个document,他们的content的值分别是:java is my favourite programming language, and I also think spark is a very good big data system.java spark are very related, because scala is spark’s programming l">
+<meta name="twitter:title" content="Elasticsearch-73-易并行聚合算法 三角选择原则 近似聚合算法">
+<meta name="twitter:description" content="易并行聚合算法有些聚合分析的算法是很容易并行的,比如说max函数,如图   比如说,现在一共有三个shard,一个查询最大值的搜索请求过来了,那么coordinate node(协调节点)会把请求打到这三个shard上       这个时候,3个shard把他们各自的最大值返回给coordinate node,然后coordinate node再取到这三个里面的最大值,返回给客户端就可以了   有">
+<meta name="twitter:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/QyKn1iG1wQfAnb68gjpHqyBc5y1NwqoSJ4ykq1cOXlI!/r/dLYAAAAAAAAA">
 
 
 
@@ -120,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/26/Elasticsearch-52-phrase-match搜索及原理/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/11/Elasticsearch-73-易并行聚合算法-三角选择原则-近似聚合算法/">
 
 
 
 
 
-  <title>Elasticsearch-52-phrase match搜索及原理 | 八度空间</title>
+  <title>Elasticsearch-73-易并行聚合算法 三角选择原则 近似聚合算法 | 八度空间</title>
   
 
 
@@ -286,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/26/Elasticsearch-52-phrase-match搜索及原理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/11/Elasticsearch-73-易并行聚合算法-三角选择原则-近似聚合算法/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -303,7 +307,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Elasticsearch-52-phrase match搜索及原理</h1>
+          <h1 class="post-title" itemprop="name headline">Elasticsearch-73-易并行聚合算法 三角选择原则 近似聚合算法</h1>
         
 
         <div class="post-meta">
@@ -315,8 +319,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-26T15:24:13+08:00">
-                2018-12-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-11T16:02:47+08:00">
+                2019-01-11
               </time>
             
 
@@ -375,57 +379,26 @@
       
 
       
-        <h3 id="近似匹配"><a href="#近似匹配" class="headerlink" title="近似匹配"></a>近似匹配</h3><p>假设现在有两个document,他们的content的值分别是:<br>java is my favourite programming language, and I also think spark is a very good big data system.<br>java spark are very related, because scala is spark’s programming language and scala is also based on jvm like java.  </p>
-<p>用一个match query去搜索java spark<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;match&quot;:&#123;</span><br><span class="line">        &quot;content&quot;:&quot;java spark&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>match query的话,只能搜索到包含java或者包含spark的document,但是不知道java和spark是不是离的很近   </p>
-<p>包含java或者包含spark的document都会被返回回来.我们其实并不知道哪个document中java和spark距离的比较近.<br>如果我们是希望搜索java和spark,中间没有任何其他的字符,那么这时候用match匹配做全文检索肯定就不行了.   </p>
-<p>如果说我们要尽量让java和spark离的很近的document优先返回,要给他一个更高的relevance score,这就涉及到了proximity match <strong>近似匹配</strong>.  </p>
-<p>如果现在有两个需求:   </p>
+        <h4 id="易并行聚合算法"><a href="#易并行聚合算法" class="headerlink" title="易并行聚合算法"></a>易并行聚合算法</h4><p>有些聚合分析的算法是很容易并行的,比如说max函数,如图<br><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/QyKn1iG1wQfAnb68gjpHqyBc5y1NwqoSJ4ykq1cOXlI!/r/dLYAAAAAAAAA" alt="image">  </p>
+<p>比如说,现在一共有三个shard,一个查询最大值的搜索请求过来了,那么coordinate node(协调节点)会把请求打到这三个shard上   </p>
+<p><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/2N3.AMqEihpceUm3kKXJiC4n24cvqqbROAsAF4WMuTU!/r/dLgAAAAAAAAA" alt="image">  </p>
+<p>这个时候,3个shard把他们各自的最大值返回给coordinate node,然后coordinate node再取到这三个里面的最大值,返回给客户端就可以了  </p>
+<p>有些聚合分析的算法是不好并行的,比如说count(distinct) 找去重后的数据量,并不是说在所有shard上去重之后返回给coordinate node的,因为数据可能会有很多   </p>
+<p><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/J1R9pywFOIOETazZXIYHU.krBYLutBUjy0YsngkP7Is!/r/dDUBAAAAAAAA" alt="image">  </p>
+<p>如图,还是3个shard,每个shard去重后有100W条数据返回给coordinate node,这时候,就要占用大量的内存,最少也需要100W条数据的内存, 他不像上面的max一样,只要保留一个long值的内存,每个shard返回数据的时候对比一下,大于就替换这种, 他需要占用大量的内存,  那么还用这种算法就不是很合适了   </p>
+<p>es会采用近似聚合的方式,就是采用在每个node上进行近估计的方式,得到最终的结论,但是这个结果跟实际是有一定的偏差的,比如说count(distinct)去重后,是有100W的数据,但是es估计的值是105万或者95万,就有5%左右的错误率  </p>
+<h4 id="三角选择原则"><a href="#三角选择原则" class="headerlink" title="三角选择原则"></a>三角选择原则</h4><ul>
+<li>精准</li>
+<li>实时</li>
+<li>大数据</li>
+</ul>
+<p>在这三个中只能选择两个,比如  </p>
 <ol>
-<li>java spark,要连在一起,中间没有任何字符  </li>
-<li>java spark,不需要连在一起,但是这两个单词靠的越近,doc的分数越高,排名越靠前  </li>
+<li>精准+实时:没有大数据,适合数据量很小的情况,一般就是单机跑,随便怎么玩儿  </li>
+<li>精准+大数据:比如hadoop,批处理,非实时,可以处理海量数据,保证精准,但是可能会跑个几分钟几小时的  </li>
+<li>大数据+实时:比如es,不精准,近似估计,可能会有百分之几的错误率  </li>
 </ol>
-<p>要实现上面两个需求,用match做全文检索是搞不定的. 必须得用proximity match,近似匹配  </p>
-<p>phrase match(短语匹配),proximity match(近似匹配)<br>本文主要说的是 phrase match,就是仅仅搜索出java和spark靠在一起的那些doc,比如有个doc,是java use’d spark这样是不行的,必须是比如java spark are very good friends,是可以搜索出来的.   </p>
-<p><strong>phrase match</strong>: 就是将多个term作为一个短语,一起去搜索,只有包含这个短语的document才会作为返回结果.   </p>
-<h4 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h4><p>先用match query全文检索搜索一下java spark<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GET /forum/article/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;match&quot;: &#123;</span><br><span class="line">      &quot;content&quot;: &quot;java spark&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>包含java和spark的都被返回来了,不是我们想要的结果,然后修改id是5的这个document的content,因为现在的数据没有符合我们要求的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">POST /forum/article/5/_update</span><br><span class="line">&#123;</span><br><span class="line">  &quot;doc&quot;: &#123;</span><br><span class="line">    &quot;content&quot;:&quot;spark is best big data solution based on scala ,an programming language similar to java spark&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>然后来用phrase match搜索<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GET /forum/article/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;match_phrase&quot;: &#123;</span><br><span class="line">      &quot;content&quot;: &quot;java spark&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>返回值:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;took&quot;: 17,</span><br><span class="line">  &quot;timed_out&quot;: false,</span><br><span class="line">  &quot;_shards&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 5,</span><br><span class="line">    &quot;successful&quot;: 5,</span><br><span class="line">    &quot;failed&quot;: 0</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;hits&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 1,</span><br><span class="line">    &quot;max_score&quot;: 0.5753642,</span><br><span class="line">    &quot;hits&quot;: [</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;_index&quot;: &quot;forum&quot;,</span><br><span class="line">        &quot;_type&quot;: &quot;article&quot;,</span><br><span class="line">        &quot;_id&quot;: &quot;5&quot;,</span><br><span class="line">        &quot;_score&quot;: 0.5753642,</span><br><span class="line">        &quot;_source&quot;: &#123;</span><br><span class="line">          &quot;articleID&quot;: &quot;DHJK-B-1395-#Ky5&quot;,</span><br><span class="line">          &quot;userID&quot;: 3,</span><br><span class="line">          &quot;hidden&quot;: false,</span><br><span class="line">          &quot;postDate&quot;: &quot;2018-12-03&quot;,</span><br><span class="line">          &quot;tag&quot;: [</span><br><span class="line">            &quot;elasticsearch&quot;</span><br><span class="line">          ],</span><br><span class="line">          &quot;tag_cnt&quot;: 1,</span><br><span class="line">          &quot;view_cnt&quot;: 10,</span><br><span class="line">          &quot;title&quot;: &quot;this is spark blog&quot;,</span><br><span class="line">          &quot;content&quot;: &quot;spark is best big data solution based on scala ,an programming language similar to java spark&quot;,</span><br><span class="line">          &quot;sub_title&quot;: &quot;haha, hello world&quot;,</span><br><span class="line">          &quot;author_first_name&quot;: &quot;Tonny&quot;,</span><br><span class="line">          &quot;author_last_name&quot;: &quot;Peter Smith&quot;,</span><br><span class="line">          &quot;new_author_last_name&quot;: &quot;Peter Smith&quot;,</span><br><span class="line">          &quot;new_author_first_name&quot;: &quot;Tonny&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>就是我们刚刚修改的那条数据,只有包含了java spark这个短语的document才返回了,其他的数据不会返回  </p>
-<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p><strong>term position</strong><br>比如现在有两个document的content值如下:<br>document1: hello world, java spark<br>document2: hi, spark java  </p>
-<p>对上面的数据进行分词,然后会记录每个词在每个doc中出现的位置  </p>
-<table>
-<thead>
-<tr>
-<th>word</th>
-<th>term position</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>hello</td>
-<td>doc1(0)</td>
-</tr>
-<tr>
-<td>word</td>
-<td>doc1(1)</td>
-</tr>
-<tr>
-<td>java</td>
-<td>doc1(2) doc2(2)</td>
-</tr>
-<tr>
-<td>spark</td>
-<td>doc1(3) doc2(1)</td>
-</tr>
-</tbody>
-</table>
-<p>我们可以用分词器来看一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GET _analyze</span><br><span class="line">&#123;</span><br><span class="line">  &quot;text&quot;: &quot;hello world, java spark&quot;,</span><br><span class="line">  &quot;analyzer&quot;: &quot;standard&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>返回值:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;tokens&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;token&quot;: &quot;hello&quot;,</span><br><span class="line">      &quot;start_offset&quot;: 0,</span><br><span class="line">      &quot;end_offset&quot;: 5,</span><br><span class="line">      &quot;type&quot;: &quot;&lt;ALPHANUM&gt;&quot;,</span><br><span class="line">      &quot;position&quot;: 0</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;token&quot;: &quot;world&quot;,</span><br><span class="line">      &quot;start_offset&quot;: 6,</span><br><span class="line">      &quot;end_offset&quot;: 11,</span><br><span class="line">      &quot;type&quot;: &quot;&lt;ALPHANUM&gt;&quot;,</span><br><span class="line">      &quot;position&quot;: 1</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;token&quot;: &quot;java&quot;,</span><br><span class="line">      &quot;start_offset&quot;: 13,</span><br><span class="line">      &quot;end_offset&quot;: 17,</span><br><span class="line">      &quot;type&quot;: &quot;&lt;ALPHANUM&gt;&quot;,</span><br><span class="line">      &quot;position&quot;: 2</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;token&quot;: &quot;spark&quot;,</span><br><span class="line">      &quot;start_offset&quot;: 18,</span><br><span class="line">      &quot;end_offset&quot;: 23,</span><br><span class="line">      &quot;type&quot;: &quot;&lt;ALPHANUM&gt;&quot;,</span><br><span class="line">      &quot;position&quot;: 3</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>position就是每个词在句子中所在的位置  </p>
-<p><strong>match_phrase搜索原理</strong>:<br>用java spark在上面的两个document中进行搜索<br>java对应的是doc1(2) doc2(2),spark对应的是doc1(3) doc2(1)<br>要求一个doc,必须包含每个term,才能拿出来继续计算   </p>
-<p>首先看doc1:在document1中 spark的position比java的position大1,java的position是2,spark的position是3,满足条件<br>然后看下doc2:在document2中 java position是2,spark position是1,spark position比java position小1,而不是大1,所以doc2不匹配   </p>
+<h4 id="近似聚合算法"><a href="#近似聚合算法" class="headerlink" title="近似聚合算法"></a>近似聚合算法</h4><p>如果采取近似估计的算法,延迟大概在100ms左右,0.5%的错误率<br>如果采用100%精准的算法,延时一般在几秒到几十秒甚至几十分钟几小时, 0%的错误率  </p>
 
       
     </div>
@@ -456,8 +429,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/19/Elasticsearch-51-cross-fields搜索问题解决方案/" rel="next" title="Elasticsearch-51-cross-fields搜索问题解决方案">
-                <i class="fa fa-chevron-left"></i> Elasticsearch-51-cross-fields搜索问题解决方案
+              <a href="/2019/01/11/Elasticsearch-72-聚合分析-自定义排序/" rel="next" title="Elasticsearch-72-聚合分析 自定义排序">
+                <i class="fa fa-chevron-left"></i> Elasticsearch-72-聚合分析 自定义排序
               </a>
             
           </div>
@@ -465,10 +438,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/27/Elasticsearch-53-基于slop参数实现近似匹配/" rel="prev" title="Elasticsearch-53-基于slop参数实现近似匹配">
-                Elasticsearch-53-基于slop参数实现近似匹配 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -605,7 +574,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#近似匹配"><span class="nav-number">1.</span> <span class="nav-text">近似匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#案例"><span class="nav-number">1.1.</span> <span class="nav-text">案例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原理"><span class="nav-number">1.2.</span> <span class="nav-text">原理</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#易并行聚合算法"><span class="nav-number">1.</span> <span class="nav-text">易并行聚合算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三角选择原则"><span class="nav-number">2.</span> <span class="nav-text">三角选择原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#近似聚合算法"><span class="nav-number">3.</span> <span class="nav-text">近似聚合算法</span></a></li></ol></div>
             
 
           </div>
