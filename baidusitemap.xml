@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://yoursite.com/2019/01/14/Elasticsearch-78-fielddata%E5%86%85%E5%AD%98%E6%8E%A7%E5%88%B6%E5%8F%8Acircuit-breaker%E7%9F%AD%E8%B7%AF%E5%99%A8/</loc>
+    <lastmod>2019-01-14T09:36:20.577Z</lastmod>
+  </url>  <url>
     <loc>http://yoursite.com/2019/01/14/Elasticsearch-77-fielddata%E5%8E%9F%E7%90%86/</loc>
     <lastmod>2019-01-14T09:06:59.705Z</lastmod>
   </url>  <url>
