@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="概念我们知道,一个index的数据会被分为多片,每片都放在一个shard中.所以,一个document只能存在于一个shard中.当客户端创建document的时候,es此时就要决定这个document是要放在哪一个shard中. 这个过程就被是document routing 数据路由   路由算法12shard = hash(routing) % number_of_primary_shard">
+<meta name="description" content="概述 聚合分析的内部原理是什么   aggs term avg max等执行一个聚合操作的时候,内部原理是怎样的   用了什么样的数据结构去执行聚合   是不是用的倒排索引   聚合分析原理先来看一个搜索 + 聚合的请求123456789101112131415GET /test_index/test_type/_search &amp;#123;	&amp;quot;query&amp;quot;: &amp;#123;		&amp;">
 <meta name="keywords" content="Elasticsearch">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Elasticsearch-13-document路由原理">
-<meta property="og:url" content="http://yoursite.com/2018/11/20/Elasticsearch-13-document路由原理/index.html">
+<meta property="og:title" content="Elasticsearch-76-基于doc value正排索引的聚合内部原理">
+<meta property="og:url" content="http://yoursite.com/2019/01/14/Elasticsearch-76-基于doc-value正排索引的聚合内部原理/index.html">
 <meta property="og:site_name" content="八度空间">
-<meta property="og:description" content="概念我们知道,一个index的数据会被分为多片,每片都放在一个shard中.所以,一个document只能存在于一个shard中.当客户端创建document的时候,es此时就要决定这个document是要放在哪一个shard中. 这个过程就被是document routing 数据路由   路由算法12shard = hash(routing) % number_of_primary_shard">
+<meta property="og:description" content="概述 聚合分析的内部原理是什么   aggs term avg max等执行一个聚合操作的时候,内部原理是怎样的   用了什么样的数据结构去执行聚合   是不是用的倒排索引   聚合分析原理先来看一个搜索 + 聚合的请求123456789101112131415GET /test_index/test_type/_search &amp;#123;	&amp;quot;query&amp;quot;: &amp;#123;		&amp;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-22T09:46:48.378Z">
+<meta property="og:updated_time" content="2019-01-14T03:13:43.006Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Elasticsearch-13-document路由原理">
-<meta name="twitter:description" content="概念我们知道,一个index的数据会被分为多片,每片都放在一个shard中.所以,一个document只能存在于一个shard中.当客户端创建document的时候,es此时就要决定这个document是要放在哪一个shard中. 这个过程就被是document routing 数据路由   路由算法12shard = hash(routing) % number_of_primary_shard">
+<meta name="twitter:title" content="Elasticsearch-76-基于doc value正排索引的聚合内部原理">
+<meta name="twitter:description" content="概述 聚合分析的内部原理是什么   aggs term avg max等执行一个聚合操作的时候,内部原理是怎样的   用了什么样的数据结构去执行聚合   是不是用的倒排索引   聚合分析原理先来看一个搜索 + 聚合的请求123456789101112131415GET /test_index/test_type/_search &amp;#123;	&amp;quot;query&amp;quot;: &amp;#123;		&amp;">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/20/Elasticsearch-13-document路由原理/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/14/Elasticsearch-76-基于doc-value正排索引的聚合内部原理/">
 
 
 
 
 
-  <title>Elasticsearch-13-document路由原理 | 八度空间</title>
+  <title>Elasticsearch-76-基于doc value正排索引的聚合内部原理 | 八度空间</title>
   
 
 
@@ -286,7 +286,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/20/Elasticsearch-13-document路由原理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/14/Elasticsearch-76-基于doc-value正排索引的聚合内部原理/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -303,7 +303,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Elasticsearch-13-document路由原理</h1>
+          <h1 class="post-title" itemprop="name headline">Elasticsearch-76-基于doc value正排索引的聚合内部原理</h1>
         
 
         <div class="post-meta">
@@ -315,8 +315,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-20T10:59:43+08:00">
-                2018-11-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-14T11:13:25+08:00">
+                2019-01-14
               </time>
             
 
@@ -375,15 +375,97 @@
       
 
       
-        <h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>我们知道,一个index的数据会被分为多片,每片都放在一个shard中.所以,一个document只能存在于一个shard中.<br>当客户端创建document的时候,es此时就要决定这个document是要放在哪一个shard中. 这个过程就被是document routing 数据路由  </p>
-<h4 id="路由算法"><a href="#路由算法" class="headerlink" title="路由算法"></a>路由算法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shard = hash(routing) % number_of_primary_shards</span><br><span class="line"># routing的哈希值 除以 primary shard的数量,然后取余.</span><br></pre></td></tr></table></figure>
-<p>每次增删改查一个document的时候,都会带过来一个routing number,默认的就是这个document的id(可以是手动指定,也可以是自动生成).  </p>
-<p>举个例子,现在有一个index,有3个shard P0 P1 P2,假设routing = _id, _id = 1,  es会将这个routing值传入一个hash函数中,返回一个routing值的hash值, 假如hash(routing) = 21, 然后将hash函数产出的值对这个index的primary shard的数量求余数,  21 % 3 = 0,就决定了这个document应该放在P0上面.  </p>
-<p>决定一个document在哪个shard上,最重要的一个值就是routing值,默认是id也可以手动指定,相同的routing值,每次过来,从hash函数中产出的hash值一定是相同的  </p>
-<p>无论hash值是多少,无论是什么数字,对number_of_primary_shard求余数,结果一定是在0~number_of_primary_shard-1 这个范围之内的.  </p>
-<p>再来想想我们之前说过,primary shard的数量在创建完index之后是不能去修改的,还是上面那个例子,数据被放到了P0中,如果现在加了一个primary shard的数量会怎么样呢.<br>我们去查询这个document的时候,_id = 1, hash值还是21, 21 % 4 = 1,计算结果是数据在P1上面,但是实际在P0上,就会间接导致数据的丢失.   </p>
-<h4 id="routing值的作用和如何手动指定"><a href="#routing值的作用和如何手动指定" class="headerlink" title="routing值的作用和如何手动指定"></a>routing值的作用和如何手动指定</h4><p>默认的routing就是_id,也可以在发送请求的时候,手动指定一个routing ,如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PUT /index/type/id?routing=user_id</span><br></pre></td></tr></table></figure></p>
-<p>手动指定routing是很有用的,可以保证说,某一类的document一定被路由到一个shard上去,那么在后续进行应用级别的负载均衡,以及提升批量读取的性能的时候,是很有帮助的</p>
+        <h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><ul>
+<li>聚合分析的内部原理是什么  </li>
+<li>aggs term avg max等执行一个聚合操作的时候,内部原理是怎样的  </li>
+<li>用了什么样的数据结构去执行聚合  </li>
+<li>是不是用的倒排索引 </li>
+</ul>
+<h4 id="聚合分析原理"><a href="#聚合分析原理" class="headerlink" title="聚合分析原理"></a>聚合分析原理</h4><p>先来看一个搜索 + 聚合的请求<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">GET /test_index/test_type/_search </span><br><span class="line">&#123;</span><br><span class="line">	&quot;query&quot;: &#123;</span><br><span class="line">		&quot;match&quot;: &#123;</span><br><span class="line">			&quot;search_field&quot;: &quot;苹果&quot;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;aggs&quot;: &#123;</span><br><span class="line">		&quot;group_by_agg_field&quot;: &#123;</span><br><span class="line">			&quot;terms&quot;: &#123;</span><br><span class="line">				&quot;field&quot;: &quot;color&quot;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="采用倒排索引实现聚合的弊端"><a href="#采用倒排索引实现聚合的弊端" class="headerlink" title="采用倒排索引实现聚合的弊端"></a>采用倒排索引实现聚合的弊端</h5><p>首先,es内部绝对不是用倒排索引来实现聚合分析的,先来看上面的搜索,比如说现在倒排索引中有如下数据   </p>
+<table>
+<thead>
+<tr>
+<th>term</th>
+<th>doc list</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>苹果</td>
+<td>doc1,doc2</td>
+</tr>
+<tr>
+<td>小米</td>
+<td>doc3,doc4</td>
+</tr>
+</tbody>
+</table>
+<p>这时候,我们的query,只要搜索到”苹果”,拿到doc list,就停止了, 并不需要去扫描整个倒排索引.所以效率还是很高的.  </p>
+<p>然后接下来就是进行聚合,在颜色的倒排索引中去搜索,如果要找到所有的颜色的话,就必须要遍历所有的倒排索引,因为是要做分组的嘛,这个性能就十分辣鸡了  </p>
+<table>
+<thead>
+<tr>
+<th>color</th>
+<th>doc list</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>红色</td>
+<td>doc1</td>
+</tr>
+<tr>
+<td>蓝色</td>
+<td>doc2</td>
+</tr>
+<tr>
+<td>红色</td>
+<td>doc3</td>
+</tr>
+<tr>
+<td>蓝色</td>
+<td>doc4</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<h4 id="使用倒排索引和正排索引-doc-value-来实现"><a href="#使用倒排索引和正排索引-doc-value-来实现" class="headerlink" title="使用倒排索引和正排索引(doc_value)来实现"></a>使用倒排索引和正排索引(doc_value)来实现</h4><p>首先还是和之前的query一样,从倒排索引中去搜索,拿到搜索结果之后,进行聚合,只要根据搜索的结果,一次在正排索引中去搜索,做聚合操作,比如正排索引如下:  </p>
+<table>
+<thead>
+<tr>
+<th>doc</th>
+<th>color</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>doc1</td>
+<td>红色</td>
+</tr>
+<tr>
+<td>doc2</td>
+<td>蓝色</td>
+</tr>
+<tr>
+<td>doc3</td>
+<td>红色 </td>
+</tr>
+<tr>
+<td>doc4</td>
+<td>蓝色</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…  </td>
+</tr>
+</tbody>
+</table>
+<p>比如搜索结果是doc1,doc2, 这时候,去正排索引中去找这两个doc,找到之后就停了,不会再继续往下找了  </p>
+<p>假设正排索引中有100万条数据,搜索结果有100条,去正排索引中去找这100条doc,比如说找到第1000条的时候,结果中的100条doc都找到了,那就没必要再去往下找了,就停了  </p>
 
       
     </div>
@@ -414,8 +496,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/19/Elasticsearch-12-批量增删改查操作/" rel="next" title="Elasticsearch-12-批量增删改查操作">
-                <i class="fa fa-chevron-left"></i> Elasticsearch-12-批量增删改查操作
+              <a href="/2019/01/12/Elasticsearch-75-percentiles百分比算法及优化/" rel="next" title="Elasticsearch-75-percentiles百分比算法及优化">
+                <i class="fa fa-chevron-left"></i> Elasticsearch-75-percentiles百分比算法及优化
               </a>
             
           </div>
@@ -423,10 +505,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/20/Elasticsearch-14-document增删改查原理/" rel="prev" title="Elasticsearch-14-document增删改查原理">
-                Elasticsearch-14-document增删改查原理 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -563,7 +641,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#概念"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#路由算法"><span class="nav-number">2.</span> <span class="nav-text">路由算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#routing值的作用和如何手动指定"><span class="nav-number">3.</span> <span class="nav-text">routing值的作用和如何手动指定</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#聚合分析原理"><span class="nav-number">2.</span> <span class="nav-text">聚合分析原理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#采用倒排索引实现聚合的弊端"><span class="nav-number">2.1.</span> <span class="nav-text">采用倒排索引实现聚合的弊端</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用倒排索引和正排索引-doc-value-来实现"><span class="nav-number">3.</span> <span class="nav-text">使用倒排索引和正排索引(doc_value)来实现</span></a></li></ol></div>
             
 
           </div>
