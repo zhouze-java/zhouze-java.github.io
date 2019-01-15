@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2019/01/15/Elasticsearch-79-fielddata-filter%E7%9A%84%E7%BB%86%E7%B2%92%E5%BA%A6%E5%86%85%E5%AD%98%E5%8A%A0%E8%BD%BD%E6%8E%A7%E5%88%B6%E4%BB%A5%E5%8F%8A%E9%A2%84%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</loc>
+    
+    <lastmod>2019-01-15T02:13:45.236Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2019/01/14/Elasticsearch-78-fielddata%E5%86%85%E5%AD%98%E6%8E%A7%E5%88%B6%E5%8F%8Acircuit-breaker%E7%9F%AD%E8%B7%AF%E5%99%A8/</loc>
     
     <lastmod>2019-01-14T09:36:20.577Z</lastmod>

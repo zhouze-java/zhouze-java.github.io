@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Elasticsearch-79-fielddata filter的细粒度内存加载控制以及预加载机制]]></title>
+    <url>%2F2019%2F01%2F15%2FElasticsearch-79-fielddata-filter%E7%9A%84%E7%BB%86%E7%B2%92%E5%BA%A6%E5%86%85%E5%AD%98%E5%8A%A0%E8%BD%BD%E6%8E%A7%E5%88%B6%E4%BB%A5%E5%8F%8A%E9%A2%84%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%2F</url>
+    <content type="text"><![CDATA[filter的细粒度内存加载控制12345678910111213141516POST /test_index/_mapping/my_type&#123; &quot;properties&quot;: &#123; &quot;my_field&quot;: &#123; &quot;type&quot;: &quot;text&quot;, &quot;fielddata&quot;: &#123; &quot;filter&quot;: &#123; &quot;frequency&quot;: &#123; &quot;min&quot;: 0.01, &quot;min_segment_size&quot;: 500 &#125; &#125; &#125; &#125; &#125;&#125; 主要设置的就是两个值,一个是min,一个是min_segment_size min: 仅仅加载至少1%的doc中出现过的term对应的fielddata比如说,有一个词 hello, 总共有1000个doc,hello必须在10个doc中出现,那么这个hello对应的fielddata才会加载到内存中来 min_segment_size: 少于500个doc的segment不加载fielddata加载fielddata的时候,也是按照segment去进行加载的,某个segment里面的doc数量少于500个的话,这个segment的fielddata就不会加载 这个一般不用去设置,了解一下就好了 fielddata预加载机制如果真的要对分词的field执行聚合,那么每次都在query-time现场生成fielddata并加载到内存中来,这样的话速度是比较慢的, 我们可以预先生成加载fielddata到内存中来 fielddata预加载1234567891011POST /test_index/_mapping/test_type&#123; &quot;properties&quot;: &#123; &quot;test_field&quot;: &#123; &quot;type&quot;: &quot;string&quot;, &quot;fielddata&quot;: &#123; &quot;loading&quot; : &quot;eager&quot; &#125; &#125; &#125;&#125; 这样可以将fielddata的生成变为index-time,建立倒排索引的时候,就同步生成fielddata并且加载到内存中,这样的话对分词field的聚合性能会大幅度增强 序号标记预加载global ordinal 原理: 假设有如下几个doc,分别是1234doc1: status1doc2: status2doc3: status2doc4: status1 在这样有很多重复值的情况,会进行global ordinal标记 status1 –&gt; 0status2 –&gt; 1 标记完成后,如下1234doc1: 0doc2: 1doc3: 1doc4: 0 建立fielddata也会是这个样子的,这样的好处就是减少重复字符串的出现次数,减少内存的消耗 设置的语法如下:1234567891011POST /test_index/_mapping/test_type&#123; &quot;properties&quot;: &#123; &quot;test_field&quot;: &#123; &quot;type&quot;: &quot;string&quot;, &quot;fielddata&quot;: &#123; &quot;loading&quot; : &quot;eager_global_ordinals&quot; &#125; &#125; &#125;&#125;]]></content>
+      <categories>
+        <category>Elasticsearch</category>
+      </categories>
+      <tags>
+        <tag>Elasticsearch</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Elasticsearch-78-fielddata内存控制及circuit breaker短路器]]></title>
     <url>%2F2019%2F01%2F14%2FElasticsearch-78-fielddata%E5%86%85%E5%AD%98%E6%8E%A7%E5%88%B6%E5%8F%8Acircuit-breaker%E7%9F%AD%E8%B7%AF%E5%99%A8%2F</url>
     <content type="text"><![CDATA[fielddata核心原理fielddata加载到内存的过程是lazy加载的,对一个分词field执行聚合时,才会加载,field执行聚合时,才会加载(query-time),而且是field-level加载的一个index的一个field,所有doc都会被加载,而不是少数doc fielddata内存限制1indices.fielddata.cache.size: 20% 在elasticsearch安装目录的config目录下的elasticsearch.yml里面配置 通过这个配置可以限制fielddata占用的内存,超出限制的话,就清除内存中已有的fielddata数据, 默认是无限制的,如果限制的话,可能会导致大量的evict和reload,大量的IO性能损耗,以及内存碎片和GC,不建议使用 监控fielddata内存使用情况可以通过以下几个请求去查看1GET /_stats/fielddata?fields=* 1GET /_nodes/stats/indices/fielddata?fields=* 1GET /_nodes/stats/indices/fielddata?level=indices&amp;fields=* circuit breaker如果一次query 加载的fielddata超过总内存,就会oom(内存溢出) circuit breaker(短路器)会估算query要加载的fielddata的大小,如果超出总内存,就短路,query直接失败 短路器的配置也是在elasticsearch.yml里面去配置的 123456# fielddata的内存限制,默认60%indices.breaker.fielddata.limit：# 执行聚合的内存限制,默认40%indices.breaker.request.limit：# 综合上面两个,限制在70%以内indices.breaker.total.limit：]]></content>
