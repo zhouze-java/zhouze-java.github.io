@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Elasticsearch,">
 
 
 
@@ -79,14 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="标签">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta name="description" content="数据建模对类似文件系统(filesystem)这种的 有多层级关系的数据进行建模,比如说路径这种多层级的数据    数据添加首先先自定义一个分词器.123456789101112PUT /fs&amp;#123;  &amp;quot;settings&amp;quot;: &amp;#123;    &amp;quot;analysis&amp;quot;: &amp;#123;      &amp;quot;analyzer&amp;quot;: &amp;#123;">
+<meta name="keywords" content="Elasticsearch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch-84-文件系统数据建模及搜索案例">
+<meta property="og:url" content="http://yoursite.com/2019/01/15/Elasticsearch-84-文件系统数据建模及搜索案例/index.html">
 <meta property="og:site_name" content="八度空间">
+<meta property="og:description" content="数据建模对类似文件系统(filesystem)这种的 有多层级关系的数据进行建模,比如说路径这种多层级的数据    数据添加首先先自定义一个分词器.123456789101112PUT /fs&amp;#123;  &amp;quot;settings&amp;quot;: &amp;#123;    &amp;quot;analysis&amp;quot;: &amp;#123;      &amp;quot;analyzer&amp;quot;: &amp;#123;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-19T09:17:08.835Z">
+<meta property="og:updated_time" content="2019-01-15T08:50:25.453Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="标签">
+<meta name="twitter:title" content="Elasticsearch-84-文件系统数据建模及搜索案例">
+<meta name="twitter:description" content="数据建模对类似文件系统(filesystem)这种的 有多层级关系的数据进行建模,比如说路径这种多层级的数据    数据添加首先先自定义一个分词器.123456789101112PUT /fs&amp;#123;  &amp;quot;settings&amp;quot;: &amp;#123;    &amp;quot;analysis&amp;quot;: &amp;#123;      &amp;quot;analyzer&amp;quot;: &amp;#123;">
 
 
 
@@ -116,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/15/Elasticsearch-84-文件系统数据建模及搜索案例/">
 
 
 
 
 
-  <title>标签 | 八度空间</title>
+  <title>Elasticsearch-84-文件系统数据建模及搜索案例 | 八度空间</title>
   
 
 
@@ -270,40 +274,177 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/Elasticsearch-84-文件系统数据建模及搜索案例/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="周泽">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八度空间">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">标签</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                目前共计 1 个标签
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/Elasticsearch/" style="font-size: 12px; color: #ccc">Elasticsearch</a>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">Elasticsearch-84-文件系统数据建模及搜索案例</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T16:49:21+08:00">
+                2019-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
+                    <span itemprop="name">Elasticsearch</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h4 id="数据建模"><a href="#数据建模" class="headerlink" title="数据建模"></a>数据建模</h4><p>对类似文件系统(filesystem)这种的 有多层级关系的数据进行建模,比如说路径这种多层级的数据   </p>
+<h4 id="数据添加"><a href="#数据添加" class="headerlink" title="数据添加"></a>数据添加</h4><p>首先先自定义一个分词器.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">PUT /fs</span><br><span class="line">&#123;</span><br><span class="line">  &quot;settings&quot;: &#123;</span><br><span class="line">    &quot;analysis&quot;: &#123;</span><br><span class="line">      &quot;analyzer&quot;: &#123;</span><br><span class="line">        &quot;paths&quot;: &#123; </span><br><span class="line">          &quot;tokenizer&quot;: &quot;path_hierarchy&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>ath_hierarchy tokenizer:</strong><br>举个例子,比如现在有一个路劲是a/b/c/d,经过path_hierarchy这种分词,会被拆分为<br>a/b/c/d<br>/a/b/c<br>/a/b<br>/a  </p>
+<p>分词器创建好之后,手动创建mapping  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">PUT /fs/_mapping/file</span><br><span class="line">&#123;</span><br><span class="line">  &quot;properties&quot;: &#123;</span><br><span class="line">    &quot;name&quot;: &#123; </span><br><span class="line">      &quot;type&quot;:  &quot;keyword&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;path&quot;: &#123; </span><br><span class="line">      &quot;type&quot;:  &quot;keyword&quot;,</span><br><span class="line">      &quot;fields&quot;: &#123;</span><br><span class="line">        &quot;tree&quot;: &#123; </span><br><span class="line">          &quot;type&quot;:     &quot;text&quot;,</span><br><span class="line">          &quot;analyzer&quot;: &quot;paths&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>path这个field里面又创建了一个内置的filed,path.tree   </p>
+<p>索引创建完成,添加数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PUT /fs/file/1</span><br><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;README.txt&quot;, </span><br><span class="line">  &quot;path&quot;: &quot;/workspace/projects/helloworld&quot;, </span><br><span class="line">  &quot;contents&quot;: &quot;这是我的第一个elasticsearch程序&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="需求一"><a href="#需求一" class="headerlink" title="需求一"></a>需求一</h4><p>查找一份内容包括elasticsearch,在/workspace/projects/helloworld这个目录下的文件   </p>
+<p>搜索请求:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">GET /fs/file/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;bool&quot;: &#123;</span><br><span class="line">      &quot;must&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;match&quot;: &#123;</span><br><span class="line">            &quot;contents&quot;: &quot;elasticsearch&quot;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;constant_score&quot;: &#123;</span><br><span class="line">            &quot;filter&quot;: &#123;</span><br><span class="line">              &quot;term&quot;: &#123;</span><br><span class="line">                &quot;path&quot;: &quot;/workspace/projects/helloworld&quot;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>返回值:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;took&quot;: 1,</span><br><span class="line">  &quot;timed_out&quot;: false,</span><br><span class="line">  &quot;_shards&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 5,</span><br><span class="line">    &quot;successful&quot;: 5,</span><br><span class="line">    &quot;failed&quot;: 0</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;hits&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 1,</span><br><span class="line">    &quot;max_score&quot;: 1.284885,</span><br><span class="line">    &quot;hits&quot;: [</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;_index&quot;: &quot;fs&quot;,</span><br><span class="line">        &quot;_type&quot;: &quot;file&quot;,</span><br><span class="line">        &quot;_id&quot;: &quot;1&quot;,</span><br><span class="line">        &quot;_score&quot;: 1.284885,</span><br><span class="line">        &quot;_source&quot;: &#123;</span><br><span class="line">          &quot;name&quot;: &quot;README.txt&quot;,</span><br><span class="line">          &quot;path&quot;: &quot;/workspace/projects/helloworld&quot;,</span><br><span class="line">          &quot;contents&quot;: &quot;这是我的第一个elasticsearch程序&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="需求二"><a href="#需求二" class="headerlink" title="需求二"></a>需求二</h4><p>搜索/workspace目录下,内容包含elasticsearch的所有的文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">GET /fs/file/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;bool&quot;: &#123;</span><br><span class="line">      &quot;must&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;match&quot;: &#123;</span><br><span class="line">            &quot;contents&quot;: &quot;elasticsearch&quot;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;constant_score&quot;: &#123;</span><br><span class="line">            &quot;filter&quot;: &#123;</span><br><span class="line">              &quot;term&quot;: &#123;</span><br><span class="line">                &quot;path.tree&quot;: &quot;/workspace&quot;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>请求和上面基本是一样的,只是filter里面用之前创建的path.tree,因为path是不分词的  </p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Elasticsearch/" <i="" class="fa fa-tag"> Elasticsearch</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/15/Elasticsearch-83-聚合分析案例/" rel="next" title="Elasticsearch-83-聚合分析案例">
+                <i class="fa fa-chevron-left"></i> Elasticsearch-83-聚合分析案例
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -312,6 +453,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTEyNi8xNzY1MQ=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -332,8 +482,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -393,6 +552,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据建模"><span class="nav-number">1.</span> <span class="nav-text">数据建模</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据添加"><span class="nav-number">2.</span> <span class="nav-text">数据添加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#需求一"><span class="nav-number">3.</span> <span class="nav-text">需求一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#需求二"><span class="nav-number">4.</span> <span class="nav-text">需求二</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -588,6 +763,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 

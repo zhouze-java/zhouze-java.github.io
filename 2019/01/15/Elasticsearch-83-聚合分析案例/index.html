@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Elasticsearch,">
 
 
 
@@ -79,14 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="标签">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta name="description" content="需求对每个用户发表的博客进行分组 添加测试数据123456789101112131415161718192021222324252627282930313233PUT /website/users/3&amp;#123;  &amp;quot;name&amp;quot;: &amp;quot;黄药师&amp;quot;,  &amp;quot;email&amp;quot;: &amp;quot;huangyaoshi@sina.com&amp;quot;,  &amp;q">
+<meta name="keywords" content="Elasticsearch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch-83-聚合分析案例">
+<meta property="og:url" content="http://yoursite.com/2019/01/15/Elasticsearch-83-聚合分析案例/index.html">
 <meta property="og:site_name" content="八度空间">
+<meta property="og:description" content="需求对每个用户发表的博客进行分组 添加测试数据123456789101112131415161718192021222324252627282930313233PUT /website/users/3&amp;#123;  &amp;quot;name&amp;quot;: &amp;quot;黄药师&amp;quot;,  &amp;quot;email&amp;quot;: &amp;quot;huangyaoshi@sina.com&amp;quot;,  &amp;q">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-19T09:17:08.835Z">
+<meta property="og:updated_time" content="2019-01-15T08:49:36.137Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="标签">
+<meta name="twitter:title" content="Elasticsearch-83-聚合分析案例">
+<meta name="twitter:description" content="需求对每个用户发表的博客进行分组 添加测试数据123456789101112131415161718192021222324252627282930313233PUT /website/users/3&amp;#123;  &amp;quot;name&amp;quot;: &amp;quot;黄药师&amp;quot;,  &amp;quot;email&amp;quot;: &amp;quot;huangyaoshi@sina.com&amp;quot;,  &amp;q">
 
 
 
@@ -116,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/15/Elasticsearch-83-聚合分析案例/">
 
 
 
 
 
-  <title>标签 | 八度空间</title>
+  <title>Elasticsearch-83-聚合分析案例 | 八度空间</title>
   
 
 
@@ -270,40 +274,174 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/Elasticsearch-83-聚合分析案例/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="周泽">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八度空间">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">标签</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                目前共计 1 个标签
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/Elasticsearch/" style="font-size: 12px; color: #ccc">Elasticsearch</a>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">Elasticsearch-83-聚合分析案例</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T16:49:02+08:00">
+                2019-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
+                    <span itemprop="name">Elasticsearch</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h4 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h4><p>对每个用户发表的博客进行分组</p>
+<h4 id="添加测试数据"><a href="#添加测试数据" class="headerlink" title="添加测试数据"></a>添加测试数据</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">PUT /website/users/3</span><br><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;黄药师&quot;,</span><br><span class="line">  &quot;email&quot;: &quot;huangyaoshi@sina.com&quot;,</span><br><span class="line">  &quot;birthday&quot;: &quot;1970-10-24&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">PUT /website/blogs/3</span><br><span class="line">&#123;</span><br><span class="line">  &quot;title&quot;: &quot;我是黄药师&quot;,</span><br><span class="line">  &quot;content&quot;: &quot;我是黄药师啊，各位同学们！！！&quot;,</span><br><span class="line">  &quot;userInfo&quot;: &#123;</span><br><span class="line">    &quot;userId&quot;: 1,</span><br><span class="line">    &quot;username&quot;: &quot;黄药师&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">PUT /website/users/2</span><br><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;花无缺&quot;,</span><br><span class="line">  &quot;email&quot;: &quot;huawuque@sina.com&quot;,</span><br><span class="line">  &quot;birthday&quot;: &quot;1980-02-02&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">PUT /website/blogs/4</span><br><span class="line">&#123;</span><br><span class="line">  &quot;title&quot;: &quot;花无缺的身世揭秘&quot;,</span><br><span class="line">  &quot;content&quot;: &quot;大家好，我是花无缺，所以我的身世是。。。&quot;,</span><br><span class="line">  &quot;userInfo&quot;: &#123;</span><br><span class="line">    &quot;userId&quot;: 2,</span><br><span class="line">    &quot;username&quot;: &quot;花无缺&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p>请求:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">GET /website/blogs/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;size&quot;: 0,</span><br><span class="line">  &quot;aggs&quot;: &#123;</span><br><span class="line">    &quot;group_by_username&quot;: &#123;</span><br><span class="line">      &quot;terms&quot;: &#123;</span><br><span class="line">        &quot;field&quot;: &quot;userInfo.username.keyword&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;aggs&quot;: &#123;</span><br><span class="line">        &quot;top_blogs&quot;: &#123;</span><br><span class="line">          &quot;top_hits&quot;: &#123;</span><br><span class="line">            &quot;_source&quot;: &#123;</span><br><span class="line">              &quot;include&quot;: &quot;title&quot;</span><br><span class="line">            &#125;, </span><br><span class="line">            &quot;size&quot;: 5</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>返回值:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;took&quot;: 32,</span><br><span class="line">  &quot;timed_out&quot;: false,</span><br><span class="line">  &quot;_shards&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 5,</span><br><span class="line">    &quot;successful&quot;: 5,</span><br><span class="line">    &quot;failed&quot;: 0</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;hits&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 3,</span><br><span class="line">    &quot;max_score&quot;: 0,</span><br><span class="line">    &quot;hits&quot;: []</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;aggregations&quot;: &#123;</span><br><span class="line">    &quot;group_by_username&quot;: &#123;</span><br><span class="line">      &quot;doc_count_error_upper_bound&quot;: 0,</span><br><span class="line">      &quot;sum_other_doc_count&quot;: 0,</span><br><span class="line">      &quot;buckets&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;key&quot;: &quot;小鱼儿&quot;,</span><br><span class="line">          &quot;doc_count&quot;: 1,</span><br><span class="line">          &quot;top_blogs&quot;: &#123;</span><br><span class="line">            &quot;hits&quot;: &#123;</span><br><span class="line">              &quot;total&quot;: 1,</span><br><span class="line">              &quot;max_score&quot;: 1,</span><br><span class="line">              &quot;hits&quot;: [</span><br><span class="line">                &#123;</span><br><span class="line">                  &quot;_index&quot;: &quot;website&quot;,</span><br><span class="line">                  &quot;_type&quot;: &quot;blogs&quot;,</span><br><span class="line">                  &quot;_id&quot;: &quot;1&quot;,</span><br><span class="line">                  &quot;_score&quot;: 1,</span><br><span class="line">                  &quot;_source&quot;: &#123;</span><br><span class="line">                    &quot;title&quot;: &quot;小鱼儿的第一篇博客&quot;</span><br><span class="line">                  &#125;</span><br><span class="line">                &#125;</span><br><span class="line">              ]</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;key&quot;: &quot;花无缺&quot;,</span><br><span class="line">          &quot;doc_count&quot;: 1,</span><br><span class="line">          &quot;top_blogs&quot;: &#123;</span><br><span class="line">            &quot;hits&quot;: &#123;</span><br><span class="line">              &quot;total&quot;: 1,</span><br><span class="line">              &quot;max_score&quot;: 1,</span><br><span class="line">              &quot;hits&quot;: [</span><br><span class="line">                &#123;</span><br><span class="line">                  &quot;_index&quot;: &quot;website&quot;,</span><br><span class="line">                  &quot;_type&quot;: &quot;blogs&quot;,</span><br><span class="line">                  &quot;_id&quot;: &quot;4&quot;,</span><br><span class="line">                  &quot;_score&quot;: 1,</span><br><span class="line">                  &quot;_source&quot;: &#123;</span><br><span class="line">                    &quot;title&quot;: &quot;花无缺的身世揭秘&quot;</span><br><span class="line">                  &#125;</span><br><span class="line">                &#125;</span><br><span class="line">              ]</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;key&quot;: &quot;黄药师&quot;,</span><br><span class="line">          &quot;doc_count&quot;: 1,</span><br><span class="line">          &quot;top_blogs&quot;: &#123;</span><br><span class="line">            &quot;hits&quot;: &#123;</span><br><span class="line">              &quot;total&quot;: 1,</span><br><span class="line">              &quot;max_score&quot;: 1,</span><br><span class="line">              &quot;hits&quot;: [</span><br><span class="line">                &#123;</span><br><span class="line">                  &quot;_index&quot;: &quot;website&quot;,</span><br><span class="line">                  &quot;_type&quot;: &quot;blogs&quot;,</span><br><span class="line">                  &quot;_id&quot;: &quot;3&quot;,</span><br><span class="line">                  &quot;_score&quot;: 1,</span><br><span class="line">                  &quot;_source&quot;: &#123;</span><br><span class="line">                    &quot;title&quot;: &quot;我是黄药师&quot;</span><br><span class="line">                  &#125;</span><br><span class="line">                &#125;</span><br><span class="line">              ]</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>根据用户的username进行分组,然后拿前五条数据,top_hits._source 是设置要显示的field.  </p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Elasticsearch/" <i="" class="fa fa-tag"> Elasticsearch</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/15/Elasticsearch-82-应用层关联查询与通过冗余数据关联对比/" rel="next" title="Elasticsearch-82-应用层关联查询与通过冗余数据关联对比">
+                <i class="fa fa-chevron-left"></i> Elasticsearch-82-应用层关联查询与通过冗余数据关联对比
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/15/Elasticsearch-84-文件系统数据建模及搜索案例/" rel="prev" title="Elasticsearch-84-文件系统数据建模及搜索案例">
+                Elasticsearch-84-文件系统数据建模及搜索案例 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -312,6 +450,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTEyNi8xNzY1MQ=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -332,8 +479,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -393,6 +549,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#需求"><span class="nav-number">1.</span> <span class="nav-text">需求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加测试数据"><span class="nav-number">2.</span> <span class="nav-text">添加测试数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -588,6 +760,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
