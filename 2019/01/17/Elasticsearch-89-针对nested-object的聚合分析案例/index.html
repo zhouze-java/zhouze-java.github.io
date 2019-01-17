@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Elasticsearch,">
 
 
 
@@ -79,13 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="八度空间">
-<meta property="og:url" content="http://yoursite.com/categories/Elasticsearch/page/9/index.html">
+<meta name="description" content="对于nested object里面的数据,如何做聚合分析呢? 以上文的数据作为背景 来看两个案例    案例一需求: 按照评论日期进行划分bucket,拿到每个月评论的stars的平均值请求123456789101112131415161718192021222324252627GET /website/blogs/_search&amp;#123;  &amp;quot;size&amp;quot;: 0,  &amp;quo">
+<meta name="keywords" content="Elasticsearch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch-89-针对nested object的聚合分析案例">
+<meta property="og:url" content="http://yoursite.com/2019/01/17/Elasticsearch-89-针对nested-object的聚合分析案例/index.html">
 <meta property="og:site_name" content="八度空间">
+<meta property="og:description" content="对于nested object里面的数据,如何做聚合分析呢? 以上文的数据作为背景 来看两个案例    案例一需求: 按照评论日期进行划分bucket,拿到每个月评论的stars的平均值请求123456789101112131415161718192021222324252627GET /website/blogs/_search&amp;#123;  &amp;quot;size&amp;quot;: 0,  &amp;quo">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-17T07:56:17.202Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="八度空间">
+<meta name="twitter:title" content="Elasticsearch-89-针对nested object的聚合分析案例">
+<meta name="twitter:description" content="对于nested object里面的数据,如何做聚合分析呢? 以上文的数据作为背景 来看两个案例    案例一需求: 按照评论日期进行划分bucket,拿到每个月评论的stars的平均值请求123456789101112131415161718192021222324252627GET /website/blogs/_search&amp;#123;  &amp;quot;size&amp;quot;: 0,  &amp;quo">
 
 
 
@@ -115,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/Elasticsearch/page/9/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/17/Elasticsearch-89-针对nested-object的聚合分析案例/">
 
 
 
 
 
-  <title>分类: Elasticsearch | 八度空间</title>
+  <title>Elasticsearch-89-针对nested object的聚合分析案例 | 八度空间</title>
   
 
 
@@ -140,7 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 	<a href="https://github.com/zhouze-java" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 	
@@ -267,291 +272,177 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block category">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Elasticsearch<small>分类</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/17/Elasticsearch-89-针对nested-object的聚合分析案例/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="周泽">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八度空间">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/11/16/Elasticsearch-9-document核心元数据解析/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-9-document核心元数据解析</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Elasticsearch-89-针对nested object的聚合分析案例</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-16T21:12:59+08:00" content="2018-11-16">
-          11-16
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-17T15:55:06+08:00">
+                2019-01-17
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
+                    <span itemprop="name">Elasticsearch</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/16/Elasticsearch-8-容错机制/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-8-容错机制</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-16T18:44:03+08:00" content="2018-11-16">
-          11-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/16/Elasticsearch-7-扩容机制/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-7-扩容机制</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-16T17:50:17+08:00" content="2018-11-16">
-          11-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/16/Elasticsearch-6-shard-replica机制/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-6-shard&replica机制</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-16T16:17:38+08:00" content="2018-11-16">
-          11-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/16/Elasticsearch-5-基础分布式架构/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-5-基础分布式架构</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-16T16:17:17+08:00" content="2018-11-16">
-          11-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/16/Elasticsearch-4-聚合分析/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-4-聚合分析</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-16T16:16:15+08:00" content="2018-11-16">
-          11-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/16/Elasticsearch-3-花式查询/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-3-花式查询</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-16T16:15:59+08:00" content="2018-11-16">
-          11-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/16/Elasticsearch-2-集群状态检查和CRUD操作/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-2-集群状态检查和CRUD操作</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-16T16:14:38+08:00" content="2018-11-16">
-          11-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/16/Elasticsearch-1-Windows下安装Es/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-1-Windows下安装Es</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-16T16:10:29+08:00" content="2018-11-16">
-          11-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/16/Elasticsearch-0-核心概念/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-0-核心概念</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-16T15:24:43+08:00" content="2018-11-16">
-          11-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <p>对于nested object里面的数据,如何做聚合分析呢? 以上文的数据作为背景 来看两个案例   </p>
+<h4 id="案例一"><a href="#案例一" class="headerlink" title="案例一"></a>案例一</h4><p>需求: 按照评论日期进行划分bucket,拿到每个月评论的stars的平均值<br>请求<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">GET /website/blogs/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;size&quot;: 0,</span><br><span class="line">  &quot;aggs&quot;: &#123;</span><br><span class="line">    &quot;comments_path&quot;: &#123;</span><br><span class="line">      &quot;nested&quot;: &#123;</span><br><span class="line">        &quot;path&quot;: &quot;comments&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;aggs&quot;: &#123;</span><br><span class="line">        &quot;group_by_comments_date&quot;: &#123;</span><br><span class="line">          &quot;date_histogram&quot;: &#123;</span><br><span class="line">            &quot;field&quot;: &quot;comments.date&quot;,</span><br><span class="line">            &quot;interval&quot;: &quot;month&quot;,</span><br><span class="line">            &quot;format&quot;: &quot;yyyy-MM&quot;</span><br><span class="line">          &#125;,</span><br><span class="line">          &quot;aggs&quot;: &#123;</span><br><span class="line">            &quot;avg_stars&quot;: &#123;</span><br><span class="line">              &quot;avg&quot;: &#123;</span><br><span class="line">                &quot;field&quot;: &quot;comments.stars&quot;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>返回值:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;took&quot;: 7,</span><br><span class="line">  &quot;timed_out&quot;: false,</span><br><span class="line">  &quot;_shards&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 5,</span><br><span class="line">    &quot;successful&quot;: 5,</span><br><span class="line">    &quot;failed&quot;: 0</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;hits&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 1,</span><br><span class="line">    &quot;max_score&quot;: 0,</span><br><span class="line">    &quot;hits&quot;: []</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;aggregations&quot;: &#123;</span><br><span class="line">    &quot;comments_path&quot;: &#123;</span><br><span class="line">      &quot;doc_count&quot;: 2,</span><br><span class="line">      &quot;group_by_comments_date&quot;: &#123;</span><br><span class="line">        &quot;buckets&quot;: [</span><br><span class="line">          &#123;</span><br><span class="line">            &quot;key_as_string&quot;: &quot;2016-09&quot;,</span><br><span class="line">            &quot;key&quot;: 1472688000000,</span><br><span class="line">            &quot;doc_count&quot;: 1,</span><br><span class="line">            &quot;avg_stars&quot;: &#123;</span><br><span class="line">              &quot;value&quot;: 4</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            &quot;key_as_string&quot;: &quot;2016-10&quot;,</span><br><span class="line">            &quot;key&quot;: 1475280000000,</span><br><span class="line">            &quot;doc_count&quot;: 1,</span><br><span class="line">            &quot;avg_stars&quot;: &#123;</span><br><span class="line">              &quot;value&quot;: 5</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>看一下请求,第一个aggs,设置nested的path,然后第二个aggs是根据日期按月划分bucket的,第三个aggs是用来计算平均数的    </p>
+<h4 id="案例二"><a href="#案例二" class="headerlink" title="案例二"></a>案例二</h4><p>需求: 根据评论的年龄来划分bucket,然后按博客的tags进行分组   </p>
+<p>这里,评论的年龄是comments里面的数据,但是tags是外面的数据,那么如何用nested object外面的数据来进行聚合呢,先看一下请求   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">GET /website/blogs/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;size&quot;: 0,</span><br><span class="line">  &quot;aggs&quot;: &#123;</span><br><span class="line">    &quot;comments_path&quot;: &#123;</span><br><span class="line">      &quot;nested&quot;: &#123;</span><br><span class="line">        &quot;path&quot;: &quot;comments&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;aggs&quot;: &#123;</span><br><span class="line">        &quot;group_by_age&quot;: &#123;</span><br><span class="line">          &quot;histogram&quot;: &#123;</span><br><span class="line">            &quot;field&quot;: &quot;comments.age&quot;,</span><br><span class="line">            &quot;interval&quot;: 10</span><br><span class="line">          &#125;,</span><br><span class="line">          &quot;aggs&quot;: &#123;</span><br><span class="line">            &quot;reverse_path&quot;:&#123;</span><br><span class="line">              &quot;reverse_nested&quot;: &#123;&#125;,</span><br><span class="line">              &quot;aggs&quot;: &#123;</span><br><span class="line">                &quot;group_by_tags&quot;: &#123;</span><br><span class="line">                  &quot;terms&quot;: &#123;</span><br><span class="line">                    &quot;field&quot;: &quot;tags.keyword&quot;</span><br><span class="line">                  &#125;</span><br><span class="line">                &#125;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>返回值:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;took&quot;: 2,</span><br><span class="line">  &quot;timed_out&quot;: false,</span><br><span class="line">  &quot;_shards&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 5,</span><br><span class="line">    &quot;successful&quot;: 5,</span><br><span class="line">    &quot;failed&quot;: 0</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;hits&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 1,</span><br><span class="line">    &quot;max_score&quot;: 0,</span><br><span class="line">    &quot;hits&quot;: []</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;aggregations&quot;: &#123;</span><br><span class="line">    &quot;comments_path&quot;: &#123;</span><br><span class="line">      &quot;doc_count&quot;: 2,</span><br><span class="line">      &quot;group_by_comments_age&quot;: &#123;</span><br><span class="line">        &quot;buckets&quot;: [</span><br><span class="line">          &#123;</span><br><span class="line">            &quot;key&quot;: 20,</span><br><span class="line">            &quot;doc_count&quot;: 1,</span><br><span class="line">            &quot;reverse_path&quot;: &#123;</span><br><span class="line">              &quot;doc_count&quot;: 1,</span><br><span class="line">              &quot;group_by_tags&quot;: &#123;</span><br><span class="line">                &quot;doc_count_error_upper_bound&quot;: 0,</span><br><span class="line">                &quot;sum_other_doc_count&quot;: 0,</span><br><span class="line">                &quot;buckets&quot;: [</span><br><span class="line">                  &#123;</span><br><span class="line">                    &quot;key&quot;: &quot;投资&quot;,</span><br><span class="line">                    &quot;doc_count&quot;: 1</span><br><span class="line">                  &#125;,</span><br><span class="line">                  &#123;</span><br><span class="line">                    &quot;key&quot;: &quot;理财&quot;,</span><br><span class="line">                    &quot;doc_count&quot;: 1</span><br><span class="line">                  &#125;</span><br><span class="line">                ]</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            &quot;key&quot;: 30,</span><br><span class="line">            &quot;doc_count&quot;: 1,</span><br><span class="line">            &quot;reverse_path&quot;: &#123;</span><br><span class="line">              &quot;doc_count&quot;: 1,</span><br><span class="line">              &quot;group_by_tags&quot;: &#123;</span><br><span class="line">                &quot;doc_count_error_upper_bound&quot;: 0,</span><br><span class="line">                &quot;sum_other_doc_count&quot;: 0,</span><br><span class="line">                &quot;buckets&quot;: [</span><br><span class="line">                  &#123;</span><br><span class="line">                    &quot;key&quot;: &quot;投资&quot;,</span><br><span class="line">                    &quot;doc_count&quot;: 1</span><br><span class="line">                  &#125;,</span><br><span class="line">                  &#123;</span><br><span class="line">                    &quot;key&quot;: &quot;理财&quot;,</span><br><span class="line">                    &quot;doc_count&quot;: 1</span><br><span class="line">                  &#125;</span><br><span class="line">                ]</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>首先,第一个aggs还是先设置path,然后下钻第二个aggs根据年龄去分段划分bucket,继续下钻,第三个aggs的时候用了一个<strong>reverse_nested:{}</strong>,加上这个之后,就可以使用nested object外面的数据了,最后再一次下钻,按照tags分组,因为tags是分词的,所以用了tags.keyword   </p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Elasticsearch/" <i="" class="fa fa-tag"> Elasticsearch</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/17/Elasticsearch-88-nested-object数据结构/" rel="next" title="Elasticsearch-88-nested object数据结构">
+                <i class="fa fa-chevron-left"></i> Elasticsearch-88-nested object数据结构
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/categories/Elasticsearch/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/categories/Elasticsearch/">1</a><span class="space">&hellip;</span><a class="page-number" href="/categories/Elasticsearch/page/8/">8</a><span class="page-number current">9</span>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -559,6 +450,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTEyNi8xNzY1MQ=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -579,8 +479,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -640,6 +549,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#案例一"><span class="nav-number">1.</span> <span class="nav-text">案例一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#案例二"><span class="nav-number">2.</span> <span class="nav-text">案例二</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -803,6 +728,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -831,6 +760,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
