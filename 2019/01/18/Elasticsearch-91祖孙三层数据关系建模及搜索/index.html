@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Elasticsearch,">
 
 
 
@@ -79,13 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="八度空间">
-<meta property="og:url" content="http://yoursite.com/tags/Elasticsearch/index.html">
+<meta name="description" content="数据建模祖孙三层的数据建模12345678910111213141516PUT /company&amp;#123;  &amp;quot;mappings&amp;quot;: &amp;#123;    &amp;quot;country&amp;quot;: &amp;#123;&amp;#125;,    &amp;quot;rd_center&amp;quot;: &amp;#123;      &amp;quot;_parent&amp;quot;: &amp;#123;        &amp;quo">
+<meta name="keywords" content="Elasticsearch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch-91祖孙三层数据关系建模及搜索">
+<meta property="og:url" content="http://yoursite.com/2019/01/18/Elasticsearch-91祖孙三层数据关系建模及搜索/index.html">
 <meta property="og:site_name" content="八度空间">
+<meta property="og:description" content="数据建模祖孙三层的数据建模12345678910111213141516PUT /company&amp;#123;  &amp;quot;mappings&amp;quot;: &amp;#123;    &amp;quot;country&amp;quot;: &amp;#123;&amp;#125;,    &amp;quot;rd_center&amp;quot;: &amp;#123;      &amp;quot;_parent&amp;quot;: &amp;#123;        &amp;quo">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-18T02:10:34.430Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="八度空间">
+<meta name="twitter:title" content="Elasticsearch-91祖孙三层数据关系建模及搜索">
+<meta name="twitter:description" content="数据建模祖孙三层的数据建模12345678910111213141516PUT /company&amp;#123;  &amp;quot;mappings&amp;quot;: &amp;#123;    &amp;quot;country&amp;quot;: &amp;#123;&amp;#125;,    &amp;quot;rd_center&amp;quot;: &amp;#123;      &amp;quot;_parent&amp;quot;: &amp;#123;        &amp;quo">
 
 
 
@@ -115,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/Elasticsearch/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/18/Elasticsearch-91祖孙三层数据关系建模及搜索/">
 
 
 
 
 
-  <title>标签: Elasticsearch | 八度空间</title>
+  <title>Elasticsearch-91祖孙三层数据关系建模及搜索 | 八度空间</title>
   
 
 
@@ -140,7 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 	<a href="https://github.com/zhouze-java" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 	
@@ -267,290 +272,179 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block tag">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Elasticsearch<small>标签</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/18/Elasticsearch-91祖孙三层数据关系建模及搜索/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="周泽">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八度空间">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/01/18/Elasticsearch-91祖孙三层数据关系建模及搜索/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-91祖孙三层数据关系建模及搜索</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Elasticsearch-91祖孙三层数据关系建模及搜索</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-18T10:10:11+08:00" content="2019-01-18">
-          01-18
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T10:10:11+08:00">
+                2019-01-18
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
+                    <span itemprop="name">Elasticsearch</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/17/Elasticsearch-90-父子关系类型的数据建模与搜索聚合/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-90-父子关系类型的数据建模与搜索聚合</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-17T17:56:22+08:00" content="2019-01-17">
-          01-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/17/Elasticsearch-89-针对nested-object的聚合分析案例/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-89-针对nested object的聚合分析案例</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-17T15:55:06+08:00" content="2019-01-17">
-          01-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/17/Elasticsearch-88-nested-object数据结构/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-88-nested object数据结构</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-17T10:54:24+08:00" content="2019-01-17">
-          01-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/16/Elasticsearch-87-基于共享锁和排它锁实现悲观锁并发控制/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-87-基于共享锁和排它锁实现悲观锁并发控制</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-16T17:16:20+08:00" content="2019-01-16">
-          01-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/16/Elasticsearch-86-基于document锁实现悲观锁并发控制/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-86-基于document锁实现悲观锁并发控制</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-16T14:47:39+08:00" content="2019-01-16">
-          01-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/15/Elasticsearch-85-基于全局锁实现悲观锁并发控制/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-85-基于全局锁实现悲观锁并发控制</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-15T17:16:08+08:00" content="2019-01-15">
-          01-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/15/Elasticsearch-84-文件系统数据建模及搜索案例/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-84-文件系统数据建模及搜索案例</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-15T16:49:21+08:00" content="2019-01-15">
-          01-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/15/Elasticsearch-83-聚合分析案例/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-83-聚合分析案例</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-15T16:49:02+08:00" content="2019-01-15">
-          01-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/15/Elasticsearch-82-应用层关联查询与通过冗余数据关联对比/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-82-应用层关联查询与通过冗余数据关联对比</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-15T15:38:11+08:00" content="2019-01-15">
-          01-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <h4 id="数据建模"><a href="#数据建模" class="headerlink" title="数据建模"></a>数据建模</h4><p>祖孙三层的数据建模<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">PUT /company</span><br><span class="line">&#123;</span><br><span class="line">  &quot;mappings&quot;: &#123;</span><br><span class="line">    &quot;country&quot;: &#123;&#125;,</span><br><span class="line">    &quot;rd_center&quot;: &#123;</span><br><span class="line">      &quot;_parent&quot;: &#123;</span><br><span class="line">        &quot;type&quot;: &quot;country&quot; </span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;employee&quot;: &#123;</span><br><span class="line">      &quot;_parent&quot;: &#123;</span><br><span class="line">        &quot;type&quot;: &quot;rd_center&quot; </span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>看下请求,company下面有三个type,依次是country,rd_center,employee, 和之前一样,也是一层一层的指定parent就好了.   </p>
+<p>索引建好后,先在country里面添加几条数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">POST /company/country/_bulk</span><br><span class="line">&#123; &quot;index&quot;: &#123; &quot;_id&quot;: &quot;1&quot; &#125;&#125;</span><br><span class="line">&#123; &quot;name&quot;: &quot;中国&quot; &#125;</span><br><span class="line">&#123; &quot;index&quot;: &#123; &quot;_id&quot;: &quot;2&quot; &#125;&#125;</span><br><span class="line">&#123; &quot;name&quot;: &quot;美国&quot; &#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后再添加研发中心的数据,和之前添加的方式是一样的,指定parent id就好了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">POST /company/rd_center/_bulk</span><br><span class="line">&#123; &quot;index&quot;: &#123; &quot;_id&quot;: &quot;1&quot;, &quot;parent&quot;: &quot;1&quot; &#125;&#125;</span><br><span class="line">&#123; &quot;name&quot;: &quot;北京研发总部&quot; &#125;</span><br><span class="line">&#123; &quot;index&quot;: &#123; &quot;_id&quot;: &quot;2&quot;, &quot;parent&quot;: &quot;1&quot; &#125;&#125;</span><br><span class="line">&#123; &quot;name&quot;: &quot;上海研发中心&quot; &#125;</span><br><span class="line">&#123; &quot;index&quot;: &#123; &quot;_id&quot;: &quot;3&quot;, &quot;parent&quot;: &quot;2&quot; &#125;&#125;</span><br><span class="line">&#123; &quot;name&quot;: &quot;硅谷人工智能实验室&quot; &#125;</span><br></pre></td></tr></table></figure></p>
+<p>最后,添加员工的数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PUT /company/employee/1?parent=1&amp;routing=1</span><br><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;:  &quot;张三&quot;,</span><br><span class="line">  &quot;dob&quot;:   &quot;1970-10-24&quot;,</span><br><span class="line">  &quot;hobby&quot;: &quot;爬山&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里就和上面有些不一样了, country添加的时候,是用的自己的id去路由的,rd_center添加的时候,指定了parent id,所以他也是用的country 的id去路由的, 但是employee在添加的时候如果也是仅仅指定一个parent,那就表示用的是rd_center的id去路由,这就可能导致,这三种数据不在一个shard上.   </p>
+<p>所以孙子辈儿的doc添加的时候除了指定parent还需要加一个routing,值是爷爷辈儿的数据的id    </p>
+<h4 id="搜索案例"><a href="#搜索案例" class="headerlink" title="搜索案例"></a>搜索案例</h4><p>需求: 搜索有爬山爱好的员工所在的国家   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">GET /company/country/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;has_child&quot;: &#123;</span><br><span class="line">      &quot;type&quot;: &quot;rd_center&quot;,</span><br><span class="line">      &quot;query&quot;: &#123;</span><br><span class="line">        &quot;has_child&quot;: &#123;</span><br><span class="line">          &quot;type&quot;: &quot;employee&quot;,</span><br><span class="line">          &quot;query&quot;: &#123;</span><br><span class="line">            &quot;match&quot;: &#123;</span><br><span class="line">              &quot;hobby&quot;: &quot;爬山&quot;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>返回值:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;took&quot;: 24,</span><br><span class="line">  &quot;timed_out&quot;: false,</span><br><span class="line">  &quot;_shards&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 5,</span><br><span class="line">    &quot;successful&quot;: 5,</span><br><span class="line">    &quot;failed&quot;: 0</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;hits&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 1,</span><br><span class="line">    &quot;max_score&quot;: 1,</span><br><span class="line">    &quot;hits&quot;: [</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;_index&quot;: &quot;company&quot;,</span><br><span class="line">        &quot;_type&quot;: &quot;country&quot;,</span><br><span class="line">        &quot;_id&quot;: &quot;1&quot;,</span><br><span class="line">        &quot;_score&quot;: 1,</span><br><span class="line">        &quot;_source&quot;: &#123;</span><br><span class="line">          &quot;name&quot;: &quot;中国&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>需要一级一级用has_child去找   </p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Elasticsearch/" <i="" class="fa fa-tag"> Elasticsearch</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/17/Elasticsearch-90-父子关系类型的数据建模与搜索聚合/" rel="next" title="Elasticsearch-90-父子关系类型的数据建模与搜索聚合">
+                <i class="fa fa-chevron-left"></i> Elasticsearch-90-父子关系类型的数据建模与搜索聚合
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/tags/Elasticsearch/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/tags/Elasticsearch/page/10/">10</a><a class="extend next" rel="next" href="/tags/Elasticsearch/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -558,6 +452,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTEyNi8xNzY1MQ=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -578,8 +481,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -639,6 +551,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据建模"><span class="nav-number">1.</span> <span class="nav-text">数据建模</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#搜索案例"><span class="nav-number">2.</span> <span class="nav-text">搜索案例</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -802,6 +730,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -830,6 +762,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
