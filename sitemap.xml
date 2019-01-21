@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2019/01/21/Elasticsearch-95-%E5%9F%BA%E4%BA%8Ecompletion-suggest%E5%AE%9E%E7%8E%B0%E6%90%9C%E7%B4%A2%E6%8F%90%E7%A4%BA/</loc>
+    
+    <lastmod>2019-01-21T08:11:55.476Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2019/01/21/Elasticsearch-94-search-template%E6%90%9C%E7%B4%A2%E6%A8%A1%E6%9D%BF%E5%8C%96/</loc>
     
     <lastmod>2019-01-21T06:34:58.709Z</lastmod>
