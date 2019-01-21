@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Elasticsearch-94-search template搜索模板化]]></title>
     <url>%2F2019%2F01%2F21%2FElasticsearch-94-search-template%E6%90%9C%E7%B4%A2%E6%A8%A1%E6%9D%BF%E5%8C%96%2F</url>
-    <content type="text"></content>
+    <content type="text"><![CDATA[简介search template 搜索模板,可以将一些常用的搜索模板化,每次要执行这个搜索的时候,就直接调用模板,然后传入参数就好了 入门先写一个简单的模板1234567891011121314GET /blog_website/blogs/_search/template&#123; &quot;inline&quot;:&#123; &quot;query&quot;:&#123; &quot;match&quot;:&#123; &quot;&#123;&#123;field&#125;&#125;&quot; : &quot;&#123;&#123;value&#125;&#125;&quot; &#125; &#125; &#125;, &quot;params&quot;: &#123; &quot;field&quot;:&quot;title&quot;, &quot;value&quot;:&quot;博客&quot; &#125;&#125;]]></content>
       <categories>
         <category>Elasticsearch</category>
       </categories>
