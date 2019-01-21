@@ -79,18 +79,15 @@
 
 
 
-<meta name="description" content="首先需要了解两个概念,召回率和精准度    召回率比如搜索一个java spark,总共有100个document,能返回多少个document作为结果,这个就是召回率(recall)   精准度比如搜索一个java spark,能不能尽可能让包含java spark这个短语的,或者是java和spark离的很近的document,排在最前面,这个就是精准度(precision)    混合使用m">
 <meta name="keywords" content="Elasticsearch">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Elasticsearch-54-搜索实现召回率和精准度平衡">
-<meta property="og:url" content="http://yoursite.com/2018/12/27/Elasticsearch-54-搜索实现召回率和精准度平衡/index.html">
+<meta property="og:title" content="Elasticsearch-94-search template搜索模板化">
+<meta property="og:url" content="http://yoursite.com/2019/01/21/Elasticsearch-94-search-template搜索模板化/index.html">
 <meta property="og:site_name" content="八度空间">
-<meta property="og:description" content="首先需要了解两个概念,召回率和精准度    召回率比如搜索一个java spark,总共有100个document,能返回多少个document作为结果,这个就是召回率(recall)   精准度比如搜索一个java spark,能不能尽可能让包含java spark这个短语的,或者是java和spark离的很近的document,排在最前面,这个就是精准度(precision)    混合使用m">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-27T09:28:17.963Z">
+<meta property="og:updated_time" content="2019-01-21T04:00:41.476Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Elasticsearch-54-搜索实现召回率和精准度平衡">
-<meta name="twitter:description" content="首先需要了解两个概念,召回率和精准度    召回率比如搜索一个java spark,总共有100个document,能返回多少个document作为结果,这个就是召回率(recall)   精准度比如搜索一个java spark,能不能尽可能让包含java spark这个短语的,或者是java和spark离的很近的document,排在最前面,这个就是精准度(precision)    混合使用m">
+<meta name="twitter:title" content="Elasticsearch-94-search template搜索模板化">
 
 
 
@@ -120,13 +117,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/27/Elasticsearch-54-搜索实现召回率和精准度平衡/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/21/Elasticsearch-94-search-template搜索模板化/">
 
 
 
 
 
-  <title>Elasticsearch-54-搜索实现召回率和精准度平衡 | 八度空间</title>
+  <title>Elasticsearch-94-search template搜索模板化 | 八度空间</title>
   
 
 
@@ -286,7 +283,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/27/Elasticsearch-54-搜索实现召回率和精准度平衡/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/21/Elasticsearch-94-search-template搜索模板化/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -303,7 +300,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Elasticsearch-54-搜索实现召回率和精准度平衡</h1>
+          <h1 class="post-title" itemprop="name headline">Elasticsearch-94-search template搜索模板化</h1>
         
 
         <div class="post-meta">
@@ -315,8 +312,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-27T17:27:35+08:00">
-                2018-12-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-21T11:59:20+08:00">
+                2019-01-21
               </time>
             
 
@@ -375,22 +372,7 @@
       
 
       
-        <p>首先需要了解两个概念,召回率和精准度   </p>
-<h4 id="召回率"><a href="#召回率" class="headerlink" title="召回率"></a>召回率</h4><p>比如搜索一个java spark,总共有100个document,能返回多少个document作为结果,这个就是召回率(recall)  </p>
-<h4 id="精准度"><a href="#精准度" class="headerlink" title="精准度"></a>精准度</h4><p>比如搜索一个java spark,能不能尽可能让包含java spark这个短语的,或者是java和spark离的很近的document,排在最前面,这个就是精准度(precision)   </p>
-<h4 id="混合使用match和近似匹配"><a href="#混合使用match和近似匹配" class="headerlink" title="混合使用match和近似匹配"></a>混合使用match和近似匹配</h4><p>直接使用match phrase短语搜索,会导致所有term都在document的filed中出现,而且距离要在slop规定的范围内,才能匹配的到   </p>
-<p>近似匹配的时候,召回率比较低,因为精准度太高了.    </p>
-<p>但是有时候我们可能希望是匹配到几个term中的部分,就可以作为返回结果返回回来,这样可以提高召回率,同时我们也希望用上match_phrase根据距离提升分数的功能,让几个term距离越近分数就越高,优先返回,也就是优先满足召回率  </p>
-<p>比如说,优先提升召回率就是:搜索java spark,包含java的也返回,包含spark的也返回,包含java和spark的也返回.<br>同时兼顾精准度:就是说包含java和spark,同时java和spark离得越近的document排在前面   </p>
-<p>此时,我们可以使用bool组合match query和match_phrase query一起,来实现上述效果   </p>
-<h4 id="实战案例"><a href="#实战案例" class="headerlink" title="实战案例"></a>实战案例</h4><p>构建一个搜索请求<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">GET /forum/article/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;bool&quot;: &#123;</span><br><span class="line">      &quot;must&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;match&quot;: &#123;</span><br><span class="line">            &quot;content&quot;: &quot;java spark&quot;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      ],</span><br><span class="line">      &quot;should&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;match_phrase&quot;: &#123;</span><br><span class="line">            &quot;content&quot;: &#123;</span><br><span class="line">              &quot;query&quot;: &quot;java spark&quot;,</span><br><span class="line">              &quot;slop&quot;:50</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>看一下上面这个请求,must里面可能返回的是包含java或spark或java spark,同时包含java spark的靠前,但是没法区分距离,也许距离很近但是排在了后面<br>should里面呢,在slop以内,如果java spark能匹配上一个doc,那么就会对doc贡献自己的relevance score,如果java和spark靠的越近,那么分数就越高  </p>
-<p>先来试一下不加近似匹配的搜索<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">GET /forum/article/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;bool&quot;: &#123;</span><br><span class="line">      &quot;must&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;match&quot;: &#123;</span><br><span class="line">            &quot;content&quot;: &quot;java spark&quot;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>返回值:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;took&quot;: 31,</span><br><span class="line">  &quot;timed_out&quot;: false,</span><br><span class="line">  &quot;_shards&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 5,</span><br><span class="line">    &quot;successful&quot;: 5,</span><br><span class="line">    &quot;failed&quot;: 0</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;hits&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 2,</span><br><span class="line">    &quot;max_score&quot;: 0.68640786,</span><br><span class="line">    &quot;hits&quot;: [</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;_index&quot;: &quot;forum&quot;,</span><br><span class="line">        &quot;_type&quot;: &quot;article&quot;,</span><br><span class="line">        &quot;_id&quot;: &quot;2&quot;,</span><br><span class="line">        &quot;_score&quot;: 0.68640786,</span><br><span class="line">        &quot;_source&quot;: &#123;</span><br><span class="line">          &quot;articleID&quot;: &quot;KDKE-B-9947-#kL5&quot;,</span><br><span class="line">          &quot;userID&quot;: 1,</span><br><span class="line">          &quot;hidden&quot;: false,</span><br><span class="line">          &quot;postDate&quot;: &quot;2017-01-02&quot;,</span><br><span class="line">          &quot;tag&quot;: [</span><br><span class="line">            &quot;java&quot;</span><br><span class="line">          ],</span><br><span class="line">          &quot;tag_cnt&quot;: 1,</span><br><span class="line">          &quot;view_cnt&quot;: 50,</span><br><span class="line">          &quot;title&quot;: &quot;this is java blog&quot;,</span><br><span class="line">          &quot;content&quot;: &quot;i think java is the best programming language&quot;,</span><br><span class="line">          &quot;sub_title&quot;: &quot;learned a lot of course&quot;,</span><br><span class="line">          &quot;author_first_name&quot;: &quot;Smith&quot;,</span><br><span class="line">          &quot;author_last_name&quot;: &quot;Williams&quot;,</span><br><span class="line">          &quot;new_author_last_name&quot;: &quot;Williams&quot;,</span><br><span class="line">          &quot;new_author_first_name&quot;: &quot;Smith&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;_index&quot;: &quot;forum&quot;,</span><br><span class="line">        &quot;_type&quot;: &quot;article&quot;,</span><br><span class="line">        &quot;_id&quot;: &quot;5&quot;,</span><br><span class="line">        &quot;_score&quot;: 0.68324494,</span><br><span class="line">        &quot;_source&quot;: &#123;</span><br><span class="line">          &quot;articleID&quot;: &quot;DHJK-B-1395-#Ky5&quot;,</span><br><span class="line">          &quot;userID&quot;: 3,</span><br><span class="line">          &quot;hidden&quot;: false,</span><br><span class="line">          &quot;postDate&quot;: &quot;2018-12-03&quot;,</span><br><span class="line">          &quot;tag&quot;: [</span><br><span class="line">            &quot;elasticsearch&quot;</span><br><span class="line">          ],</span><br><span class="line">          &quot;tag_cnt&quot;: 1,</span><br><span class="line">          &quot;view_cnt&quot;: 10,</span><br><span class="line">          &quot;title&quot;: &quot;this is spark blog&quot;,</span><br><span class="line">          &quot;content&quot;: &quot;spark is best big data solution based on scala ,an programming language similar to java spark&quot;,</span><br><span class="line">          &quot;sub_title&quot;: &quot;haha, hello world&quot;,</span><br><span class="line">          &quot;author_first_name&quot;: &quot;Tonny&quot;,</span><br><span class="line">          &quot;author_last_name&quot;: &quot;Peter Smith&quot;,</span><br><span class="line">          &quot;new_author_last_name&quot;: &quot;Peter Smith&quot;,</span><br><span class="line">          &quot;new_author_first_name&quot;: &quot;Tonny&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>id是2的doc排在了id是5的前面.<br>然后再加上近似匹配<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">GET /forum/article/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;bool&quot;: &#123;</span><br><span class="line">      &quot;must&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;match&quot;: &#123;</span><br><span class="line">            &quot;content&quot;: &quot;java spark&quot;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      ],</span><br><span class="line">      &quot;should&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;match_phrase&quot;: &#123;</span><br><span class="line">            &quot;content&quot;: &#123;</span><br><span class="line">              &quot;query&quot;: &quot;java spark&quot;,</span><br><span class="line">              &quot;slop&quot;:50</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>返回值:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;took&quot;: 3,</span><br><span class="line">  &quot;timed_out&quot;: false,</span><br><span class="line">  &quot;_shards&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 5,</span><br><span class="line">    &quot;successful&quot;: 5,</span><br><span class="line">    &quot;failed&quot;: 0</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;hits&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 2,</span><br><span class="line">    &quot;max_score&quot;: 1.258609,</span><br><span class="line">    &quot;hits&quot;: [</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;_index&quot;: &quot;forum&quot;,</span><br><span class="line">        &quot;_type&quot;: &quot;article&quot;,</span><br><span class="line">        &quot;_id&quot;: &quot;5&quot;,</span><br><span class="line">        &quot;_score&quot;: 1.258609,</span><br><span class="line">        &quot;_source&quot;: &#123;</span><br><span class="line">          &quot;articleID&quot;: &quot;DHJK-B-1395-#Ky5&quot;,</span><br><span class="line">          &quot;userID&quot;: 3,</span><br><span class="line">          &quot;hidden&quot;: false,</span><br><span class="line">          &quot;postDate&quot;: &quot;2018-12-03&quot;,</span><br><span class="line">          &quot;tag&quot;: [</span><br><span class="line">            &quot;elasticsearch&quot;</span><br><span class="line">          ],</span><br><span class="line">          &quot;tag_cnt&quot;: 1,</span><br><span class="line">          &quot;view_cnt&quot;: 10,</span><br><span class="line">          &quot;title&quot;: &quot;this is spark blog&quot;,</span><br><span class="line">          &quot;content&quot;: &quot;spark is best big data solution based on scala ,an programming language similar to java spark&quot;,</span><br><span class="line">          &quot;sub_title&quot;: &quot;haha, hello world&quot;,</span><br><span class="line">          &quot;author_first_name&quot;: &quot;Tonny&quot;,</span><br><span class="line">          &quot;author_last_name&quot;: &quot;Peter Smith&quot;,</span><br><span class="line">          &quot;new_author_last_name&quot;: &quot;Peter Smith&quot;,</span><br><span class="line">          &quot;new_author_first_name&quot;: &quot;Tonny&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;_index&quot;: &quot;forum&quot;,</span><br><span class="line">        &quot;_type&quot;: &quot;article&quot;,</span><br><span class="line">        &quot;_id&quot;: &quot;2&quot;,</span><br><span class="line">        &quot;_score&quot;: 0.68640786,</span><br><span class="line">        &quot;_source&quot;: &#123;</span><br><span class="line">          &quot;articleID&quot;: &quot;KDKE-B-9947-#kL5&quot;,</span><br><span class="line">          &quot;userID&quot;: 1,</span><br><span class="line">          &quot;hidden&quot;: false,</span><br><span class="line">          &quot;postDate&quot;: &quot;2017-01-02&quot;,</span><br><span class="line">          &quot;tag&quot;: [</span><br><span class="line">            &quot;java&quot;</span><br><span class="line">          ],</span><br><span class="line">          &quot;tag_cnt&quot;: 1,</span><br><span class="line">          &quot;view_cnt&quot;: 50,</span><br><span class="line">          &quot;title&quot;: &quot;this is java blog&quot;,</span><br><span class="line">          &quot;content&quot;: &quot;i think java is the best programming language&quot;,</span><br><span class="line">          &quot;sub_title&quot;: &quot;learned a lot of course&quot;,</span><br><span class="line">          &quot;author_first_name&quot;: &quot;Smith&quot;,</span><br><span class="line">          &quot;author_last_name&quot;: &quot;Williams&quot;,</span><br><span class="line">          &quot;new_author_last_name&quot;: &quot;Williams&quot;,</span><br><span class="line">          &quot;new_author_first_name&quot;: &quot;Smith&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>可以看到id是5的doc排在了id是2的doc的前面    </p>
-
+        
       
     </div>
     
@@ -420,8 +402,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/27/Elasticsearch-53-基于slop参数实现近似匹配/" rel="next" title="Elasticsearch-53-基于slop参数实现近似匹配">
-                <i class="fa fa-chevron-left"></i> Elasticsearch-53-基于slop参数实现近似匹配
+              <a href="/2019/01/18/Elasticsearch-93-深入剖析搜索结果的高亮显示/" rel="next" title="Elasticsearch-93-深入剖析搜索结果的高亮显示">
+                <i class="fa fa-chevron-left"></i> Elasticsearch-93-深入剖析搜索结果的高亮显示
               </a>
             
           </div>
@@ -429,10 +411,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/02/Elasticsearch-55-使用rescoring机制优化近似匹配的性能/" rel="prev" title="Elasticsearch-55-使用rescoring机制优化近似匹配的性能">
-                Elasticsearch-55-使用rescoring机制优化近似匹配的性能 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -489,17 +467,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -559,22 +528,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#召回率"><span class="nav-number">1.</span> <span class="nav-text">召回率</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#精准度"><span class="nav-number">2.</span> <span class="nav-text">精准度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#混合使用match和近似匹配"><span class="nav-number">3.</span> <span class="nav-text">混合使用match和近似匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实战案例"><span class="nav-number">4.</span> <span class="nav-text">实战案例</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
