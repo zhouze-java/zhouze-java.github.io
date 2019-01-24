@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2019/01/24/Elasticsearch-101-%E7%94%9F%E4%BA%A7%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E7%AD%89%E5%BB%BA%E8%AE%AE/</loc>
+    
+    <lastmod>2019-01-24T02:36:17.308Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2019/01/23/Elasticsearch-100-Java-API%E5%9F%BA%E4%BA%8E%E5%9C%B0%E7%90%86%E4%BD%8D%E7%BD%AE%E7%9A%84%E6%90%9C%E7%B4%A2/</loc>
     
     <lastmod>2019-01-23T09:18:07.487Z</lastmod>
