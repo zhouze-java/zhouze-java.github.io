@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="下载elasticsearchelasticsearch-5.2.0.zip  解压 cmd进入bin目录,启动1elasticsearch.bat   检查是否启动成功1http://localhost:9200/?pretty 返回值12345678910111213&amp;#123;  &amp;quot;name&amp;quot; : &amp;quot;f57uV91&amp;quot;,">
+<meta name="description" content="es的默认参数es的默认参数是非常好的,适合绝大多数的情况,尤其是一些性能相关的配置.因此刚开始部署一个生产环境下的es集群时,几乎所有的配置参数都可以用默认的设置.有很多的生产环境场景下,都是因为es集群管理人员自己去调整es的某些配置,结果导致集群出现了严重的故障.   比如mysql或者oracle这种关系型数据库,也许是需要非常重的调优,但是es是真的不用.如果我们现在面临着一些es的性能">
 <meta name="keywords" content="Elasticsearch">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Elasticsearch-1-Windows下安装Es">
-<meta property="og:url" content="http://yoursite.com/2018/11/16/Elasticsearch-1-Windows下安装Es/index.html">
+<meta property="og:title" content="Elasticsearch-104-生产集群必须配置的一些重要参数">
+<meta property="og:url" content="http://yoursite.com/2019/01/25/Elasticsearch-104-生产集群必须配置的一些重要参数/index.html">
 <meta property="og:site_name" content="八度空间">
-<meta property="og:description" content="下载elasticsearchelasticsearch-5.2.0.zip  解压 cmd进入bin目录,启动1elasticsearch.bat   检查是否启动成功1http://localhost:9200/?pretty 返回值12345678910111213&amp;#123;  &amp;quot;name&amp;quot; : &amp;quot;f57uV91&amp;quot;,">
+<meta property="og:description" content="es的默认参数es的默认参数是非常好的,适合绝大多数的情况,尤其是一些性能相关的配置.因此刚开始部署一个生产环境下的es集群时,几乎所有的配置参数都可以用默认的设置.有很多的生产环境场景下,都是因为es集群管理人员自己去调整es的某些配置,结果导致集群出现了严重的故障.   比如mysql或者oracle这种关系型数据库,也许是需要非常重的调优,但是es是真的不用.如果我们现在面临着一些es的性能">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-22T09:47:48.152Z">
+<meta property="og:updated_time" content="2019-01-25T08:47:39.588Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Elasticsearch-1-Windows下安装Es">
-<meta name="twitter:description" content="下载elasticsearchelasticsearch-5.2.0.zip  解压 cmd进入bin目录,启动1elasticsearch.bat   检查是否启动成功1http://localhost:9200/?pretty 返回值12345678910111213&amp;#123;  &amp;quot;name&amp;quot; : &amp;quot;f57uV91&amp;quot;,">
+<meta name="twitter:title" content="Elasticsearch-104-生产集群必须配置的一些重要参数">
+<meta name="twitter:description" content="es的默认参数es的默认参数是非常好的,适合绝大多数的情况,尤其是一些性能相关的配置.因此刚开始部署一个生产环境下的es集群时,几乎所有的配置参数都可以用默认的设置.有很多的生产环境场景下,都是因为es集群管理人员自己去调整es的某些配置,结果导致集群出现了严重的故障.   比如mysql或者oracle这种关系型数据库,也许是需要非常重的调优,但是es是真的不用.如果我们现在面临着一些es的性能">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/16/Elasticsearch-1-Windows下安装Es/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/25/Elasticsearch-104-生产集群必须配置的一些重要参数/">
 
 
 
 
 
-  <title>Elasticsearch-1-Windows下安装Es | 八度空间</title>
+  <title>Elasticsearch-104-生产集群必须配置的一些重要参数 | 八度空间</title>
   
 
 
@@ -286,7 +286,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/16/Elasticsearch-1-Windows下安装Es/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/25/Elasticsearch-104-生产集群必须配置的一些重要参数/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -303,7 +303,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Elasticsearch-1-Windows下安装Es</h1>
+          <h1 class="post-title" itemprop="name headline">Elasticsearch-104-生产集群必须配置的一些重要参数</h1>
         
 
         <div class="post-meta">
@@ -315,8 +315,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-16T16:10:29+08:00">
-                2018-11-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-25T16:47:27+08:00">
+                2019-01-25
               </time>
             
 
@@ -375,21 +375,29 @@
       
 
       
-        <h4 id="下载elasticsearch"><a href="#下载elasticsearch" class="headerlink" title="下载elasticsearch"></a>下载elasticsearch</h4><p><a href="https://share.weiyun.com/5XjwHxp" target="_blank" rel="noopener">elasticsearch-5.2.0.zip</a></p>
-<ol>
-<li>解压</li>
-<li>cmd进入bin目录,启动<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">elasticsearch.bat</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="检查是否启动成功"><a href="#检查是否启动成功" class="headerlink" title="检查是否启动成功"></a>检查是否启动成功</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:9200/?pretty</span><br></pre></td></tr></table></figure>
-<p><strong>返回值</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot; : &quot;f57uV91&quot;,                                   // 节点名称</span><br><span class="line">  &quot;cluster_name&quot; : &quot;elasticsearch&quot;,                     // 所在集群名称</span><br><span class="line">  &quot;cluster_uuid&quot; : &quot;uyiZiUqnSSaV-eazKkv_sg&quot;,</span><br><span class="line">  &quot;version&quot; : &#123;</span><br><span class="line">    &quot;number&quot; : &quot;5.2.0&quot;,                                 // 版本号</span><br><span class="line">    &quot;build_hash&quot; : &quot;24e05b9&quot;,</span><br><span class="line">    &quot;build_date&quot; : &quot;2017-01-24T19:52:35.800Z&quot;,</span><br><span class="line">    &quot;build_snapshot&quot; : false,</span><br><span class="line">    &quot;lucene_version&quot; : &quot;6.4.0&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;tagline&quot; : &quot;You Know, for Search&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="下载Kibana"><a href="#下载Kibana" class="headerlink" title="下载Kibana"></a>下载Kibana</h4><p><a href="https://share.weiyun.com/5AgJ5D1" target="_blank" rel="noopener">kibana-5.2.0-windows-x86.zip</a>  </p>
-<ol>
-<li>解压  </li>
-<li>进入bin目录,启动kibana.bat</li>
-<li>localhost:5601/</li>
-<li>进入Dev Tools</li>
-</ol>
+        <h4 id="es的默认参数"><a href="#es的默认参数" class="headerlink" title="es的默认参数"></a>es的默认参数</h4><p>es的默认参数是非常好的,适合绝大多数的情况,尤其是一些性能相关的配置.因此刚开始部署一个生产环境下的es集群时,几乎所有的配置参数都可以用默认的设置.有很多的生产环境场景下,都是因为es集群管理人员自己去调整es的某些配置,结果导致集群出现了严重的故障.  </p>
+<p>比如mysql或者oracle这种关系型数据库,也许是需要非常重的调优,但是es是真的不用.如果我们现在面临着一些es的性能问题,通常建议的解决方案是更好的进行数据结构的布局,或者增加更多的节点和机器资源.在es的性能调优中,真的很少有那种magic knobs,就是某个参数一调节,直接性能提升上百倍.即使有这种参数,es官方也早就将其设置为默认的最佳值了.  </p>
+<p>但是在生产环境中,还是有极少数跟公司和业务相关的配置是需要我们修改的.这些设置都是具体的公司和业务相关联的,是没法预先给予最好的默认配置的.</p>
+<h4 id="集群名称和节点名称的配置"><a href="#集群名称和节点名称的配置" class="headerlink" title="集群名称和节点名称的配置"></a>集群名称和节点名称的配置</h4><p>默认情况下,es会启动一个名称为elasticsearch的集群.通常建议一定要将自己的集群名称重新进行命名,主要是避免公司网络环境中,也许某个开发人员的开发机会无意中加入你的集群.  </p>
+<p>此外,每个node启动的时候,es也会分配一个随机的名称.这个也不适合在生产环境中,因为这会导致我们没法记住每台机器.而且每次重启节点都会随机分配,就导致node名称每次重启都会变化.因此通常我们在生产环境中是需要给每个node都分配一个名称的.   </p>
+<p>这两个名称的配置在上文中已经配置过了   </p>
+<h4 id="文件路径配置"><a href="#文件路径配置" class="headerlink" title="文件路径配置"></a>文件路径配置</h4><p>主要是数据文件的路径,日志路径和插件路径,这里的配置是很重要的<br>默认情况下,es会将plugin,log,还有data,config,这些文件都放在es 的安装目录中,这有一个问题,就是在进行es升级的时候,可能会导致这些目录被覆盖掉.导致我们丢失之前安装好的plugin,已有的log,还有已有的数据,以及配置好的配置文件.  </p>
+<p>所以一般建议在生产环境中,必须将这些重要的文件路径,都重新设置一下,放在es安装目录之外的路径  </p>
+<ul>
+<li>path.data用于设置数据文件的目录</li>
+<li>path.logs用于设置日志文件的目录</li>
+<li>path.plugins用于设置插件存放的目录</li>
+</ul>
+<p>path.data可以指定多个目录,用逗号分隔即可(multiple data path).如果多个目录在不同的磁盘上,那么这就是一个最简单的RAID 0的方式,将数据在本地进行条带化存储了,可以提升整体的磁盘读写性能.es会自动将数据在多个磁盘的多个目录中条带化存储数据.  </p>
+<p>在RAID 0的存储级别下,每个磁盘上会存储一部分数据,但是如果一个磁盘故障了,那么可能导致这台机器上的部分数据就丢失了.如果我们的es是有replica的,那么在其他机器上还是会有一份副本的.如果data file指定了多个目录,为了尽量减少数据丢失的风险,es会将某个shard的数据都分配到一个磁盘上去.这就意味着每个shard都仅仅会放在一个磁盘上.es不会将一个shard的数据条带化存储到多个磁盘上去,因为如果一个磁盘丢失了,就会导致整个shard数据丢失.  </p>
+<p>虽然multiple data path是一个很有用的功能,但是es毕竟不是一个专门的RAID软件.如果我们要对RAID存储策略进行更多的配置,提高存储的健壮性以及灵活性,还是要用专门的RAID软件来进行机器的磁盘数据存储,而不是用multiple data path策略.  </p>
+<p>综上所述,multiple data path功能在实际的生产环境中,其实是较少使用的.  </p>
+<p>然后我们来实际配置一下,先创建以下几个目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /var/log/elasticsearch</span><br><span class="line">mkdir -p /var/data/elasticsearch</span><br><span class="line">mkdir -p /var/plugin/elasticsearch</span><br><span class="line">mkdir -p /etc/elasticsearch</span><br></pre></td></tr></table></figure></p>
+<p>一般情况下,建议就存放在这几个目录中   </p>
+<p>目录创建好了之后,修改elasticsearch.yml里面的配置,将以下的配置copy进去就ok<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">path.logs: /var/log/elasticsearch</span><br><span class="line">path.data: /var/data/elasticsearch</span><br><span class="line">path.plugins: /var/plugin/elasticsearch</span><br></pre></td></tr></table></figure></p>
+<h4 id="日志配置"><a href="#日志配置" class="headerlink" title="日志配置"></a>日志配置</h4><p>es使用log4j2来记录日志,log4j2可以通过log4j2.properties文件来进行配置.比如下面的这份配置文件:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># 配置了appender类型是RollingFile</span><br><span class="line">appender.rolling.type = RollingFile   </span><br><span class="line"></span><br><span class="line">appender.rolling.name = rolling</span><br><span class="line"></span><br><span class="line"># 配置了日志路径是/var/log/elasticsearch/production.log</span><br><span class="line">appender.rolling.fileName = $&#123;sys:es.logs.base_path&#125;$&#123;sys:file.separator&#125;$&#123;sys:es.logs.cluster_name&#125;.log </span><br><span class="line">appender.rolling.layout.type = PatternLayout</span><br><span class="line">appender.rolling.layout.pattern = [%d&#123;ISO8601&#125;][%-5p][%-25c] %.10000m%n</span><br><span class="line">appender.rolling.filePattern = $&#123;sys:es.logs.base_path&#125;$&#123;sys:file.separator&#125;$&#123;sys:es.logs.cluster_name&#125;-%d&#123;yyyy-MM-dd&#125;.log </span><br><span class="line"></span><br><span class="line">appender.rolling.policies.type = Policies</span><br><span class="line"># 配置了用基于时间的roll策略</span><br><span class="line">appender.rolling.policies.time.type = TimeBasedTriggeringPolicy </span><br><span class="line"># 这个设置了每天一份日志文件</span><br><span class="line">appender.rolling.policies.time.interval = 1 </span><br><span class="line"># 这个设置了根据自然天来划分文件,而不是24小时</span><br><span class="line">appender.rolling.policies.time.modulate = true</span><br></pre></td></tr></table></figure></p>
+<p>我们可以在config/log4j2.properties中加入以下的配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 配置了默认的DefaultRolloverStrategy</span><br><span class="line">appender.rolling.strategy.type = DefaultRolloverStrategy </span><br><span class="line"># 配置了Delete action,在rollover之后,就会删除文件</span><br><span class="line">appender.rolling.strategy.action.type = Delete </span><br><span class="line"># 配置了es log的基础路径</span><br><span class="line">appender.rolling.strategy.action.basepath = $&#123;sys:es.logs.base_path&#125; </span><br><span class="line"># 配置了rollover发生的条件,是基于IfLastModified</span><br><span class="line">appender.rolling.strategy.action.condition.type = IfLastModified </span><br><span class="line"># 配置了保留的天数,这里是7天</span><br><span class="line">appender.rolling.strategy.action.condition.age = 7D </span><br><span class="line"># 配置了删除匹配7天前的文件</span><br><span class="line">appender.rolling.strategy.action.PathConditions.type = IfFileName </span><br><span class="line"># 配置了一个删除文件的格式,这样就只是删除过期日志文件,但是不要删除慢查询日志</span><br><span class="line">appender.rolling.strategy.action.PathConditions.glob = $&#123;sys:es.logs.cluster_name&#125;-*</span><br></pre></td></tr></table></figure></p>
+<h4 id="移动配置文件到自定义的目录"><a href="#移动配置文件到自定义的目录" class="headerlink" title="移动配置文件到自定义的目录"></a>移动配置文件到自定义的目录</h4><p>日志文件以及配置文件修改好之后,把config目录下的所有文件都复制到之前创建好的 /etc/elasticsearch目录里面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp elasticsearch.yml /etc/elasticsearch/</span><br><span class="line">cp jvm.options /etc/elasticsearch/</span><br><span class="line">cp log4j2.properties /etc/elasticsearch/</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -420,8 +428,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/16/Elasticsearch-0-核心概念/" rel="next" title="Elasticsearch-0-核心概念">
-                <i class="fa fa-chevron-left"></i> Elasticsearch-0-核心概念
+              <a href="/2019/01/25/Elasticsearch-103-集群部署及zen-discovery集群发现机制/" rel="next" title="Elasticsearch-103-集群部署及zen discovery集群发现机制">
+                <i class="fa fa-chevron-left"></i> Elasticsearch-103-集群部署及zen discovery集群发现机制
               </a>
             
           </div>
@@ -429,10 +437,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/16/Elasticsearch-2-集群状态检查和CRUD操作/" rel="prev" title="Elasticsearch-2-集群状态检查和CRUD操作">
-                Elasticsearch-2-集群状态检查和CRUD操作 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -569,7 +573,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载elasticsearch"><span class="nav-number">1.</span> <span class="nav-text">下载elasticsearch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检查是否启动成功"><span class="nav-number">2.</span> <span class="nav-text">检查是否启动成功</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下载Kibana"><span class="nav-number">3.</span> <span class="nav-text">下载Kibana</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#es的默认参数"><span class="nav-number">1.</span> <span class="nav-text">es的默认参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集群名称和节点名称的配置"><span class="nav-number">2.</span> <span class="nav-text">集群名称和节点名称的配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件路径配置"><span class="nav-number">3.</span> <span class="nav-text">文件路径配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#日志配置"><span class="nav-number">4.</span> <span class="nav-text">日志配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移动配置文件到自定义的目录"><span class="nav-number">5.</span> <span class="nav-text">移动配置文件到自定义的目录</span></a></li></ol></div>
             
 
           </div>
