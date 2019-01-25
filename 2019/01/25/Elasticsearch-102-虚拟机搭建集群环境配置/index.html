@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Elasticsearch,">
 
 
 
@@ -79,13 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="八度空间">
-<meta property="og:url" content="http://yoursite.com/categories/Elasticsearch/page/3/index.html">
+<meta name="description" content="配置要求搭建一个4个节点的es集群,需要用到4台虚拟机,每个虚拟机的配置是2核4G    创建虚拟机可以用virtual box 或者 VM,然后下载CentOS 7 64位的镜像,然后分配4G内存,其他配置按默认的就ok   配置网络虚拟机创建好之后,配置网络,配置一个静态的ip,具体配置方法可以看这里 传送门    配置好之后,试试主机和虚拟之间能不能相互ping通就好了     关闭防火墙1">
+<meta name="keywords" content="Elasticsearch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch-102-虚拟机搭建集群环境配置">
+<meta property="og:url" content="http://yoursite.com/2019/01/25/Elasticsearch-102-虚拟机搭建集群环境配置/index.html">
 <meta property="og:site_name" content="八度空间">
+<meta property="og:description" content="配置要求搭建一个4个节点的es集群,需要用到4台虚拟机,每个虚拟机的配置是2核4G    创建虚拟机可以用virtual box 或者 VM,然后下载CentOS 7 64位的镜像,然后分配4G内存,其他配置按默认的就ok   配置网络虚拟机创建好之后,配置网络,配置一个静态的ip,具体配置方法可以看这里 传送门    配置好之后,试试主机和虚拟之间能不能相互ping通就好了     关闭防火墙1">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-25T01:41:36.031Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="八度空间">
+<meta name="twitter:title" content="Elasticsearch-102-虚拟机搭建集群环境配置">
+<meta name="twitter:description" content="配置要求搭建一个4个节点的es集群,需要用到4台虚拟机,每个虚拟机的配置是2核4G    创建虚拟机可以用virtual box 或者 VM,然后下载CentOS 7 64位的镜像,然后分配4G内存,其他配置按默认的就ok   配置网络虚拟机创建好之后,配置网络,配置一个静态的ip,具体配置方法可以看这里 传送门    配置好之后,试试主机和虚拟之间能不能相互ping通就好了     关闭防火墙1">
 
 
 
@@ -115,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/Elasticsearch/page/3/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/25/Elasticsearch-102-虚拟机搭建集群环境配置/">
 
 
 
 
 
-  <title>分类: Elasticsearch | 八度空间</title>
+  <title>Elasticsearch-102-虚拟机搭建集群环境配置 | 八度空间</title>
   
 
 
@@ -140,7 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 	<a href="https://github.com/zhouze-java" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 	
@@ -267,291 +272,184 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block category">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Elasticsearch<small>分类</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/25/Elasticsearch-102-虚拟机搭建集群环境配置/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="周泽">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八度空间">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/01/15/Elasticsearch-82-应用层关联查询与通过冗余数据关联对比/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-82-应用层关联查询与通过冗余数据关联对比</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Elasticsearch-102-虚拟机搭建集群环境配置</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-15T15:38:11+08:00" content="2019-01-15">
-          01-15
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-25T09:41:12+08:00">
+                2019-01-25
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
+                    <span itemprop="name">Elasticsearch</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/15/Elasticsearch-81-关系型数据库与document类型数据模型对比/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-81-关系型数据库与document类型数据模型对比</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-15T15:36:41+08:00" content="2019-01-15">
-          01-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/15/Elasticsearch-80-海量bucket的优化机制/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-80-海量bucket的优化机制</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-15T10:41:51+08:00" content="2019-01-15">
-          01-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/15/Elasticsearch-79-fielddata-filter的细粒度内存加载控制以及预加载机制/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-79-fielddata filter的细粒度内存加载控制以及预加载机制</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-15T10:13:24+08:00" content="2019-01-15">
-          01-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/14/Elasticsearch-78-fielddata内存控制及circuit-breaker短路器/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-78-fielddata内存控制及circuit breaker短路器</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-14T17:34:22+08:00" content="2019-01-14">
-          01-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/14/Elasticsearch-77-fielddata原理/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-77-fielddata原理</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-14T17:06:40+08:00" content="2019-01-14">
-          01-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/14/Elasticsearch-76-基于doc-value正排索引的聚合内部原理/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-76-基于doc value正排索引的聚合内部原理</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-14T11:13:25+08:00" content="2019-01-14">
-          01-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/12/Elasticsearch-75-percentiles百分比算法及优化/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-75-percentiles百分比算法及优化</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-12T16:05:19+08:00" content="2019-01-12">
-          01-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/11/Elasticsearch-74-cartinality-metric去重算法及性能优化/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-74-cartinality metric去重算法及性能优化</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-11T17:39:19+08:00" content="2019-01-11">
-          01-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/11/Elasticsearch-73-易并行聚合算法-三角选择原则-近似聚合算法/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-73-易并行聚合算法 三角选择原则 近似聚合算法</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-11T16:02:47+08:00" content="2019-01-11">
-          01-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <h4 id="配置要求"><a href="#配置要求" class="headerlink" title="配置要求"></a>配置要求</h4><p>搭建一个4个节点的es集群,需要用到4台虚拟机,每个虚拟机的配置是2核4G   </p>
+<h4 id="创建虚拟机"><a href="#创建虚拟机" class="headerlink" title="创建虚拟机"></a>创建虚拟机</h4><p>可以用virtual box 或者 VM,然后下载CentOS 7 64位的镜像,然后分配4G内存,其他配置按默认的就ok  </p>
+<h4 id="配置网络"><a href="#配置网络" class="headerlink" title="配置网络"></a>配置网络</h4><p>虚拟机创建好之后,配置网络,配置一个静态的ip,具体配置方法可以看这里 <a href="https://zhuanlan.zhihu.com/p/45131382" target="_blank" rel="noopener">传送门</a>   </p>
+<p>配置好之后,试试主机和虚拟之间能不能相互ping通就好了    </p>
+<h4 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld.service</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl disable firewalld.service</span><br></pre></td></tr></table></figure>
+<h4 id="host配置"><a href="#host配置" class="headerlink" title="host配置"></a>host配置</h4><p>配置本机的hostname 和 ip的映射<br>比如虚拟机的ip是192.168.1.110 名称是elasticsearch01<br>就在host中配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">192.168.1.110 elasticsearch01</span><br></pre></td></tr></table></figure></p>
+<p>创建的是4个虚拟机,每个虚拟机的host中都要把4个的ip 名称都写进去<br>比如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">192.168.1.110 elasticsearch01</span><br><span class="line">192.168.1.111 elasticsearch02</span><br><span class="line">192.168.1.112 elasticsearch03</span><br><span class="line">192.168.1.113 elasticsearch04</span><br></pre></td></tr></table></figure></p>
+<h4 id="安装java"><a href="#安装java" class="headerlink" title="安装java"></a>安装java</h4><p>安装1.8的版本,然后配置好环境变量,用java -version测试是否安装成功.  </p>
+<p>安装教程<a href="https://www.jianshu.com/p/d553f4db498a" target="_blank" rel="noopener">传送门</a></p>
+<h4 id="配置4台机器免密码通信"><a href="#配置4台机器免密码通信" class="headerlink" title="配置4台机器免密码通信"></a>配置4台机器免密码通信</h4><p>首先,需要在三台机器上配置对本机的ssh免密码登录   </p>
+<p>生成本机的公钥,过程中不断敲回车即可,ssh-keygen命令默认会将公钥放在/root/.ssh目录下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure></p>
+<p>将公钥复制为authorized_keys文件,此时使用ssh连接本机就不需要输入密码了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /root/.ssh</span><br><span class="line">cp id_rsa.pub authorized_keys</span><br></pre></td></tr></table></figure></p>
+<p>接着配置四台机器互相之间的ssh免密码登录  </p>
+<p>将本机的公钥拷贝到指定机器的authorized_keys文件中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id -i hostname</span><br></pre></td></tr></table></figure></p>
+<p>都复制完了之后可以用下面的命令来测试是不是免密码登录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh hostname</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Elasticsearch/" <i="" class="fa fa-tag"> Elasticsearch</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/24/Elasticsearch-101-生产集群部署服务器配置等建议/" rel="next" title="Elasticsearch-101-生产集群部署服务器配置等建议">
+                <i class="fa fa-chevron-left"></i> Elasticsearch-101-生产集群部署服务器配置等建议
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/categories/Elasticsearch/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/categories/Elasticsearch/">1</a><a class="page-number" href="/categories/Elasticsearch/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/categories/Elasticsearch/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/categories/Elasticsearch/page/11/">11</a><a class="extend next" rel="next" href="/categories/Elasticsearch/page/4/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -559,6 +457,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTEyNi8xNzY1MQ=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -579,8 +486,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -640,6 +556,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置要求"><span class="nav-number">1.</span> <span class="nav-text">配置要求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建虚拟机"><span class="nav-number">2.</span> <span class="nav-text">创建虚拟机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置网络"><span class="nav-number">3.</span> <span class="nav-text">配置网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关闭防火墙"><span class="nav-number">4.</span> <span class="nav-text">关闭防火墙</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#host配置"><span class="nav-number">5.</span> <span class="nav-text">host配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装java"><span class="nav-number">6.</span> <span class="nav-text">安装java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置4台机器免密码通信"><span class="nav-number">7.</span> <span class="nav-text">配置4台机器免密码通信</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -803,6 +735,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -831,6 +767,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
