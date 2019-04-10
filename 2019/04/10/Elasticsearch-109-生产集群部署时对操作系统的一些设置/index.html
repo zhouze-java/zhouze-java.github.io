@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Elasticsearch,">
 
 
 
@@ -79,13 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="八度空间">
-<meta property="og:url" content="http://yoursite.com/categories/Elasticsearch/page/8/index.html">
+<meta name="description" content="概述理想情况下,es应该单独在一个服务器上运行,能够使用服务器上的所有资源.为了达到上述目标,我们需要配置操作系统,来允许用户运行es并且获取比默认情况下更多的资源.   在生产环境中下面的一些设置必须配置一下:    禁止swapping 确保拥有足够的虚拟内存 确保拥有足够的线程数量  默认情况下,es会假设你是在开发模式下运行的.如果上面的任何配置没有正确的设置,那么会输出一些warning">
+<meta name="keywords" content="Elasticsearch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch-109-生产集群部署时对操作系统的一些设置">
+<meta property="og:url" content="http://yoursite.com/2019/04/10/Elasticsearch-109-生产集群部署时对操作系统的一些设置/index.html">
 <meta property="og:site_name" content="八度空间">
+<meta property="og:description" content="概述理想情况下,es应该单独在一个服务器上运行,能够使用服务器上的所有资源.为了达到上述目标,我们需要配置操作系统,来允许用户运行es并且获取比默认情况下更多的资源.   在生产环境中下面的一些设置必须配置一下:    禁止swapping 确保拥有足够的虚拟内存 确保拥有足够的线程数量  默认情况下,es会假设你是在开发模式下运行的.如果上面的任何配置没有正确的设置,那么会输出一些warning">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-10T06:58:54.950Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="八度空间">
+<meta name="twitter:title" content="Elasticsearch-109-生产集群部署时对操作系统的一些设置">
+<meta name="twitter:description" content="概述理想情况下,es应该单独在一个服务器上运行,能够使用服务器上的所有资源.为了达到上述目标,我们需要配置操作系统,来允许用户运行es并且获取比默认情况下更多的资源.   在生产环境中下面的一些设置必须配置一下:    禁止swapping 确保拥有足够的虚拟内存 确保拥有足够的线程数量  默认情况下,es会假设你是在开发模式下运行的.如果上面的任何配置没有正确的设置,那么会输出一些warning">
 
 
 
@@ -115,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/Elasticsearch/page/8/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/10/Elasticsearch-109-生产集群部署时对操作系统的一些设置/">
 
 
 
 
 
-  <title>分类: Elasticsearch | 八度空间</title>
+  <title>Elasticsearch-109-生产集群部署时对操作系统的一些设置 | 八度空间</title>
   
 
 
@@ -140,7 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 	<a href="https://github.com/zhouze-java" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 	
@@ -267,291 +272,204 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block category">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Elasticsearch<small>分类</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Elasticsearch-109-生产集群部署时对操作系统的一些设置/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="周泽">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八度空间">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/11/30/Elasticsearch-39-filter原理深度剖析/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-39-filter原理深度剖析</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Elasticsearch-109-生产集群部署时对操作系统的一些设置</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-30T22:30:59+08:00" content="2018-11-30">
-          11-30
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T14:58:24+08:00">
+                2019-04-10
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
+                    <span itemprop="name">Elasticsearch</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/30/Elasticsearch-38-实战案例-term-filter搜索/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-38-实战案例-term filter搜索</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-30T22:30:42+08:00" content="2018-11-30">
-          11-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/29/Elasticsearch-37-Java-API-document-增删改查/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-37-Java API document 增删改查</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-29T16:26:45+08:00" content="2018-11-29">
-          11-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/27/Elasticsearch-36-深度解析document增删改原理及优化过程/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-36-深度解析document增删改原理及优化过程</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-27T15:29:28+08:00" content="2018-11-27">
-          11-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/27/Elasticsearch-35-使用scroll-bulk-索引别名实现零停机重建索引/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-35-使用scroll+bulk+索引别名实现零停机重建索引</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-27T10:21:01+08:00" content="2018-11-27">
-          11-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/26/Elasticsearch-34-定制自己的dynamic-mapping策略/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-34-定制自己的dynamic mapping策略</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-26T17:35:53+08:00" content="2018-11-26">
-          11-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/26/Elasticsearch-33-mapping-root-object深入剖析/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-33-_mapping root object深入剖析</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-26T15:39:48+08:00" content="2018-11-26">
-          11-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/26/Elasticsearch-32-type底层数据结构/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-32-type底层数据结构</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-26T14:54:50+08:00" content="2018-11-26">
-          11-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/24/Elasticsearch-31-手动创建索引以及定制分词器/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-31-手动创建索引以及定制分词器</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-24T16:38:15+08:00" content="2018-11-24">
-          11-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/24/Elasticsearch-30-scroll滚动查询/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-30-scroll滚动查询</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-24T15:34:11+08:00" content="2018-11-24">
-          11-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>理想情况下,es应该单独在一个服务器上运行,能够使用服务器上的所有资源.为了达到上述目标,我们需要配置操作系统,来允许用户运行es并且获取比默认情况下更多的资源.  </p>
+<p>在生产环境中下面的一些设置必须配置一下:  </p>
+<ul>
+<li>禁止swapping</li>
+<li>确保拥有足够的虚拟内存</li>
+<li>确保拥有足够的线程数量</li>
+</ul>
+<p>默认情况下,es会假设你是在开发模式下运行的.如果上面的任何配置没有正确的设置,那么会输出一些warning到日志文件中,但是我们还是可以启动es进程的.  </p>
+<p>但是如果我们配置了网络设置,比如network.host,es会认为我们是运行在生产环境中的,然后就会将上述warning升级为exception.这些exception会阻止我们的es节点启动.这是一个重要的安全保障措施来确保我们不会因为错误的配置了es server,而导致数据丢失.  </p>
+<h3 id="配置系统设置"><a href="#配置系统设置" class="headerlink" title="配置系统设置"></a>配置系统设置</h3><p>在<code>/etc/security/limits.conf</code>中,可以配置系统设置  </p>
+<p>也可以用ulimit临时配置系统设置,在linux操作系统中,ulimit可以用来临时的改变资源限制.通常需要用root权限来设置ulimit.<br>举例,如果要设置file descriptor为65536,可以用如下的命令来设置:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ulimit -n 65536</span><br></pre></td></tr></table></figure></p>
+<p>但是在linux操作系统中,实际上永久性的资源限制可以通过编辑<code>/etc/security/limits.conf</code>文件来设置.比如要设置file descriptor,可以再limits.conf中加入下面的行:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">elasticsearch - nofile 65536</span><br></pre></td></tr></table></figure></p>
+<p>在下一次elasticsearch用户开启一个新的会话时就会生效  </p>
+<h3 id="设置jvm-option"><a href="#设置jvm-option" class="headerlink" title="设置jvm option"></a>设置jvm option</h3><p>一般建议通过jvm.options配置文件来设置es的jvm option.默认的地址是config/jvm.options,每行是一个jvm argument  </p>
+<p>此外,如也可以通过ES_JAVA_OPTS环境变量来设置jvm option,比如下面的命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export ES_JAVA_OPTS=&quot;$ES_JAVA_OPTS -Djava.io.tmpdir=/path/to/temp/dir&quot;</span><br></pre></td></tr></table></figure></p>
+<h3 id="禁止swapping"><a href="#禁止swapping" class="headerlink" title="禁止swapping"></a>禁止swapping</h3><p>大多数操作系统都会使用尽量多的内存来进行file system cache,并且尽量将不经常使用的java应用的内存swap到磁盘中去.这会导致jvm heap的部分内存,甚至是用来执行代码的内存页被swap到磁盘中去.  </p>
+<p>swapping对于性能来说是非常差劲的,为了es节点的稳定性考虑,应该尽量避免这种swapping.因为swapping会导致gc过程从毫秒级变成分钟级,在gc的时候需要将内存从磁盘中swapping到内存里,特别耗时,这会导致es节点响应请求变得很慢,甚至导致es node跟cluster失联.在一个弹性的分布式系统中,让操作系统kill掉某一个节点,是很高效的.  </p>
+<p>有三种方法可以disable swapping.推荐的option是彻底禁用swap,如果做不到的化,也得尽量最小化swappiness的影响,比如通过lock memory的方法.  </p>
+<h4 id="禁用所有的swapping-file"><a href="#禁用所有的swapping-file" class="headerlink" title="禁用所有的swapping file"></a>禁用所有的swapping file</h4><p>通常来说,es进程会在一个节点上单独运行,那么es进程的内存使用是由jvm option控制的.  </p>
+<p>可以使用下面的命令临时性禁止swap<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swapoff -a</span><br></pre></td></tr></table></figure></p>
+<p>要永久性的禁止swap,需要修改/etc/fstab文件,然后将所有包含swap的行都注释掉   </p>
+<h4 id="配置swappiness"><a href="#配置swappiness" class="headerlink" title="配置swappiness"></a>配置swappiness</h4><p>另外一个方法就是通过sysctl,将vm.swappiness设置为1,这可以尽量减少linux内核swap的倾向,在正常情况下,就不会进行swap,但是在紧急情况下,还是会进行swap操作.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -w vm.swappiness=1</span><br></pre></td></tr></table></figure></p>
+<h4 id="启用bootstrap-memory-lock"><a href="#启用bootstrap-memory-lock" class="headerlink" title="启用bootstrap.memory_lock"></a>启用bootstrap.memory_lock</h4><p>最后一个选项,就是用mlockall,将es jvm进程的address space锁定在内存中,阻止es内存被swap out到磁盘上去.  </p>
+<p>在config/elasticsearch.yml中,可以配置:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bootstrap.memory_lock: true</span><br></pre></td></tr></table></figure></p>
+<p>然后通过以下命令可以检查mlockall是否开启了:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET _nodes?filter_path=**.mlockall</span><br></pre></td></tr></table></figure></p>
+<p>如果发现mlockall是false,那么意味着mlockall请求失败了.会看到一行日志,<code>unable to lock jvm memory</code>.  </p>
+<p>最大可能的原因,就是在linux系统中,启动es进程的用户没有权限去lock memory,需要通过以下方式进行授权:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ulimit -l unlimited</span><br></pre></td></tr></table></figure></p>
+<p>另外一个原因可能是临时目录使用noexec option来mount了.可以通过指定一个新的临时目录来解决<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export ES_JAVA_OPTS=&quot;$ES_JAVA_OPTS -Djava.io.tmpdir=/path/to/temp/dir&quot;</span><br></pre></td></tr></table></figure></p>
+<p>当然也可以通过在jvm.options文件中来设置java.io.tmpdir </p>
+<h3 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h3><p>es使用hybrid mmapfs / niofs目录来存储index数据,操作系统的默认mmap count限制是很低的,可能会导致内存耗尽的异常.  </p>
+<p>需要提升mmap count的限制:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -w vm.max_map_count=262144</span><br></pre></td></tr></table></figure></p>
+<p>如果要永久性设置这个值,要修改/etc/sysctl.conf,将<code>vm.max_map_count</code>的值修改一下,重启过后,用<code>sysctl vm.max_map_count</code>来验证一下数值是否修改成功  </p>
+<p>es同时会用NioFS和MMapFS来处理不同的文件,我们需要设置最大的map刷另,这样我们才能有足够的虚拟内存来给mmapped文件使用,可以用sysctl来设置:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -w vm.max_map_count=262144</span><br></pre></td></tr></table></figure></p>
+<p>还可以再/etc/sysctl.conf中,对<code>vm.max_map_count</code>来设置.  </p>
+<h3 id="设置线程的数量"><a href="#设置线程的数量" class="headerlink" title="设置线程的数量"></a>设置线程的数量</h3><p>es用了很多线程池来应对不同类型的操作,在需要的时候创建新的线程是很重要的.要确保es用户能创建的最大线程数量至少在2048以上.  </p>
+<p>可以通过<code>ulimit -u 2048</code>来临时设置,也可以在<code>/etc/security/limits.conf</code>中设置nproc为2048来永久性设置.  </p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Elasticsearch/" <i="" class="fa fa-tag"> Elasticsearch</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/10/Elasticsearch-108-Jvm和服务器内存分配的最佳实践以及原理分析/" rel="next" title="Elasticsearch-108-Jvm和服务器内存分配的最佳实践以及原理分析">
+                <i class="fa fa-chevron-left"></i> Elasticsearch-108-Jvm和服务器内存分配的最佳实践以及原理分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/categories/Elasticsearch/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/categories/Elasticsearch/">1</a><span class="space">&hellip;</span><a class="page-number" href="/categories/Elasticsearch/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/categories/Elasticsearch/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/categories/Elasticsearch/page/11/">11</a><a class="extend next" rel="next" href="/categories/Elasticsearch/page/9/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -559,6 +477,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTEyNi8xNzY1MQ=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -579,8 +506,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -640,6 +576,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置系统设置"><span class="nav-number">2.</span> <span class="nav-text">配置系统设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置jvm-option"><span class="nav-number">3.</span> <span class="nav-text">设置jvm option</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#禁止swapping"><span class="nav-number">4.</span> <span class="nav-text">禁止swapping</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#禁用所有的swapping-file"><span class="nav-number">4.1.</span> <span class="nav-text">禁用所有的swapping file</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置swappiness"><span class="nav-number">4.2.</span> <span class="nav-text">配置swappiness</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启用bootstrap-memory-lock"><span class="nav-number">4.3.</span> <span class="nav-text">启用bootstrap.memory_lock</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟内存"><span class="nav-number">5.</span> <span class="nav-text">虚拟内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置线程的数量"><span class="nav-number">6.</span> <span class="nav-text">设置线程的数量</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -803,6 +755,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -831,6 +787,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
