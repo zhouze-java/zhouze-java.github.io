@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/19/Elasticsearch-50-most-fields策略进行cross-fields搜索的弊端/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/11/Elasticsearch-74-cartinality-metric去重算法及性能优化/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/19/Elasticsearch-50-most-fields策略进行cross-fields搜索的弊端/" itemprop="url">Elasticsearch-50-most_fields策略进行cross-fields搜索的弊端</a></h1>
+                <a class="post-title-link" href="/2019/01/11/Elasticsearch-74-cartinality-metric去重算法及性能优化/" itemprop="url">Elasticsearch-74-cartinality metric去重算法及性能优化</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-19T11:15:17+08:00">
-                2018-12-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-11T17:39:19+08:00">
+                2019-01-11
               </time>
             
 
@@ -375,11 +375,12 @@
       
         
           
-          cross-field搜索就是我们搜索一个唯一标识的时候跨越了多个field,比如一个人,标识是姓名,一个建筑的标识是地址. 姓名可以散落在多个field中,比如first_name和last_name中,地址可以散落在country,province,city中.跨多个field搜索一个标识,就是
+          cartinality metriccartinality metric:对每个bucket中的指定的field进行去重,取去重之后的count,类似于count(distinct)   
+案例需求: 每月销售品牌的数量统计12345678910111213141516171819GET tvs/s
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/19/Elasticsearch-50-most-fields策略进行cross-fields搜索的弊端/#more" rel="contents">
+            <a class="btn" href="/2019/01/11/Elasticsearch-74-cartinality-metric去重算法及性能优化/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -430,7 +431,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/17/Elasticsearch-49-实战案例-most-fields策略/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/11/Elasticsearch-73-易并行聚合算法-三角选择原则-近似聚合算法/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -449,7 +450,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/17/Elasticsearch-49-实战案例-most-fields策略/" itemprop="url">Elasticsearch-49-实战案例-most-fields策略</a></h1>
+                <a class="post-title-link" href="/2019/01/11/Elasticsearch-73-易并行聚合算法-三角选择原则-近似聚合算法/" itemprop="url">Elasticsearch-73-易并行聚合算法 三角选择原则 近似聚合算法</a></h1>
         
 
         <div class="post-meta">
@@ -461,8 +462,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-17T18:01:03+08:00">
-                2018-12-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-11T16:02:47+08:00">
+                2019-01-11
               </time>
             
 
@@ -523,11 +524,14 @@
       
         
           
-          对比之前我们写了best-fields策略,本文将使用most-fields来搜索,那么两者有什么区别呢?best-fields策略:主要是说,将某一个field匹配尽可能多的关键词document优先返回回来most-fields策略:主要是说将更多filed匹配到某个关键词的document优先
+          易并行聚合算法有些聚合分析的算法是很容易并行的,比如说max函数,如图  
+比如说,现在一共有三个shard,一个查询最大值的搜索请求过来了,那么coordinate node(协调节点)会把请求打到这三个shard上   
+  
+这个时候,3个shard把他们各自的最大值返回给coordinate
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/17/Elasticsearch-49-实战案例-most-fields策略/#more" rel="contents">
+            <a class="btn" href="/2019/01/11/Elasticsearch-73-易并行聚合算法-三角选择原则-近似聚合算法/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -578,7 +582,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/17/Elasticsearch-48-multi-match语法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/11/Elasticsearch-72-聚合分析-自定义排序/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -597,7 +601,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/17/Elasticsearch-48-multi-match语法/" itemprop="url">Elasticsearch-48-multi_match语法</a></h1>
+                <a class="post-title-link" href="/2019/01/11/Elasticsearch-72-聚合分析-自定义排序/" itemprop="url">Elasticsearch-72-聚合分析 自定义排序</a></h1>
         
 
         <div class="post-meta">
@@ -609,8 +613,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-17T16:00:58+08:00">
-                2018-12-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-11T11:39:34+08:00">
+                2019-01-11
               </time>
             
 
@@ -671,11 +675,12 @@
       
         
           
-          minimum_should_match作用我们先来看一个查询123456789101112131415161718192021222324252627GET forum/article/_search&#123;  &quot;query&quot;: &#123;    &quot;dis_ma
+          之前全部的排序都是按照每个bucket的doc_count降序来排的,那么如何自定义排序呢  
+自定义排序需求: 按每种颜色的平均销售额降序排序123456789101112131415161718192021GET /tvs/sales/_search&#123;  &quot;size&quot
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/17/Elasticsearch-48-multi-match语法/#more" rel="contents">
+            <a class="btn" href="/2019/01/11/Elasticsearch-72-聚合分析-自定义排序/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -726,7 +731,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/Elasticsearch-47-实战案例-基于dis-max实现best-fileds策略进行多字段搜索/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/11/Elasticsearch-71-过滤filter-聚合结合使用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -745,7 +750,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/06/Elasticsearch-47-实战案例-基于dis-max实现best-fileds策略进行多字段搜索/" itemprop="url">Elasticsearch-47-实战案例-基于dis_max实现best fileds策略进行多字段搜索</a></h1>
+                <a class="post-title-link" href="/2019/01/11/Elasticsearch-71-过滤filter-聚合结合使用/" itemprop="url">Elasticsearch-71-过滤filter 聚合结合使用</a></h1>
         
 
         <div class="post-meta">
@@ -757,8 +762,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-06T22:19:27+08:00">
-                2018-12-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-11T11:09:19+08:00">
+                2019-01-11
               </time>
             
 
@@ -819,11 +824,12 @@
       
         
           
-          准备工作为帖子增加content字段1234567891011POST /forum/article/_bulk&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;1&quot;&#125; &#125;&#123; &quot;doc&
+          filter过滤+聚合分析需求: 统计价格大于1200的电视的平均价格   
+请求:12345678910111213141516171819202122GET tvs/sales/_search&#123;  &quot;size&quot;: 0,  &quot;query&quot;: &#1
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/06/Elasticsearch-47-实战案例-基于dis-max实现best-fileds策略进行多字段搜索/#more" rel="contents">
+            <a class="btn" href="/2019/01/11/Elasticsearch-71-过滤filter-聚合结合使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -874,7 +880,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/Elasticsearch-46-多shard场景下relevance-score不准确的问题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/Elasticsearch-70-搜索-聚合分析结合使用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -893,7 +899,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/05/Elasticsearch-46-多shard场景下relevance-score不准确的问题/" itemprop="url">Elasticsearch-46-多shard场景下relevance score不准确的问题</a></h1>
+                <a class="post-title-link" href="/2019/01/10/Elasticsearch-70-搜索-聚合分析结合使用/" itemprop="url">Elasticsearch-70-搜索 聚合分析结合使用</a></h1>
         
 
         <div class="post-meta">
@@ -905,8 +911,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-05T22:20:21+08:00">
-                2018-12-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-10T17:00:59+08:00">
+                2019-01-10
               </time>
             
 
@@ -967,11 +973,13 @@
       
         
           
-          场景一个index的数据被分配到了多个shard上,每个shard都包含一部分这个index的数据如图所示,一个搜索请求条件是title中包含java,假如shard1 上面有10条符合条件的document,这个请求到达shard1上的时候,默认是在这个shard本地local去进行IDF计算在s
+          之前的几个案例都是全部使用的聚合分析,接下来呢,使用搜索和聚合分析结合起来使用   
+案例需求: 统计指定品牌下每个颜色的销量  (小米)     
+请求:123456789101112131415161718GET tvs/sales/_search&#123;  &quot;size&quot;
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/05/Elasticsearch-46-多shard场景下relevance-score不准确的问题/#more" rel="contents">
+            <a class="btn" href="/2019/01/10/Elasticsearch-70-搜索-聚合分析结合使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1022,7 +1030,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/Elasticsearch-45-实战案例-基于boost的细粒度搜索条件权重控制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/09/Elasticsearch-69-深入聚合分析数据II/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1041,7 +1049,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/05/Elasticsearch-45-实战案例-基于boost的细粒度搜索条件权重控制/" itemprop="url">Elasticsearch-45-实战案例-基于boost的细粒度搜索条件权重控制</a></h1>
+                <a class="post-title-link" href="/2019/01/09/Elasticsearch-69-深入聚合分析数据II/" itemprop="url">Elasticsearch-69-深入聚合分析数据II</a></h1>
         
 
         <div class="post-meta">
@@ -1053,8 +1061,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-05T21:20:02+08:00">
-                2018-12-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-09T15:40:50+08:00">
+                2019-01-09
               </time>
             
 
@@ -1115,12 +1123,15 @@
       
         
           
-          场景我们来搜索一下标题必须包含 “blog” 的数据,然后可以包含 “java” “hadoop” “elasticsearch” “spark”的数据  
-实现组合搜索条件123456789101112131415161718192021222324252627282930313233343536
+          常用的几种metric操作上文中,用了avg和count这两个操作,一般来说,常用的metric操作就是以下几种  
+
+count: 计算数量,用terms操作来分组的话,就会自动有一个doc_count,就相当于是count   
+avg: 求一个bucket内,指定field数据的平均值  
+m
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/05/Elasticsearch-45-实战案例-基于boost的细粒度搜索条件权重控制/#more" rel="contents">
+            <a class="btn" href="/2019/01/09/Elasticsearch-69-深入聚合分析数据II/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1171,7 +1182,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/04/Elasticsearch-44-基于term-bool实现的multi word搜索底层原理剖析/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/07/Elasticsearch-68-深入聚合分析数据I/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1190,7 +1201,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/04/Elasticsearch-44-基于term-bool实现的multi word搜索底层原理剖析/" itemprop="url">Elasticsearch-44-基于term+bool实现的multi word搜索底层原理剖析</a></h1>
+                <a class="post-title-link" href="/2019/01/07/Elasticsearch-68-深入聚合分析数据I/" itemprop="url">Elasticsearch-68-深入聚合分析数据I</a></h1>
         
 
         <div class="post-meta">
@@ -1202,8 +1213,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-04T21:37:11+08:00">
-                2018-12-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-07T18:26:36+08:00">
+                2019-01-07
               </time>
             
 
@@ -1264,12 +1275,12 @@
       
         
           
-          在我们使用match这种查询的时候,在es底层其实会自动的转换成term+bool的这种查询  
-示例一原请求体:123&#123;    &quot;match&quot;: &#123; &quot;title&quot;: &quot;java elasticsearch&quot;&#125
+          背景本文,将以一个家电卖场中的电视销售数据为背景,进行各种各样角度的聚合分析  
+准备数据创建索引tvs123456789101112131415161718192021PUT /tvs&#123;	&quot;mappings&quot;: &#123;		&quot;sales&quot;: &
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/04/Elasticsearch-44-基于term-bool实现的multi word搜索底层原理剖析/#more" rel="contents">
+            <a class="btn" href="/2019/01/07/Elasticsearch-68-深入聚合分析数据I/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1320,7 +1331,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/04/Elasticsearch-43-实战案例-手动控制全文检索结果的精准度/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/07/Elasticsearch-67-聚合分析bucket和metric/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1339,7 +1350,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/04/Elasticsearch-43-实战案例-手动控制全文检索结果的精准度/" itemprop="url">Elasticsearch-43-实战案例-手动控制全文检索结果的精准度</a></h1>
+                <a class="post-title-link" href="/2019/01/07/Elasticsearch-67-聚合分析bucket和metric/" itemprop="url">Elasticsearch-67-聚合分析bucket和metric</a></h1>
         
 
         <div class="post-meta">
@@ -1351,8 +1362,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-04T21:36:50+08:00">
-                2018-12-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-07T14:28:56+08:00">
+                2019-01-07
               </time>
             
 
@@ -1413,11 +1424,43 @@
       
         
           
-          准备工作为帖子增加标题字段1234567891011POST /forum/article/_bulk&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;1&quot;&#125; &#125;&#123; &quot;doc&quot;
+          核心概念bucket是一个数据的分组,metric就是对一个bucket执行的某种聚合分析的操作,比如说,求平均值,最大值,最小值等  
+举个例子,有这么一组数据  
+
+
+
+city
+name
+
+
+
+
+北京
+小李
+
+
+北京
+小王
+
+
+上海
+小张
+
+
+上海
+小丽
+
+
+上海
+小陈
+
+
+
+上面的数据可以通
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/04/Elasticsearch-43-实战案例-手动控制全文检索结果的精准度/#more" rel="contents">
+            <a class="btn" href="/2019/01/07/Elasticsearch-67-聚合分析bucket和metric/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1468,7 +1511,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/03/Elasticsearch-42-实战案例-range-filter进行范围过滤/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/05/Elasticsearch-66-修改IK分词器源码基于mysql热更新词库/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1487,7 +1530,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/03/Elasticsearch-42-实战案例-range-filter进行范围过滤/" itemprop="url">Elasticsearch-42-实战案例-range filter进行范围过滤</a></h1>
+                <a class="post-title-link" href="/2019/01/05/Elasticsearch-66-修改IK分词器源码基于mysql热更新词库/" itemprop="url">Elasticsearch-66-修改IK分词器源码基于mysql热更新词库</a></h1>
         
 
         <div class="post-meta">
@@ -1499,8 +1542,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-03T22:15:49+08:00">
-                2018-12-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-05T16:39:57+08:00">
+                2019-01-05
               </time>
             
 
@@ -1561,11 +1604,12 @@
       
         
           
-          准备工作为帖子增加浏览量的字段123456789POST /forum/article/_bulk&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;1&quot;&#125; &#125;&#123; &quot;doc&quot; :
+          上文中,我们如果要配置一个自定义的词语,或者停用词的时候,必须要手动添加到ik分词器的配置中,然后重启es节点,这样就很坑了,而且如果es集群中有上百个节点的话,那一个个的修改要疯了   
+通过修改ik分词器的源码,可以使用mysql作为词库,有词语更新的话,直接添加到mysql的表中就好了,不需要
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/03/Elasticsearch-42-实战案例-range-filter进行范围过滤/#more" rel="contents">
+            <a class="btn" href="/2019/01/05/Elasticsearch-66-修改IK分词器源码基于mysql热更新词库/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1616,7 +1660,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/03/Elasticsearch-41-实战案例-terms搜索多个值及搜索结果优化/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/05/Elasticsearch-65-IK分词器配置文件详解/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1635,7 +1679,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/03/Elasticsearch-41-实战案例-terms搜索多个值及搜索结果优化/" itemprop="url">Elasticsearch-41-实战案例-terms搜索多个值及搜索结果优化</a></h1>
+                <a class="post-title-link" href="/2019/01/05/Elasticsearch-65-IK分词器配置文件详解/" itemprop="url">Elasticsearch-65-IK分词器配置文件详解</a></h1>
         
 
         <div class="post-meta">
@@ -1647,8 +1691,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-03T22:03:14+08:00">
-                2018-12-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-05T09:41:31+08:00">
+                2019-01-05
               </time>
             
 
@@ -1709,13 +1753,16 @@
       
         
           
-          之前的几个案例中都是用的term用来搜索. 本文使用terms来搜索数据  
-terms,就相当于sql中的in  
-准备工作为帖子添加tag字段123456789POST /forum/article/_bulk&#123; &quot;update&quot;: &#123; &quot;_id
+          ik配置文件ik配置文件地址: es目录/plugins/ik/config  
+
+main.dic:ik原生内置的中文词库,总共有27万多条,只要是这些单词,都会被分在一起  
+quantifier.dic:放了一些单位相关的词   
+suffix.dic:放了一些后缀
+surname.dic:中
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/03/Elasticsearch-41-实战案例-terms搜索多个值及搜索结果优化/#more" rel="contents">
+            <a class="btn" href="/2019/01/05/Elasticsearch-65-IK分词器配置文件详解/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1757,7 +1804,7 @@ terms,就相当于sql中的in
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1803,7 +1850,7 @@ terms,就相当于sql中的in
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">111</span>
+                  <span class="site-state-item-count">135</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1814,7 +1861,7 @@ terms,就相当于sql中的in
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1825,7 +1872,7 @@ terms,就相当于sql中的in
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1893,7 +1940,7 @@ terms,就相当于sql中的in
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共115.4k字</span>
+  <span class="post-count">博客全站共145.3k字</span>
 </div>
         
 

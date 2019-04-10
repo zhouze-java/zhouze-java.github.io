@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/17/Elasticsearch-10-并发控制方案/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/26/Elasticsearch-34-定制自己的dynamic-mapping策略/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/17/Elasticsearch-10-并发控制方案/" itemprop="url">Elasticsearch-10-并发控制方案</a></h1>
+                <a class="post-title-link" href="/2018/11/26/Elasticsearch-34-定制自己的dynamic-mapping策略/" itemprop="url">Elasticsearch-34-定制自己的dynamic mapping策略</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-17T17:26:22+08:00">
-                2018-11-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-26T17:35:53+08:00">
+                2018-11-26
               </time>
             
 
@@ -375,17 +375,12 @@
       
         
           
-          并发场景假设现在是矮子电商场景下,用户需要去购买商品,程序的工作流程是:  
-
-读取商品信息,比如商品名称价格等.
-用户下单去购买商品
-更新商品库存es的工作流程:  
-先查询document数据,商品信息等,显示到页面,同时在内存中缓存该document的数据
-当网页发生购买以后,直接基于内存中的
+          定制dynamic策略true: 遇到陌生字段,就进行dynamic mappingfalse: 遇到陌生字段,就忽略strict: 遇到陌生字段,就报错  
+示例我们现在来新建一个index.1234567891011121314151617PUT /my_index&#123;  &quot;m
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/17/Elasticsearch-10-并发控制方案/#more" rel="contents">
+            <a class="btn" href="/2018/11/26/Elasticsearch-34-定制自己的dynamic-mapping策略/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -436,7 +431,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/16/Elasticsearch-9-document核心元数据解析/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/26/Elasticsearch-33-mapping-root-object深入剖析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -455,7 +450,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/16/Elasticsearch-9-document核心元数据解析/" itemprop="url">Elasticsearch-9-document核心元数据解析</a></h1>
+                <a class="post-title-link" href="/2018/11/26/Elasticsearch-33-mapping-root-object深入剖析/" itemprop="url">Elasticsearch-33-_mapping root object深入剖析</a></h1>
         
 
         <div class="post-meta">
@@ -467,8 +462,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-16T21:12:59+08:00">
-                2018-11-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-26T15:39:48+08:00">
+                2018-11-26
               </time>
             
 
@@ -529,11 +524,12 @@
       
         
           
-          本文主要写document中的_index,_type,_id,_source这几个元数据先随便添加一个document1234PUT /test_index/test_type/1&#123;  &quot;test_content&quot;:&quot;test content&quot;&#
+          root object就是某个type对应的mapping json,包括了properties,metadata(_id,_source,_type), settings(analyzer),其他settings(比如include_in_all)  
+12345678PUT /index&#12
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/16/Elasticsearch-9-document核心元数据解析/#more" rel="contents">
+            <a class="btn" href="/2018/11/26/Elasticsearch-33-mapping-root-object深入剖析/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -584,7 +580,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/16/Elasticsearch-8-容错机制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/26/Elasticsearch-32-type底层数据结构/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -603,7 +599,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/16/Elasticsearch-8-容错机制/" itemprop="url">Elasticsearch-8-容错机制</a></h1>
+                <a class="post-title-link" href="/2018/11/26/Elasticsearch-32-type底层数据结构/" itemprop="url">Elasticsearch-32-type底层数据结构</a></h1>
         
 
         <div class="post-meta">
@@ -615,8 +611,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-16T18:44:03+08:00">
-                2018-11-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-26T14:54:50+08:00">
+                2018-11-26
               </time>
             
 
@@ -677,12 +673,12 @@
       
         
           
-          容错机制假设场景,现在一共有9个shard,其中3个shard 6个replica,一共有三个es节点,node1是master节点,具体如下图:  
-如果下载master节点挂掉,shard1,replica2-1,replica3-1 节点会丢失,在master节点挂掉的一瞬间 shard1就没
+          type的底层数据结构type是一个index中用来区分类似的数据的,类似的数据有可能有不同的field,而且有不同的属性来控制索引的建立  
+es是基于Lucene的,在es中每个field都有自己的数据类型,比如date,text等,但在底层的Lucene建立索引的时候,全部是opaque by
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/16/Elasticsearch-8-容错机制/#more" rel="contents">
+            <a class="btn" href="/2018/11/26/Elasticsearch-32-type底层数据结构/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -733,7 +729,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/16/Elasticsearch-7-扩容机制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/24/Elasticsearch-31-手动创建索引以及定制分词器/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -752,7 +748,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/16/Elasticsearch-7-扩容机制/" itemprop="url">Elasticsearch-7-扩容机制</a></h1>
+                <a class="post-title-link" href="/2018/11/24/Elasticsearch-31-手动创建索引以及定制分词器/" itemprop="url">Elasticsearch-31-手动创建索引以及定制分词器</a></h1>
         
 
         <div class="post-meta">
@@ -764,8 +760,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-16T17:50:17+08:00">
-                2018-11-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-24T16:38:15+08:00">
+                2018-11-24
               </time>
             
 
@@ -826,13 +822,11 @@
       
         
           
-          横向扩容上文中有提到有两个es节点的环境下shard和replica的分配  
-两个node环境下replica和shard的分配目前集群中有两个es节点,创建一个index,设置有3个shard每个shard对应一个replica,如下图:  
-新添加一个节点到集群中前面有说到过es集群会自动做负
+          索引创建索引语法:1234567891011121314PUT /index&#123;    &quot;settings&quot;:&#123;        // any settings...    &#125;,    &quot;mappings&quot;:&#123;       
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/16/Elasticsearch-7-扩容机制/#more" rel="contents">
+            <a class="btn" href="/2018/11/24/Elasticsearch-31-手动创建索引以及定制分词器/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -883,7 +877,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/16/Elasticsearch-6-shard-replica机制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/24/Elasticsearch-30-scroll滚动查询/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -902,7 +896,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/16/Elasticsearch-6-shard-replica机制/" itemprop="url">Elasticsearch-6-shard&replica机制</a></h1>
+                <a class="post-title-link" href="/2018/11/24/Elasticsearch-30-scroll滚动查询/" itemprop="url">Elasticsearch-30-scroll滚动查询</a></h1>
         
 
         <div class="post-meta">
@@ -914,8 +908,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-16T16:17:38+08:00">
-                2018-11-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-24T15:34:11+08:00">
+                2018-11-24
               </time>
             
 
@@ -976,13 +970,13 @@
       
         
           
-          shard&amp;replica机制梳理
-一个index可以包含多个shard, index中的数据会均匀的分配到每个shard中,就是es分片的机制.
-每个shard都是一个最小的工作单元,承载部分数据,es是基于Lucene去开发的,其实每个shard就是Lucene的实例,有完整的建立索引和
+          scroll查询如果我们要一次性查询10万条数据,那么性能会很差,此时一般会采用scroll滚动查询,一批一批的查,直到所有的数据都查询处理完成.  
+使用scroll滚动搜索,可以先搜索一批数据,然后下次再搜索一批数据,以此类推,直到搜索出全部的数据来  
+scroll搜索会在第一次搜索的时候,保
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/16/Elasticsearch-6-shard-replica机制/#more" rel="contents">
+            <a class="btn" href="/2018/11/24/Elasticsearch-30-scroll滚动查询/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1033,7 +1027,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/16/Elasticsearch-5-基础分布式架构/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/24/Elasticsearch-29-搜索原理内核解析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1052,7 +1046,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/16/Elasticsearch-5-基础分布式架构/" itemprop="url">Elasticsearch-5-基础分布式架构</a></h1>
+                <a class="post-title-link" href="/2018/11/24/Elasticsearch-29-搜索原理内核解析/" itemprop="url">Elasticsearch-29-搜索原理内核解析</a></h1>
         
 
         <div class="post-meta">
@@ -1064,8 +1058,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-16T16:17:17+08:00">
-                2018-11-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-24T01:03:40+08:00">
+                2018-11-24
               </time>
             
 
@@ -1126,14 +1120,12 @@
       
         
           
-          上文中写了Elasticsearch的聚合分析,下钻分析,嵌套聚合等, 本文主要是写Elasticsearch的分布式机制, 扩容策略等  
-Elasticsearch对分布式机制的透明隐藏特性Elasticsearch是一套分布式的系统,分布式是为了应对大数据量
-
-分片机制: 往ES插入数据的时候
+          query phase假设我们有一个index里面的数据分布在3个primary shard上(对应的replica也有),现在总共有7个shard,我们现在要搜索这个index中的数据的第10000条到10010条.如图所示  
+请求发送给某一个shard时,这个shard就是coordinate
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/16/Elasticsearch-5-基础分布式架构/#more" rel="contents">
+            <a class="btn" href="/2018/11/24/Elasticsearch-29-搜索原理内核解析/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1184,7 +1176,7 @@ Elasticsearch对分布式机制的透明隐藏特性Elasticsearch是一套分布
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/16/Elasticsearch-4-聚合分析/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/23/Elasticsearch-28-doc-values初步了解/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1203,7 +1195,7 @@ Elasticsearch对分布式机制的透明隐藏特性Elasticsearch是一套分布
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/16/Elasticsearch-4-聚合分析/" itemprop="url">Elasticsearch-4-聚合分析</a></h1>
+                <a class="post-title-link" href="/2018/11/23/Elasticsearch-28-doc-values初步了解/" itemprop="url">Elasticsearch-28-doc values初步了解</a></h1>
         
 
         <div class="post-meta">
@@ -1215,8 +1207,8 @@ Elasticsearch对分布式机制的透明隐藏特性Elasticsearch是一套分布
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-16T16:16:15+08:00">
-                2018-11-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-23T21:39:41+08:00">
+                2018-11-23
               </time>
             
 
@@ -1277,12 +1269,12 @@ Elasticsearch对分布式机制的透明隐藏特性Elasticsearch是一套分布
       
         
           
-          上文中,添加了6个电影的document,接下来做这些document的聚合分析,统计等.上文添加的6个电影数据中都包含有genres 的一个数组  
-统计每个genres下的电影数量1234567891011GET /movies/movie/_search&#123;  &quot;size&q
+          doc value搜索的时候,要依靠倒排索引去搜索,但是在排序的时候需要依靠正排索引,找到每个document的每个field,然后进行排序,所谓的正排索引,其实就是doc values  
+es在建立索引的时候,一方面会建立倒排索引,以供搜索使用;一方面还会建立正排索引,也就是doc values
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/16/Elasticsearch-4-聚合分析/#more" rel="contents">
+            <a class="btn" href="/2018/11/23/Elasticsearch-28-doc-values初步了解/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1333,7 +1325,7 @@ Elasticsearch对分布式机制的透明隐藏特性Elasticsearch是一套分布
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/16/Elasticsearch-3-花式查询/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/23/Elasticsearch-27-搜索相关度TF-IDF算法/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1352,7 +1344,7 @@ Elasticsearch对分布式机制的透明隐藏特性Elasticsearch是一套分布
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/16/Elasticsearch-3-花式查询/" itemprop="url">Elasticsearch-3-花式查询</a></h1>
+                <a class="post-title-link" href="/2018/11/23/Elasticsearch-27-搜索相关度TF-IDF算法/" itemprop="url">Elasticsearch-27-搜索相关度TF&IDF算法</a></h1>
         
 
         <div class="post-meta">
@@ -1364,8 +1356,8 @@ Elasticsearch对分布式机制的透明隐藏特性Elasticsearch是一套分布
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-16T16:15:59+08:00">
-                2018-11-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-23T18:22:54+08:00">
+                2018-11-23
               </time>
             
 
@@ -1426,12 +1418,13 @@ Elasticsearch对分布式机制的透明隐藏特性Elasticsearch是一套分布
       
         
           
-          新增语法:12345678910111213PUT indexName/typeName/id&#123;    json数据&#125;或POST indexName/typeName&#123;    json数据&#125;# 如果不指定id的话 es会自动分配一个id
-示例下面添加了6个电影
+          算法介绍relevance score算法,简单来说就是计算出一个索引中的文本,与搜索文本,他们之间的关联匹配程度  
+Elasticsearch使用的是 term frequency/inverse document frequency算法，简称为TF/IDF算法  
+TF算法(Term freq
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/16/Elasticsearch-3-花式查询/#more" rel="contents">
+            <a class="btn" href="/2018/11/23/Elasticsearch-27-搜索相关度TF-IDF算法/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1482,7 +1475,7 @@ Elasticsearch对分布式机制的透明隐藏特性Elasticsearch是一套分布
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/16/Elasticsearch-2-集群状态检查和CRUD操作/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/23/Elasticsearch-26-字符串排序问题及解决方案/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1501,7 +1494,7 @@ Elasticsearch对分布式机制的透明隐藏特性Elasticsearch是一套分布
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/16/Elasticsearch-2-集群状态检查和CRUD操作/" itemprop="url">Elasticsearch-2-集群状态检查和CRUD操作</a></h1>
+                <a class="post-title-link" href="/2018/11/23/Elasticsearch-26-字符串排序问题及解决方案/" itemprop="url">Elasticsearch-26-字符串排序问题及解决方案</a></h1>
         
 
         <div class="post-meta">
@@ -1513,8 +1506,8 @@ Elasticsearch对分布式机制的透明隐藏特性Elasticsearch是一套分布
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-16T16:14:38+08:00">
-                2018-11-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-23T17:36:17+08:00">
+                2018-11-23
               </time>
             
 
@@ -1575,12 +1568,13 @@ Elasticsearch对分布式机制的透明隐藏特性Elasticsearch是一套分布
       
         
           
-          检查集群的健康状态Kibana中1GET _cat/health?v
-返回值12epoch      timestamp cluster       status node.total node.data shards pri relo init unassign pending_tasks max
+          字符串排序问题如果对一个string类型的field进行排序,结果往往不准确,因为string类型的field要进行分词,分词后是多个单词,再排序就不是我们想要的结果了
+如何解决通常解决方式是,将一个string类型的field建立两次索引,一个分词用来进行搜索,一个不分词用来排序  
+示例我们之前
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/16/Elasticsearch-2-集群状态检查和CRUD操作/#more" rel="contents">
+            <a class="btn" href="/2018/11/23/Elasticsearch-26-字符串排序问题及解决方案/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1631,7 +1625,7 @@ Elasticsearch对分布式机制的透明隐藏特性Elasticsearch是一套分布
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/16/Elasticsearch-1-Windows下安装Es/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/23/Elasticsearch-25-Query-DSL常用查询/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1650,7 +1644,7 @@ Elasticsearch对分布式机制的透明隐藏特性Elasticsearch是一套分布
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/16/Elasticsearch-1-Windows下安装Es/" itemprop="url">Elasticsearch-1-Windows下安装Es</a></h1>
+                <a class="post-title-link" href="/2018/11/23/Elasticsearch-25-Query-DSL常用查询/" itemprop="url">Elasticsearch-25-Query DSL常用查询</a></h1>
         
 
         <div class="post-meta">
@@ -1662,8 +1656,8 @@ Elasticsearch对分布式机制的透明隐藏特性Elasticsearch是一套分布
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-16T16:10:29+08:00">
-                2018-11-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-23T11:50:36+08:00">
+                2018-11-23
               </time>
             
 
@@ -1724,18 +1718,11 @@ Elasticsearch对分布式机制的透明隐藏特性Elasticsearch是一套分布
       
         
           
-          下载elasticsearchelasticsearch-5.2.0.zip
-
-解压
-cmd进入bin目录,启动1elasticsearch.bat
-
-
-检查是否启动成功1http://localhost:9200/?pretty
-返回值12345678910111213&#123;  &quot;
+          Query DSL的常用的几种查询语法match all查询查询全部123456GET /index/type/_search&#123;    &quot;query&quot;:&#123;        &quot;match_all&quot;:&#123;&#125;    &#125;&
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/16/Elasticsearch-1-Windows下安装Es/#more" rel="contents">
+            <a class="btn" href="/2018/11/23/Elasticsearch-25-Query-DSL常用查询/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1777,7 +1764,7 @@ cmd进入bin目录,启动1elasticsearch.bat
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1823,7 +1810,7 @@ cmd进入bin目录,启动1elasticsearch.bat
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">111</span>
+                  <span class="site-state-item-count">135</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1834,7 +1821,7 @@ cmd进入bin目录,启动1elasticsearch.bat
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1845,7 +1832,7 @@ cmd进入bin目录,启动1elasticsearch.bat
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1913,7 +1900,7 @@ cmd进入bin目录,启动1elasticsearch.bat
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共115.4k字</span>
+  <span class="post-count">博客全站共145.3k字</span>
 </div>
         
 
