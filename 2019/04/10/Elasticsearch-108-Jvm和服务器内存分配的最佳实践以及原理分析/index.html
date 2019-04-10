@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Elasticsearch,">
 
 
 
@@ -79,13 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="八度空间">
-<meta property="og:url" content="http://yoursite.com/archives/page/8/index.html">
+<meta name="description" content="概述前文中,说了一些针对es集群可能会出现的一些问题的配置,本文来说一下如何合理的对es进行内存的分配,为什么?    Jvm Heap分配es默认会给jvm heap分配2个G的大小,对于几乎所有的生产环境来说,这个内存都太小了.如果用这个默认的heap size,那么生产环境的集群肯定表现不会太好.   调节方式有以下两个方式来调节es中的jvm heap size.   第一种方式就是设置环">
+<meta name="keywords" content="Elasticsearch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch-108-Jvm和服务器内存分配的最佳实践以及原理分析">
+<meta property="og:url" content="http://yoursite.com/2019/04/10/Elasticsearch-108-Jvm和服务器内存分配的最佳实践以及原理分析/index.html">
 <meta property="og:site_name" content="八度空间">
+<meta property="og:description" content="概述前文中,说了一些针对es集群可能会出现的一些问题的配置,本文来说一下如何合理的对es进行内存的分配,为什么?    Jvm Heap分配es默认会给jvm heap分配2个G的大小,对于几乎所有的生产环境来说,这个内存都太小了.如果用这个默认的heap size,那么生产环境的集群肯定表现不会太好.   调节方式有以下两个方式来调节es中的jvm heap size.   第一种方式就是设置环">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-10T06:36:41.669Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="八度空间">
+<meta name="twitter:title" content="Elasticsearch-108-Jvm和服务器内存分配的最佳实践以及原理分析">
+<meta name="twitter:description" content="概述前文中,说了一些针对es集群可能会出现的一些问题的配置,本文来说一下如何合理的对es进行内存的分配,为什么?    Jvm Heap分配es默认会给jvm heap分配2个G的大小,对于几乎所有的生产环境来说,这个内存都太小了.如果用这个默认的heap size,那么生产环境的集群肯定表现不会太好.   调节方式有以下两个方式来调节es中的jvm heap size.   第一种方式就是设置环">
 
 
 
@@ -115,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/page/8/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/10/Elasticsearch-108-Jvm和服务器内存分配的最佳实践以及原理分析/">
 
 
 
 
 
-  <title>归档 | 八度空间</title>
+  <title>Elasticsearch-108-Jvm和服务器内存分配的最佳实践以及原理分析 | 八度空间</title>
   
 
 
@@ -140,7 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 	<a href="https://github.com/zhouze-java" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 	
@@ -267,390 +272,205 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Elasticsearch-108-Jvm和服务器内存分配的最佳实践以及原理分析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="周泽">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八度空间">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
-         
+          <h1 class="post-title" itemprop="name headline">Elasticsearch-108-Jvm和服务器内存分配的最佳实践以及原理分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T14:36:21+08:00">
+                2019-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        很好! 目前共计 109 篇日志。 继续努力。
-      </span>
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
+                    <span itemprop="name">Elasticsearch</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
 
-        
+          
+            
+          
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/30/Elasticsearch-38-实战案例-term-filter搜索/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-38-实战案例-term filter搜索</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-30T22:30:42+08:00" content="2018-11-30">
-          11-30
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+          
 
+        </div>
+      </header>
+    
 
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/29/Elasticsearch-37-Java-API-document-增删改查/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-37-Java API document 增删改查</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-29T16:26:45+08:00" content="2018-11-29">
-          11-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/27/Elasticsearch-36-深度解析document增删改原理及优化过程/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-36-深度解析document增删改原理及优化过程</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-27T15:29:28+08:00" content="2018-11-27">
-          11-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>前文中,说了一些针对es集群可能会出现的一些问题的配置,本文来说一下如何合理的对es进行内存的分配,为什么?   </p>
+<h3 id="Jvm-Heap分配"><a href="#Jvm-Heap分配" class="headerlink" title="Jvm Heap分配"></a>Jvm Heap分配</h3><p>es默认会给jvm heap分配2个G的大小,对于几乎所有的生产环境来说,这个内存都太小了.如果用这个默认的heap size,那么生产环境的集群肯定表现不会太好.  </p>
+<h4 id="调节方式"><a href="#调节方式" class="headerlink" title="调节方式"></a>调节方式</h4><p>有以下两个方式来调节es中的jvm heap size.  </p>
+<p>第一种方式就是设置环境变量,<code>ES_HEAP_SIZE</code>.当es进程启动的时候,会读取这个环境变量的值,然后设置为jvm的heap size.举例来说,可以这样来设置:<code>export ES_HEAP_SIZE=10g</code>.  </p>
+<p>第二种方式是在启动es进程的时候,传递一个jvm的option,比如:<code>ES_JAVA_OPTS=&quot;-Xms10g -Xmx10g&quot; ./bin/elasticsearch</code>,但是要注意-Xms和-Xmx最小和最大堆内存一定设置的一样,避免运行过程中的jvm heap resize,那会是一个非常耗时的过程.  </p>
+<p>在老版本的es中,比如es 2.x里面,一般推荐用ES_HEAP_SIZE环境变量的方式来设置jvm heap size.  </p>
+<p>在新版本的es中,比如es 5.x里面,一般推荐在jvm.options文件里面去设置jvm相关的参数.   </p>
+<h3 id="机器内存分配"><a href="#机器内存分配" class="headerlink" title="机器内存分配"></a>机器内存分配</h3><p>一个常见的问题就是将es进程的jvm heap size设置的过于大了.比如我们有一台64G的机器,可能我们甚至想要给es jvm size设置64G内存.但是这是错误的.  </p>
+<p>虽然heap对于es来说是非常重要的,jvm heap被es用来存放很多内存中的数据结构来提供更快的操作性能.但是还有另外一个内存的用户,那就是lucene.  </p>
+<p>lucene的设计就是要使用底层的os filesystem cache来缓存数据结构.lucene的segment是保存在单独的文件中的.因为这些segment是不可变的,所以这些文件实际上也从来不会改变.这样的话,就可以更好的缓存这些文件,底层的os cache会将hot segment驻留在内存中以供更快的访问.  </p>
+<p>这些segment包括了倒排索引(为了全文检索)以及正排索引(为了聚合操作).lucene的性能是严重依赖于底层的os cache的,但是如果我们给了过多的内存到es的jvm heap,那么就没有足够的内存留给lucene.这会极大的影响性能.  </p>
+<p>这里想告诉大家的是,就是说,es的性能很大的一块,其实是由有多少内存留给操作系统的os cache,供lucene去缓存索引文件,来决定的.所以说lucene的os cache有多少是非常重要的.  </p>
+<h4 id="分配建议"><a href="#分配建议" class="headerlink" title="分配建议"></a>分配建议</h4><p>一般建议的是,将50%的内存分配给es jvm heap,然后留50%的内存给os cache.  </p>
+<p>留给os cache的内存是不会不使用的,lucene会将剩下的内存全部用光,用来cache segment file.  </p>
+<p>如果我们没有对任何分词的text field进行聚合操作,那么我们就不需要使用fielddata,我们甚至可以考虑给os cache更多的内存,因为fielddata是要用jvm heap.如果我们给jvm heap更少的内存,那么实际上es的性能反而会更好,因为更多的内存留给了lucene用os cache提升索引读写性能,同时es的jvm heap的gc耗时会更少.  </p>
+<h4 id="不要给jvm分配超过32G内存"><a href="#不要给jvm分配超过32G内存" class="headerlink" title="不要给jvm分配超过32G内存"></a>不要给jvm分配超过32G内存</h4><p>还有另外一个原因不要将过多的内存分配给es的jvm heap.  </p>
+<p>如果heap小于32G的话,jvm会用一种技术来压缩对象的指针,object pointer.在java中,所有的对象都会被分配到heap中,然后被一个pointer给引用.object pointer会指向heap中的对象,引用的是二进制格式的地址.  </p>
+<p>对于32位的系统来说,jvm最大的heap size就是4G,为什么呢?<br>二进制的值只有0和1,在32位的操作系统中,0和1在32位的组合是2^32次方的字节,除以1024就是多少k,再除以1024就是多少mb,再除以1024就是多少gb,最后算下来就是4G.  </p>
+<p>对于64位的系统来说,heap size可以更大,但是64位的object pointer会耗费更多的空间,因为object pointer更大了.比浪费更多内存空间更恶劣的是,过大的object pointer会在cpu,main memory和LLC、L1等多级缓存间移动数据的时候,吃掉更多的带宽.  </p>
+<p>所以jvm用了一种技术,叫做compressed oops来解决object pointer耗费过大空间的问题.这个技术的核心思想是,不要让object pointer引用内存中的二进制地址,而是让object pointer引用object offset.这就意味着32位的pointer可以引用400万个对象,而不是400万字节.这也意味着,使用32位的pointer,最大的heap大小可以到32G.此时只要heap size在32G以内,jvm就会自动启用32位的object pointer,因为32位的对象指针,足够引用32G的内存了,就可以用32位的pointer替代64位的pointer.但是32位的pointer比64位的pointer可以耗费更少的内存耗费.  </p>
+<p>如果你给jvm heap分配的内存小于32G,此时jvm会自动使用32位的object pointer,同时是让pointer指向对象的offset,32位的object pointer就足以引用32G的内存,同时32位的pointer占用的内存空间很少,对cpu和memory之间移动数据的带宽开销也很少.这个过程就叫做compressed oops.  </p>
+<p>但是一旦我们越过了32G这个界限,就是给jvm heap分配了超过32G的内存,比较坑了.就没有办法用32位的pointer和引用object offset的模式了,因为32位的pointer最多引用32G的内存,超过了32G,就没法用32位pointer.不用32位pointer,就只能用64位pointer,才能引用超过32G的内存空间.此时pointer就会退回到传统的object pointer引用对象的二进制地址的模式,此时object pinter的大小会急剧增长,更多的cpu到内存的带宽会被占据,更多的内存被耗费.实际上,不用compressed oops时,你如果给jvm heap分配了一个40~50G的内存的可用空间,实际上被object pointer可能都要占据十几G的内存空间,可用的空间量,可能跟使用了compressed oops时的32GB内存的可用空间,20多个G,几乎是一样的.  </p>
+<p>因此,即使我们有很多内存,但是还是要分配给heap在32GB以内,否则的话浪费更多的内存,降低cpu性能,而且会让jvm回收更大的heap.  </p>
+<p>综上所述,如果你给jvm heap分配超过32G的内存,实际上是没有什么意义的,因为用64位的pointer,1/3的内存都给object pointer给占据了,这段内存空间就浪费掉了.还不如分配32G以内,启用compressed oops,可用空间跟你分配50个G的内存,是一样的.  </p>
+<p>所以也正是因为32G的限制,一般来说,都是建议说,如果你的es要处理的数据量上亿的话,几亿,或者十亿以内的规模的话,建议,就是用64G的内存的机器比较合适,有个5台,差不多也够了.给jvm heap分配32G,留下32G给os cache.  </p>
+<h4 id="在32G以内的话具体应该设置heap为多大？"><a href="#在32G以内的话具体应该设置heap为多大？" class="headerlink" title="在32G以内的话具体应该设置heap为多大？"></a>在32G以内的话具体应该设置heap为多大？</h4><p>这个是根据具体情况而定的,不是固定死的,根据不同的jvm和平台而变.一般而言,将jvm heap size设置为31G比较安全一些.主要是要确保说,你设置的这个jvm heap大小,可以让es启用compressed oops这种优化机制.  </p>
+<p>此外,可以给jvm option加入<code>-XX:+PrintFlagsFinal</code>,然后可以打印出来UseCompressedOops是否为true.这就可以让我们找到最佳的内存设置.因为可以不断调节内存大小,然后观察是否启用compressed oops.  </p>
+<p>举例来说,如果在mac os上启动一个java 1.7,同时将heap size设置为32600mb,那么compressed oops是会开启的；但是如果设置为32766m,compressed oops就不会开启.相反的是,使用jdk 1.8的话,分配32766m,compressed oops是会开启的,设置为32767m,就不会开启.所以说,这个东西不是固定的.根据不同的操作系统以及jvm版本而定.  </p>
+<p>在es启动日志中,我们可以查看compressed oops是否开启,比如下面的字样:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[2015-12-16 13:53:33,417][INFO ][env] [Illyana Rasputin] heap size [989.8mb], compressed ordinary object pointers [true].</span><br></pre></td></tr></table></figure></p>
+<h4 id="对于超大内存机器的分配"><a href="#对于超大内存机器的分配" class="headerlink" title="对于超大内存机器的分配"></a>对于超大内存机器的分配</h4><p>假设我们有一个服务器,内存达到了512G或者128G等,该怎么办? </p>
+<p>首先es官方是建议避免用这种服务器来部署es集群的,但是如果我们只有这种机器可以用的话,我们要考虑以下几点:  </p>
+<p><strong>我们是否在做大量的全文检索?</strong><br>考虑一下分配4~32G的内存给es进程,同时给lucene留下其余所有的内存用来做os filesystem cache.所有的剩余的内存都会用来cache segment file,而且可以提供非常高性能的搜索,几乎所有的数据都是可以在内存中缓存的,es集群的性能会非常高  </p>
+<p><strong>是否在做大量的排序或者聚合操作?聚合操作是不是针对数字,日期或者未分词的string?</strong><br>如果是的话,那么还是给es 4~32G的内存即可,其他的留给es filesystem cache,可以将聚合好用的正排索引,doc values放在os cache中  </p>
+<p><strong>如果在针对分词的string做大量的排序或聚合操作?</strong><br>如果是的话,那么就需要使用fielddata,这就得给jvm heap分配更大的内存空间.此时不建议运行一个节点在机器上,而是运行多个节点在一台机器上,那么如果我们的服务器有128G的内存,可以运行两个es节点,然后每个节点分配32G的内存,剩下64G留给os cache.<br>如果在一台机器上运行多个es node,建议设置:<code>cluster.routing.allocation.same_shard.host: true.</code>这会避免在同一台物理机上分配一个primary shard和它的replica shard.</p>
+<h3 id="swapping"><a href="#swapping" class="headerlink" title="swapping"></a>swapping</h3><p>如果频繁的将es进程的内存swap到磁盘上,绝对会是一个服务器的性能杀手.想象一下,内存中的操作都是要求快速完成的,如果需要将内存页的数据从磁盘swap回main memory的话,性能会有多差.如果内存被swap到了磁盘,那么可能100微秒的操作会瞬间变成10毫秒,那么如果是大量的这种内存操作呢?这会导致性能急剧下降.  </p>
+<p>因此通常建议彻底关闭机器上的swap,swapoff -a,如果要永久性关闭,需要在/etc/fstab中配置  </p>
+<p>如果没法完全关闭swap,那么可以尝试调低swappiness至,这个值是控制os会如何将内存swap到磁盘的.这会在正常情况下阻止swap,但是在紧急情况下,还是会swap.一般用sysctl来设置,vm.swappiness = 1.如果swappiness也不能设置,那么就需要启用mlockall,这就可以让我们的jvm lock住自己的内存不被swap到磁盘上去,在elasticsearch.yml中可以设置:<code>bootstrap.mlockall: true</code>.  </p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/27/Elasticsearch-35-使用scroll-bulk-索引别名实现零停机重建索引/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-35-使用scroll+bulk+索引别名实现零停机重建索引</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-27T10:21:01+08:00" content="2018-11-27">
-          11-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/26/Elasticsearch-34-定制自己的dynamic-mapping策略/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-34-定制自己的dynamic mapping策略</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-26T17:35:53+08:00" content="2018-11-26">
-          11-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/26/Elasticsearch-33-mapping-root-object深入剖析/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-33-_mapping root object深入剖析</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-26T15:39:48+08:00" content="2018-11-26">
-          11-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/26/Elasticsearch-32-type底层数据结构/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-32-type底层数据结构</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-26T14:54:50+08:00" content="2018-11-26">
-          11-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/24/Elasticsearch-31-手动创建索引以及定制分词器/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-31-手动创建索引以及定制分词器</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-24T16:38:15+08:00" content="2018-11-24">
-          11-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/24/Elasticsearch-30-scroll滚动查询/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-30-scroll滚动查询</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-24T15:34:11+08:00" content="2018-11-24">
-          11-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/24/Elasticsearch-29-搜索原理内核解析/" itemprop="url">
-              
-                <span itemprop="name">Elasticsearch-29-搜索原理内核解析</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-24T01:03:40+08:00" content="2018-11-24">
-          11-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Elasticsearch/" <i="" class="fa fa-tag"> Elasticsearch</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/10/Elasticsearch-107-不要随意调节JVM和Thread-Pool的原因/" rel="next" title="Elasticsearch-107-不要随意调节JVM和Thread Pool的原因">
+                <i class="fa fa-chevron-left"></i> Elasticsearch-107-不要随意调节JVM和Thread Pool的原因
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/archives/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/11/">11</a><a class="extend next" rel="next" href="/archives/page/9/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -658,6 +478,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTEyNi8xNzY1MQ=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -678,8 +507,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -739,6 +577,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Jvm-Heap分配"><span class="nav-number">2.</span> <span class="nav-text">Jvm Heap分配</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#调节方式"><span class="nav-number">2.1.</span> <span class="nav-text">调节方式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#机器内存分配"><span class="nav-number">3.</span> <span class="nav-text">机器内存分配</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分配建议"><span class="nav-number">3.1.</span> <span class="nav-text">分配建议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不要给jvm分配超过32G内存"><span class="nav-number">3.2.</span> <span class="nav-text">不要给jvm分配超过32G内存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在32G以内的话具体应该设置heap为多大？"><span class="nav-number">3.3.</span> <span class="nav-text">在32G以内的话具体应该设置heap为多大？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对于超大内存机器的分配"><span class="nav-number">3.4.</span> <span class="nav-text">对于超大内存机器的分配</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#swapping"><span class="nav-number">4.</span> <span class="nav-text">swapping</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -902,6 +756,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -930,6 +788,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
