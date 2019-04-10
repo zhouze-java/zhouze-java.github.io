@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://yoursite.com/2019/04/10/Spring-%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E6%80%A7/</loc>
+    <lastmod>2019-04-10T09:34:19.038Z</lastmod>
+  </url>  <url>
+    <loc>http://yoursite.com/2019/04/10/Spring-%E4%BA%8B%E5%8A%A1%E4%BC%A0%E6%92%AD%E6%80%A7/</loc>
+    <lastmod>2019-04-10T09:34:02.363Z</lastmod>
+  </url>  <url>
     <loc>http://yoursite.com/2019/04/10/Spring-Cloud-23-Spring-Cloud-Stream%E6%95%B4%E5%90%88RabbitMQ-%E4%B8%8B/</loc>
     <lastmod>2019-04-10T09:18:19.854Z</lastmod>
   </url>  <url>
