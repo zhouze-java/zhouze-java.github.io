@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Elasticsearch,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="bootstrap check经常会碰到一些es的用户,遇到一些奇怪的问题,主要是因为他们没有配置一些重要的设置.在es以前的老版本中,对这些设置错误的配置,会在日志里记录一些warning告警.但是有时候用户会忽略这些日志中的告警信息.为了确保说这些设置的错误配置告警信息可以引起用户的注意,es的新版本中引入了bootstrap check,也就是启动时检查.   这些启动时检查操作,会检查许多">
+<meta name="keywords" content="Elasticsearch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch-110-production mode下启动时的bootstrap check">
+<meta property="og:url" content="http://yoursite.com/2019/04/10/Elasticsearch-110-production-mode下启动时的bootstrap-check/index.html">
+<meta property="og:site_name" content="八度空间">
+<meta property="og:description" content="bootstrap check经常会碰到一些es的用户,遇到一些奇怪的问题,主要是因为他们没有配置一些重要的设置.在es以前的老版本中,对这些设置错误的配置,会在日志里记录一些warning告警.但是有时候用户会忽略这些日志中的告警信息.为了确保说这些设置的错误配置告警信息可以引起用户的注意,es的新版本中引入了bootstrap check,也就是启动时检查.   这些启动时检查操作,会检查许多">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-10T07:55:14.082Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Elasticsearch-110-production mode下启动时的bootstrap check">
+<meta name="twitter:description" content="bootstrap check经常会碰到一些es的用户,遇到一些奇怪的问题,主要是因为他们没有配置一些重要的设置.在es以前的老版本中,对这些设置错误的配置,会在日志里记录一些warning告警.但是有时候用户会忽略这些日志中的告警信息.为了确保说这些设置的错误配置告警信息可以引起用户的注意,es的新版本中引入了bootstrap check,也就是启动时检查.   这些启动时检查操作,会检查许多">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/10/Elasticsearch-110-production-mode下启动时的bootstrap-check/">
+
+
+
+
+
+  <title>Elasticsearch-110-production mode下启动时的bootstrap check | 八度空间</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/zhouze-java" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+	
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">八度空间</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Elasticsearch-110-production-mode下启动时的bootstrap-check/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="周泽">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八度空间">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Elasticsearch-110-production mode下启动时的bootstrap check</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T15:54:53+08:00">
+                2019-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
+                    <span itemprop="name">Elasticsearch</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="bootstrap-check"><a href="#bootstrap-check" class="headerlink" title="bootstrap check"></a>bootstrap check</h3><p>经常会碰到一些es的用户,遇到一些奇怪的问题,主要是因为他们没有配置一些重要的设置.在es以前的老版本中,对这些设置错误的配置,会在日志里记录一些warning告警.但是有时候用户会忽略这些日志中的告警信息.为了确保说这些设置的错误配置告警信息可以引起用户的注意,es的新版本中引入了bootstrap check,也就是启动时检查.  </p>
+<p>这些启动时检查操作,会检查许多es和系统的设置,将这些配置的值跟es期望的安全值去进行比较.如果es在development mode下,那么失败的检查仅仅在日志中打印warning.如果es运行在生产模式下,任何启动时检查的失败都会导致es拒绝启动.  </p>
+<h3 id="development-mode-和-production-mode"><a href="#development-mode-和-production-mode" class="headerlink" title="development mode 和 production mode"></a>development mode 和 production mode</h3><p>默认情况下,es绑定到localhost hostname,来进行http和内部通信.这对于下载es并简单试用一下,包括日常的开发,都是非常方便的,但是对于生产环境是不行的  </p>
+<p>如果要组建一个es集群,es实例必须能够通过内部通信协议互相连通,所必须绑定通信到一个外部的接口上.  </p>
+<p>因此如果一个es实例没有绑定通信到外部接口(默认情况下),那么就认为es是处于开发模式下.反之,如果绑定通信到外部接口,那么就是处于生产模式下.  </p>
+<p>我们可以通过http.host和transport.host,单独配置http的传输.这就可以配置一个es实例通过http可达,但是却不触发生产模式.  </p>
+<p>因为有时用户需要将通信绑定到外部解耦来测试client的调用.对于这种场景,es提供了single-node恢复模式(将discovery.type设置为single-node),配置过后,一个节点会选举自己作为master,而且不会跟其他任何节点组成集群.  </p>
+<p>如果在生产模式下运行一个single node实例,就可以规避掉启动时检查(不要将通信绑定到外部接口,或者将通信绑定到外部接口,但是设置discovery type为single-node).在这种场景下,可以设置es.enforce.bootstrap.checks为true(通过jvm参数来设置),来强制bootstrap check的执行.  </p>
+<h3 id="heap-size-check"><a href="#heap-size-check" class="headerlink" title="heap size check"></a>heap size check</h3><p>如果jvm启动的时候设置的初始堆大小和最大堆大小不同,可能会导致es运行期间的暂停,因为jvm堆在系统运行期间可能会改变大小.为了避免这种jvm resize导致的es进程暂停,建议启动jvm时,将初始堆大小和最大堆大小设置的相等.  </p>
+<p>除此之外,如果bootstrap.memory_lock被启用了,jvm会在启动期间锁定jvm的初始大小.</p>
+<p>如果要通过heap size check,就必须合理设置heap size.默认情况下,es的jvm堆的最小和最大大小都是2g.如果在生产环境中使用,应该配置合理的heap size确保es有足够的堆内存可以使用.  </p>
+<p>在jvm.options中设置的Xms和Xmx会用来分配jvm堆内存大小.   </p>
+<p>这些设置的值依赖于服务器上可用的总内存大小.下面是一些最佳实践的建议:  </p>
+<ol>
+<li>将heap的最小和最大大小设置为一样大</li>
+<li>es有更多的heap大小,就有更多的内存用来进行缓存,但是过大的jvm heap可能会导致长时间的gc停顿</li>
+<li>不要设置最大heap size超过物理内存的50%,给核心的file system cache留下足够的内存  </li>
+<li>不要将Xmx设置超过32GB,否则jvm无法启用compressed oops,将对象指针进行压缩,确认启动日志里compressed oops显示开启</li>
+<li>更好的选择是,heap size设置的小于zero-based compressed 也就是26GB,但是有时也可以是30GB.通过<code>-XX:+UnlockDiagnosticVMOptions</code>和<code>-XX:+PrintCompressedOopsMode</code>开启,确认有<code>heap address: 0x000000011be00000, size: 27648 MB, zero based Compressed Oops</code>,而不是<code>heap address: 0x0000000118400000, size: 28672 MB, Compressed Oops with base: 0x00000001183ff000</code> </li>
+<li>在jvm.options文件中,可以通过<code>-Xms2g</code>和<code>-Xmx2g</code>来配置heap size</li>
+<li>也可以通过<code>ES_JAVA_OPTS</code>环境变量来设置heap size</li>
+</ol>
+<h3 id="file-descriptor-check"><a href="#file-descriptor-check" class="headerlink" title="file descriptor check"></a>file descriptor check</h3><p>file descriptor是unix操作系统的一种数据结构,用来track打开的文件.在unix操作系统中,所有东西都是file.比如,file可以是物理文件,虚拟文件,或者网络socket.es需要大量的file descriptor,比如说每个shard都由多个segment和其他文件组成,还有跟其他节点之间的网络通信连接.  </p>
+<p>因为es要使用大量的file descriptor,所以如果file descriptor耗尽的话,会是一场灾难,甚至可能会导致数据丢失.尽量给es的file descriptor提升到65536,甚至更高.  </p>
+<p>可以在/etc/security/limits.conf中,设置nofile为65536  </p>
+<p>可以用以下请求检查每个node上的file descriptor数量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET _nodes/stats/process?filter_path=**.max_file_descriptors</span><br></pre></td></tr></table></figure></p>
+<p>lucene会使用大量的文件,同时es也会使用大量的socket在节点间和client间进行通信,这些都是需要大量的file descriptor的.但是通常来说,现在的linux操作系统,都是给每个进程默认的1024个file descriptor的,这对于一个es进程来说是远远不够的.  </p>
+<p>我们需要将es进程的file descriptor增加到非常非常大,比如说65535个.一般需要根据我们的操作系统的文档来查看如何设置file descriptor  </p>
+<p>然后可以直接对es集群查看GET,来确认file descriptor的数量:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;cluster_name&quot;: &quot;elasticsearch&quot;,</span><br><span class="line">  &quot;nodes&quot;: &#123;</span><br><span class="line">    &quot;nLd81iLsRcqmah-cuHAbaQ&quot;: &#123;</span><br><span class="line">      &quot;timestamp&quot;: 1471516160318,</span><br><span class="line">      &quot;name&quot;: &quot;Marsha Rosenberg&quot;,</span><br><span class="line">      &quot;transport_address&quot;: &quot;127.0.0.1:9300&quot;,</span><br><span class="line">      &quot;host&quot;: &quot;127.0.0.1&quot;,</span><br><span class="line">      &quot;ip&quot;: [</span><br><span class="line">        &quot;127.0.0.1:9300&quot;,</span><br><span class="line">        &quot;NONE&quot;</span><br><span class="line">      ],</span><br><span class="line">      &quot;process&quot;: &#123;</span><br><span class="line">        &quot;timestamp&quot;: 1471516160318,</span><br><span class="line">        &quot;open_file_descriptors&quot;: 155,</span><br><span class="line">        &quot;max_file_descriptors&quot;: 10240, </span><br><span class="line">        &quot;cpu&quot;: &#123;</span><br><span class="line">          &quot;percent&quot;: 0,</span><br><span class="line">          &quot;total_in_millis&quot;: 25084</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;mem&quot;: &#123;</span><br><span class="line">          &quot;total_virtual_in_bytes&quot;: 5221900288</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="memory-lock-check"><a href="#memory-lock-check" class="headerlink" title="memory lock check"></a>memory lock check</h3><p>如果jvm进行一个major gc的话,那么就会涉及到heap中的每一个内存页,此时如果任何一个内存页被swap到了磁盘上,那么此时就会被swap回内存中.这就会导致很多的磁盘读写开销,而这些磁盘读写开销如果节省下来,可以让es服务更多的请求.有很多方法可以配置系统禁止swap.其中一种方法就是让jvm去lock heap内存在物理内存中,设置bootstrap.memory_lock即可.  </p>
+<p>然后通过以下命令可以检查mlockall是否开启了:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET _nodes?filter_path=**.mlockall</span><br></pre></td></tr></table></figure></p>
+<p>如果发现mlockall是false,那么意味着mlockall请求失败了.会看到一行日志,<code>unable to lock jvm memory</code>.  </p>
+<p>最大可能的原因,就是在linux系统中,启动es进程的用户没有权限去lock memory,需要通过以下方式进行授权:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ulimit -l unlimited</span><br></pre></td></tr></table></figure></p>
+<p>另外一个原因可能是临时目录使用noexec option来mount了.可以通过指定一个新的临时目录来解决<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export ES_JAVA_OPTS=&quot;$ES_JAVA_OPTS -Djava.io.tmpdir=/path/to/temp/dir&quot;</span><br></pre></td></tr></table></figure></p>
+<p>当然也可以通过在jvm.options文件中来设置这个参数  </p>
+<h3 id="maximum-number-of-thread-check"><a href="#maximum-number-of-thread-check" class="headerlink" title="maximum number of thread check"></a>maximum number of thread check</h3><p>es会将每个请求拆分成多个stage,然后将stage分配到不同的线程池中去执行.在es中有多个线程池来执行不同的任务.所以es会创建许多的线程.最大线程数量的检查会确保说,es实例有权限去创建足够的线程.如果要通过这个检查,必须允许es进程能够创建超过2048个线程.  </p>
+<p>/etc/security/limits.conf,在这个文件中,用nproc来设置    </p>
+<h3 id="maximum-size-virtual-memory-check"><a href="#maximum-size-virtual-memory-check" class="headerlink" title="maximum size virtual memory check"></a>maximum size virtual memory check</h3><p>es使用mmap来将索引映射到es的address space中,这可以让jvm heap外但是内存中的索引数据,可以有非常高速的读写速度.因此es需要拥有unlimited address space.最大虚拟内存大小的检查,会要求es进程有unlimited address space.  </p>
+<p>/etc/security/limits.conf,设置as为unlimited  </p>
+<h3 id="maximum-map-count-check"><a href="#maximum-map-count-check" class="headerlink" title="maximum map count check"></a>maximum map count check</h3><p>要高效使用mmap的话,es同样要求创建许多memory-mapped area.因此要求linux内核允许进程拥有至少262144个memory-mapped area,需要通过sysctl设置vm.max_map_count至少超过262144.  </p>
+<h3 id="client-jvm-check"><a href="#client-jvm-check" class="headerlink" title="client jvm check"></a>client jvm check</h3><p>jvm有两种模式,client jvm和server jvm.不同的jvm会用不同的编译器来从java源码生成可执行机器代码.client jvm被优化了来减少startup time和内存占用,server jvm被优化了来最大化性能.两种jvm之间的性能区别是很明显的.client jvm check会确保es没有运行在client jvm下.必须使用server jvm模式来启动es,而server jvm是默认的.  </p>
+<h3 id="use-serial-collector-check"><a href="#use-serial-collector-check" class="headerlink" title="use serial collector check"></a>use serial collector check</h3><p>针对不同的工作负载,jvm提供了不同的垃圾回收器.串行化垃圾回收期对于单cpu机器或者小内存,是很有效的.但是对于es来说,用串行化垃圾回收器,会成为一场性能上的灾难.因此这个check会确保es没有被配置使用串行化垃圾回收器.es默认的就是cms垃圾回收器.  </p>
+<h3 id="system-call-filter-check"><a href="#system-call-filter-check" class="headerlink" title="system call filter check"></a>system call filter check</h3><p>es会根据不同的操作系统来安装system call filter,用来阻止执行作为defense机制的fork相关system call,进而避免任意代码执行的攻击.这个check会检查是否允许system call filter,然后安装这些system call filter.避免bootstrap.system_call_filter设置为false.  </p>
+<h3 id="OnError-and-OnOutOfMemoryError-check"><a href="#OnError-and-OnOutOfMemoryError-check" class="headerlink" title="OnError and OnOutOfMemoryError check"></a>OnError and OnOutOfMemoryError check</h3><p>jvm参数,OnError和OnOutOfMemoryError允许在jvm遇到了fatal error或者是OutOfMemoryErro的时候,执行我们预定义的命令.然而,默认情况下,es system call filter是启用的,这些filter是阻止forking操作的.因此,用OnError和OnOutOfMemroyError和system call filter是不兼容的.这个check会检查,如果启用了system call filter,还设置了这两个jvm option,那么就不能启动.所以不要在jvm option中设置这两个参数.  </p>
+<h3 id="early-access-check"><a href="#early-access-check" class="headerlink" title="early-access check"></a>early-access check</h3><p>jdk提供了early-access快照,为即将到来的版本.这些版本不适合用作生产环境.这个check会检查有没有使用jdk的early-access快照版本.我们应该用jdk稳定版本,而不是试用版本.  </p>
+<h3 id="G1-GC-check"><a href="#G1-GC-check" class="headerlink" title="G1 GC check"></a>G1 GC check</h3><p>jdk 8的jvm早期版本中的g1 gc,有已知的问题可能导致索引破损.在JDK 8u40之前的版本都有这个问题.这个check会检查是否使用了那种早期的JDk版本.  </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Elasticsearch/" <i="" class="fa fa-tag"> Elasticsearch</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/10/Elasticsearch-109-生产集群部署时对操作系统的一些设置/" rel="next" title="Elasticsearch-109-生产集群部署时对操作系统的一些设置">
+                <i class="fa fa-chevron-left"></i> Elasticsearch-109-生产集群部署时对操作系统的一些设置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTEyNi8xNzY1MQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">周泽</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">111</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#bootstrap-check"><span class="nav-number">1.</span> <span class="nav-text">bootstrap check</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#development-mode-和-production-mode"><span class="nav-number">2.</span> <span class="nav-text">development mode 和 production mode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#heap-size-check"><span class="nav-number">3.</span> <span class="nav-text">heap size check</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#file-descriptor-check"><span class="nav-number">4.</span> <span class="nav-text">file descriptor check</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#memory-lock-check"><span class="nav-number">5.</span> <span class="nav-text">memory lock check</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#maximum-number-of-thread-check"><span class="nav-number">6.</span> <span class="nav-text">maximum number of thread check</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#maximum-size-virtual-memory-check"><span class="nav-number">7.</span> <span class="nav-text">maximum size virtual memory check</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#maximum-map-count-check"><span class="nav-number">8.</span> <span class="nav-text">maximum map count check</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#client-jvm-check"><span class="nav-number">9.</span> <span class="nav-text">client jvm check</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#use-serial-collector-check"><span class="nav-number">10.</span> <span class="nav-text">use serial collector check</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#system-call-filter-check"><span class="nav-number">11.</span> <span class="nav-text">system call filter check</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OnError-and-OnOutOfMemoryError-check"><span class="nav-number">12.</span> <span class="nav-text">OnError and OnOutOfMemoryError check</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#early-access-check"><span class="nav-number">13.</span> <span class="nav-text">early-access check</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#G1-GC-check"><span class="nav-number">14.</span> <span class="nav-text">G1 GC check</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">周泽</span>
+
+  
+</div>
+
+<!-- 
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+ -->
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共115.4k字</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>
