@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Docker,Reids,">
+  <meta name="keywords" content="Docker,Redis,">
 
 
 
@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="安装运行Redis拉取镜像在国内的镜像市场找到redis, 选好版本,pull下来,传送门   选一个新的,并且稳定的版本,我这里选择的3.2.9版本   执行以下命令,pull镜像1docker pull daocloud.io/library/redis:3.2.9 创建文件夹创建两个文件夹,一个用来放持久化的数据,一个用来放配置文件,如果不把持久化的数据放在服务器本地的话,重启容器,数据就没">
-<meta name="keywords" content="Docker,Reids">
+<meta name="description" content="述上文中,我们使用docker安装了redis,下面来配置一个一主二仆的一个主从结构,并且设置哨兵,基于上文中的环境,我们现在已经有一个Redis实例了   环境准备上文中我们是挂载的外部的配置文件,和数据文件,然后我们把这个文件夹复制两个出来,改下名字,如下:    然后修改这两个新的redis中,配置文件的端口号,分别该为6380 6381   修改完成之后,分别运行以下命令:1234dock">
+<meta name="keywords" content="Docker,Redis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Docker-Reids-安装运行Redis并挂载外部配置文件和数据">
-<meta property="og:url" content="http://yoursite.com/2019/04/27/Docker-Reids-安装运行Redis并挂载外部配置文件和数据/index.html">
+<meta property="og:title" content="Docker-Redis-配置主从和哨兵">
+<meta property="og:url" content="http://yoursite.com/2019/04/27/Docker-Redis-配置主从和哨兵/index.html">
 <meta property="og:site_name" content="八度空间">
-<meta property="og:description" content="安装运行Redis拉取镜像在国内的镜像市场找到redis, 选好版本,pull下来,传送门   选一个新的,并且稳定的版本,我这里选择的3.2.9版本   执行以下命令,pull镜像1docker pull daocloud.io/library/redis:3.2.9 创建文件夹创建两个文件夹,一个用来放持久化的数据,一个用来放配置文件,如果不把持久化的数据放在服务器本地的话,重启容器,数据就没">
+<meta property="og:description" content="述上文中,我们使用docker安装了redis,下面来配置一个一主二仆的一个主从结构,并且设置哨兵,基于上文中的环境,我们现在已经有一个Redis实例了   环境准备上文中我们是挂载的外部的配置文件,和数据文件,然后我们把这个文件夹复制两个出来,改下名字,如下:    然后修改这两个新的redis中,配置文件的端口号,分别该为6380 6381   修改完成之后,分别运行以下命令:1234dock">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-27T09:41:19.244Z">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/7WSI7xX*0MfWBGANO4r40ZqvLnM.QIACtMJxHX7nNuA!/r/dFYBAAAAAAAA">
+<meta property="og:updated_time" content="2019-04-27T10:02:05.894Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Docker-Reids-安装运行Redis并挂载外部配置文件和数据">
-<meta name="twitter:description" content="安装运行Redis拉取镜像在国内的镜像市场找到redis, 选好版本,pull下来,传送门   选一个新的,并且稳定的版本,我这里选择的3.2.9版本   执行以下命令,pull镜像1docker pull daocloud.io/library/redis:3.2.9 创建文件夹创建两个文件夹,一个用来放持久化的数据,一个用来放配置文件,如果不把持久化的数据放在服务器本地的话,重启容器,数据就没">
+<meta name="twitter:title" content="Docker-Redis-配置主从和哨兵">
+<meta name="twitter:description" content="述上文中,我们使用docker安装了redis,下面来配置一个一主二仆的一个主从结构,并且设置哨兵,基于上文中的环境,我们现在已经有一个Redis实例了   环境准备上文中我们是挂载的外部的配置文件,和数据文件,然后我们把这个文件夹复制两个出来,改下名字,如下:    然后修改这两个新的redis中,配置文件的端口号,分别该为6380 6381   修改完成之后,分别运行以下命令:1234dock">
+<meta name="twitter:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/7WSI7xX*0MfWBGANO4r40ZqvLnM.QIACtMJxHX7nNuA!/r/dFYBAAAAAAAA">
 
 
 
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/04/27/Docker-Reids-安装运行Redis并挂载外部配置文件和数据/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/27/Docker-Redis-配置主从和哨兵/">
 
 
 
 
 
-  <title>Docker-Reids-安装运行Redis并挂载外部配置文件和数据 | 八度空间</title>
+  <title>Docker-Redis-配置主从和哨兵 | 八度空间</title>
   
 
 
@@ -286,7 +288,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Docker-Reids-安装运行Redis并挂载外部配置文件和数据/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Docker-Redis-配置主从和哨兵/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -303,7 +305,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Docker-Reids-安装运行Redis并挂载外部配置文件和数据</h1>
+          <h1 class="post-title" itemprop="name headline">Docker-Redis-配置主从和哨兵</h1>
         
 
         <div class="post-meta">
@@ -315,7 +317,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T17:38:34+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T17:39:04+08:00">
                 2019-04-27
               </time>
             
@@ -338,8 +340,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker-Reids/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker-Reids</span>
+                  <a href="/categories/Docker-Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker-Redis</span>
                   </a>
                 </span>
 
@@ -375,32 +377,35 @@
       
 
       
-        <h3 id="安装运行Redis"><a href="#安装运行Redis" class="headerlink" title="安装运行Redis"></a>安装运行Redis</h3><h4 id="拉取镜像"><a href="#拉取镜像" class="headerlink" title="拉取镜像"></a>拉取镜像</h4><p>在国内的镜像市场找到redis, 选好版本,pull下来,<a href="https://hub.daocloud.io/repos/beb958f9-ffb6-4f68-817b-c17e1ff476c3" target="_blank" rel="noopener">传送门</a>  </p>
-<p>选一个新的,并且稳定的版本,我这里选择的3.2.9版本  </p>
-<p>执行以下命令,pull镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull daocloud.io/library/redis:3.2.9</span><br></pre></td></tr></table></figure></p>
-<h4 id="创建文件夹"><a href="#创建文件夹" class="headerlink" title="创建文件夹"></a>创建文件夹</h4><p>创建两个文件夹,一个用来放持久化的数据,一个用来放配置文件,如果不把持久化的数据放在服务器本地的话,重启容器,数据就没了.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /usr/docker/redis/data</span><br><span class="line">mkdir /usr/docker/redis/conf</span><br></pre></td></tr></table></figure></p>
-<p>data文件夹用来存放数据,conf文件夹用来存放redis的配置文件   </p>
-<h4 id="配置文件修改"><a href="#配置文件修改" class="headerlink" title="配置文件修改"></a>配置文件修改</h4><p>在<a href="https://github.com/" target="_blank" rel="noopener">github</a>中搜索redis,找到对应的版本,我在上面是下载的3.2.9版本,所以我在release中找到<a href="https://github.com/antirez/redis/releases/tag/3.2.9" target="_blank" rel="noopener">3.2.9版本</a>,然后下载源码  </p>
-<p>下载完成之后找到<code>redis.conf</code>这个文件  </p>
+        <h3 id="述"><a href="#述" class="headerlink" title="述"></a>述</h3><p>上文中,我们使用docker安装了redis,下面来配置一个一主二仆的一个主从结构,并且设置哨兵,基于上文中的环境,我们现在已经有一个Redis实例了  </p>
+<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><p>上文中我们是挂载的外部的配置文件,和数据文件,然后我们把这个文件夹复制两个出来,改下名字,如下:<br><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/7WSI7xX*0MfWBGANO4r40ZqvLnM.QIACtMJxHX7nNuA!/r/dFYBAAAAAAAA" alt="image">   </p>
+<p>然后修改这两个新的redis中,配置文件的端口号,分别该为6380 6381  </p>
+<p>修改完成之后,分别运行以下命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 6380:6380 --name redis-6380 -v /usr/docker/redis-6380/conf/redis.conf:/etc/redis/redis.conf -v /usr/docker/redis-6380/data:/data --privileged=true -d 3459037fcc3a redis-server /etc/redis/redis.conf --appendonly yes</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker run -p 6381:6381 --name redis-6381 -v /usr/docker/redis-6381/conf/redis.conf:/etc/redis/redis.conf -v /usr/docker/redis-6381/data:/data  --privileged=true -d 3459037fcc3a redis-server /etc/redis/redis.conf --appendonly yes</span><br></pre></td></tr></table></figure></p>
+<p>运行完成之后,可以用<code>docker ps</code>来查看是否启动成功   </p>
+<p>启动好之后,我们就有三个redis的服务了,我这里的ip和端口分别如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3 6379 </span><br><span class="line">172.16.12.3 6380</span><br><span class="line">172.16.12.3 6381</span><br></pre></td></tr></table></figure></p>
+<h3 id="主从配置"><a href="#主从配置" class="headerlink" title="主从配置"></a>主从配置</h3><p>环境设置好之后,我们把6379设置为Master,然后6380和6381设置为slave  </p>
+<p>先进入6380的容器内部:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it 容器id /bin/bash</span><br></pre></td></tr></table></figure></p>
+<p>使用redis-cli设置主从, 或者是使用远程的redis-cli,执行以下命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SLAVEOF 172.16.12.3 6379</span><br></pre></td></tr></table></figure></p>
+<p>6381也这样操作就好了.  这里要注意的是,如果主机设置了访问密码的话,从机的配置中需要加入以下配置:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">masterauth 123456</span><br></pre></td></tr></table></figure></p>
+<p>两个从机都设置完成之后,主从就搭建好了, 可以通过<code>info replication</code>来查看Redis的角色等信息   </p>
+<h3 id="哨兵配置"><a href="#哨兵配置" class="headerlink" title="哨兵配置"></a>哨兵配置</h3><p>我们现在是有三个redis的容器,然后我们在每个容器中再启动一个哨兵的服务,也就是说,一个容器中有一个redis的服务,还有一个哨兵的服务   </p>
+<p>这里的三个容器的配置都是一样的,这里只说一个的配置  </p>
+<p>首先,进入容器内部,命令如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -ti 容器ID /bin/bash</span><br></pre></td></tr></table></figure></p>
+<p>进入根目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /</span><br></pre></td></tr></table></figure></p>
+<p>创建一个哨兵的配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch sentinel.conf</span><br></pre></td></tr></table></figure></p>
+<p>用vim编辑这个配置文件,这里容器默认是没有安装vim的,需要自己装一个,命令如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt-get install vim –y</span><br></pre></td></tr></table></figure></p>
+<p>安装完成之后,就可以使用vim了,编辑刚创建的配置文件:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim sentinel.conf</span><br></pre></td></tr></table></figure></p>
+<p>文件内容如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sentinel monitor mymaster 172.16.12.3 6379 1</span><br><span class="line">daemonize yes</span><br><span class="line">logfile &quot;/var/log/redis/sentinel_log.log&quot;</span><br><span class="line">protected-mode no</span><br><span class="line">sentinel auth-pass mymaster 123456</span><br></pre></td></tr></table></figure></p>
 <ul>
-<li><code>bind 127.0.0.1</code>,在配置文件中找到这个配置,注释掉(注释掉才可以远程连接redis)   </li>
-<li><code>protected-mode yes</code>,找到这个配置改为<code>protected-mode no</code>  </li>
-<li><code>daemonize yes</code>找到这个配置,注释掉  </li>
+<li>第一行的配置中 mymaster是给监控主机起的名字,这个是自定义的,然后后面是主机的地址和端口,最后的1表示有多少个哨兵认为主机挂掉了,就进行切换  </li>
+<li>第二行的配置表示哨兵在后台运行</li>
+<li>第三行是哨兵的日志文件地址   </li>
+<li>第四行把保护模式关闭,保护模式如果开启只接受回环地址的ipv4和ipv6地址链接,拒绝外部链接,而且正常应该配置多个哨兵,避免一个哨兵出现独裁情况,如果配置多个哨兵那如果开启也会拒绝其他sentinel的连接.导致哨兵配置无法生效.   </li>
+<li>第五行如果redis配置了密码,那这里必须配置认证,否则不能自动切换 </li>
 </ul>
-<p>最后保存修改,文件上传到服务器刚刚创建好的<code>/usr/docker/redis/conf</code>目录下面  </p>
-<h4 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h4><p>命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 6379:6379 --name redis-6379 -v /usr/docker/redis/conf/redis.conf:/etc/redis/redis.conf -v /usr/docker/redis/data:/data --privileged=true -d 3459037fcc3a redis-server /etc/redis/redis.conf --appendonly yes</span><br></pre></td></tr></table></figure></p>
-<p>参数解析:  </p>
-<ul>
-<li><code>-p</code> 端口映射</li>
-<li><code>--name</code> 指定容器的名称是<code>redis-6379</code></li>
-<li><code>-v</code> 映射容器外部的配置文件和目录  </li>
-<li><code>--privileged=true</code>  使容器内的root用户具有真正的root用户的权限,不设置可能会启动失败,提示没有权限  </li>
-<li><code>-d 3459037fcc3a</code> -d是以后台的方式启动,<code>3459037fcc3a</code>是最开始拉下来的镜像的id  </li>
-<li><code>redis-server /etc/redis/redis.conf</code>  指定配置文件启动redis-server进程</li>
-<li><code>--appendonly yes</code> 开启数据持久化</li>
-</ul>
-<h4 id="启动完成查看状态"><a href="#启动完成查看状态" class="headerlink" title="启动完成查看状态"></a>启动完成查看状态</h4><p>可以通过以下命令,查看正在运行的容器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure></p>
-<h4 id="完成"><a href="#完成" class="headerlink" title="完成"></a>完成</h4><p>上面的操作全部搞定之后,就可以通过远程去连接了  </p>
+<p>最后启动哨兵,命令如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-sentinel /sentinel.conf</span><br></pre></td></tr></table></figure></p>
+<p>至此一个哨兵就配置启动完成了,其他两台的配置是一样的    </p>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>三个哨兵都启动完成之后,可以把master关闭然后去看哨兵的日志,如果进行了重新选举那就ok了  </p>
 
       
     </div>
@@ -420,7 +425,7 @@
           
             <a href="/tags/Docker/" <i="" class="fa fa-tag"> Docker</a>
           
-            <a href="/tags/Reids/" <i="" class="fa fa-tag"> Reids</a>
+            <a href="/tags/Redis/" <i="" class="fa fa-tag"> Redis</a>
           
         </div>
       
@@ -433,8 +438,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/27/Redis-19-常见使用场景/" rel="next" title="Redis-19-常见使用场景">
-                <i class="fa fa-chevron-left"></i> Redis-19-常见使用场景
+              <a href="/2019/04/27/Docker-Redis-安装运行Redis并挂载外部配置文件和数据/" rel="next" title="Docker-Redis-安装运行Redis并挂载外部配置文件和数据">
+                <i class="fa fa-chevron-left"></i> Docker-Redis-安装运行Redis并挂载外部配置文件和数据
               </a>
             
           </div>
@@ -443,8 +448,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/04/27/Docker-Reids-配置主从和哨兵/" rel="prev" title="Docker-Reids-配置主从和哨兵">
-                Docker-Reids-配置主从和哨兵 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/04/27/Docker-Redis-三主三从集群架构搭建/" rel="prev" title="Docker-Redis-三主三从集群架构搭建">
+                Docker-Redis-三主三从集群架构搭建 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -549,7 +554,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -582,7 +587,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装运行Redis"><span class="nav-number">1.</span> <span class="nav-text">安装运行Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#拉取镜像"><span class="nav-number">1.1.</span> <span class="nav-text">拉取镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建文件夹"><span class="nav-number">1.2.</span> <span class="nav-text">创建文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置文件修改"><span class="nav-number">1.3.</span> <span class="nav-text">配置文件修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动容器"><span class="nav-number">1.4.</span> <span class="nav-text">启动容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动完成查看状态"><span class="nav-number">1.5.</span> <span class="nav-text">启动完成查看状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#完成"><span class="nav-number">1.6.</span> <span class="nav-text">完成</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#述"><span class="nav-number">1.</span> <span class="nav-text">述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境准备"><span class="nav-number">2.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主从配置"><span class="nav-number">3.</span> <span class="nav-text">主从配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哨兵配置"><span class="nav-number">4.</span> <span class="nav-text">哨兵配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证"><span class="nav-number">5.</span> <span class="nav-text">验证</span></a></li></ol></div>
             
 
           </div>
