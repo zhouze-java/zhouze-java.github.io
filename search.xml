@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Docker-Reids-三主三从集群架构搭建]]></title>
+    <url>%2F2019%2F04%2F27%2FDocker-Reids-%E4%B8%89%E4%B8%BB%E4%B8%89%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E6%90%AD%E5%BB%BA%2F</url>
+    <content type="text"><![CDATA[述上文中,我们搭建了一个一主二仆的一个reids架构,在实际生产环境中,我们往往需要搭建一个redis集群,那本文来看一下,基于docker搭建一个三主三从的redis集群 环境准备一开始,准备还是用上面文章中拉下来的3.2.9版本的redis,结果在搭建集群的时候出了一些问题,可能是配置的原因,最后也没有深入去研究,所以这里还是用一个新的版本.5.0.0来搭建 然后拉一个redis5.0.0版本的下来1docker pull redis:5.0.0 创建集群配置文件在/usr/docker/redis-cluster下创建一个文件(这个路径是可以自定义的),redis-cluster.tmpl,文件内容如下:123456789101112131415161718#redis端口port $&#123;PORT&#125;#关闭保护模式，允许外网访问protected-mode no# 开启集群模式 cluster-enabled yes#集群配置名cluster-config-file nodes.conf#超时时间 cluster-node-timeout 5000#搭建集群主机的外网ipcluster-announce-ip $&#123;IP&#125;#节点映射端口cluster-announce-port $&#123;PORT&#125;#节点总线端cluster-announce-bus-port 1$&#123;PORT&#125;#持久化模式appendonly yes 创建每个节点的配置文件和文件夹首先需要两个变量,一个是我们的ip地址,一个是刚刚的目录,命令如下:1ip=xxx.xxx.xx.xx 1redisdir=&quot;/usr/docker/redis-cluster&quot; 变量搞定之后,就是循环创建文件夹和文件了,命令如下:12345for port in `seq 7000 7005`; do \ mkdir -p $&#123;redisdir&#125;/$&#123;port&#125;/conf \ &amp;&amp; PORT=$&#123;port&#125; IP=$&#123;ip&#125; envsubst &lt; ./redis-cluster.tmpl &gt; $&#123;redisdir&#125;/$&#123;port&#125;/conf/redis.conf \ &amp;&amp; mkdir -p $&#123;redisdir&#125;/$&#123;port&#125;/data; \done 执行完毕之后,随便打开一个看下,下面这样子,变量都被替换掉就ok了: 创建docker自定义网桥执行命令1docker network create redis-net 查看docker所有的网桥,命令是:1docker network ls 运行各个redis节点ok,上面的步骤完成之后,就可以启动容器了 定义一个初始值变量,用于叠加ip1execsh=&apos;/usr/local/bin/redis-cli --cluster create &apos; 这里这个路径就是这样的,不要去修改 然后循环运行6个容器123456789for port in `seq 7000 7005`; do \ docker run -d -ti -p $&#123;port&#125;:$&#123;port&#125; -p 1$&#123;port&#125;:1$&#123;port&#125; \ -v $&#123;redisdir&#125;/$&#123;port&#125;/conf/redis.conf:/usr/local/etc/redis/redis.conf \ -v $&#123;redisdir&#125;/$&#123;port&#125;/data:/data \ --privileged=true \ --restart always --name redis-$&#123;port&#125; --net redis-net \ --sysctl net.core.somaxconn=1024 redis:5.0.0 redis-server /usr/local/etc/redis/redis.conf; \ execsh=$&#123;execsh&#125;`docker inspect redis-$&#123;port&#125; | grep &quot;IPAddress&quot; | grep --color=auto -P &apos;(\d&#123;1,3&#125;.)&#123;3&#125;\d&#123;1,3&#125;&apos; -o`:$&#123;port&#125;&apos; &apos;done 如下图,就创建成功了 完成后执行下面的命令.往上面声明的那个变量后面追加--cluster-replicas 11execsh=$&#123;execsh&#125;&apos;--cluster-replicas 1&apos; 最后将拼接好的命令打印到控制台,后面进入到redis容器中需要用到1echo $&#123;execsh&#125; 返回值应该是这样的:1/usr/local/bin/redis-cli --cluster create 172.18.0.2:7000 172.18.0.3:7001 172.18.0.4:7002 172.18.0.5:7003 172.18.0.6:7004 172.18.0.7:7005 --cluster-replicas 1 这个返回的数据复制下来,等下要用 查看已启动的容器看一下6个容器是不是都启动了,如下:1docker ps 进入容器创建集群上面我们启动完成之后,都是单独的redis服务,并不是一个集群,然后我们先进入redis-7000这个容器的内部,命令如下:1docker exec -ti redis-7000 /bin/bash 然后执行我们上面复制下来的那个shell脚本1/usr/local/bin/redis-cli --cluster create 172.18.0.2:7000 172.18.0.3:7001 172.18.0.4:7002 172.18.0.5:7003 172.18.0.6:7004 172.18.0.7:7005 --cluster-replicas 1 返回如下: 红色圈住的地方,需要手动输入个yes. 校验是否创建成功在容器内使用redis-cli连接1redis-cli -p 7000 -c -c就表示集群模式 如图,我这里获取数据,他自动跳到了7002节点上面 接下来我们把7002节点先停了 然后,再次进到7000容器内部,再get数据,如下: 7002关闭了之后,又跳到了7005上面了 搭建成功最后再把刚停掉的节点启动起来,至此,一个三主三从的redis集群就搭建好了,参考文章,这里还有一种更方便的方法,可以看看]]></content>
+      <categories>
+        <category>Docker-Reids</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+        <tag>Reids</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Docker-Reids-配置主从和哨兵]]></title>
+    <url>%2F2019%2F04%2F27%2FDocker-Reids-%E9%85%8D%E7%BD%AE%E4%B8%BB%E4%BB%8E%E5%92%8C%E5%93%A8%E5%85%B5%2F</url>
+    <content type="text"><![CDATA[述上文中,我们使用docker安装了redis,下面来配置一个一主二仆的一个主从结构,并且设置哨兵,基于上文中的环境,我们现在已经有一个reids实例了 环境准备上文中我们是挂载的外部的配置文件,和数据文件,然后我们把这个文件夹复制两个出来,改下名字,如下: 然后修改这两个新的redis中,配置文件的端口号,分别该为6380 6381 修改完成之后,分别运行以下命令:1234docker run -p 6380:6380 --name redis-6380 -v /usr/docker/redis-6380/conf/redis.conf:/etc/redis/redis.conf -v /usr/docker/redis-6380/data:/data --privileged=true -d 3459037fcc3a redis-server /etc/redis/redis.conf --appendonly yesdocker run -p 6381:6381 --name redis-6381 -v /usr/docker/redis-6381/conf/redis.conf:/etc/redis/redis.conf -v /usr/docker/redis-6381/data:/data --privileged=true -d 3459037fcc3a redis-server /etc/redis/redis.conf --appendonly yes 运行完成之后,可以用docker ps来查看是否启动成功 启动好之后,我们就有三个redis的服务了,我这里的ip和端口分别如下:123172.16.12.3 6379 172.16.12.3 6380172.16.12.3 6381 主从配置环境设置好之后,我们把6379设置为Master,然后6380和6381设置为slave 先进入6380的容器内部:1docker exec -it 容器id /bin/bash 使用redis-cli设置主从, 或者是使用远程的redis-cli,执行以下命令:1SLAVEOF 172.16.12.3 6379 6381也这样操作就好了. 这里要注意的是,如果主机设置了访问密码的话,从机的配置中需要加入以下配置:1masterauth 123456 两个从机都设置完成之后,主从就搭建好了, 可以通过info replication来查看reids的角色等信息 哨兵配置我们现在是有三个redis的容器,然后我们在每个容器中再启动一个哨兵的服务,也就是说,一个容器中有一个redis的服务,还有一个哨兵的服务 这里的三个容器的配置都是一样的,这里只说一个的配置 首先,进入容器内部,命令如下:1docker exec -ti 容器ID /bin/bash 进入根目录1cd / 创建一个哨兵的配置文件1touch sentinel.conf 用vim编辑这个配置文件,这里容器默认是没有安装vim的,需要自己装一个,命令如下:12apt-get updateapt-get install vim –y 安装完成之后,就可以使用vim了,编辑刚创建的配置文件:1vim sentinel.conf 文件内容如下:12345sentinel monitor mymaster 172.16.12.3 6379 1daemonize yeslogfile &quot;/var/log/redis/sentinel_log.log&quot;protected-mode nosentinel auth-pass mymaster 123456 第一行的配置中 mymaster是给监控主机起的名字,这个是自定义的,然后后面是主机的地址和端口,最后的1表示有多少个哨兵认为主机挂掉了,就进行切换 第二行的配置表示哨兵在后台运行 第三行是哨兵的日志文件地址 第四行把保护模式关闭,保护模式如果开启只接受回环地址的ipv4和ipv6地址链接,拒绝外部链接,而且正常应该配置多个哨兵,避免一个哨兵出现独裁情况,如果配置多个哨兵那如果开启也会拒绝其他sentinel的连接.导致哨兵配置无法生效. 第五行如果redis配置了密码,那这里必须配置认证,否则不能自动切换 最后启动哨兵,命令如下:1redis-sentinel /sentinel.conf 至此一个哨兵就配置启动完成了,其他两台的配置是一样的 验证三个哨兵都启动完成之后,可以把master关闭然后去看哨兵的日志,如果进行了重新选举那就ok了]]></content>
+      <categories>
+        <category>Docker-Reids</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+        <tag>Reids</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Docker-Reids-安装运行Redis并挂载外部配置文件和数据]]></title>
+    <url>%2F2019%2F04%2F27%2FDocker-Reids-%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8CRedis%E5%B9%B6%E6%8C%82%E8%BD%BD%E5%A4%96%E9%83%A8%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%92%8C%E6%95%B0%E6%8D%AE%2F</url>
+    <content type="text"><![CDATA[安装运行Redis拉取镜像在国内的镜像市场找到redis, 选好版本,pull下来,传送门 选一个新的,并且稳定的版本,我这里选择的3.2.9版本 执行以下命令,pull镜像1docker pull daocloud.io/library/redis:3.2.9 创建文件夹创建两个文件夹,一个用来放持久化的数据,一个用来放配置文件,如果不把持久化的数据放在服务器本地的话,重启容器,数据就没了.12mkdir /usr/docker/redis/datamkdir /usr/docker/redis/conf data文件夹用来存放数据,conf文件夹用来存放redis的配置文件 配置文件修改在github中搜索redis,找到对应的版本,我在上面是下载的3.2.9版本,所以我在release中找到3.2.9版本,然后下载源码 下载完成之后找到redis.conf这个文件 bind 127.0.0.1,在配置文件中找到这个配置,注释掉(注释掉才可以远程连接redis) protected-mode yes,找到这个配置改为protected-mode no daemonize yes找到这个配置,注释掉 最后保存修改,文件上传到服务器刚刚创建好的/usr/docker/redis/conf目录下面 启动容器命令:1docker run -p 6379:6379 --name redis-6379 -v /usr/docker/redis/conf/redis.conf:/etc/redis/redis.conf -v /usr/docker/redis/data:/data --privileged=true -d 3459037fcc3a redis-server /etc/redis/redis.conf --appendonly yes 参数解析: -p 端口映射 --name 指定容器的名称是redis-6379 -v 映射容器外部的配置文件和目录 --privileged=true 使容器内的root用户具有真正的root用户的权限,不设置可能会启动失败,提示没有权限 -d 3459037fcc3a -d是以后台的方式启动,3459037fcc3a是最开始拉下来的镜像的id redis-server /etc/redis/redis.conf 指定配置文件启动redis-server进程 --appendonly yes 开启数据持久化 启动完成查看状态可以通过以下命令,查看正在运行的容器1docker ps 完成上面的操作全部搞定之后,就可以通过远程去连接了]]></content>
+      <categories>
+        <category>Docker-Reids</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+        <tag>Reids</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Redis-19-常见使用场景]]></title>
     <url>%2F2019%2F04%2F27%2FRedis-19-%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%2F</url>
     <content type="text"><![CDATA[述通过之前文章的介绍,现在redis也可以基本的使用了,那么到底什么时候该使用redis呢.下面就来说几个redis的常用场景 使用场景计数器数据统计的需求非常普遍，通过原子递增保持计数。例如，点赞数、收藏数、分享数等。 排行榜排行榜按照得分进行排序，例如，展示最近、最热、点击率最高、活跃度最高等等条件的top list。 用于存储时间戳类似排行榜，使用redis的zset用于存储时间戳，时间会不断变化。例如，按照用户关注用户的最新动态列表。 记录用户判定信息记录用户判定信息的需求也非常普遍，可以知道一个用户是否进行了某个操作。例如，用户是否点赞、用户是否收藏、用户是否分享等。 社交列表社交属性相关的列表信息，例如，用户点赞列表、用户收藏列表、用户关注列表等。 缓存热点数据缓存一些热点数据，例如，PC版本文件更新内容、资讯标签和分类信息、生日祝福寿星列表。 对于热点数据，缓存以后可能读取数十万次，因此，对于热点数据，缓存的价值非常大。例如，分类栏目更新频率不高，但是绝大多数的页面都需要访问这个数据，因此读取频率相当高，可以考虑基于 Redis 实现缓存。 队列使用Redis进行会话缓存。例如，将web session存放在Redis中。 会话缓存 Redis 进行会话缓存。例如，将 web session 存放在 Redis 中。 时效性例如验证码只有60秒有效期，超过时间无法使用，或者基于 Oauth2 的 Token 只能在 5 分钟内使用一次，超过时间也无法使用。 访问频率出于减轻服务器的压力或防止恶意的洪水攻击的考虑，需要控制访问频率，例如限制 IP 在一段时间的最大访问量。 交集、并集和差集在某些场景中，例如社交场景，通过交集、并集和差集运算，可以非常方便地实现共同好友，共同关注，共同偏好等社交关系。 最新动态按照时间顺序排列的最新动态，也是一个很好的应用，可以使用 Sorted Set 类型的分数权重存储 Unix 时间戳进行排序。 原文地址]]></content>
