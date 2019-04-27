@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/Elasticsearch-46-多shard场景下relevance-score不准确的问题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/05/Elasticsearch-66-修改IK分词器源码基于mysql热更新词库/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/05/Elasticsearch-46-多shard场景下relevance-score不准确的问题/" itemprop="url">Elasticsearch-46-多shard场景下relevance score不准确的问题</a></h1>
+                <a class="post-title-link" href="/2019/01/05/Elasticsearch-66-修改IK分词器源码基于mysql热更新词库/" itemprop="url">Elasticsearch-66-修改IK分词器源码基于mysql热更新词库</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-05T22:20:21+08:00">
-                2018-12-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-05T16:39:57+08:00">
+                2019-01-05
               </time>
             
 
@@ -375,11 +375,12 @@
       
         
           
-          场景一个index的数据被分配到了多个shard上,每个shard都包含一部分这个index的数据如图所示,一个搜索请求条件是title中包含java,假如shard1 上面有10条符合条件的document,这个请求到达shard1上的时候,默认是在这个shard本地local去进行IDF计算在s
+          上文中,我们如果要配置一个自定义的词语,或者停用词的时候,必须要手动添加到ik分词器的配置中,然后重启es节点,这样就很坑了,而且如果es集群中有上百个节点的话,那一个个的修改要疯了   
+通过修改ik分词器的源码,可以使用mysql作为词库,有词语更新的话,直接添加到mysql的表中就好了,不需要
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/05/Elasticsearch-46-多shard场景下relevance-score不准确的问题/#more" rel="contents">
+            <a class="btn" href="/2019/01/05/Elasticsearch-66-修改IK分词器源码基于mysql热更新词库/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -430,7 +431,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/Elasticsearch-45-实战案例-基于boost的细粒度搜索条件权重控制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/05/Elasticsearch-65-IK分词器配置文件详解/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -449,7 +450,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/05/Elasticsearch-45-实战案例-基于boost的细粒度搜索条件权重控制/" itemprop="url">Elasticsearch-45-实战案例-基于boost的细粒度搜索条件权重控制</a></h1>
+                <a class="post-title-link" href="/2019/01/05/Elasticsearch-65-IK分词器配置文件详解/" itemprop="url">Elasticsearch-65-IK分词器配置文件详解</a></h1>
         
 
         <div class="post-meta">
@@ -461,8 +462,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-05T21:20:02+08:00">
-                2018-12-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-05T09:41:31+08:00">
+                2019-01-05
               </time>
             
 
@@ -523,12 +524,16 @@
       
         
           
-          场景我们来搜索一下标题必须包含 “blog” 的数据,然后可以包含 “java” “hadoop” “elasticsearch” “spark”的数据  
-实现组合搜索条件123456789101112131415161718192021222324252627282930313233343536
+          ik配置文件ik配置文件地址: es目录/plugins/ik/config  
+
+main.dic:ik原生内置的中文词库,总共有27万多条,只要是这些单词,都会被分在一起  
+quantifier.dic:放了一些单位相关的词   
+suffix.dic:放了一些后缀
+surname.dic:中
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/05/Elasticsearch-45-实战案例-基于boost的细粒度搜索条件权重控制/#more" rel="contents">
+            <a class="btn" href="/2019/01/05/Elasticsearch-65-IK分词器配置文件详解/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -579,7 +584,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/04/Elasticsearch-44-基于term-bool实现的multi word搜索底层原理剖析/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/04/Elasticsearch-64-IK中文分词器的安装和基本使用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -598,7 +603,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/04/Elasticsearch-44-基于term-bool实现的multi word搜索底层原理剖析/" itemprop="url">Elasticsearch-44-基于term+bool实现的multi word搜索底层原理剖析</a></h1>
+                <a class="post-title-link" href="/2019/01/04/Elasticsearch-64-IK中文分词器的安装和基本使用/" itemprop="url">Elasticsearch-64-IK中文分词器的安装和基本使用</a></h1>
         
 
         <div class="post-meta">
@@ -610,8 +615,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-04T21:37:11+08:00">
-                2018-12-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-04T18:13:58+08:00">
+                2019-01-04
               </time>
             
 
@@ -672,12 +677,14 @@
       
         
           
-          在我们使用match这种查询的时候,在es底层其实会自动的转换成term+bool的这种查询  
-示例一原请求体:123&#123;    &quot;match&quot;: &#123; &quot;title&quot;: &quot;java elasticsearch&quot;&#125
+          ik中文分词器安装从github上拉取ik分词器1git clone https://github.com/medcl/elasticsearch-analysis-ik
+切换分支1git checkout tags/v5.2.0
+编译1mvn package
+将target/releases/el
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/04/Elasticsearch-44-基于term-bool实现的multi word搜索底层原理剖析/#more" rel="contents">
+            <a class="btn" href="/2019/01/04/Elasticsearch-64-IK中文分词器的安装和基本使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -728,7 +735,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/04/Elasticsearch-43-实战案例-手动控制全文检索结果的精准度/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/04/Elasticsearch-63-误拼写时的fuzzy模糊搜索/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -747,7 +754,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/04/Elasticsearch-43-实战案例-手动控制全文检索结果的精准度/" itemprop="url">Elasticsearch-43-实战案例-手动控制全文检索结果的精准度</a></h1>
+                <a class="post-title-link" href="/2019/01/04/Elasticsearch-63-误拼写时的fuzzy模糊搜索/" itemprop="url">Elasticsearch-63-误拼写时的fuzzy模糊搜索</a></h1>
         
 
         <div class="post-meta">
@@ -759,8 +766,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-04T21:36:50+08:00">
-                2018-12-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-04T16:50:36+08:00">
+                2019-01-04
               </time>
             
 
@@ -821,11 +828,11 @@
       
         
           
-          准备工作为帖子增加标题字段1234567891011POST /forum/article/_bulk&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;1&quot;&#125; &#125;&#123; &quot;doc&quot;
+          fuzzy搜索我们在搜索的时候,可能会出现单词误拼写的情况,举个例子,有两个documentdocument1: hello worlddocument2: hello java这时候搜索请求误写成了hallo world, 我们期望的结果是全查询出来,但是hallo world是匹配不上doc2的
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/04/Elasticsearch-43-实战案例-手动控制全文检索结果的精准度/#more" rel="contents">
+            <a class="btn" href="/2019/01/04/Elasticsearch-63-误拼写时的fuzzy模糊搜索/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -876,7 +883,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/03/Elasticsearch-42-实战案例-range-filter进行范围过滤/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/04/Elasticsearch-62-用function-score自定义相关度分数算法/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -895,7 +902,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/03/Elasticsearch-42-实战案例-range-filter进行范围过滤/" itemprop="url">Elasticsearch-42-实战案例-range filter进行范围过滤</a></h1>
+                <a class="post-title-link" href="/2019/01/04/Elasticsearch-62-用function-score自定义相关度分数算法/" itemprop="url">Elasticsearch-62-用function_score自定义相关度分数算法</a></h1>
         
 
         <div class="post-meta">
@@ -907,8 +914,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-03T22:15:49+08:00">
-                2018-12-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-04T15:52:33+08:00">
+                2019-01-04
               </time>
             
 
@@ -969,11 +976,12 @@
       
         
           
-          准备工作为帖子增加浏览量的字段123456789POST /forum/article/_bulk&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;1&quot;&#125; &#125;&#123; &quot;doc&quot; :
+          function_score我们可以自定义一个function_score函数,自己将某个field的值,跟es内置算出来的分数进行运算,然后由自己制定的field来进行分数的增强   
+准备测试数据给所有帖子增加follower数量1234567891011POST /forum/article/
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/03/Elasticsearch-42-实战案例-range-filter进行范围过滤/#more" rel="contents">
+            <a class="btn" href="/2019/01/04/Elasticsearch-62-用function-score自定义相关度分数算法/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1024,7 +1032,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/03/Elasticsearch-41-实战案例-terms搜索多个值及搜索结果优化/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/03/Elasticsearch-61-常见相关度分数优化方法/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1043,7 +1051,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/03/Elasticsearch-41-实战案例-terms搜索多个值及搜索结果优化/" itemprop="url">Elasticsearch-41-实战案例-terms搜索多个值及搜索结果优化</a></h1>
+                <a class="post-title-link" href="/2019/01/03/Elasticsearch-61-常见相关度分数优化方法/" itemprop="url">Elasticsearch-61-常见相关度分数优化方法</a></h1>
         
 
         <div class="post-meta">
@@ -1055,8 +1063,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-03T22:03:14+08:00">
-                2018-12-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-03T20:20:42+08:00">
+                2019-01-03
               </time>
             
 
@@ -1117,13 +1125,12 @@
       
         
           
-          之前的几个案例中都是用的term用来搜索. 本文使用terms来搜索数据  
-terms,就相当于sql中的in  
-准备工作为帖子添加tag字段123456789POST /forum/article/_bulk&#123; &quot;update&quot;: &#123; &quot;_id
+          上文中,说了整个es的相关度评分的算法,本文将使用四种常见的方法来优化相关度分数  
+query-time boost就是之前说过的给某一个查询增加权重,语法如下12345678910111213141516171819202122GET forum/article/_search&#123;  &
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/03/Elasticsearch-41-实战案例-terms搜索多个值及搜索结果优化/#more" rel="contents">
+            <a class="btn" href="/2019/01/03/Elasticsearch-61-常见相关度分数优化方法/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1174,7 +1181,7 @@ terms,就相当于sql中的in
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/03/Elasticsearch-40-实战案例-组合多个filter搜索/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/03/Elasticsearch-60-深入揭秘lucene的相关度分数算法/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1193,7 +1200,7 @@ terms,就相当于sql中的in
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/03/Elasticsearch-40-实战案例-组合多个filter搜索/" itemprop="url">Elasticsearch-40-实战案例-组合多个filter搜索</a></h1>
+                <a class="post-title-link" href="/2019/01/03/Elasticsearch-60-深入揭秘lucene的相关度分数算法/" itemprop="url">Elasticsearch-60-深入揭秘lucene的相关度分数算法</a></h1>
         
 
         <div class="post-meta">
@@ -1205,8 +1212,8 @@ terms,就相当于sql中的in
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-03T21:34:02+08:00">
-                2018-12-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-03T17:59:44+08:00">
+                2019-01-03
               </time>
             
 
@@ -1267,13 +1274,12 @@ terms,就相当于sql中的in
       
         
           
-          之前我们有写过用bool来组合多个query,同样的bool也可以组合多个filter来搜索  
-基于bool组合多个filter搜索数据需求一搜索发帖日期为2017-01-01,或者帖子ID为XHDK-A-1293-#fJ3的帖子,同时要求帖子的发帖日期绝对不为2017-01-02   
-这个需求
+          上文中说了TF/IDF算法,那么在底层的Lucene中TF/IDF算法的完整的公式是什么  
+Boolean model就是我们之前有说过的,一个match会被转换为bool的组合查询,比如说123&quot;match&quot;:&#123;    &quot;query&quot;:&quot
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/03/Elasticsearch-40-实战案例-组合多个filter搜索/#more" rel="contents">
+            <a class="btn" href="/2019/01/03/Elasticsearch-60-深入揭秘lucene的相关度分数算法/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1324,7 +1330,7 @@ terms,就相当于sql中的in
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/30/Elasticsearch-39-filter原理深度剖析/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/03/Elasticsearch-59-深入揭秘TF-IDF算法以及向量空间模型算法/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1343,7 +1349,7 @@ terms,就相当于sql中的in
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/30/Elasticsearch-39-filter原理深度剖析/" itemprop="url">Elasticsearch-39-filter原理深度剖析</a></h1>
+                <a class="post-title-link" href="/2019/01/03/Elasticsearch-59-深入揭秘TF-IDF算法以及向量空间模型算法/" itemprop="url">Elasticsearch-59-深入揭秘TF&IDF算法以及向量空间模型算法</a></h1>
         
 
         <div class="post-meta">
@@ -1355,8 +1361,8 @@ terms,就相当于sql中的in
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-30T22:30:59+08:00">
-                2018-11-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-03T16:46:30+08:00">
+                2019-01-03
               </time>
             
 
@@ -1417,42 +1423,13 @@ terms,就相当于sql中的in
       
         
           
-          filter执行原理场景举个例子,假设有个字段是date类型的,在倒排索引中:  
-
-
-
-word
-document1
-document2
-document3
-
-
-
-
-2017-01-01
-√
-√
-
-
-
-2017-02-02
-
-√
-√ 
-
-
-2017-03-03
-√
-√
-√
-
-
-
-在倒排索引中查找搜
+          一个搜索请求过来,是怎样进行打分的呢   
+boolean model首先一个搜索请求过来的时候,会先进行过滤,过滤出包含指定term的doc,这个过程就是boolean model    
+举个例子,查询的是hello world,首先会先过滤出来包含hello和包含world和包含hello w
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/30/Elasticsearch-39-filter原理深度剖析/#more" rel="contents">
+            <a class="btn" href="/2019/01/03/Elasticsearch-59-深入揭秘TF-IDF算法以及向量空间模型算法/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1503,7 +1480,7 @@ document3
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/30/Elasticsearch-38-实战案例-term-filter搜索/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/03/Elasticsearch-58-通过ngram分词机制实现index-time搜索联想/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1522,7 +1499,7 @@ document3
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/30/Elasticsearch-38-实战案例-term-filter搜索/" itemprop="url">Elasticsearch-38-实战案例-term filter搜索</a></h1>
+                <a class="post-title-link" href="/2019/01/03/Elasticsearch-58-通过ngram分词机制实现index-time搜索联想/" itemprop="url">Elasticsearch-58-通过ngram分词机制实现index-time搜索联想</a></h1>
         
 
         <div class="post-meta">
@@ -1534,8 +1511,8 @@ document3
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-30T22:30:42+08:00">
-                2018-11-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-03T14:34:56+08:00">
+                2019-01-03
               </time>
             
 
@@ -1596,13 +1573,11 @@ document3
       
         
           
-          之前都是随便写的一些demo来测试es的api,本文及以后将会基于一个案例,来更加深入使用这些api,之后会再使用Java api来实现具体功能.  
-场景以一个IT论坛为背景,来置顶搜索需求,以及实现.  
-测试数据123456789POST /forum/article/_bulk&#123; 
+          什么是ngram举个例子,现在有一个quick这个单词,在ngram的长度是1的时候,quick这个单词会被拆分为ngram length = 1的情况下被拆分为q u i c kngram length = 2的情况下被拆分为qu ui ic ckngram length = 3的情况下被拆分为q
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/30/Elasticsearch-38-实战案例-term-filter搜索/#more" rel="contents">
+            <a class="btn" href="/2019/01/03/Elasticsearch-58-通过ngram分词机制实现index-time搜索联想/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1653,7 +1628,7 @@ document3
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/29/Elasticsearch-37-Java-API-document-增删改查/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/02/Elasticsearch-57-搜索联想/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1672,7 +1647,7 @@ document3
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/29/Elasticsearch-37-Java-API-document-增删改查/" itemprop="url">Elasticsearch-37-Java API document 增删改查</a></h1>
+                <a class="post-title-link" href="/2019/01/02/Elasticsearch-57-搜索联想/" itemprop="url">Elasticsearch-57-搜索联想</a></h1>
         
 
         <div class="post-meta">
@@ -1684,8 +1659,8 @@ document3
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-29T16:26:45+08:00">
-                2018-11-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-02T17:52:55+08:00">
+                2019-01-02
               </time>
             
 
@@ -1746,12 +1721,12 @@ document3
       
         
           
-          前文都是讲的理论知识,用restful API来做的测试. 本文将使用java API来操作索引,document. 
-添加依赖123456789101112&lt;!-- es依赖 --&gt;&lt;dependency&gt;    &lt;groupId&gt;org.elasticsear
+          准备工作删除之前的my_index1DELETE /my_index
+然后再添加几条测试用的数据1234567891011121314151617181920212223242526272829POST /my_index/my_type/1&#123;  &quot;title&quot;:&qu
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/29/Elasticsearch-37-Java-API-document-增删改查/#more" rel="contents">
+            <a class="btn" href="/2019/01/02/Elasticsearch-57-搜索联想/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1793,7 +1768,7 @@ document3
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1839,7 +1814,7 @@ document3
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">137</span>
+                  <span class="site-state-item-count">157</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1850,7 +1825,7 @@ document3
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1861,7 +1836,7 @@ document3
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1929,7 +1904,7 @@ document3
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共147.5k字</span>
+  <span class="post-count">博客全站共170.5k字</span>
 </div>
         
 

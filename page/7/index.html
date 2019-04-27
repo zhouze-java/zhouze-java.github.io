@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/14/Elasticsearch-76-基于doc-value正排索引的聚合内部原理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/22/Elasticsearch-96-使用动态映射模板定制自己的映射策略/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/14/Elasticsearch-76-基于doc-value正排索引的聚合内部原理/" itemprop="url">Elasticsearch-76-基于doc value正排索引的聚合内部原理</a></h1>
+                <a class="post-title-link" href="/2019/01/22/Elasticsearch-96-使用动态映射模板定制自己的映射策略/" itemprop="url">Elasticsearch-96-使用动态映射模板定制自己的映射策略</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-14T11:13:25+08:00">
-                2019-01-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-22T11:33:56+08:00">
+                2019-01-22
               </time>
             
 
@@ -375,17 +375,12 @@
       
         
           
-          概述
-聚合分析的内部原理是什么  
-aggs term avg max等执行一个聚合操作的时候,内部原理是怎样的  
-用了什么样的数据结构去执行聚合  
-是不是用的倒排索引 
-
-聚合分析原理先来看一个搜索 + 聚合的请求123456789101112131415GET /test_index/tes
+          述比如说,我们本来没有某个type,或者说没有某个field,但是希望在插入数据的时候,es自动为我们做一个识别,动态映射出这个type的mapping,包括每个field的数据类型,一般用的动态映射就是dynamic mapping   
+这里有个问题,如果说,我们其实对dynamic mappi
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/14/Elasticsearch-76-基于doc-value正排索引的聚合内部原理/#more" rel="contents">
+            <a class="btn" href="/2019/01/22/Elasticsearch-96-使用动态映射模板定制自己的映射策略/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -436,7 +431,7 @@ aggs term avg max等执行一个聚合操作的时候,内部原理是怎样的
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/12/Elasticsearch-75-percentiles百分比算法及优化/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/21/Elasticsearch-95-基于completion-suggest实现搜索提示/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -455,7 +450,7 @@ aggs term avg max等执行一个聚合操作的时候,内部原理是怎样的
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/12/Elasticsearch-75-percentiles百分比算法及优化/" itemprop="url">Elasticsearch-75-percentiles百分比算法及优化</a></h1>
+                <a class="post-title-link" href="/2019/01/21/Elasticsearch-95-基于completion-suggest实现搜索提示/" itemprop="url">Elasticsearch-95-基于completion suggest实现搜索提示</a></h1>
         
 
         <div class="post-meta">
@@ -467,8 +462,8 @@ aggs term avg max等执行一个聚合操作的时候,内部原理是怎样的
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-12T16:05:19+08:00">
-                2019-01-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-21T16:11:41+08:00">
+                2019-01-21
               </time>
             
 
@@ -529,18 +524,12 @@ aggs term avg max等执行一个聚合操作的时候,内部原理是怎样的
       
         
           
-          需求背景有一个网站,记录了每次请求访问的耗时,需要统计tp50,tp90,tp99.  
-
-tp50:50%的请求的耗时最长在多长时间
-tp90:90%的请求的耗时最长在多长时间
-tp99:99%的请求的耗时最长在多长时间
-
-准备数据1DELETE /website
-创建索引123456789101
+          completion suggest搜索联想,智能提示,自动完成(auto completion)比如说,google搜索 Elastic,会自动提示elasticsearch, 等等   
+案例创建索引首先,需要创建索引的时候,设置completion12345678910111213141516
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/12/Elasticsearch-75-percentiles百分比算法及优化/#more" rel="contents">
+            <a class="btn" href="/2019/01/21/Elasticsearch-95-基于completion-suggest实现搜索提示/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -591,7 +580,7 @@ tp99:99%的请求的耗时最长在多长时间
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/11/Elasticsearch-74-cartinality-metric去重算法及性能优化/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/21/Elasticsearch-94-search-template搜索模板化/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -610,7 +599,7 @@ tp99:99%的请求的耗时最长在多长时间
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/11/Elasticsearch-74-cartinality-metric去重算法及性能优化/" itemprop="url">Elasticsearch-74-cartinality metric去重算法及性能优化</a></h1>
+                <a class="post-title-link" href="/2019/01/21/Elasticsearch-94-search-template搜索模板化/" itemprop="url">Elasticsearch-94-search template搜索模板化</a></h1>
         
 
         <div class="post-meta">
@@ -622,8 +611,8 @@ tp99:99%的请求的耗时最长在多长时间
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-11T17:39:19+08:00">
-                2019-01-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-21T11:59:20+08:00">
+                2019-01-21
               </time>
             
 
@@ -684,12 +673,12 @@ tp99:99%的请求的耗时最长在多长时间
       
         
           
-          cartinality metriccartinality metric:对每个bucket中的指定的field进行去重,取去重之后的count,类似于count(distinct)   
-案例需求: 每月销售品牌的数量统计12345678910111213141516171819GET tvs/s
+          简介search template 搜索模板,可以将一些常用的搜索模板化,每次要执行这个搜索的时候,就直接调用模板,然后传入参数就好了    
+入门先写一个简单的模板1234567891011121314GET /blog_website/blogs/_search/template&#123;  
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/11/Elasticsearch-74-cartinality-metric去重算法及性能优化/#more" rel="contents">
+            <a class="btn" href="/2019/01/21/Elasticsearch-94-search-template搜索模板化/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -740,7 +729,7 @@ tp99:99%的请求的耗时最长在多长时间
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/11/Elasticsearch-73-易并行聚合算法-三角选择原则-近似聚合算法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/18/Elasticsearch-93-深入剖析搜索结果的高亮显示/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -759,7 +748,7 @@ tp99:99%的请求的耗时最长在多长时间
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/11/Elasticsearch-73-易并行聚合算法-三角选择原则-近似聚合算法/" itemprop="url">Elasticsearch-73-易并行聚合算法 三角选择原则 近似聚合算法</a></h1>
+                <a class="post-title-link" href="/2019/01/18/Elasticsearch-93-深入剖析搜索结果的高亮显示/" itemprop="url">Elasticsearch-93-深入剖析搜索结果的高亮显示</a></h1>
         
 
         <div class="post-meta">
@@ -771,8 +760,8 @@ tp99:99%的请求的耗时最长在多长时间
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-11T16:02:47+08:00">
-                2019-01-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T17:03:33+08:00">
+                2019-01-18
               </time>
             
 
@@ -833,14 +822,12 @@ tp99:99%的请求的耗时最长在多长时间
       
         
           
-          易并行聚合算法有些聚合分析的算法是很容易并行的,比如说max函数,如图  
-比如说,现在一共有三个shard,一个查询最大值的搜索请求过来了,那么coordinate node(协调节点)会把请求打到这三个shard上   
-  
-这个时候,3个shard把他们各自的最大值返回给coordinate
+          搜索结果高亮显示先来看一个最基本的高亮案例   
+首先创建一个索引1234567891011121314151617PUT /blog_website&#123;  &quot;mappings&quot;: &#123;    &quot;blogs&quot;: &#123;      &quo
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/11/Elasticsearch-73-易并行聚合算法-三角选择原则-近似聚合算法/#more" rel="contents">
+            <a class="btn" href="/2019/01/18/Elasticsearch-93-深入剖析搜索结果的高亮显示/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -891,7 +878,7 @@ tp99:99%的请求的耗时最长在多长时间
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/11/Elasticsearch-72-聚合分析-自定义排序/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/18/Elasticsearch-92-查询term-vectors词条向量信息/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -910,7 +897,7 @@ tp99:99%的请求的耗时最长在多长时间
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/11/Elasticsearch-72-聚合分析-自定义排序/" itemprop="url">Elasticsearch-72-聚合分析 自定义排序</a></h1>
+                <a class="post-title-link" href="/2019/01/18/Elasticsearch-92-查询term-vectors词条向量信息/" itemprop="url">Elasticsearch-92-查询term vectors词条向量信息</a></h1>
         
 
         <div class="post-meta">
@@ -922,8 +909,8 @@ tp99:99%的请求的耗时最长在多长时间
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-11T11:39:34+08:00">
-                2019-01-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T14:44:41+08:00">
+                2019-01-18
               </time>
             
 
@@ -984,12 +971,15 @@ tp99:99%的请求的耗时最长在多长时间
       
         
           
-          之前全部的排序都是按照每个bucket的doc_count降序来排的,那么如何自定义排序呢  
-自定义排序需求: 按每种颜色的平均销售额降序排序123456789101112131415161718192021GET /tvs/sales/_search&#123;  &quot;size&quot
+          term vectors介绍可以理解为,关于 词 的一些统计信息.   
+可以查询到的信息比如有 
+
+词条的信息,比如position位置,start_offset开始的偏移值, end_offset结束的偏移值,词条的payLoads(主要用于自定义字段的权重)   
+词条统计,doc_freq,
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/11/Elasticsearch-72-聚合分析-自定义排序/#more" rel="contents">
+            <a class="btn" href="/2019/01/18/Elasticsearch-92-查询term-vectors词条向量信息/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1040,7 +1030,7 @@ tp99:99%的请求的耗时最长在多长时间
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/11/Elasticsearch-71-过滤filter-聚合结合使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/18/Elasticsearch-91-祖孙三层数据关系建模及搜索/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1059,7 +1049,7 @@ tp99:99%的请求的耗时最长在多长时间
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/11/Elasticsearch-71-过滤filter-聚合结合使用/" itemprop="url">Elasticsearch-71-过滤filter 聚合结合使用</a></h1>
+                <a class="post-title-link" href="/2019/01/18/Elasticsearch-91-祖孙三层数据关系建模及搜索/" itemprop="url">Elasticsearch-91-祖孙三层数据关系建模及搜索</a></h1>
         
 
         <div class="post-meta">
@@ -1071,8 +1061,8 @@ tp99:99%的请求的耗时最长在多长时间
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-11T11:09:19+08:00">
-                2019-01-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T10:10:11+08:00">
+                2019-01-18
               </time>
             
 
@@ -1133,12 +1123,11 @@ tp99:99%的请求的耗时最长在多长时间
       
         
           
-          filter过滤+聚合分析需求: 统计价格大于1200的电视的平均价格   
-请求:12345678910111213141516171819202122GET tvs/sales/_search&#123;  &quot;size&quot;: 0,  &quot;query&quot;: &#1
+          数据建模祖孙三层的数据建模12345678910111213141516PUT /company&#123;  &quot;mappings&quot;: &#123;    &quot;country&quot;: &#123;&#125;,    &quot;rd_center&quot;: &
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/11/Elasticsearch-71-过滤filter-聚合结合使用/#more" rel="contents">
+            <a class="btn" href="/2019/01/18/Elasticsearch-91-祖孙三层数据关系建模及搜索/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1189,7 +1178,7 @@ tp99:99%的请求的耗时最长在多长时间
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/Elasticsearch-70-搜索-聚合分析结合使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/17/Elasticsearch-90-父子关系类型的数据建模与搜索聚合/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1208,7 +1197,7 @@ tp99:99%的请求的耗时最长在多长时间
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/10/Elasticsearch-70-搜索-聚合分析结合使用/" itemprop="url">Elasticsearch-70-搜索 聚合分析结合使用</a></h1>
+                <a class="post-title-link" href="/2019/01/17/Elasticsearch-90-父子关系类型的数据建模与搜索聚合/" itemprop="url">Elasticsearch-90-父子关系类型的数据建模与搜索聚合</a></h1>
         
 
         <div class="post-meta">
@@ -1220,8 +1209,8 @@ tp99:99%的请求的耗时最长在多长时间
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-10T17:00:59+08:00">
-                2019-01-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-17T17:56:22+08:00">
+                2019-01-17
               </time>
             
 
@@ -1282,13 +1271,12 @@ tp99:99%的请求的耗时最长在多长时间
       
         
           
-          之前的几个案例都是全部使用的聚合分析,接下来呢,使用搜索和聚合分析结合起来使用   
-案例需求: 统计指定品牌下每个颜色的销量  (小米)     
-请求:123456789101112131415161718GET tvs/sales/_search&#123;  &quot;size&quot;
+          parent child建模之前用的nested object的建模方式,有个不好的地方,就是采取类似冗余数据的方式,将多个数据都放在了一起,维护成本比较高   
+parent child建模方式,采用的是类似数据库三范式的建模,多个实体都分割开来,每个实体之间都通过一些关联的方式,进行了父子关系的
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/10/Elasticsearch-70-搜索-聚合分析结合使用/#more" rel="contents">
+            <a class="btn" href="/2019/01/17/Elasticsearch-90-父子关系类型的数据建模与搜索聚合/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1339,7 +1327,7 @@ tp99:99%的请求的耗时最长在多长时间
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/09/Elasticsearch-69-深入聚合分析数据II/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/17/Elasticsearch-89-针对nested-object的聚合分析案例/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1358,7 +1346,7 @@ tp99:99%的请求的耗时最长在多长时间
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/09/Elasticsearch-69-深入聚合分析数据II/" itemprop="url">Elasticsearch-69-深入聚合分析数据II</a></h1>
+                <a class="post-title-link" href="/2019/01/17/Elasticsearch-89-针对nested-object的聚合分析案例/" itemprop="url">Elasticsearch-89-针对nested object的聚合分析案例</a></h1>
         
 
         <div class="post-meta">
@@ -1370,8 +1358,8 @@ tp99:99%的请求的耗时最长在多长时间
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-09T15:40:50+08:00">
-                2019-01-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-17T15:55:06+08:00">
+                2019-01-17
               </time>
             
 
@@ -1432,15 +1420,12 @@ tp99:99%的请求的耗时最长在多长时间
       
         
           
-          常用的几种metric操作上文中,用了avg和count这两个操作,一般来说,常用的metric操作就是以下几种  
-
-count: 计算数量,用terms操作来分组的话,就会自动有一个doc_count,就相当于是count   
-avg: 求一个bucket内,指定field数据的平均值  
-m
+          对于nested object里面的数据,如何做聚合分析呢? 以上文的数据作为背景 来看两个案例   
+案例一需求: 按照评论日期进行划分bucket,拿到每个月评论的stars的平均值请求123456789101112131415161718192021222324252627GET /websi
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/09/Elasticsearch-69-深入聚合分析数据II/#more" rel="contents">
+            <a class="btn" href="/2019/01/17/Elasticsearch-89-针对nested-object的聚合分析案例/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1491,7 +1476,7 @@ m
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/07/Elasticsearch-68-深入聚合分析数据I/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/17/Elasticsearch-88-nested-object数据结构/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1510,7 +1495,7 @@ m
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/07/Elasticsearch-68-深入聚合分析数据I/" itemprop="url">Elasticsearch-68-深入聚合分析数据I</a></h1>
+                <a class="post-title-link" href="/2019/01/17/Elasticsearch-88-nested-object数据结构/" itemprop="url">Elasticsearch-88-nested object数据结构</a></h1>
         
 
         <div class="post-meta">
@@ -1522,8 +1507,8 @@ m
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-07T18:26:36+08:00">
-                2019-01-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-17T10:54:24+08:00">
+                2019-01-17
               </time>
             
 
@@ -1584,12 +1569,11 @@ m
       
         
           
-          背景本文,将以一个家电卖场中的电视销售数据为背景,进行各种各样角度的聚合分析  
-准备数据创建索引tvs123456789101112131415161718192021PUT /tvs&#123;	&quot;mappings&quot;: &#123;		&quot;sales&quot;: &
+          普通object类型用冗余数据的方式来建模,其实用的就是object类型,来看一个数据12345678910111213141516171819202122PUT /website/blogs/6&#123;  &quot;title&quot;: &quot;花无缺发表的一篇帖子&quot;,  
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/07/Elasticsearch-68-深入聚合分析数据I/#more" rel="contents">
+            <a class="btn" href="/2019/01/17/Elasticsearch-88-nested-object数据结构/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1640,7 +1624,7 @@ m
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/07/Elasticsearch-67-聚合分析bucket和metric/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/16/Elasticsearch-87-基于共享锁和排它锁实现悲观锁并发控制/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1659,7 +1643,7 @@ m
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/07/Elasticsearch-67-聚合分析bucket和metric/" itemprop="url">Elasticsearch-67-聚合分析bucket和metric</a></h1>
+                <a class="post-title-link" href="/2019/01/16/Elasticsearch-87-基于共享锁和排它锁实现悲观锁并发控制/" itemprop="url">Elasticsearch-87-基于共享锁和排它锁实现悲观锁并发控制</a></h1>
         
 
         <div class="post-meta">
@@ -1671,8 +1655,8 @@ m
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-07T14:28:56+08:00">
-                2019-01-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T17:16:20+08:00">
+                2019-01-16
               </time>
             
 
@@ -1733,43 +1717,13 @@ m
       
         
           
-          核心概念bucket是一个数据的分组,metric就是对一个bucket执行的某种聚合分析的操作,比如说,求平均值,最大值,最小值等  
-举个例子,有这么一组数据  
-
-
-
-city
-name
-
-
-
-
-北京
-小李
-
-
-北京
-小王
-
-
-上海
-小张
-
-
-上海
-小丽
-
-
-上海
-小陈
-
-
-
-上面的数据可以通
+          共享锁和排它锁共享锁: 这份数据是共享的,然后多个线程过来,都可以获取同一个数据的共享锁,然后对这个数据执行读操作.排它锁: 是排他的操作,只能一个线程获取排他锁,然后执行增删改操作  
+读写锁分离   
+如果是要读取数据的话,那么任意多少个线程都可以进来然后读取数据,每个线程都可以上一个共享锁,但
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/07/Elasticsearch-67-聚合分析bucket和metric/#more" rel="contents">
+            <a class="btn" href="/2019/01/16/Elasticsearch-87-基于共享锁和排它锁实现悲观锁并发控制/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1811,7 +1765,7 @@ name
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1857,7 +1811,7 @@ name
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">137</span>
+                  <span class="site-state-item-count">157</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1868,7 +1822,7 @@ name
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1879,7 +1833,7 @@ name
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1947,7 +1901,7 @@ name
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共147.5k字</span>
+  <span class="post-count">博客全站共170.5k字</span>
 </div>
         
 

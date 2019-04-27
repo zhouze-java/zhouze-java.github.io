@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/02/Elasticsearch-56-前缀搜索-通配符搜索-正则搜索/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/14/Elasticsearch-76-基于doc-value正排索引的聚合内部原理/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/02/Elasticsearch-56-前缀搜索-通配符搜索-正则搜索/" itemprop="url">Elasticsearch-56-前缀搜索 通配符搜索 正则搜索</a></h1>
+                <a class="post-title-link" href="/2019/01/14/Elasticsearch-76-基于doc-value正排索引的聚合内部原理/" itemprop="url">Elasticsearch-76-基于doc value正排索引的聚合内部原理</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-02T17:18:52+08:00">
-                2019-01-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-14T11:13:25+08:00">
+                2019-01-14
               </time>
             
 
@@ -375,11 +375,17 @@
       
         
           
-          准备工作首先我们先手动建立一个index,再添加几条数据.创建index123456789101112PUT /my_index&#123;  &quot;mappings&quot;: &#123;    &quot;my_type&quot;: &#123;      &quot;propert
+          概述
+聚合分析的内部原理是什么  
+aggs term avg max等执行一个聚合操作的时候,内部原理是怎样的  
+用了什么样的数据结构去执行聚合  
+是不是用的倒排索引 
+
+聚合分析原理先来看一个搜索 + 聚合的请求123456789101112131415GET /test_index/tes
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/02/Elasticsearch-56-前缀搜索-通配符搜索-正则搜索/#more" rel="contents">
+            <a class="btn" href="/2019/01/14/Elasticsearch-76-基于doc-value正排索引的聚合内部原理/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -430,7 +436,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/02/Elasticsearch-55-使用rescoring机制优化近似匹配的性能/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/12/Elasticsearch-75-percentiles百分比算法及优化/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -449,7 +455,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/02/Elasticsearch-55-使用rescoring机制优化近似匹配的性能/" itemprop="url">Elasticsearch-55-使用rescoring机制优化近似匹配的性能</a></h1>
+                <a class="post-title-link" href="/2019/01/12/Elasticsearch-75-percentiles百分比算法及优化/" itemprop="url">Elasticsearch-75-percentiles百分比算法及优化</a></h1>
         
 
         <div class="post-meta">
@@ -461,8 +467,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-02T16:02:51+08:00">
-                2019-01-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-12T16:05:19+08:00">
+                2019-01-12
               </time>
             
 
@@ -523,12 +529,18 @@
       
         
           
-          match 和 phrase match(proximity match)的区别match:只要简单的匹配到了一个term,就可以将term对应的doc返回.  
-phrase match:首先扫描到所有term的document list,然后对每个document都计算term position
+          需求背景有一个网站,记录了每次请求访问的耗时,需要统计tp50,tp90,tp99.  
+
+tp50:50%的请求的耗时最长在多长时间
+tp90:90%的请求的耗时最长在多长时间
+tp99:99%的请求的耗时最长在多长时间
+
+准备数据1DELETE /website
+创建索引123456789101
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/02/Elasticsearch-55-使用rescoring机制优化近似匹配的性能/#more" rel="contents">
+            <a class="btn" href="/2019/01/12/Elasticsearch-75-percentiles百分比算法及优化/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -579,7 +591,7 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/27/Elasticsearch-54-搜索实现召回率和精准度平衡/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/11/Elasticsearch-74-cartinality-metric去重算法及性能优化/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -598,7 +610,7 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/27/Elasticsearch-54-搜索实现召回率和精准度平衡/" itemprop="url">Elasticsearch-54-搜索实现召回率和精准度平衡</a></h1>
+                <a class="post-title-link" href="/2019/01/11/Elasticsearch-74-cartinality-metric去重算法及性能优化/" itemprop="url">Elasticsearch-74-cartinality metric去重算法及性能优化</a></h1>
         
 
         <div class="post-meta">
@@ -610,8 +622,8 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-27T17:27:35+08:00">
-                2018-12-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-11T17:39:19+08:00">
+                2019-01-11
               </time>
             
 
@@ -672,13 +684,12 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
       
         
           
-          首先需要了解两个概念,召回率和精准度   
-召回率比如搜索一个java spark,总共有100个document,能返回多少个document作为结果,这个就是召回率(recall)  
-精准度比如搜索一个java spark,能不能尽可能让包含java spark这个短语的,或者是java和sp
+          cartinality metriccartinality metric:对每个bucket中的指定的field进行去重,取去重之后的count,类似于count(distinct)   
+案例需求: 每月销售品牌的数量统计12345678910111213141516171819GET tvs/s
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/27/Elasticsearch-54-搜索实现召回率和精准度平衡/#more" rel="contents">
+            <a class="btn" href="/2019/01/11/Elasticsearch-74-cartinality-metric去重算法及性能优化/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -729,7 +740,7 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/27/Elasticsearch-53-基于slop参数实现近似匹配/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/11/Elasticsearch-73-易并行聚合算法-三角选择原则-近似聚合算法/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -748,7 +759,7 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/27/Elasticsearch-53-基于slop参数实现近似匹配/" itemprop="url">Elasticsearch-53-基于slop参数实现近似匹配</a></h1>
+                <a class="post-title-link" href="/2019/01/11/Elasticsearch-73-易并行聚合算法-三角选择原则-近似聚合算法/" itemprop="url">Elasticsearch-73-易并行聚合算法 三角选择原则 近似聚合算法</a></h1>
         
 
         <div class="post-meta">
@@ -760,8 +771,8 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-27T11:43:56+08:00">
-                2018-12-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-11T16:02:47+08:00">
+                2019-01-11
               </time>
             
 
@@ -822,11 +833,14 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
       
         
           
-          slop参数比如我们现在有一个搜索请求如下:1234567891011GET forum/article/_search&#123;  &quot;query&quot;: &#123;    &quot;match_phrase&quot;: &#123;      &quot;title&quo
+          易并行聚合算法有些聚合分析的算法是很容易并行的,比如说max函数,如图  
+比如说,现在一共有三个shard,一个查询最大值的搜索请求过来了,那么coordinate node(协调节点)会把请求打到这三个shard上   
+  
+这个时候,3个shard把他们各自的最大值返回给coordinate
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/27/Elasticsearch-53-基于slop参数实现近似匹配/#more" rel="contents">
+            <a class="btn" href="/2019/01/11/Elasticsearch-73-易并行聚合算法-三角选择原则-近似聚合算法/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -877,7 +891,7 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/26/Elasticsearch-52-phrase-match搜索及原理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/11/Elasticsearch-72-聚合分析-自定义排序/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -896,7 +910,7 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/26/Elasticsearch-52-phrase-match搜索及原理/" itemprop="url">Elasticsearch-52-phrase match搜索及原理</a></h1>
+                <a class="post-title-link" href="/2019/01/11/Elasticsearch-72-聚合分析-自定义排序/" itemprop="url">Elasticsearch-72-聚合分析 自定义排序</a></h1>
         
 
         <div class="post-meta">
@@ -908,8 +922,8 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-26T15:24:13+08:00">
-                2018-12-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-11T11:39:34+08:00">
+                2019-01-11
               </time>
             
 
@@ -970,11 +984,12 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
       
         
           
-          近似匹配假设现在有两个document,他们的content的值分别是:java is my favourite programming language, and I also think spark is a very good big data system.java spark are ve
+          之前全部的排序都是按照每个bucket的doc_count降序来排的,那么如何自定义排序呢  
+自定义排序需求: 按每种颜色的平均销售额降序排序123456789101112131415161718192021GET /tvs/sales/_search&#123;  &quot;size&quot
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/26/Elasticsearch-52-phrase-match搜索及原理/#more" rel="contents">
+            <a class="btn" href="/2019/01/11/Elasticsearch-72-聚合分析-自定义排序/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1025,7 +1040,7 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/19/Elasticsearch-51-cross-fields搜索问题解决方案/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/11/Elasticsearch-71-过滤filter-聚合结合使用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1044,7 +1059,7 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/19/Elasticsearch-51-cross-fields搜索问题解决方案/" itemprop="url">Elasticsearch-51-cross-fields搜索问题解决方案</a></h1>
+                <a class="post-title-link" href="/2019/01/11/Elasticsearch-71-过滤filter-聚合结合使用/" itemprop="url">Elasticsearch-71-过滤filter 聚合结合使用</a></h1>
         
 
         <div class="post-meta">
@@ -1056,8 +1071,8 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-19T11:15:33+08:00">
-                2018-12-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-11T11:09:19+08:00">
+                2019-01-11
               </time>
             
 
@@ -1118,12 +1133,12 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
       
         
           
-          解决方案一:使用copy_to用copy_to可以将多个field组合成一个field.   
-之前说的问题,其实就是出在了有多个field,那么我们只要把这些field合并成一个field即可,比如搜索一个人名,有first_name和last_name,将这两个field合并成一个full_na
+          filter过滤+聚合分析需求: 统计价格大于1200的电视的平均价格   
+请求:12345678910111213141516171819202122GET tvs/sales/_search&#123;  &quot;size&quot;: 0,  &quot;query&quot;: &#1
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/19/Elasticsearch-51-cross-fields搜索问题解决方案/#more" rel="contents">
+            <a class="btn" href="/2019/01/11/Elasticsearch-71-过滤filter-聚合结合使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1174,7 +1189,7 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/19/Elasticsearch-50-most-fields策略进行cross-fields搜索的弊端/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/Elasticsearch-70-搜索-聚合分析结合使用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1193,7 +1208,7 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/19/Elasticsearch-50-most-fields策略进行cross-fields搜索的弊端/" itemprop="url">Elasticsearch-50-most_fields策略进行cross-fields搜索的弊端</a></h1>
+                <a class="post-title-link" href="/2019/01/10/Elasticsearch-70-搜索-聚合分析结合使用/" itemprop="url">Elasticsearch-70-搜索 聚合分析结合使用</a></h1>
         
 
         <div class="post-meta">
@@ -1205,8 +1220,8 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-19T11:15:17+08:00">
-                2018-12-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-10T17:00:59+08:00">
+                2019-01-10
               </time>
             
 
@@ -1267,11 +1282,13 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
       
         
           
-          cross-field搜索就是我们搜索一个唯一标识的时候跨越了多个field,比如一个人,标识是姓名,一个建筑的标识是地址. 姓名可以散落在多个field中,比如first_name和last_name中,地址可以散落在country,province,city中.跨多个field搜索一个标识,就是
+          之前的几个案例都是全部使用的聚合分析,接下来呢,使用搜索和聚合分析结合起来使用   
+案例需求: 统计指定品牌下每个颜色的销量  (小米)     
+请求:123456789101112131415161718GET tvs/sales/_search&#123;  &quot;size&quot;
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/19/Elasticsearch-50-most-fields策略进行cross-fields搜索的弊端/#more" rel="contents">
+            <a class="btn" href="/2019/01/10/Elasticsearch-70-搜索-聚合分析结合使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1322,7 +1339,7 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/17/Elasticsearch-49-实战案例-most-fields策略/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/09/Elasticsearch-69-深入聚合分析数据II/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1341,7 +1358,7 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/17/Elasticsearch-49-实战案例-most-fields策略/" itemprop="url">Elasticsearch-49-实战案例-most-fields策略</a></h1>
+                <a class="post-title-link" href="/2019/01/09/Elasticsearch-69-深入聚合分析数据II/" itemprop="url">Elasticsearch-69-深入聚合分析数据II</a></h1>
         
 
         <div class="post-meta">
@@ -1353,8 +1370,8 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-17T18:01:03+08:00">
-                2018-12-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-09T15:40:50+08:00">
+                2019-01-09
               </time>
             
 
@@ -1415,11 +1432,15 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
       
         
           
-          对比之前我们写了best-fields策略,本文将使用most-fields来搜索,那么两者有什么区别呢?best-fields策略:主要是说,将某一个field匹配尽可能多的关键词document优先返回回来most-fields策略:主要是说将更多filed匹配到某个关键词的document优先
+          常用的几种metric操作上文中,用了avg和count这两个操作,一般来说,常用的metric操作就是以下几种  
+
+count: 计算数量,用terms操作来分组的话,就会自动有一个doc_count,就相当于是count   
+avg: 求一个bucket内,指定field数据的平均值  
+m
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/17/Elasticsearch-49-实战案例-most-fields策略/#more" rel="contents">
+            <a class="btn" href="/2019/01/09/Elasticsearch-69-深入聚合分析数据II/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1470,7 +1491,7 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/17/Elasticsearch-48-multi-match语法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/07/Elasticsearch-68-深入聚合分析数据I/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1489,7 +1510,7 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/17/Elasticsearch-48-multi-match语法/" itemprop="url">Elasticsearch-48-multi_match语法</a></h1>
+                <a class="post-title-link" href="/2019/01/07/Elasticsearch-68-深入聚合分析数据I/" itemprop="url">Elasticsearch-68-深入聚合分析数据I</a></h1>
         
 
         <div class="post-meta">
@@ -1501,8 +1522,8 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-17T16:00:58+08:00">
-                2018-12-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-07T18:26:36+08:00">
+                2019-01-07
               </time>
             
 
@@ -1563,11 +1584,12 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
       
         
           
-          minimum_should_match作用我们先来看一个查询123456789101112131415161718192021222324252627GET forum/article/_search&#123;  &quot;query&quot;: &#123;    &quot;dis_ma
+          背景本文,将以一个家电卖场中的电视销售数据为背景,进行各种各样角度的聚合分析  
+准备数据创建索引tvs123456789101112131415161718192021PUT /tvs&#123;	&quot;mappings&quot;: &#123;		&quot;sales&quot;: &
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/17/Elasticsearch-48-multi-match语法/#more" rel="contents">
+            <a class="btn" href="/2019/01/07/Elasticsearch-68-深入聚合分析数据I/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1618,7 +1640,7 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/Elasticsearch-47-实战案例-基于dis-max实现best-fileds策略进行多字段搜索/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/07/Elasticsearch-67-聚合分析bucket和metric/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1637,7 +1659,7 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/06/Elasticsearch-47-实战案例-基于dis-max实现best-fileds策略进行多字段搜索/" itemprop="url">Elasticsearch-47-实战案例-基于dis_max实现best fileds策略进行多字段搜索</a></h1>
+                <a class="post-title-link" href="/2019/01/07/Elasticsearch-67-聚合分析bucket和metric/" itemprop="url">Elasticsearch-67-聚合分析bucket和metric</a></h1>
         
 
         <div class="post-meta">
@@ -1649,8 +1671,8 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-06T22:19:27+08:00">
-                2018-12-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-07T14:28:56+08:00">
+                2019-01-07
               </time>
             
 
@@ -1711,11 +1733,43 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
       
         
           
-          准备工作为帖子增加content字段1234567891011POST /forum/article/_bulk&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;1&quot;&#125; &#125;&#123; &quot;doc&
+          核心概念bucket是一个数据的分组,metric就是对一个bucket执行的某种聚合分析的操作,比如说,求平均值,最大值,最小值等  
+举个例子,有这么一组数据  
+
+
+
+city
+name
+
+
+
+
+北京
+小李
+
+
+北京
+小王
+
+
+上海
+小张
+
+
+上海
+小丽
+
+
+上海
+小陈
+
+
+
+上面的数据可以通
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/06/Elasticsearch-47-实战案例-基于dis-max实现best-fileds策略进行多字段搜索/#more" rel="contents">
+            <a class="btn" href="/2019/01/07/Elasticsearch-67-聚合分析bucket和metric/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1757,7 +1811,7 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1803,7 +1857,7 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">137</span>
+                  <span class="site-state-item-count">157</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1814,7 +1868,7 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1825,7 +1879,7 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1893,7 +1947,7 @@ phrase match:首先扫描到所有term的document list,然后对每个document�
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共147.5k字</span>
+  <span class="post-count">博客全站共170.5k字</span>
 </div>
         
 

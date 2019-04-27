@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Redis,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="述上文中,介绍了list和set的一些常用的命令,下面再来看一下散列和有序集合的一些常用的命令    散列(hash)和java中的hashmap其实是差不多的,redis其实就是存放的键值对,散列也是存放的键值对,,下面来具体看下一下一些常用的操作    hsethset用来设置key指定的哈希集中指定字段的值, 如果key指定的哈希集不存在,就会创建一个新的哈希集并与key关联,如果字段在哈希">
+<meta name="keywords" content="Redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis-6-针对散列和有序集合的常用命令">
+<meta property="og:url" content="http://yoursite.com/2019/04/27/Redis-6-针对散列和有序集合的常用命令/index.html">
+<meta property="og:site_name" content="八度空间">
+<meta property="og:description" content="述上文中,介绍了list和set的一些常用的命令,下面再来看一下散列和有序集合的一些常用的命令    散列(hash)和java中的hashmap其实是差不多的,redis其实就是存放的键值对,散列也是存放的键值对,,下面来具体看下一下一些常用的操作    hsethset用来设置key指定的哈希集中指定字段的值, 如果key指定的哈希集不存在,就会创建一个新的哈希集并与key关联,如果字段在哈希">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-27T08:22:43.339Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis-6-针对散列和有序集合的常用命令">
+<meta name="twitter:description" content="述上文中,介绍了list和set的一些常用的命令,下面再来看一下散列和有序集合的一些常用的命令    散列(hash)和java中的hashmap其实是差不多的,redis其实就是存放的键值对,散列也是存放的键值对,,下面来具体看下一下一些常用的操作    hsethset用来设置key指定的哈希集中指定字段的值, 如果key指定的哈希集不存在,就会创建一个新的哈希集并与key关联,如果字段在哈希">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/27/Redis-6-针对散列和有序集合的常用命令/">
+
+
+
+
+
+  <title>Redis-6-针对散列和有序集合的常用命令 | 八度空间</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/zhouze-java" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+	
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">八度空间</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-6-针对散列和有序集合的常用命令/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="周泽">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八度空间">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Redis-6-针对散列和有序集合的常用命令</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:16:34+08:00">
+                2019-04-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="述"><a href="#述" class="headerlink" title="述"></a>述</h3><p>上文中,介绍了list和set的一些常用的命令,下面再来看一下散列和有序集合的一些常用的命令   </p>
+<h3 id="散列-hash"><a href="#散列-hash" class="headerlink" title="散列(hash)"></a>散列(hash)</h3><p>和java中的hashmap其实是差不多的,redis其实就是存放的键值对,散列也是存放的键值对,,下面来具体看下一下一些常用的操作   </p>
+<h4 id="hset"><a href="#hset" class="headerlink" title="hset"></a>hset</h4><p>hset用来设置key指定的哈希集中指定字段的值, 如果key指定的哈希集不存在,就会创建一个新的哈希集并与key关联,如果字段在哈希集中存在,它将被重写,具体使用如下:  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; hset myhash field1 hello</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+<p>这里的返回值:  </p>
+<ul>
+<li>1: 表示这个field是一个新的字段</li>
+<li>0: 表示这个field是原来已经存在的</li>
+</ul>
+<h4 id="hget"><a href="#hget" class="headerlink" title="hget"></a>hget</h4><p>hget用来返回key指定的哈希集中某一个field的值,如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; hget myhash field1</span><br><span class="line">&quot;hello&quot;</span><br></pre></td></tr></table></figure></p>
+<h4 id="hmset"><a href="#hmset" class="headerlink" title="hmset"></a>hmset</h4><p>hmset,批量添加的命令,使用如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; hmset myhash field2 world field3 java field4 php</span><br><span class="line">OK</span><br></pre></td></tr></table></figure></p>
+<h4 id="hmget"><a href="#hmget" class="headerlink" title="hmget"></a>hmget</h4><p>是一个批量查询的命令,如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; hmget myhash field1 field2 field3 field4</span><br><span class="line">1) &quot;hello&quot;</span><br><span class="line">2) &quot;world&quot;</span><br><span class="line">3) &quot;java&quot;</span><br><span class="line">4) &quot;php&quot;</span><br></pre></td></tr></table></figure></p>
+<h4 id="hdel"><a href="#hdel" class="headerlink" title="hdel"></a>hdel</h4><p>用来删除key指定的哈希集中指定的field,如果这个field不存在,则会被忽略,如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; hdel myhash field1</span><br><span class="line">(integer) 1</span><br><span class="line">172.16.12.3:6379&gt; hmget myhash field1 field2 field3 field4</span><br><span class="line">1) (nil)</span><br><span class="line">2) &quot;world&quot;</span><br><span class="line">3) &quot;java&quot;</span><br><span class="line">4) &quot;php&quot;</span><br></pre></td></tr></table></figure></p>
+<h4 id="hsetnx"><a href="#hsetnx" class="headerlink" title="hsetnx"></a>hsetnx</h4><p>hsetnx命令,只在key指定的哈希集中,不存在指定的字段时再设置字段的值,如果是已经存在的,则命令无效,如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; hsetnx myhash field4 c++</span><br><span class="line">(integer) 0</span><br><span class="line">172.16.12.3:6379&gt;  hsetnx myhash field5 c++</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure></p>
+<h4 id="hvals"><a href="#hvals" class="headerlink" title="hvals"></a>hvals</h4><p>用来返回key指定的哈希集中的所有字段的值,如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; hvals myhash</span><br><span class="line">1) &quot;world&quot;</span><br><span class="line">2) &quot;java&quot;</span><br><span class="line">3) &quot;php&quot;</span><br><span class="line">4) &quot;c++&quot;</span><br></pre></td></tr></table></figure></p>
+<h4 id="hkeys"><a href="#hkeys" class="headerlink" title="hkeys"></a>hkeys</h4><p>用来返回key指定的哈希集中的所有字段的名字,如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; hkeys myhash</span><br><span class="line">1) &quot;field2&quot;</span><br><span class="line">2) &quot;field3&quot;</span><br><span class="line">3) &quot;field4&quot;</span><br><span class="line">4) &quot;field5&quot;</span><br></pre></td></tr></table></figure></p>
+<h4 id="hgetall"><a href="#hgetall" class="headerlink" title="hgetall"></a>hgetall</h4><p>返回key指定的哈希集中的所有字段和值,在返回值中,每个字段名的下一个是他的值,返回值的长度是该哈希集大小的两倍,如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; hgetall myhash</span><br><span class="line">1) &quot;field2&quot;</span><br><span class="line">2) &quot;world&quot;</span><br><span class="line">3) &quot;field3&quot;</span><br><span class="line">4) &quot;java&quot;</span><br><span class="line">5) &quot;field4&quot;</span><br><span class="line">6) &quot;php&quot;</span><br><span class="line">7) &quot;field5&quot;</span><br><span class="line">8) &quot;c++&quot;</span><br></pre></td></tr></table></figure></p>
+<h4 id="hexists"><a href="#hexists" class="headerlink" title="hexists"></a>hexists</h4><p>用来判断key对应的哈希集中,指定的field是否存在,如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; hexists myhash field1</span><br><span class="line">(integer) 0</span><br><span class="line">172.16.12.3:6379&gt; hexists myhash field2</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure></p>
+<h4 id="hincrby"><a href="#hincrby" class="headerlink" title="hincrby"></a>hincrby</h4><p>用来增加key指定的哈希集中指定字段的数值  </p>
+<p>如果指定的哈希集不存在,那就会创建一个新的hash并与key关联   </p>
+<p>如果字段不存在,则字段的值在该操作执行前被设置为0  </p>
+<p>hincrby命令支持的值的范围限定在64位有符号整数   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; hgetall myhash</span><br><span class="line">1) &quot;field2&quot;</span><br><span class="line">2) &quot;world&quot;</span><br><span class="line">3) &quot;field3&quot;</span><br><span class="line">4) &quot;java&quot;</span><br><span class="line">5) &quot;field4&quot;</span><br><span class="line">6) &quot;php&quot;</span><br><span class="line">7) &quot;field5&quot;</span><br><span class="line">8) &quot;c++&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">172.16.12.3:6379&gt; hset myhash field6 1</span><br><span class="line">(integer) 1</span><br><span class="line">172.16.12.3:6379&gt; hincrby myhash field6 9</span><br><span class="line">(integer) 10</span><br><span class="line">172.16.12.3:6379&gt; hincrby myhash field7 6</span><br><span class="line">(integer) 6</span><br><span class="line">172.16.12.3:6379&gt; hget myhash field6</span><br><span class="line">&quot;10&quot;</span><br><span class="line">172.16.12.3:6379&gt; hget myhash field7</span><br><span class="line">&quot;6&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="hincrbyfloat"><a href="#hincrbyfloat" class="headerlink" title="hincrbyfloat"></a>hincrbyfloat</h4><p>和上面的hincrby用法一样,只不过是可以加float类型的数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; hincrbyfloat myhash field7 1.55</span><br><span class="line">&quot;7.55&quot;</span><br><span class="line">172.16.12.3:6379&gt; hget myhash field7</span><br><span class="line">&quot;7.55&quot;</span><br></pre></td></tr></table></figure></p>
+<h4 id="hlen"><a href="#hlen" class="headerlink" title="hlen"></a>hlen</h4><p>可以获取到key指定的哈希集包含的字段的数量,如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; hkeys myhash</span><br><span class="line">1) &quot;field2&quot;</span><br><span class="line">2) &quot;field3&quot;</span><br><span class="line">3) &quot;field4&quot;</span><br><span class="line">4) &quot;field5&quot;</span><br><span class="line">5) &quot;field6&quot;</span><br><span class="line">6) &quot;field7&quot;</span><br><span class="line"></span><br><span class="line">172.16.12.3:6379&gt; hlen myhash</span><br><span class="line">(integer) 6</span><br></pre></td></tr></table></figure></p>
+<h4 id="hstrlen"><a href="#hstrlen" class="headerlink" title="hstrlen"></a>hstrlen</h4><p>获取key指定的哈希集中的,指定的field对应的value的长度 ,如果field不存在的话,就返回0,如下:  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; hstrlen myhash field2</span><br><span class="line">(integer) 5</span><br><span class="line">172.16.12.3:6379&gt; hstrlen myhash field7</span><br><span class="line">(integer) 4</span><br><span class="line">172.16.12.3:6379&gt; hstrlen myhash field8</span><br><span class="line">(integer) 0</span><br></pre></td></tr></table></figure>
+<h3 id="有序集合-zset"><a href="#有序集合-zset" class="headerlink" title="有序集合(zset)"></a>有序集合(zset)</h3><p>有序集合类似set,但是每个字符串元素都关联到一个score的数值,里面的元素总是通过score进行着排序,因此它是可以检索的一系列元素   </p>
+<h4 id="zadd"><a href="#zadd" class="headerlink" title="zadd"></a>zadd</h4><p>往键为key的集合里面添加元素  </p>
+<p>添加时,可以指定多个分数/成员(score/member)对,如果指定添加的成员已经存在,则会更新分数,然后将成员更新到正确的位置,如下:   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; zadd myzset 60 v1</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+<p>首先是key,然后分数,最后是值.   </p>
+<h4 id="zscore"><a href="#zscore" class="headerlink" title="zscore"></a>zscore</h4><p>返回有序集合key中, 指定成员的score值,如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; zscore myzset v1</span><br><span class="line">&quot;60&quot;</span><br></pre></td></tr></table></figure></p>
+<h4 id="zrange"><a href="#zrange" class="headerlink" title="zrange"></a>zrange</h4><p>zrange 命令可以根据下标返回元素, 要指定开始和结束的下标, 还可以加一个withscores 参数,可以将元素的score</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; zadd myzset 61 v2</span><br><span class="line">(integer) 1</span><br><span class="line">172.16.12.3:6379&gt;  zadd myzset 62 v3</span><br><span class="line">(integer) 1</span><br><span class="line">172.16.12.3:6379&gt;  zadd myzset 63 v4</span><br><span class="line">(integer) 1</span><br><span class="line"></span><br><span class="line">172.16.12.3:6379&gt; zrange myzset 0 3</span><br><span class="line">1) &quot;v1&quot;</span><br><span class="line">2) &quot;v2&quot;</span><br><span class="line">3) &quot;v3&quot;</span><br><span class="line">4) &quot;v4&quot;</span><br><span class="line"></span><br><span class="line">172.16.12.3:6379&gt; zrange myzset 0 3 withscores</span><br><span class="line">1) &quot;v1&quot;</span><br><span class="line">2) &quot;60&quot;</span><br><span class="line">3) &quot;v2&quot;</span><br><span class="line">4) &quot;61&quot;</span><br><span class="line">5) &quot;v3&quot;</span><br><span class="line">6) &quot;62&quot;</span><br><span class="line">7) &quot;v4&quot;</span><br><span class="line">8) &quot;63&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="zrevrange"><a href="#zrevrange" class="headerlink" title="zrevrange"></a>zrevrange</h4><p>zrevrange和zrange的功能基本一样,只不过zrevrange返回数据的顺序是反着的,如下:   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; zrevrange myzset 0 3 withscores</span><br><span class="line">1) &quot;v4&quot;</span><br><span class="line">2) &quot;63&quot;</span><br><span class="line">3) &quot;v3&quot;</span><br><span class="line">4) &quot;62&quot;</span><br><span class="line">5) &quot;v2&quot;</span><br><span class="line">6) &quot;61&quot;</span><br><span class="line">7) &quot;v1&quot;</span><br><span class="line">8) &quot;60&quot;</span><br><span class="line">172.16.12.3:6379&gt; zrevrange myzset 0 3</span><br><span class="line">1) &quot;v4&quot;</span><br><span class="line">2) &quot;v3&quot;</span><br><span class="line">3) &quot;v2&quot;</span><br><span class="line">4) &quot;v1&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="zcard"><a href="#zcard" class="headerlink" title="zcard"></a>zcard</h4><p>可以返回zset中元素的个数,如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; zcard myzset</span><br><span class="line">(integer) 4</span><br></pre></td></tr></table></figure></p>
+<h4 id="zcount"><a href="#zcount" class="headerlink" title="zcount"></a>zcount</h4><p>zcount可以返回有序集key中，score值在min和max之间(默认包括score值等于min或max)的成员的数量  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; zcount myzset 60 63</span><br><span class="line">(integer) 4</span><br></pre></td></tr></table></figure>
+<p>如果我们想统计的不需要包含 开始或者结束区间的值,可以加一个(,如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; zcount myzset 60 (63</span><br><span class="line">(integer) 3</span><br><span class="line">172.16.12.3:6379&gt; zcount myzset (60 (63</span><br><span class="line">(integer) 2</span><br></pre></td></tr></table></figure></p>
+<h4 id="zrangebyscore"><a href="#zrangebyscore" class="headerlink" title="zrangebyscore"></a>zrangebyscore</h4><p>zrangebyscore,可以按照分数的范围,获取对应的元素,加上withscores可以连score一起返回,如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; zrangebyscore myzset 60 63</span><br><span class="line">1) &quot;v1&quot;</span><br><span class="line">2) &quot;v2&quot;</span><br><span class="line">3) &quot;v3&quot;</span><br><span class="line">4) &quot;v4&quot;</span><br><span class="line">172.16.12.3:6379&gt; zrangebyscore myzset 60 63 withscores</span><br><span class="line">1) &quot;v1&quot;</span><br><span class="line">2) &quot;60&quot;</span><br><span class="line">3) &quot;v2&quot;</span><br><span class="line">4) &quot;61&quot;</span><br><span class="line">5) &quot;v3&quot;</span><br><span class="line">6) &quot;62&quot;</span><br><span class="line">7) &quot;v4&quot;</span><br><span class="line">8) &quot;63&quot;</span><br><span class="line">172.16.12.3:6379&gt; zrangebyscore myzset (60 (63</span><br><span class="line">1) &quot;v2&quot;</span><br><span class="line">2) &quot;v3&quot;</span><br></pre></td></tr></table></figure></p>
+<h4 id="zrank"><a href="#zrank" class="headerlink" title="zrank"></a>zrank</h4><p>zrank,可以返回有序集合中指定成员的排名, 在zset中,成员的排名是按照score分数从小到大去排序的,排名是从0开始的,如下:  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; zrank myzset v1</span><br><span class="line">(integer) 0</span><br><span class="line">172.16.12.3:6379&gt; zrank myzset v3</span><br><span class="line">(integer) 2</span><br></pre></td></tr></table></figure>
+<h3 id="zrevrank"><a href="#zrevrank" class="headerlink" title="zrevrank"></a>zrevrank</h3><p>zrevrank和zrank是差不多的,只不过zrevrank是按照score是从大到小去排序的,如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; zrevrank myzset v3</span><br><span class="line">(integer) 1</span><br><span class="line">172.16.12.3:6379&gt; zrevrank myzset v1</span><br><span class="line">(integer) 3</span><br></pre></td></tr></table></figure></p>
+<h4 id="zincrby"><a href="#zincrby" class="headerlink" title="zincrby"></a>zincrby</h4><p>语法是:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zincrby key increment member</span><br></pre></td></tr></table></figure></p>
+<p>为有序集合key的成员member的score值加上增量increment   </p>
+<p>如果key中不存在member,就在key中添加一个member,score是increment   </p>
+<p>如果key不存在,就创建一个只含有指定member成员的有序集合.   </p>
+<p>当key不是有序集类型时,返回一个错误   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; zincrby myzset 10 v1</span><br><span class="line">&quot;70&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="zinterstore"><a href="#zinterstore" class="headerlink" title="zinterstore"></a>zinterstore</h4><p>语法如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZINTERSTORE destination numkeys key [key ...] [WEIGHTS weight] [SUM|MIN|MAX]</span><br></pre></td></tr></table></figure></p>
+<p>该命令是用来计算给定的numkeys个有序集合的交集,并且把结果放到destination中   </p>
+<p>在给定要计算的key和其它参数之前,必须先给定key个数(numberkeys)   </p>
+<p>默认情况下,结果集destination中一个元素的分数是有序集合中该元素分数之和,前提是该元素在这些有序集合中都存在,因为交集要求其成员必须是给定的每个有序集合中的成员  </p>
+<p>WEIGHTS,是在执行的过程中给原score乘以weights后再求和   </p>
+<p>如果destination存在，就把它覆盖  </p>
+<p>返回值是结果有序集合destination中元素个数   </p>
+<p>具体使用如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; zadd zset1 1 one</span><br><span class="line">(integer) 1</span><br><span class="line">172.16.12.3:6379&gt; zadd zset1 2 two</span><br><span class="line">(integer) 1</span><br><span class="line"></span><br><span class="line">172.16.12.3:6379&gt; zadd zset2 1 one</span><br><span class="line">(integer) 1</span><br><span class="line">172.16.12.3:6379&gt; zadd zset2 2 two</span><br><span class="line">(integer) 1</span><br><span class="line">172.16.12.3:6379&gt; zadd zset2 3 three</span><br><span class="line">(integer) 1</span><br><span class="line"></span><br><span class="line">172.16.12.3:6379&gt; zinterstore outzset 2 zset1 zset2 weights 2 3</span><br><span class="line">(integer) 2</span><br><span class="line">172.16.12.3:6379&gt; zrange outzset 0 -1 withscores</span><br><span class="line">1) &quot;one&quot;</span><br><span class="line">2) &quot;5&quot;</span><br><span class="line">3) &quot;two&quot;</span><br><span class="line">4) &quot;10&quot;</span><br></pre></td></tr></table></figure></p>
+<h4 id="zrem"><a href="#zrem" class="headerlink" title="zrem"></a>zrem</h4><p>zrem命令,可以从集合中移除一个元素,如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; zrem outzset one</span><br><span class="line">(integer) 1</span><br><span class="line">172.16.12.3:6379&gt; zrange outzset 0 -1 withscores</span><br><span class="line">1) &quot;two&quot;</span><br><span class="line">2) &quot;10&quot;</span><br></pre></td></tr></table></figure></p>
+<h4 id="zlexcount"><a href="#zlexcount" class="headerlink" title="zlexcount"></a>zlexcount</h4><p>命令用于计算有序集合中指定成员之间的成员数量,如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; zrange myzset 0 -1 withscores</span><br><span class="line">1) &quot;v2&quot;</span><br><span class="line">2) &quot;61&quot;</span><br><span class="line">3) &quot;v3&quot;</span><br><span class="line">4) &quot;62&quot;</span><br><span class="line">5) &quot;v4&quot;</span><br><span class="line">6) &quot;63&quot;</span><br><span class="line">7) &quot;v1&quot;</span><br><span class="line">8) &quot;70&quot;</span><br><span class="line"></span><br><span class="line">172.16.12.3:6379&gt; zlexcount myzset - +</span><br><span class="line">(integer) 4</span><br><span class="line"></span><br><span class="line">172.16.12.3:6379&gt;  zlexcount myzset [v1 [v2</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure></p>
+<p>可以用-和+表示得分最小值和最大值,如果使用成员名的话,一定要在成员名之前加上[.   </p>
+<h4 id="zrangebylex"><a href="#zrangebylex" class="headerlink" title="zrangebylex"></a>zrangebylex</h4><p>zrangebylex返回指定成员区间内的成员,按成员字典正序排序, 分数必须相同,如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">172.16.12.3:6379&gt; zrangebylex myzset [v1 [v2</span><br><span class="line">1) &quot;v2&quot;</span><br><span class="line">172.16.12.3:6379&gt;  zrangebylex myzset - +</span><br><span class="line">1) &quot;v2&quot;</span><br><span class="line">2) &quot;v3&quot;</span><br><span class="line">3) &quot;v4&quot;</span><br><span class="line">4) &quot;v1&quot;</span><br></pre></td></tr></table></figure></p>
+<p>好了,就介绍这么多的命令,其他需要的话,请参考官方文档   </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Redis/" <i="" class="fa fa-tag"> Redis</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/27/Redis-5-列表与集合的一些常用命令/" rel="next" title="Redis-5-列表与集合的一些常用命令">
+                <i class="fa fa-chevron-left"></i> Redis-5-列表与集合的一些常用命令
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/27/Redis-7-发布与订阅/" rel="prev" title="Redis-7-发布与订阅">
+                Redis-7-发布与订阅 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTEyNi8xNzY1MQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">周泽</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">157</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#述"><span class="nav-number">1.</span> <span class="nav-text">述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#散列-hash"><span class="nav-number">2.</span> <span class="nav-text">散列(hash)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#hset"><span class="nav-number">2.1.</span> <span class="nav-text">hset</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hget"><span class="nav-number">2.2.</span> <span class="nav-text">hget</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hmset"><span class="nav-number">2.3.</span> <span class="nav-text">hmset</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hmget"><span class="nav-number">2.4.</span> <span class="nav-text">hmget</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hdel"><span class="nav-number">2.5.</span> <span class="nav-text">hdel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hsetnx"><span class="nav-number">2.6.</span> <span class="nav-text">hsetnx</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hvals"><span class="nav-number">2.7.</span> <span class="nav-text">hvals</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hkeys"><span class="nav-number">2.8.</span> <span class="nav-text">hkeys</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hgetall"><span class="nav-number">2.9.</span> <span class="nav-text">hgetall</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hexists"><span class="nav-number">2.10.</span> <span class="nav-text">hexists</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hincrby"><span class="nav-number">2.11.</span> <span class="nav-text">hincrby</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hincrbyfloat"><span class="nav-number">2.12.</span> <span class="nav-text">hincrbyfloat</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hlen"><span class="nav-number">2.13.</span> <span class="nav-text">hlen</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hstrlen"><span class="nav-number">2.14.</span> <span class="nav-text">hstrlen</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有序集合-zset"><span class="nav-number">3.</span> <span class="nav-text">有序集合(zset)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#zadd"><span class="nav-number">3.1.</span> <span class="nav-text">zadd</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zscore"><span class="nav-number">3.2.</span> <span class="nav-text">zscore</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zrange"><span class="nav-number">3.3.</span> <span class="nav-text">zrange</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zrevrange"><span class="nav-number">3.4.</span> <span class="nav-text">zrevrange</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zcard"><span class="nav-number">3.5.</span> <span class="nav-text">zcard</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zcount"><span class="nav-number">3.6.</span> <span class="nav-text">zcount</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zrangebyscore"><span class="nav-number">3.7.</span> <span class="nav-text">zrangebyscore</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zrank"><span class="nav-number">3.8.</span> <span class="nav-text">zrank</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zrevrank"><span class="nav-number">4.</span> <span class="nav-text">zrevrank</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#zincrby"><span class="nav-number">4.1.</span> <span class="nav-text">zincrby</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zinterstore"><span class="nav-number">4.2.</span> <span class="nav-text">zinterstore</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zrem"><span class="nav-number">4.3.</span> <span class="nav-text">zrem</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zlexcount"><span class="nav-number">4.4.</span> <span class="nav-text">zlexcount</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zrangebylex"><span class="nav-number">4.5.</span> <span class="nav-text">zrangebylex</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">周泽</span>
+
+  
+</div>
+
+<!-- 
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+ -->
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共170.5k字</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>
