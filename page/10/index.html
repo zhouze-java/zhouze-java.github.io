@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/09/Elasticsearch-69-深入聚合分析数据II/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/16/Elasticsearch-87-基于共享锁和排它锁实现悲观锁并发控制/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/09/Elasticsearch-69-深入聚合分析数据II/" itemprop="url">Elasticsearch-69-深入聚合分析数据II</a></h1>
+                <a class="post-title-link" href="/2019/01/16/Elasticsearch-87-基于共享锁和排它锁实现悲观锁并发控制/" itemprop="url">Elasticsearch-87-基于共享锁和排它锁实现悲观锁并发控制</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-09T15:40:50+08:00">
-                2019-01-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T17:16:20+08:00">
+                2019-01-16
               </time>
             
 
@@ -375,15 +375,13 @@
       
         
           
-          常用的几种metric操作上文中,用了avg和count这两个操作,一般来说,常用的metric操作就是以下几种  
-
-count: 计算数量,用terms操作来分组的话,就会自动有一个doc_count,就相当于是count   
-avg: 求一个bucket内,指定field数据的平均值  
-m
+          共享锁和排它锁共享锁: 这份数据是共享的,然后多个线程过来,都可以获取同一个数据的共享锁,然后对这个数据执行读操作.排它锁: 是排他的操作,只能一个线程获取排他锁,然后执行增删改操作  
+读写锁分离   
+如果是要读取数据的话,那么任意多少个线程都可以进来然后读取数据,每个线程都可以上一个共享锁,但
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/09/Elasticsearch-69-深入聚合分析数据II/#more" rel="contents">
+            <a class="btn" href="/2019/01/16/Elasticsearch-87-基于共享锁和排它锁实现悲观锁并发控制/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -434,7 +432,7 @@ m
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/07/Elasticsearch-68-深入聚合分析数据I/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/16/Elasticsearch-86-基于document锁实现悲观锁并发控制/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -453,7 +451,7 @@ m
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/07/Elasticsearch-68-深入聚合分析数据I/" itemprop="url">Elasticsearch-68-深入聚合分析数据I</a></h1>
+                <a class="post-title-link" href="/2019/01/16/Elasticsearch-86-基于document锁实现悲观锁并发控制/" itemprop="url">Elasticsearch-86-基于document锁实现悲观锁并发控制</a></h1>
         
 
         <div class="post-meta">
@@ -465,8 +463,8 @@ m
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-07T18:26:36+08:00">
-                2019-01-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T14:47:39+08:00">
+                2019-01-16
               </time>
             
 
@@ -527,12 +525,12 @@ m
       
         
           
-          背景本文,将以一个家电卖场中的电视销售数据为背景,进行各种各样角度的聚合分析  
-准备数据创建索引tvs123456789101112131415161718192021PUT /tvs&#123;	&quot;mappings&quot;: &#123;		&quot;sales&quot;: &
+          document锁上文中的全局锁,一次性就锁上了整个index,对这个index的所有增删改操作都会被block住,如果上锁不频繁,还可以,如果上锁释放锁的操作很频繁,显然不适用     
+document锁,顾名思义,每次就锁需要操作的几个doc,就可以了,被锁的doc,其他线程就不能对这些doc
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/07/Elasticsearch-68-深入聚合分析数据I/#more" rel="contents">
+            <a class="btn" href="/2019/01/16/Elasticsearch-86-基于document锁实现悲观锁并发控制/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -583,7 +581,7 @@ m
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/07/Elasticsearch-67-聚合分析bucket和metric/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/Elasticsearch-85-基于全局锁实现悲观锁并发控制/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -602,7 +600,7 @@ m
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/07/Elasticsearch-67-聚合分析bucket和metric/" itemprop="url">Elasticsearch-67-聚合分析bucket和metric</a></h1>
+                <a class="post-title-link" href="/2019/01/15/Elasticsearch-85-基于全局锁实现悲观锁并发控制/" itemprop="url">Elasticsearch-85-基于全局锁实现悲观锁并发控制</a></h1>
         
 
         <div class="post-meta">
@@ -614,8 +612,8 @@ m
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-07T14:28:56+08:00">
-                2019-01-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T17:16:08+08:00">
+                2019-01-15
               </time>
             
 
@@ -676,43 +674,12 @@ m
       
         
           
-          核心概念bucket是一个数据的分组,metric就是对一个bucket执行的某种聚合分析的操作,比如说,求平均值,最大值,最小值等  
-举个例子,有这么一组数据  
-
-
-
-city
-name
-
-
-
-
-北京
-小李
-
-
-北京
-小王
-
-
-上海
-小张
-
-
-上海
-小丽
-
-
-上海
-小陈
-
-
-
-上面的数据可以通
+          并发控制的几种方案结合之前的文件系统的案例, 假设有多个线程过来,要并发的给/workspace/projects/helloworld下的README.txt修改文件名,这个时候就要进行并发的控制,避免多线程的并发安全问题.  
+基于version的乐观锁,先获取要修改的信息的版本号,然后和自己的
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/07/Elasticsearch-67-聚合分析bucket和metric/#more" rel="contents">
+            <a class="btn" href="/2019/01/15/Elasticsearch-85-基于全局锁实现悲观锁并发控制/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -763,7 +730,7 @@ name
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/05/Elasticsearch-66-修改IK分词器源码基于mysql热更新词库/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/Elasticsearch-84-文件系统数据建模及搜索案例/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -782,7 +749,7 @@ name
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/05/Elasticsearch-66-修改IK分词器源码基于mysql热更新词库/" itemprop="url">Elasticsearch-66-修改IK分词器源码基于mysql热更新词库</a></h1>
+                <a class="post-title-link" href="/2019/01/15/Elasticsearch-84-文件系统数据建模及搜索案例/" itemprop="url">Elasticsearch-84-文件系统数据建模及搜索案例</a></h1>
         
 
         <div class="post-meta">
@@ -794,8 +761,8 @@ name
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-05T16:39:57+08:00">
-                2019-01-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T16:49:21+08:00">
+                2019-01-15
               </time>
             
 
@@ -856,12 +823,12 @@ name
       
         
           
-          上文中,我们如果要配置一个自定义的词语,或者停用词的时候,必须要手动添加到ik分词器的配置中,然后重启es节点,这样就很坑了,而且如果es集群中有上百个节点的话,那一个个的修改要疯了   
-通过修改ik分词器的源码,可以使用mysql作为词库,有词语更新的话,直接添加到mysql的表中就好了,不需要
+          数据建模对类似文件系统(filesystem)这种的 有多层级关系的数据进行建模,比如说路径这种多层级的数据   
+数据添加首先先自定义一个分词器.123456789101112PUT /fs&#123;  &quot;settings&quot;: &#123;    &quot;analysis
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/05/Elasticsearch-66-修改IK分词器源码基于mysql热更新词库/#more" rel="contents">
+            <a class="btn" href="/2019/01/15/Elasticsearch-84-文件系统数据建模及搜索案例/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -912,7 +879,7 @@ name
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/05/Elasticsearch-65-IK分词器配置文件详解/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/Elasticsearch-83-聚合分析案例/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -931,7 +898,7 @@ name
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/05/Elasticsearch-65-IK分词器配置文件详解/" itemprop="url">Elasticsearch-65-IK分词器配置文件详解</a></h1>
+                <a class="post-title-link" href="/2019/01/15/Elasticsearch-83-聚合分析案例/" itemprop="url">Elasticsearch-83-聚合分析案例</a></h1>
         
 
         <div class="post-meta">
@@ -943,8 +910,8 @@ name
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-05T09:41:31+08:00">
-                2019-01-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T16:49:02+08:00">
+                2019-01-15
               </time>
             
 
@@ -1005,16 +972,12 @@ name
       
         
           
-          ik配置文件ik配置文件地址: es目录/plugins/ik/config  
-
-main.dic:ik原生内置的中文词库,总共有27万多条,只要是这些单词,都会被分在一起  
-quantifier.dic:放了一些单位相关的词   
-suffix.dic:放了一些后缀
-surname.dic:中
+          需求对每个用户发表的博客进行分组
+添加测试数据123456789101112131415161718192021222324252627282930313233PUT /website/users/3&#123;  &quot;name&quot;: &quot;黄药师&quot;,  &quot;
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/05/Elasticsearch-65-IK分词器配置文件详解/#more" rel="contents">
+            <a class="btn" href="/2019/01/15/Elasticsearch-83-聚合分析案例/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1065,7 +1028,7 @@ surname.dic:中
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/04/Elasticsearch-64-IK中文分词器的安装和基本使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/Elasticsearch-82-应用层关联查询与通过冗余数据关联对比/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1084,7 +1047,7 @@ surname.dic:中
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/04/Elasticsearch-64-IK中文分词器的安装和基本使用/" itemprop="url">Elasticsearch-64-IK中文分词器的安装和基本使用</a></h1>
+                <a class="post-title-link" href="/2019/01/15/Elasticsearch-82-应用层关联查询与通过冗余数据关联对比/" itemprop="url">Elasticsearch-82-应用层关联查询与通过冗余数据关联对比</a></h1>
         
 
         <div class="post-meta">
@@ -1096,8 +1059,8 @@ surname.dic:中
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-04T18:13:58+08:00">
-                2019-01-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T15:38:11+08:00">
+                2019-01-15
               </time>
             
 
@@ -1158,14 +1121,13 @@ surname.dic:中
       
         
           
-          ik中文分词器安装从github上拉取ik分词器1git clone https://github.com/medcl/elasticsearch-analysis-ik
-切换分支1git checkout tags/v5.2.0
-编译1mvn package
-将target/releases/el
+          关系型数据建模数据建模以一个博客网站作为案例背景,模拟用户发表各种博客,然后针对用户和博客之间的关系进行数据建模,同时针对建模好的数据执行各种搜索 + 聚合的操作   
+先以类似关系型数据库中的模型来构建数据,还是将有关联的数据分割为不同的实体   
+添加数据12345678910111213PUT
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/04/Elasticsearch-64-IK中文分词器的安装和基本使用/#more" rel="contents">
+            <a class="btn" href="/2019/01/15/Elasticsearch-82-应用层关联查询与通过冗余数据关联对比/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1216,7 +1178,7 @@ surname.dic:中
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/04/Elasticsearch-63-误拼写时的fuzzy模糊搜索/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/Elasticsearch-81-关系型数据库与document类型数据模型对比/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1235,7 +1197,7 @@ surname.dic:中
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/04/Elasticsearch-63-误拼写时的fuzzy模糊搜索/" itemprop="url">Elasticsearch-63-误拼写时的fuzzy模糊搜索</a></h1>
+                <a class="post-title-link" href="/2019/01/15/Elasticsearch-81-关系型数据库与document类型数据模型对比/" itemprop="url">Elasticsearch-81-关系型数据库与document类型数据模型对比</a></h1>
         
 
         <div class="post-meta">
@@ -1247,8 +1209,8 @@ surname.dic:中
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-04T16:50:36+08:00">
-                2019-01-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T15:36:41+08:00">
+                2019-01-15
               </time>
             
 
@@ -1309,11 +1271,11 @@ surname.dic:中
       
         
           
-          fuzzy搜索我们在搜索的时候,可能会出现单词误拼写的情况,举个例子,有两个documentdocument1: hello worlddocument2: hello java这时候搜索请求误写成了hallo world, 我们期望的结果是全查询出来,但是hallo world是匹配不上doc2的
+          Java类有如下两个类,部门类和员工类12345678public class Department &#123;		private Integer deptId;	private String name;	private String desc;	private List&lt;Employee&
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/04/Elasticsearch-63-误拼写时的fuzzy模糊搜索/#more" rel="contents">
+            <a class="btn" href="/2019/01/15/Elasticsearch-81-关系型数据库与document类型数据模型对比/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1364,7 +1326,7 @@ surname.dic:中
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/04/Elasticsearch-62-用function-score自定义相关度分数算法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/Elasticsearch-80-海量bucket的优化机制/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1383,7 +1345,7 @@ surname.dic:中
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/04/Elasticsearch-62-用function-score自定义相关度分数算法/" itemprop="url">Elasticsearch-62-用function_score自定义相关度分数算法</a></h1>
+                <a class="post-title-link" href="/2019/01/15/Elasticsearch-80-海量bucket的优化机制/" itemprop="url">Elasticsearch-80-海量bucket的优化机制</a></h1>
         
 
         <div class="post-meta">
@@ -1395,8 +1357,8 @@ surname.dic:中
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-04T15:52:33+08:00">
-                2019-01-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T10:41:51+08:00">
+                2019-01-15
               </time>
             
 
@@ -1457,12 +1419,13 @@ surname.dic:中
       
         
           
-          function_score我们可以自定义一个function_score函数,自己将某个field的值,跟es内置算出来的分数进行运算,然后由自己制定的field来进行分数的增强   
-准备测试数据给所有帖子增加follower数量1234567891011POST /forum/article/
+          概述先来看一个需求  
+现在有一堆数据,是每个演员的每个电影的评论,现在我们要取到10个演员的评论数量排名前5的电影   
+看一下请求体12345678910111213141516171819&#123;  &quot;aggs&quot; : &#123;    &quot;actors&quo
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/04/Elasticsearch-62-用function-score自定义相关度分数算法/#more" rel="contents">
+            <a class="btn" href="/2019/01/15/Elasticsearch-80-海量bucket的优化机制/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1513,7 +1476,7 @@ surname.dic:中
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/03/Elasticsearch-61-常见相关度分数优化方法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/Elasticsearch-79-fielddata-filter的细粒度内存加载控制以及预加载机制/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1532,7 +1495,7 @@ surname.dic:中
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/03/Elasticsearch-61-常见相关度分数优化方法/" itemprop="url">Elasticsearch-61-常见相关度分数优化方法</a></h1>
+                <a class="post-title-link" href="/2019/01/15/Elasticsearch-79-fielddata-filter的细粒度内存加载控制以及预加载机制/" itemprop="url">Elasticsearch-79-fielddata filter的细粒度内存加载控制以及预加载机制</a></h1>
         
 
         <div class="post-meta">
@@ -1544,8 +1507,8 @@ surname.dic:中
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-03T20:20:42+08:00">
-                2019-01-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T10:13:24+08:00">
+                2019-01-15
               </time>
             
 
@@ -1606,12 +1569,11 @@ surname.dic:中
       
         
           
-          上文中,说了整个es的相关度评分的算法,本文将使用四种常见的方法来优化相关度分数  
-query-time boost就是之前说过的给某一个查询增加权重,语法如下12345678910111213141516171819202122GET forum/article/_search&#123;  &
+          filter的细粒度内存加载控制12345678910111213141516POST /test_index/_mapping/my_type&#123;  &quot;properties&quot;: &#123;    &quot;my_field&quot;: &#123;      &q
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/03/Elasticsearch-61-常见相关度分数优化方法/#more" rel="contents">
+            <a class="btn" href="/2019/01/15/Elasticsearch-79-fielddata-filter的细粒度内存加载控制以及预加载机制/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1662,7 +1624,7 @@ query-time boost就是之前说过的给某一个查询增加权重,语法如下
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/03/Elasticsearch-60-深入揭秘lucene的相关度分数算法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/14/Elasticsearch-78-fielddata内存控制及circuit-breaker短路器/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1681,7 +1643,7 @@ query-time boost就是之前说过的给某一个查询增加权重,语法如下
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/03/Elasticsearch-60-深入揭秘lucene的相关度分数算法/" itemprop="url">Elasticsearch-60-深入揭秘lucene的相关度分数算法</a></h1>
+                <a class="post-title-link" href="/2019/01/14/Elasticsearch-78-fielddata内存控制及circuit-breaker短路器/" itemprop="url">Elasticsearch-78-fielddata内存控制及circuit breaker短路器</a></h1>
         
 
         <div class="post-meta">
@@ -1693,8 +1655,8 @@ query-time boost就是之前说过的给某一个查询增加权重,语法如下
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-03T17:59:44+08:00">
-                2019-01-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-14T17:34:22+08:00">
+                2019-01-14
               </time>
             
 
@@ -1755,12 +1717,12 @@ query-time boost就是之前说过的给某一个查询增加权重,语法如下
       
         
           
-          上文中说了TF/IDF算法,那么在底层的Lucene中TF/IDF算法的完整的公式是什么  
-Boolean model就是我们之前有说过的,一个match会被转换为bool的组合查询,比如说123&quot;match&quot;:&#123;    &quot;query&quot;:&quot
+          fielddata核心原理fielddata加载到内存的过程是lazy加载的,对一个分词field执行聚合时,才会加载,field执行聚合时,才会加载(query-time),而且是field-level加载的一个index的一个field,所有doc都会被加载,而不是少数doc   
+fieldd
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/03/Elasticsearch-60-深入揭秘lucene的相关度分数算法/#more" rel="contents">
+            <a class="btn" href="/2019/01/14/Elasticsearch-78-fielddata内存控制及circuit-breaker短路器/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1802,7 +1764,7 @@ Boolean model就是我们之前有说过的,一个match会被转换为bool的组
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1848,7 +1810,7 @@ Boolean model就是我们之前有说过的,一个match会被转换为bool的组
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">160</span>
+                  <span class="site-state-item-count">178</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1859,7 +1821,7 @@ Boolean model就是我们之前有说过的,一个match会被转换为bool的组
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1938,7 +1900,7 @@ Boolean model就是我们之前有说过的,一个match会被转换为bool的组
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共173.1k字</span>
+  <span class="post-count">博客全站共189.9k字</span>
 </div>
         
 

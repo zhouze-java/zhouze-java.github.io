@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/Elasticsearch-19-倒排索引核心原理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/29/Elasticsearch-37-Java-API-document-增删改查/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/21/Elasticsearch-19-倒排索引核心原理/" itemprop="url">Elasticsearch-19-倒排索引核心原理</a></h1>
+                <a class="post-title-link" href="/2018/11/29/Elasticsearch-37-Java-API-document-增删改查/" itemprop="url">Elasticsearch-37-Java API document 增删改查</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-21T19:47:32+08:00">
-                2018-11-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-29T16:26:45+08:00">
+                2018-11-29
               </time>
             
 
@@ -375,13 +375,12 @@
       
         
           
-          场景假设我们现在有两个document.  
-document1: I really liked my small dogs, and I think my mom also liked them.  
-document2: He never liked any dogs, so I hope th
+          前文都是讲的理论知识,用restful API来做的测试. 本文将使用java API来操作索引,document. 
+添加依赖123456789101112&lt;!-- es依赖 --&gt;&lt;dependency&gt;    &lt;groupId&gt;org.elasticsear
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/21/Elasticsearch-19-倒排索引核心原理/#more" rel="contents">
+            <a class="btn" href="/2018/11/29/Elasticsearch-37-Java-API-document-增删改查/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -432,7 +431,7 @@ document2: He never liked any dogs, so I hope th
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/Elasticsearch-18-精确匹配与全文检索/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/27/Elasticsearch-36-深度解析document增删改原理及优化过程/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -451,7 +450,7 @@ document2: He never liked any dogs, so I hope th
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/21/Elasticsearch-18-精确匹配与全文检索/" itemprop="url">Elasticsearch-18-精确匹配与全文检索</a></h1>
+                <a class="post-title-link" href="/2018/11/27/Elasticsearch-36-深度解析document增删改原理及优化过程/" itemprop="url">Elasticsearch-36-深度解析document增删改原理及优化过程</a></h1>
         
 
         <div class="post-meta">
@@ -463,8 +462,8 @@ document2: He never liked any dogs, so I hope th
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-21T17:57:53+08:00">
-                2018-11-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-27T15:29:28+08:00">
+                2018-11-27
               </time>
             
 
@@ -525,12 +524,16 @@ document2: He never liked any dogs, so I hope th
       
         
           
-          精确匹配(exact value)比如我们在之前的例子,通过精确匹配搜索 2017-01-01的时候, field中必须包含2017-01-01 才能搜索出来,如果只搜索个01,这样是搜不出来的
-全文检索 (full text)不单纯的只是匹配一个完整的值,而是可以对值进行分词后进行匹配,还可以通过
+          document写入原理在es底层,用的是Lucene,Lucene底层的index是分为多个segment的,每个segment都会存放部分数据
+图中,客户端写入一个document的时候:  
+
+先写到了操作系统中的buffer缓存中
+然后进行commit point
+buffer中的数据写入了
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/21/Elasticsearch-18-精确匹配与全文检索/#more" rel="contents">
+            <a class="btn" href="/2018/11/27/Elasticsearch-36-深度解析document增删改原理及优化过程/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -581,7 +584,7 @@ document2: He never liked any dogs, so I hope th
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/Elasticsearch-17-初识mapping/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/27/Elasticsearch-35-使用scroll-bulk-索引别名实现零停机重建索引/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -600,7 +603,7 @@ document2: He never liked any dogs, so I hope th
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/21/Elasticsearch-17-初识mapping/" itemprop="url">Elasticsearch-17-初识mapping</a></h1>
+                <a class="post-title-link" href="/2018/11/27/Elasticsearch-35-使用scroll-bulk-索引别名实现零停机重建索引/" itemprop="url">Elasticsearch-35-使用scroll+bulk+索引别名实现零停机重建索引</a></h1>
         
 
         <div class="post-meta">
@@ -612,8 +615,8 @@ document2: He never liked any dogs, so I hope th
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-21T17:43:32+08:00">
-                2018-11-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-27T10:21:01+08:00">
+                2018-11-27
               </time>
             
 
@@ -674,11 +677,12 @@ document2: He never liked any dogs, so I hope th
       
         
           
-          首先,我们先插入几条数据,让ES为我们自动建立一个索引1234567891011121314151617181920212223PUT /website/article/1&#123;  &quot;post_date&quot;: &quot;2017-01-01&quot;,  &quot;ti
+          场景如果我们一开始新建了一个索引,并且依靠dynamic mapping,这个时候插入一条数据是2018-01-01这种格式的,这field就会被自动映射成了date类型,但是其实他应该是个string类型的,这时候应该怎么做呢?
+解决方案一个field的设置是不能被修改的,如果要修改一个field
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/21/Elasticsearch-17-初识mapping/#more" rel="contents">
+            <a class="btn" href="/2018/11/27/Elasticsearch-35-使用scroll-bulk-索引别名实现零停机重建索引/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -729,7 +733,7 @@ document2: He never liked any dogs, so I hope th
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/Elasticsearch-16-_search搜索详解/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/26/Elasticsearch-34-定制自己的dynamic-mapping策略/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -748,7 +752,7 @@ document2: He never liked any dogs, so I hope th
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/21/Elasticsearch-16-_search搜索详解/" itemprop="url">Elasticsearch-16-_search搜索详解</a></h1>
+                <a class="post-title-link" href="/2018/11/26/Elasticsearch-34-定制自己的dynamic-mapping策略/" itemprop="url">Elasticsearch-34-定制自己的dynamic mapping策略</a></h1>
         
 
         <div class="post-meta">
@@ -760,8 +764,8 @@ document2: He never liked any dogs, so I hope th
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-21T16:43:02+08:00">
-                2018-11-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-26T17:35:53+08:00">
+                2018-11-26
               </time>
             
 
@@ -822,19 +826,12 @@ document2: He never liked any dogs, so I hope th
       
         
           
-          multi-index和multi-type搜索模式就是一次性搜索多个index和type下的数据  
-示例
-搜索所有index,所有type下的所有数据
-1GET /_search
-
-指定一个index,搜索其下所有的type的数据
-1GET /index/_search
-
-查询某个index下指
+          定制dynamic策略true: 遇到陌生字段,就进行dynamic mappingfalse: 遇到陌生字段,就忽略strict: 遇到陌生字段,就报错  
+示例我们现在来新建一个index.1234567891011121314151617PUT /my_index&#123;  &quot;m
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/21/Elasticsearch-16-_search搜索详解/#more" rel="contents">
+            <a class="btn" href="/2018/11/26/Elasticsearch-34-定制自己的dynamic-mapping策略/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -885,7 +882,7 @@ document2: He never liked any dogs, so I hope th
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/20/Elasticsearch-15-写一致性原理及quorum机制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/26/Elasticsearch-33-mapping-root-object深入剖析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -904,7 +901,7 @@ document2: He never liked any dogs, so I hope th
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/20/Elasticsearch-15-写一致性原理及quorum机制/" itemprop="url">Elasticsearch-15-写一致性原理及quorum机制</a></h1>
+                <a class="post-title-link" href="/2018/11/26/Elasticsearch-33-mapping-root-object深入剖析/" itemprop="url">Elasticsearch-33-_mapping root object深入剖析</a></h1>
         
 
         <div class="post-meta">
@@ -916,8 +913,8 @@ document2: He never liked any dogs, so I hope th
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-20T17:09:33+08:00">
-                2018-11-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-26T15:39:48+08:00">
+                2018-11-26
               </time>
             
 
@@ -978,14 +975,12 @@ document2: He never liked any dogs, so I hope th
       
         
           
-          概念我们在发送任何一个增删改操作的时候,都可以带上一个consistency参数,指明我们想要的写一致性是什么,比如:1PUT /index/type/id?consistency=
-consistency的值可以有三个:  
-
-one:要求这个写操作,只要有一个primary shard是acti
+          root object就是某个type对应的mapping json,包括了properties,metadata(_id,_source,_type), settings(analyzer),其他settings(比如include_in_all)  
+12345678PUT /index&#12
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/20/Elasticsearch-15-写一致性原理及quorum机制/#more" rel="contents">
+            <a class="btn" href="/2018/11/26/Elasticsearch-33-mapping-root-object深入剖析/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1036,7 +1031,7 @@ one:要求这个写操作,只要有一个primary shard是acti
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/20/Elasticsearch-14-document增删改查原理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/26/Elasticsearch-32-type底层数据结构/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1055,7 +1050,7 @@ one:要求这个写操作,只要有一个primary shard是acti
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/20/Elasticsearch-14-document增删改查原理/" itemprop="url">Elasticsearch-14-document增删改查原理</a></h1>
+                <a class="post-title-link" href="/2018/11/26/Elasticsearch-32-type底层数据结构/" itemprop="url">Elasticsearch-32-type底层数据结构</a></h1>
         
 
         <div class="post-meta">
@@ -1067,8 +1062,8 @@ one:要求这个写操作,只要有一个primary shard是acti
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-20T14:20:54+08:00">
-                2018-11-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-26T14:54:50+08:00">
+                2018-11-26
               </time>
             
 
@@ -1129,12 +1124,12 @@ one:要求这个写操作,只要有一个primary shard是acti
       
         
           
-          熟悉了es路由规则以后,再来看一下document的增删改查的原理.  
-场景现在有3个es节点在一个集群内, 有3个primary shard 对应的replica数量是1 就是说有3个 primary shard 和3个replica,总共6个shard, 现在有个客户端要创建一个documen
+          type的底层数据结构type是一个index中用来区分类似的数据的,类似的数据有可能有不同的field,而且有不同的属性来控制索引的建立  
+es是基于Lucene的,在es中每个field都有自己的数据类型,比如date,text等,但在底层的Lucene建立索引的时候,全部是opaque by
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/20/Elasticsearch-14-document增删改查原理/#more" rel="contents">
+            <a class="btn" href="/2018/11/26/Elasticsearch-32-type底层数据结构/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1185,7 +1180,7 @@ one:要求这个写操作,只要有一个primary shard是acti
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/20/Elasticsearch-13-document路由原理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/24/Elasticsearch-31-手动创建索引以及定制分词器/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1204,7 +1199,7 @@ one:要求这个写操作,只要有一个primary shard是acti
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/20/Elasticsearch-13-document路由原理/" itemprop="url">Elasticsearch-13-document路由原理</a></h1>
+                <a class="post-title-link" href="/2018/11/24/Elasticsearch-31-手动创建索引以及定制分词器/" itemprop="url">Elasticsearch-31-手动创建索引以及定制分词器</a></h1>
         
 
         <div class="post-meta">
@@ -1216,8 +1211,8 @@ one:要求这个写操作,只要有一个primary shard是acti
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-20T10:59:43+08:00">
-                2018-11-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-24T16:38:15+08:00">
+                2018-11-24
               </time>
             
 
@@ -1278,12 +1273,11 @@ one:要求这个写操作,只要有一个primary shard是acti
       
         
           
-          概念我们知道,一个index的数据会被分为多片,每片都放在一个shard中.所以,一个document只能存在于一个shard中.当客户端创建document的时候,es此时就要决定这个document是要放在哪一个shard中. 这个过程就被是document routing 数据路由  
-路由算
+          索引创建索引语法:1234567891011121314PUT /index&#123;    &quot;settings&quot;:&#123;        // any settings...    &#125;,    &quot;mappings&quot;:&#123;       
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/20/Elasticsearch-13-document路由原理/#more" rel="contents">
+            <a class="btn" href="/2018/11/24/Elasticsearch-31-手动创建索引以及定制分词器/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1334,7 +1328,7 @@ one:要求这个写操作,只要有一个primary shard是acti
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/Elasticsearch-12-批量增删改查操作/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/24/Elasticsearch-30-scroll滚动查询/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1353,7 +1347,7 @@ one:要求这个写操作,只要有一个primary shard是acti
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/19/Elasticsearch-12-批量增删改查操作/" itemprop="url">Elasticsearch-12-批量增删改查操作</a></h1>
+                <a class="post-title-link" href="/2018/11/24/Elasticsearch-30-scroll滚动查询/" itemprop="url">Elasticsearch-30-scroll滚动查询</a></h1>
         
 
         <div class="post-meta">
@@ -1365,8 +1359,8 @@ one:要求这个写操作,只要有一个primary shard是acti
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-19T16:41:12+08:00">
-                2018-11-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-24T15:34:11+08:00">
+                2018-11-24
               </time>
             
 
@@ -1427,12 +1421,13 @@ one:要求这个写操作,只要有一个primary shard是acti
       
         
           
-          批量查询批量查询的优点: 如果用 GET /index_name/type_name/id 这样的查询去查询100条数据的话,就要发送100次网络请求,开销比较大,如果是批量查询的话,查询100条数据只需要用1次网络请求,网络请求的性能开销会很少.
-_mget批量查询比如我们要查询test_inde
+          scroll查询如果我们要一次性查询10万条数据,那么性能会很差,此时一般会采用scroll滚动查询,一批一批的查,直到所有的数据都查询处理完成.  
+使用scroll滚动搜索,可以先搜索一批数据,然后下次再搜索一批数据,以此类推,直到搜索出全部的数据来  
+scroll搜索会在第一次搜索的时候,保
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/19/Elasticsearch-12-批量增删改查操作/#more" rel="contents">
+            <a class="btn" href="/2018/11/24/Elasticsearch-30-scroll滚动查询/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1483,7 +1478,7 @@ _mget批量查询比如我们要查询test_inde
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/Elasticsearch-11-基于groovy脚本进行partial-update/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/24/Elasticsearch-29-搜索原理内核解析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1502,7 +1497,7 @@ _mget批量查询比如我们要查询test_inde
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/19/Elasticsearch-11-基于groovy脚本进行partial-update/" itemprop="url">Elasticsearch-11-基于groovy脚本进行partial update</a></h1>
+                <a class="post-title-link" href="/2018/11/24/Elasticsearch-29-搜索原理内核解析/" itemprop="url">Elasticsearch-29-搜索原理内核解析</a></h1>
         
 
         <div class="post-meta">
@@ -1514,8 +1509,8 @@ _mget批量查询比如我们要查询test_inde
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-19T15:01:09+08:00">
-                2018-11-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-24T01:03:40+08:00">
+                2018-11-24
               </time>
             
 
@@ -1576,12 +1571,12 @@ _mget批量查询比如我们要查询test_inde
       
         
           
-          基于groovy脚本进行partial update首先添加一条数据到es中12345PUT test_index/test_type/2&#123;  &quot;num&quot;:0,  &quot;tags&quot;:[]&#125;
-内置脚本1234POST test_index/tes
+          query phase假设我们有一个index里面的数据分布在3个primary shard上(对应的replica也有),现在总共有7个shard,我们现在要搜索这个index中的数据的第10000条到10010条.如图所示  
+请求发送给某一个shard时,这个shard就是coordinate
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/19/Elasticsearch-11-基于groovy脚本进行partial-update/#more" rel="contents">
+            <a class="btn" href="/2018/11/24/Elasticsearch-29-搜索原理内核解析/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1632,7 +1627,7 @@ _mget批量查询比如我们要查询test_inde
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/17/Elasticsearch-10-并发控制方案/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/23/Elasticsearch-28-doc-values初步了解/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1651,7 +1646,7 @@ _mget批量查询比如我们要查询test_inde
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/17/Elasticsearch-10-并发控制方案/" itemprop="url">Elasticsearch-10-并发控制方案</a></h1>
+                <a class="post-title-link" href="/2018/11/23/Elasticsearch-28-doc-values初步了解/" itemprop="url">Elasticsearch-28-doc values初步了解</a></h1>
         
 
         <div class="post-meta">
@@ -1663,8 +1658,8 @@ _mget批量查询比如我们要查询test_inde
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-17T17:26:22+08:00">
-                2018-11-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-23T21:39:41+08:00">
+                2018-11-23
               </time>
             
 
@@ -1725,17 +1720,12 @@ _mget批量查询比如我们要查询test_inde
       
         
           
-          并发场景假设现在是矮子电商场景下,用户需要去购买商品,程序的工作流程是:  
-
-读取商品信息,比如商品名称价格等.
-用户下单去购买商品
-更新商品库存es的工作流程:  
-先查询document数据,商品信息等,显示到页面,同时在内存中缓存该document的数据
-当网页发生购买以后,直接基于内存中的
+          doc value搜索的时候,要依靠倒排索引去搜索,但是在排序的时候需要依靠正排索引,找到每个document的每个field,然后进行排序,所谓的正排索引,其实就是doc values  
+es在建立索引的时候,一方面会建立倒排索引,以供搜索使用;一方面还会建立正排索引,也就是doc values
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/17/Elasticsearch-10-并发控制方案/#more" rel="contents">
+            <a class="btn" href="/2018/11/23/Elasticsearch-28-doc-values初步了解/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1777,7 +1767,7 @@ _mget批量查询比如我们要查询test_inde
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/14/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/16/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/14/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/16/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1823,7 +1813,7 @@ _mget批量查询比如我们要查询test_inde
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">160</span>
+                  <span class="site-state-item-count">178</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1834,7 +1824,7 @@ _mget批量查询比如我们要查询test_inde
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1913,7 +1903,7 @@ _mget批量查询比如我们要查询test_inde
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共173.1k字</span>
+  <span class="post-count">博客全站共189.9k字</span>
 </div>
         
 

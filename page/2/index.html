@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-12-哨兵模式/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-7-Dockerfile的简单使用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-12-哨兵模式/" itemprop="url">Redis-12-哨兵模式</a></h1>
+                <a class="post-title-link" href="/2019/05/25/Docker-7-Dockerfile的简单使用/" itemprop="url">Docker-7-Dockerfile的简单使用</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:17:39+08:00">
-                2019-04-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:26:31+08:00">
+                2019-05-25
               </time>
             
 
@@ -336,8 +336,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -375,12 +375,12 @@
       
         
           
-          述上文中,使用了两种方式搭建redis主从,这两种方式无论是哪种,都会存在一个问题,那就是在主机宕机的时候,就会发生群龙无首的情况,那么如果在master挂掉的时候,能够从slave中选举出一个来充当master,就不需要我们去手动重启主机了,这就是哨兵模式   
-环境准备本文环境基于上文中,如下这
+          述上文中,我们使用commit的方式创建了一个本地的镜像,但是commit方式存在一些问题,比如不够透明化,无法重复,体积较大,为了解决这些问题,可以使用Dockerfile  
+Dockerfile是一个文本文件,其内包含了一条条的指令(Instruction),每一条指令构建一层,因此每一条指令
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-12-哨兵模式/#more" rel="contents">
+            <a class="btn" href="/2019/05/25/Docker-7-Dockerfile的简单使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -431,7 +431,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-11-主从复制环境搭建/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-6-构建自己的镜像/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -450,7 +450,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-11-主从复制环境搭建/" itemprop="url">Redis-11-主从复制环境搭建</a></h1>
+                <a class="post-title-link" href="/2019/05/25/Docker-6-构建自己的镜像/" itemprop="url">Docker-6-构建自己的镜像</a></h1>
         
 
         <div class="post-meta">
@@ -462,8 +462,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:17:28+08:00">
-                2019-04-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:26:16+08:00">
+                2019-05-25
               </time>
             
 
@@ -485,8 +485,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -524,11 +524,14 @@
       
         
           
-          述上文中,介绍了两种redis的持久化方式,分别是RDB和AOF的方式,下面再来看看redis中的主从复制.主从配置也是一种数据备份的方案,而且可以在一定程度上提升redis性能,redis的主从复制和关系型数据库中的主从复制类似, 从机可以精确的复制主机上的数据, 配置好主从之后,一方面能够实现读
+          述上文中,介绍了对于镜像的一些常用的操作,还有镜像和容器的关系等,本文来看一下如何构建一个自己的镜像   
+创建容器这里我们创建两个nginx的容器,首先就需要有nginx的镜像,如果没有的话可以用以下命令下载一个下来:1docker pull nginx
+   
+首先启动一个nginx容器,然后复
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-11-主从复制环境搭建/#more" rel="contents">
+            <a class="btn" href="/2019/05/25/Docker-6-构建自己的镜像/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -579,7 +582,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-10-AOF持久化/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-5-镜像的一些基本操作/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -598,7 +601,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-10-AOF持久化/" itemprop="url">Redis-10-AOF持久化</a></h1>
+                <a class="post-title-link" href="/2019/05/25/Docker-5-镜像的一些基本操作/" itemprop="url">Docker-5-镜像的一些基本操作</a></h1>
         
 
         <div class="post-meta">
@@ -610,8 +613,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:17:16+08:00">
-                2019-04-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:26:03+08:00">
+                2019-05-25
               </time>
             
 
@@ -633,8 +636,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -672,13 +675,13 @@
       
         
           
-          述上文中说了快照持久化,那本文再来看一下另外一种持久化的方式,就是AOF(append-only file)    
-AOF持久化AOF持久化是把被执行的命令都写到一个aof文件末尾,在恢复的时候只需要从头到尾执行一遍写命令即可恢复数据.  
-AOF在redis中默认是没有开启的,需要手动配置开启 
+          述前面的文章中说的都是一些针对容器的操作,下面再来看一下镜像,镜像是容器运行的基础,容器是镜像运行后的形态   
+镜像是一个包含程序运行必要的环境和代码的只读文件,它采用分层的文件系统,将每一层的改变以读写的形式增加到原来的只读文件上   
+镜像和容器的关系前文中我们已经使用过容器了,我们在创建或者
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-10-AOF持久化/#more" rel="contents">
+            <a class="btn" href="/2019/05/25/Docker-5-镜像的一些基本操作/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -729,7 +732,7 @@ AOF在redis中默认是没有开启的,需要手动配置开启
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-9-快照持久化/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-4-容器的导入导出/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -748,7 +751,7 @@ AOF在redis中默认是没有开启的,需要手动配置开启
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-9-快照持久化/" itemprop="url">Redis-9-快照持久化</a></h1>
+                <a class="post-title-link" href="/2019/05/25/Docker-4-容器的导入导出/" itemprop="url">Docker-4-容器的导入导出</a></h1>
         
 
         <div class="post-meta">
@@ -760,8 +763,8 @@ AOF在redis中默认是没有开启的,需要手动配置开启
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:17:07+08:00">
-                2019-04-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:25:49+08:00">
+                2019-05-25
               </time>
             
 
@@ -783,8 +786,8 @@ AOF在redis中默认是没有开启的,需要手动配置开启
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -822,13 +825,13 @@ AOF在redis中默认是没有开启的,需要手动配置开启
       
         
           
-          述redis的持久化有两种方式,分别是快照持久化和AOF,具体使用哪种,需要结合项目的实际情况选择, 下面就先看一下快照持久化.   
-快照持久化, 就是说,redis在某个时间点上,对内存中的数据创建一个副本文件,副本文件中的数据在redis重启时会被自动加载.   
-配置方式redis中,快照持
+          述docker的一大优势,就是可移植性,docker容器可以随意的进行导入导出,下面来看一下具体怎么操作   
+准备工作首先,我们创建一个容器,然后做一些基本的配置,这里以nginx为例,创建一个nginx容器,然后启动,将本地的一个index.html文件上传到容器中去,具体步骤如下  
+首先创建
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-9-快照持久化/#more" rel="contents">
+            <a class="btn" href="/2019/05/25/Docker-4-容器的导入导出/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -879,7 +882,7 @@ AOF在redis中默认是没有开启的,需要手动配置开启
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-8-事务的使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-3-容器的基本操作II/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -898,7 +901,7 @@ AOF在redis中默认是没有开启的,需要手动配置开启
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-8-事务的使用/" itemprop="url">Redis-8-事务的使用</a></h1>
+                <a class="post-title-link" href="/2019/05/25/Docker-3-容器的基本操作II/" itemprop="url">Docker-3-容器的基本操作II</a></h1>
         
 
         <div class="post-meta">
@@ -910,8 +913,8 @@ AOF在redis中默认是没有开启的,需要手动配置开启
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:16:57+08:00">
-                2019-04-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:25:32+08:00">
+                2019-05-25
               </time>
             
 
@@ -933,8 +936,8 @@ AOF在redis中默认是没有开启的,需要手动配置开启
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -972,13 +975,12 @@ AOF在redis中默认是没有开启的,需要手动配置开启
       
         
           
-          述上文中说了redis中的发布与订阅,下面来看一下redis中的事务是如何使用的    
-redis是一个nosql数据库,那当然也就有事务的功能,但是和关系型数据库中的事务还是有点差异  
-事务redis中,可以通过MULTI命令开启一个事务,如下:12172.16.12.3:6379&gt; m
+          述接着上文,还是来看一些对容器的操作   
+启动容器在上文中,我们分别使用了docker run和docker  create的方式创建了一个容器,前者创建完容器之后就直接启动了,那对于docker  create我们可以使用docker start命令来启动,命令如下:1docker start 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-8-事务的使用/#more" rel="contents">
+            <a class="btn" href="/2019/05/25/Docker-3-容器的基本操作II/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1029,7 +1031,7 @@ redis是一个nosql数据库,那当然也就有事务的功能,但是和关系�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-7-发布与订阅/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-2-容器的基本操作I/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1048,7 +1050,7 @@ redis是一个nosql数据库,那当然也就有事务的功能,但是和关系�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-7-发布与订阅/" itemprop="url">Redis-7-发布与订阅</a></h1>
+                <a class="post-title-link" href="/2019/05/25/Docker-2-容器的基本操作I/" itemprop="url">Docker-2-容器的基本操作I</a></h1>
         
 
         <div class="post-meta">
@@ -1060,8 +1062,8 @@ redis是一个nosql数据库,那当然也就有事务的功能,但是和关系�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:16:45+08:00">
-                2019-04-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:25:21+08:00">
+                2019-05-25
               </time>
             
 
@@ -1083,8 +1085,8 @@ redis是一个nosql数据库,那当然也就有事务的功能,但是和关系�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -1122,13 +1124,16 @@ redis是一个nosql数据库,那当然也就有事务的功能,但是和关系�
       
         
           
-          述前面,都是说了一些基础数据类型的一些常用的命令,本文来看一下redis中的发布与订阅   
-发布订阅reids中的发布与订阅类似于生活中的电台, 电台可以在某一个频率上发广播,而我们可以接收任何一个频率的广播   
-下面来看一下具体是如何使用的, 首先需要打开一个redis-cli,然后连接我们的
+          述前文中简单的了解了一下docker,也在CentOS7的环境下安装了docker,那下面就来看一下docker中的一些基本的操作    
+查看容器查看正在运行的容器1docker ps
+
+查看所有容器1docker ps -a
+   
+查看最近创建的容器查看最近创建的一个容器:1docker ps
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-7-发布与订阅/#more" rel="contents">
+            <a class="btn" href="/2019/05/25/Docker-2-容器的基本操作I/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1179,7 +1184,7 @@ redis是一个nosql数据库,那当然也就有事务的功能,但是和关系�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-6-针对散列和有序集合的常用命令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-1-CentOS7环境下安装与运行/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1198,7 +1203,7 @@ redis是一个nosql数据库,那当然也就有事务的功能,但是和关系�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-6-针对散列和有序集合的常用命令/" itemprop="url">Redis-6-针对散列和有序集合的常用命令</a></h1>
+                <a class="post-title-link" href="/2019/05/25/Docker-1-CentOS7环境下安装与运行/" itemprop="url">Docker-1-CentOS7环境下安装与运行</a></h1>
         
 
         <div class="post-meta">
@@ -1210,8 +1215,8 @@ redis是一个nosql数据库,那当然也就有事务的功能,但是和关系�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:16:34+08:00">
-                2019-04-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:25:09+08:00">
+                2019-05-25
               </time>
             
 
@@ -1233,8 +1238,8 @@ redis是一个nosql数据库,那当然也就有事务的功能,但是和关系�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -1272,13 +1277,17 @@ redis是一个nosql数据库,那当然也就有事务的功能,但是和关系�
       
         
           
-          述上文中,介绍了list和set的一些常用的命令,下面再来看一下散列和有序集合的一些常用的命令   
-散列(hash)和java中的hashmap其实是差不多的,redis其实就是存放的键值对,散列也是存放的键值对,,下面来具体看下一下一些常用的操作   
-hsethset用来设置key指定的哈希集
+          前置条件Docker支持以下的CentOS版本:  
+
+CentOS 7(64-bit) 
+CentOS 6.5(64-bit)或者更高的版本  
+
+Docker 运行在 CentOS 7 上,要求系统为64位,系统内核版本为 3.10 以上.  
+Docker 运行在 CentOS-6.5 或更高
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-6-针对散列和有序集合的常用命令/#more" rel="contents">
+            <a class="btn" href="/2019/05/25/Docker-1-CentOS7环境下安装与运行/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1329,7 +1338,7 @@ hsethset用来设置key指定的哈希集
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-5-列表与集合的一些常用命令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-0-什么是Docker/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1348,7 +1357,7 @@ hsethset用来设置key指定的哈希集
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-5-列表与集合的一些常用命令/" itemprop="url">Redis-5-列表与集合的一些常用命令</a></h1>
+                <a class="post-title-link" href="/2019/05/25/Docker-0-什么是Docker/" itemprop="url">Docker-0-什么是Docker</a></h1>
         
 
         <div class="post-meta">
@@ -1360,8 +1369,8 @@ hsethset用来设置key指定的哈希集
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:16:21+08:00">
-                2019-04-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:24:54+08:00">
+                2019-05-25
               </time>
             
 
@@ -1383,8 +1392,8 @@ hsethset用来设置key指定的哈希集
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -1422,14 +1431,12 @@ hsethset用来设置key指定的哈希集
       
         
           
-          述前文中,介绍了String数据类型的一些常用的命令,那么下面来看一下一些针对列表与集合的常用命令   
-列表(list)列表是Redis中另外一种数据类型,下面我们来看看列表中一些基本的操作命令  
-lpush语法如下:1LPUSH key value [value ...]
-将一个或多个值插入到
+          述如今Docker的使用已经非常普遍了,使用Docker技术可以帮助企业快速水平扩展服务,从而到达弹性部署业务的能力,在如今微服务架构越来越流行的情况下,使用微服务+Docker的完美组合,更加方便微服务架构运维部署落地   
+那么,到底什么是Docker,为什么要使用Docker,它有什么优势呢?
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-5-列表与集合的一些常用命令/#more" rel="contents">
+            <a class="btn" href="/2019/05/25/Docker-0-什么是Docker/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1480,7 +1487,7 @@ lpush语法如下:1LPUSH key value [value ...]
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-4-针对String数据类型中Bit的相关命令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Docker-Redis-三主三从集群架构搭建/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1499,7 +1506,7 @@ lpush语法如下:1LPUSH key value [value ...]
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-4-针对String数据类型中Bit的相关命令/" itemprop="url">Redis-4-针对String数据类型中Bit的相关命令</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Docker-Redis-三主三从集群架构搭建/" itemprop="url">Docker-Redis-三主三从集群架构搭建</a></h1>
         
 
         <div class="post-meta">
@@ -1511,7 +1518,7 @@ lpush语法如下:1LPUSH key value [value ...]
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:16:00+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T17:39:33+08:00">
                 2019-04-27
               </time>
             
@@ -1534,8 +1541,8 @@ lpush语法如下:1LPUSH key value [value ...]
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Docker-Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker-Redis</span>
                   </a>
                 </span>
 
@@ -1573,13 +1580,12 @@ lpush语法如下:1LPUSH key value [value ...]
       
         
           
-          概述上篇文章我们对String数据类型中一些基本的命令进行了介绍,但是没有涉及到Bit相关的命令,本文我们就来看看几个和Bit相关的命令.  
-redis中的字符串都是以二进制的方式进行存储的,举个例子,执行以下命令:12172.16.12.3:6379&gt; set k1 aOK
-a对应的ASC
+          述上文中,我们搭建了一个一主二仆的一个Redis架构,在实际生产环境中,我们往往需要搭建一个redis集群,那本文来看一下,基于docker搭建一个三主三从的redis集群   
+环境准备一开始,准备还是用上面文章中拉下来的3.2.9版本的redis,结果在搭建集群的时候出了一些问题,可能是配置的原
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-4-针对String数据类型中Bit的相关命令/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Docker-Redis-三主三从集群架构搭建/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1630,7 +1636,7 @@ a对应的ASC
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-3-针对String数据类型的一些操作/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Docker-Redis-配置主从和哨兵/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1649,7 +1655,7 @@ a对应的ASC
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-3-针对String数据类型的一些操作/" itemprop="url">Redis-3-针对String数据类型的一些操作</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Docker-Redis-配置主从和哨兵/" itemprop="url">Docker-Redis-配置主从和哨兵</a></h1>
         
 
         <div class="post-meta">
@@ -1661,7 +1667,7 @@ a对应的ASC
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:15:48+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T17:39:04+08:00">
                 2019-04-27
               </time>
             
@@ -1684,8 +1690,8 @@ a对应的ASC
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Docker-Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker-Redis</span>
                   </a>
                 </span>
 
@@ -1723,12 +1729,13 @@ a对应的ASC
       
         
           
-          概述上文中,我们看了一些所有数据类型都通用的一些命令,下面再来看一下一些针对String类型独有的命令  
-操作String类型数据的一些命令append追加字符串,如果key存在的话,就直接在value后面追加内容,如果key不存在,就会先创建一个value是空字符串的数据,然后再追加,具体使用方
+          述上文中,我们使用docker安装了redis,下面来配置一个一主二仆的一个主从结构,并且设置哨兵,基于上文中的环境,我们现在已经有一个Redis实例了  
+环境准备上文中我们是挂载的外部的配置文件,和数据文件,然后我们把这个文件夹复制两个出来,改下名字,如下:   
+然后修改这两个新的redis中
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-3-针对String数据类型的一些操作/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Docker-Redis-配置主从和哨兵/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1770,7 +1777,7 @@ a对应的ASC
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1816,7 +1823,7 @@ a对应的ASC
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">160</span>
+                  <span class="site-state-item-count">178</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1827,7 +1834,7 @@ a对应的ASC
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1906,7 +1913,7 @@ a对应的ASC
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共173.1k字</span>
+  <span class="post-count">博客全站共189.9k字</span>
 </div>
         
 

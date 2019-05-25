@@ -1,6 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Docker-17-docker-compose使用案例]]></title>
+    <url>%2F2019%2F05%2F25%2FDocker-17-docker-compose%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B%2F</url>
+    <content type="text"><![CDATA[述上文中,对docker-compose做了一个简单的介绍,以及安装,本文将通过一个简单的案例,来进一步了解docker-compose的使用 本文以jpress(Java版的wordPress)这样一个开源网站的部署为例,来了解docker-compose的使用,我们不必关注jpress的实现,在这里我们只需要将之当作一个普通的web应用即可. 准备工作一共需要两个容器: Tomcat Mysql 然后需要jpress的war包,下载地址 编写DockerfileTomcat容器中,要下载相关的war等,因此这里编写一个Dockerfile来做这个事.在一个空的文件夹下创建Dockerfile,内容如下:1234FROM tomcatADD https://github.com/JpressProjects/jpress/raw/alpha/wars/jpress-web-newest.war /usr/local/tomcat/webapps/RUN cd /usr/local/tomcat/webapps/ \ &amp;&amp; mv jpress-web-newest.war jpress.war 这个Dockerfile主要内容就是: 基于Tomcat镜像构建容器 下载jpress项目的war包到tomcat的webapps目录下 给jpress项目重命名 编写docker-compose.yml在相同的目录下创建docker-compose.yml,内容如下:123456789101112131415161718192021version: &quot;3.1&quot;services: web: build: . container_name: jpress ports: - &quot;8080:8080&quot; volumes: - /usr/local/tomcat/ depends_on: - db db: image: mysql container_name: mysql command: --default-authentication-plugin=mysql_native_password restart: always ports: - &quot;3306:3306&quot; environment: MYSQL_ROOT_PASSWORD: 123 MYSQL_DATABASE: jpress 详解 version: 指定 compose 文件的版本( Compose文件格式有3个版本,分别为1, 2.x 和 3.x目前主流的为 3.x 其支持 docker 1.13.0 及其以上的版本) services: 定义所有的service信息,services下面的第一级别的 key 既是一个 service 的名称(如上面的web,db). build: 指定包含构建上下文的路径,或作为一个对象，该对象具有 context 和指定的 dockerfile 文件以及 args 参数值 container_name: 容器名称 ports: 容器端口映射 volumes: 挂载数据卷 depends_on: 上面的值是db,表示该容器依赖于db容器,在启动的时候,会先启动db容器,然后再启动web容器,这只是启动时机的先后问题,并不是说web容器会等db容器完全启动了才会启动 image: 对于db容器,则使用image来构建,没有使用Dockerfile restart: 重启策略 environment:启动容器时的环境变量,这里配置了数据库root用户的密码以及在启动时创建一个名为jpress的库,environment的配置可以使用字典和数组两种形式 上面的两个文件创建完成之后,就ok了 运行运行的方式有好几种,但是建议使用up这个终极命令,up命令十分强大,它将尝试自动完成包括构建镜像,（重新）创建服务,启动服务,并关联服务相关容器的一系列操作.对于大部分应用都可以直接通过该命令来启动. 默认情况下,docker-compose up启动的容器都在前台,控制台将会同时打印所有容器的输出信息,可以很方便进行调试,通过 Ctrl-C停止命令时,所有容器将会停止,而如果使用docker-compose up -d命令,则将会在后台启动并运行所有的容器.一般推荐生产环境下使用该选项. 进入到docker-compose.yml的目录下,执行以下命令:1docker-compose up -d 启动完成之后,访问http://localhost:8080/jpress,就可以看到jpress的页面了,如下: 停止容器的命令如下:1docker-compose down 踩坑记录在上面执行docker-compose up -d去启动容器的时候,遇到了一个错误,提示如下:1Unsupported config option for services 解决方案参考地址 原因就是我们上面docker-compose.yml中,指定的version,这个version需要跟docker-compose的版本是对应的,否则是无法解析的,具体的对照信息可以去docker-compose的github中去查看,在release中找到自己的docker-compose版本,然后查看可以使用的version]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Docker-16-docker-compose简介与安装]]></title>
+    <url>%2F2019%2F05%2F25%2FDocker-16-docker-compose%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%AE%89%E8%A3%85%2F</url>
+    <content type="text"><![CDATA[述Docker Compose 是 Docker 官方编排（Orchestration）项目之一,负责快速的部署分布式应用. Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and running multi-container Docker applications）」 我们知道使用一个 Dockerfile 模板文件，可以让用户很方便的定义一个单独的应用容器。然而，在日常工作中，经常会碰到需要多个容器相互配合来完成某项任务的情况。例如要实现一个 Web 项目，除了 Web 服务容器本身，往往还需要再加上后端的数据库服务容器，甚至还包括负载均衡容器等。 Compose 恰好满足了这样的需求。它允许用户通过一个单独的 docker-compose.yml 模板文件（YAML 格式）来定义一组相关联的应用容器为一个项目（project）。 Compose 中有两个重要的概念: 服务 (service)：一个应用的容器，实际上可以包括若干运行相同镜像的容器实例。 项目 (project)：由一组关联的应用容器组成的一个完整业务单元，在 docker-compose.yml 文件中定义。 Compose 的默认管理对象是项目，通过子命令对项目中的一组容器进行便捷地生命周期管理。 Compose 项目由 Python 编写，实现上调用了 Docker 服务提供的 API 来对容器进行管理。因此，只要所操作的平台支持 Docker API，就可以在其上利用 Compose 来进行编排管理 安装docker-composedocker-compose的github地址在这里 这里使用PIP的方式安装,简单粗暴,首先把pip装上,分别运行以下命令:123456#安装依赖yum -y install epel-release#安装PIPyum -y install python-pip#升级PIPpip install --upgrade pip 安装完pip后,查看版本号验证安装1pip --version 返回如下,就表示安装成功 pip装好之后,就可以装docker-compose了,命令如下:1pip install -U docker-compose==1.24.0 最后的1.24.0是版本号,可以自己进行调整 安装完成之后用docker-compose --version命令去验证是否安装成功,如下: 至此docker-compose就安装成功了]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Docker-15-容器连接]]></title>
+    <url>%2F2019%2F05%2F25%2FDocker-15-%E5%AE%B9%E5%99%A8%E8%BF%9E%E6%8E%A5%2F</url>
+    <content type="text"><![CDATA[述一般来说,容器启动后,都是通过端口映射使用容器提供的服务,实际上,端口映射只是使用容器服务的一种方式,除了这种方式外,还可以使用容器连接的方式来使用容器服务 例如,有两个容器,一个运行着Spring boot项目,另一个容器运行着mysql数据库,可以通过容器连接使Spring boot直接访问到mysql而不用通过端口映射来访问mysql服务 案例启动两个容器,一个nginx,一个ubuntu,然后在启动nginx的时候,不分配端口映射,然后再启动ubuntu,通过容器连接,在ubuntu中访问nginx,具体步骤如下: 启动nginx容器启动一个nginx容器,但是不分配端口,命令如下:1docker run -d --name nginx1 nginx 如下图: 在不分配端口的情况下,是访问不了的 启动ubuntu容器命令如下:1docker run -dit --name ubuntu --link nginx1:mylink ubuntu bash 使用--link参数建立连接,nginx1是要建立连接的容器,mylink是连接的别名 连接nginx启动成功后,进入容器,命令如下:1docker exec -ti ubuntu bash 查看nginx的方式有两种: 第一种在ubuntu控制台输入env,查看环境变量,如下: 可以看到docker为nginx创建了一系列环境变量.每个前缀变量是MYLINK,这就是刚刚给连接取得别名.开发者可以使用这些环境变量来配置应用程序连接到nginx.该连接是安全、私有的. 然后看图中,可以通过172.17.0.2:80这个地址去访问nginx,在容器中使用curl命令的话,还需要先装一下,执行以下两个命令:12apt updateapt install curl 安装完成之后,就可以访问了,结果如下： 第二种方式查看ubuntu容器的hosts文件,如下: 可以看到,在ubuntu的hosts文件中已经给nginx1取了几个别名,可以直接使用这些别名来访问nginx1,如下:]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Docker-14-数据卷容器]]></title>
+    <url>%2F2019%2F05%2F25%2FDocker-14-%E6%95%B0%E6%8D%AE%E5%8D%B7%E5%AE%B9%E5%99%A8%2F</url>
+    <content type="text"><![CDATA[述数据卷容器就是一个专门用来挂载数据卷的容器,该容器主要是供其他容器引用和使用,所谓的数据卷容器,实际上就是一个普通的容器. 创建数据卷容器命令如下:1docker run -tid -v /usr/share/nginx/html/ --name mydata ubuntu 就是运行了一个ubuntu容器,然后挂载了/usr/share/nginx/html/这个目录 引用容器使用如下命令引用数据卷容器:123docker run -tid --volumes-from mydata -p 80:80 --name nginx1 nginx docker run -tid --volumes-from mydata -p 81:80 --name nginx2 nginx 执行完毕后,刚刚运行的两个nginx容器就都挂载了同一个数据卷到usr/share/nginx/html/目录下面,三个容器中,任意一个修改了该目录下的文件,其他两个都能看到变化 可以用docker inspect命令去查看这三个容器的详情,关于数据卷的部分如下: 从图中可以看到,三个容器的数据卷的描述都是一致的 注意事项这里有几点需要注意的地方 可以多次使用--volumes-from参数来从多个容器挂载多个数据卷,还可以从其他已经挂载了容器卷的容器来挂载数据卷. 使用--volumes-from参数所挂载数据卷的容器自身并不需要保持在运行状态 如果删除了挂载的容器(包括mydata、nginx1和nginx2),数据卷并不会被自动删除.如果要删除一个数据卷,必须在删除最后一个还挂载着它的容器时显式使用docker rm -v命令来指定同时删除关联的容器. 数据备份利用数据卷容器可以实现数据的备份与恢复,备份命令如下:1docker run mydata --name worker --privileged=true -v /usr/docker/backup/:/backup/ ubuntu tar cvf /backup/backup.tar /usr/share/nginx/html/ --volumes-from 连接待备份的容器 -v 用来挂载数据卷到容器的/backup/目录下面 最后是个tar命令,将容器中/usr/share/nginx/html目录下的内容备份到/backup目录下的backup.tar文件中,由于已经设置将宿主机的/usr/docker/backup/目录映射到容器的/backup目录,因为备份在容器/backup目录下的压缩文件在当前目录下可以立马看到 执行如下: 可以看到backup.tar就有了已经,然后打开其实就是/usr/share/nginx/html目录及内容,至此备份就完成了 数据恢复步骤如下 创建容器首先需要创建一个容器,这个容器就是要使用恢复的数据的容器,这里就再创建一个nginx容器了,命令如下:1docker run -itd -p 82:80 -v /usr/share/nginx/html/ --name nginx3 nginx 容器名称是nginx3,然后挂载了一个数据卷 恢复创建一个临时容器,如下:1docker run --volumes-from nginx3 -v $(pwd):/backup nginx tar xvf /backup/backup.tar 首先还是使用--volumes-from参数连接上备份容器,即第一步创建出来的nginx3. 然后将当前目录映射到容器的/backup目录下. 然后执行解压操作,将backup.tar文件解压.解压文件位置描述是一个容器内的地址,但是该地址已经映射到宿主机中的当前目录了,因此这里要解压缩的文件实际上就是宿主机当前目录下的文件. 至此,数据恢复就完成了]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Docker-13-数据卷]]></title>
+    <url>%2F2019%2F05%2F25%2FDocker-13-%E6%95%B0%E6%8D%AE%E5%8D%B7%2F</url>
+    <content type="text"><![CDATA[述数据卷,可以绕过拷贝系统,在多个容器之间,或者容器和宿主机之间共享目录或者文件,数据卷绕过了拷贝系统,可以达到本地磁盘I/O性能 示例以之前的nginx镜像为例,运行一个容器,然后再运行的时候,指定一个数据卷,用-v参数,具体命令如下:1docker run -tid --name nginx -v /usr/share/nginx/html/ -p 80:80 27a188018e18 执行完毕之后,我们就创建一个数据卷并且挂载到容器的/usr/share/nginx/html/目录下面,该目录其实是nginx保存html目录,在这里挂载数据卷,一会我们只需修改本地的映射位置,就可以实现页面的修改了. 使用docker inspect命令来查看一下刚刚创建的容器的具体信息,找到数据卷映射目录,如下:1docker inspect c39c3e362d27 找到下面这个部分: 从上图中可以看到,Docker默认将宿主机的/var/lib/docker/volumes/609df55091699750b86ee1f870e56050d4083a5159c0234360ffe9f903e41b55/_data这个目录作为source目录,然后我们进到这个目录中,看一下文件,如下: 这个目录下面的文件跟容器中的/usr/share/nginx/html/目录下的文件是一致的,这是因为挂载一个空数据卷到容器中的一个非空目录中时这个目录下的文件会被复制到数据卷中,如果挂载一个非空的数据卷到容器中的一个目录中,那么容器中的目录中会显示数据卷中的数据.如果原来容器中的目录中有数据,那么这些原始数据会被隐藏掉 然后现在先访问一下nginx的首页,内容如下: 现在我们把宿主机中,刚才目录下面的index.html修改掉,命令如下:1echo &quot;hello volumes&quot; &gt; index.html 修改完成之后,再回到浏览器中,看一下首页内容,内容已经发生更改了,如下: 使用宿主机目录做数据卷上面我们使用数据卷是系统随机分配的一个目录,一般情况下,需要我们明确的指定宿主机中的一个目录挂载到容器中,方式如下:1docker run -tid --name nginx -v /usr/docker/nginx/html:/usr/share/nginx/html/ -p 80:80 27a188018e18 这样就是将宿主机中的/usr/docker/nginx/html目录挂载到容器的/usr/share/nginx/html/目录下. 接下来只需要修改/usr/docker/nginx/html这个目录下的文件,就可以在nginx中看到效果 这种用法对于开发测试非常方便,不用重新部署,重启容器等.宿主机地址是一个绝对路径 Dockerfile中挂载数据卷如果我们使用了Dockerfile去构建镜像的话,也可以在构建镜像的时候声明数据卷,例如下面这个Dockerfile:1234FROM nginxADD https://www.baidu.com/img/bd_logo1.png /usr/share/nginx/html/RUN echo &quot;hello docker volume!&quot;&gt;/usr/share/nginx/html/index.htmlVOLUME /usr/share/nginx/html/ 通过VOLUME就配置了一个匿名的数据卷,由于没有指定挂载到的宿主机目录,因此会默认挂载到宿主机的/var/lib/docker/volumes下的一个随机名称的目录下,因此Dockerfile中使用VOLUME指令挂载目录和docker run时通过-v参数指定挂载目录的区别在于,run的-v可以指定挂载到宿主机的哪个目录,而Dockerfile的VOLUME不能,其挂载目录由docker随机生成 数据卷的一些常用操作查看所有数据卷命令:1docker volume ls 查看数据卷详情命令:1docker volume inspect &lt;VOLUME NAME&gt; 删除数据卷单个删除:1docker volume rm &lt;VOLUME NAME&gt; 批量删除:1docker volume prune 批量删除的时候,只能删除掉没有在使用中的数据卷,正在使用中的需要停止相关的容器然后再次删除.]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Docker-12-容器网络]]></title>
+    <url>%2F2019%2F05%2F25%2FDocker-12-%E5%AE%B9%E5%99%A8%E7%BD%91%E7%BB%9C%2F</url>
+    <content type="text"><![CDATA[述要构建具有安全的一致行为的web应用程序,可以使用Docker网络特性.根据定义,网络为容器实现了完全隔离.因此,控制应用程序所在的网络很重要,Docker容器网络为您提供了这种控制能力. 默认网络docker提供了三种网络,可以通过docker network ls命令去查看,结果如下: 前面三个就是docker默认提供的,运行容器的时候可以通过--net来指定网络,先来看下这三个默认的网络分别是怎样的 bridge: 表示所有Docker安装中都存在的docker0网络. 除非使用docker run --net=&lt;network&gt;选项另行指定,否则Docker守护进程默认情况下会将容器连接到此网络,在主机上使用ifconfig命令,可以看到此网桥是主机的网络堆栈的一部分 none: 意味着不指定网络,使用这个网络的容器中没有网卡. host: 会将容器加入宿主机所在的网络中,在使用这个网络的容器中其网络配置和宿主机一样 bridge网络详解查看bridge网络的详细信息,命令如下:1docker network inspect bridge 返回值:12345678910111213141516171819202122232425262728293031323334353637383940[ &#123; &quot;Name&quot;: &quot;bridge&quot;, &quot;Id&quot;: &quot;e73fffb9d7ea78c02f9fdcabd33377054ae1f391ed883d8b4c6141f2ee99b101&quot;, &quot;Created&quot;: &quot;2019-04-23T09:36:04.07923852+08:00&quot;, &quot;Scope&quot;: &quot;local&quot;, &quot;Driver&quot;: &quot;bridge&quot;, &quot;EnableIPv6&quot;: false, &quot;IPAM&quot;: &#123; &quot;Driver&quot;: &quot;default&quot;, &quot;Options&quot;: null, &quot;Config&quot;: [ &#123; &quot;Subnet&quot;: &quot;172.17.0.0/16&quot;, &quot;Gateway&quot;: &quot;172.17.0.1&quot; &#125; ] &#125;, &quot;Internal&quot;: false, &quot;Attachable&quot;: false, &quot;Containers&quot;: &#123; &quot;dc37d28c293f8568e396f2c788b43f1fc1e293b88f85232a6c5ae550a099493e&quot;: &#123; &quot;Name&quot;: &quot;registry&quot;, &quot;EndpointID&quot;: &quot;8d31b605406c7aa857366af422eca1e859cbb6610bb4a166c61c893866f006df&quot;, &quot;MacAddress&quot;: &quot;02:42:ac:11:00:02&quot;, &quot;IPv4Address&quot;: &quot;172.17.0.2/16&quot;, &quot;IPv6Address&quot;: &quot;&quot; &#125; &#125;, &quot;Options&quot;: &#123; &quot;com.docker.network.bridge.default_bridge&quot;: &quot;true&quot;, &quot;com.docker.network.bridge.enable_icc&quot;: &quot;true&quot;, &quot;com.docker.network.bridge.enable_ip_masquerade&quot;: &quot;true&quot;, &quot;com.docker.network.bridge.host_binding_ipv4&quot;: &quot;0.0.0.0&quot;, &quot;com.docker.network.bridge.name&quot;: &quot;docker0&quot;, &quot;com.docker.network.driver.mtu&quot;: &quot;1500&quot; &#125;, &quot;Labels&quot;: &#123;&#125; &#125;] 看一下返回值中的Containers,就是所有使用这个网络的容器的信息,上面这个返回值里面的容器就是我们上文中搭建docker仓库的那个容器 在这个网络中的容器,互相之间可以通过ip进行通信,Docker不支持默认的bridge网络上的服务发现(automatic service discovery),如果你希望默认的bridge网络上的容器之间能够通过名字互相通信,需要在docker run命令中指定--link标识 默认的docker0网络上支持通过端口映射或是使用–link来进行通信,但这种方法很笨重且容易出错,不建议在以后的应用中使用. 自定义网络为了很好的实现容器之间的网络隔离,可以使用自定义网络,Docker提供了一些网络驱动器(network driver)来方便用户自定义网络,你可以创建bridge network或overlay network,也可以通过创建自己的网络插件. 你可以创建许多网络,Docker支持将一个容器加入多个网络,只有在同一个网络中的容器之间才可以相互通信,而不能跨网络通信. 创建bridge网络创建自定义网络最简单的方式就是创建一个bridge网络.这样创建的网络和之间介绍的docker0网络很像. 命令如下:1docker network create --driver bridge isolated_nw 创建完成之后,容器就可以使用了.在docker run命令中加入参数,--net=isolated_nw就ok了 同时在容器运行过程中,也可以指定网络,命令如下:1docker network connect 网络名/id 容器名/id 我们上面创建的这个网络中,加入这个bridge网络的容器必须在同一个宿主机上,同一个网络中的容器之间可以直接通信,但不能和不同网络的容器通信.其示意图如下: 在用户自定义的bridge网络中,--link是不支持的,如果你希望外部网络可以访问容器中的应用,可以通过对外暴露端口(expose port)的方式完成. 如果你希望在单个宿主机上创建一个小型网络,bridge网络是很有用的.但如果想创建更大的网络,尤其是跨越多个宿主机的网络,那就需要创建overlay网络 overlay网络这里先不做介绍,想了解的同学可以看这里:原文地址]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Docker-11-创建自己的Docker Hub]]></title>
+    <url>%2F2019%2F05%2F25%2FDocker-11-%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84Docker-Hub%2F</url>
+    <content type="text"><![CDATA[述前面我们使用的Docker Hub是由Docker官方提供的,我们也可以搭建自己的Docker Hub,搭建方式也很容器,因为Docker官方已经将Docker注册服务器做成镜像了,我们直接pull下来运行即可 环境搭建拉取镜像命令如下:1docker pull registry 运行容器镜像拉下来之后,就可以运行容器了.命令如下:1docker run -itd --name registry -p 5000:5000 f32a97de94e1 默认情况下,仓库会被创建在容器的/var/lib/registry目录下,可以通过-v参数挂载本地的路径 私有仓库操作容器运行起来之后,就可以使用docker tag来标记一个镜像,然后推送它到仓库,我们上面的仓库地址就是127.0.0.1:5000 先来看一下我们本地有哪些镜像 标记本地镜像下面使用docker tag将zhou/nginx:v3这个镜像标记为127.0.0.1:5000/zhou/nginx:v3,命令如下: 1docker tag zhou/nginx:v3 127.0.0.1:5000/zhou/nginx:v3 这里用到的docker tag命令的语法是这样的:1docker tag IMAGE[:TAG] [REGISTRY_HOST[:REGISTRY_PORT]/]REPOSITORY[:TAG] 上传本地镜像使用docker push上传标记的镜像到仓库,命令如下:1docker push 127.0.0.1:5000/zhou/nginx:v3 执行完毕后,再来看一下本地的镜像: 查看本地仓库中的镜像然后我们可以通过curl去查看仓库中的镜像,命令如下:1curl 127.0.0.1:5000/v2/_catalog 返回如下: 表示我们刚刚上传的镜像已经上传成功了 下载仓库的镜像上传完成之后,就可以从本地的仓库中去下载了 首先我们把本地的先删了,然后再下载试试1docker rmi 127.0.0.1:5000/zhou/nginx:v3 删除完成之后,从本地仓库中拉取镜像,命令如下:1docker pull 127.0.0.1:5000/zhou/nginx:v3 后续的运行容器等操作都和之前的一样的,关于私有仓库就先介绍到这里]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Docker-10-自动化构建]]></title>
+    <url>%2F2019%2F05%2F25%2FDocker-10-%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9E%84%E5%BB%BA%2F</url>
+    <content type="text"><![CDATA[述上文看了如何把本地的镜像上传到Docker Hub上面,但是如果我们对镜像要进行修改的时候,就得先去改Dockerfile,然后再去build,再push到Docker Hub上面去,修改频繁的情况下,要一种重复这几个操作,这就比较难受了,所以下面来看下自动化构建 自动化构建自动化构建,就是使用Docker Hub连接一个包含Dockerfile文件的Github仓库或者BitBucket仓库,DockerHub则会自动构建镜像,通过这种方式构建出来的镜像会被标记为Automated Build,也称之为受信构建(Trusted Build),这种构建方式构建出来的镜像,使其他人在使用的时候可以自由查看Dockerfile的内容,知道镜像是怎么来的,同时由于构建过程是自动的,所以能确保仓库中的镜像是最新的. 下面来看一下具体怎么操作(这里演示用gitHub了,为什么呢?因为我没用过BitBucket.): 关联GitHub首先登录到Docker Hub,点击右上角头像,然后账号设置,如图: 然后如下图,关联到自己的github账号. 新建仓库gitHub关联好之后,去新建一个仓库,如图 信息填写完成之后点create就好了 新建GitHub仓库DockerHub创建好了之后,去GitHub中也需要创建一个仓库,用来放Dockerfile文件,如下: 这里Dockerfile的内容还是和我们之前的Dockerfile内容一样,如下:123FROM nginxMAINTAINER zhou &quot;zhouze_java@sina.com&quot;RUN echo &apos;hello docker!&apos;&gt;/usr/share/nginx/html/index.html 到这一步,gitHub中的操作就完成了 配置自动构建再进到DockerHub,点击刚刚新建好的仓库进去,然后上面的选项卡切换到Builds,如图: 点击配置进去,然后选择刚刚在git上创建的仓库,然后其他都用默认的就ok,如下: 最后点击Sava And Build就会自动构建了, 如下图,就是在构建中: 等一段时间,就可以看到是构建成功还是失败了,如下: 这样配置完成之后,一旦GitHub仓库中的Dockerfile文件有更新,Docker Hub上的镜像构建就会自动触发,不用人工干预,从而保证镜像始终都是最新的. 然后用户就可以通过docker pull命令去获取镜像了,关于自动化构建就先说到这里]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Docker-9-Docker Hub上传自己的镜像]]></title>
+    <url>%2F2019%2F05%2F25%2FDocker-9-Docker-Hub%E4%B8%8A%E4%BC%A0%E8%87%AA%E5%B7%B1%E7%9A%84%E9%95%9C%E5%83%8F%2F</url>
+    <content type="text"><![CDATA[述类似于GitHub提供的代码托管服务,Docker Hub提供了镜像托管服务,利用Docker Hub我们可以搜索,创建,分享和管理镜像,Docker Hub上的镜像分为两大类,一类是官方镜像,例如我们之前用到的nginx、mysql等,还有一类是普通的用户镜像,普通用户镜像由用户自己上传 由于天朝网络的原因,我们可以使用一些国内公司提供的镜像,比如网易的,本文就使用Docker Hub了. 注册登录打开Docker Hub,去注册一个账号,这里就说了,注册好之后,就可以在命令行去登录了,命令如下:123456789101112131415docker login``` ![image](http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/KeCNd9Yi0ZIpl5u*P05qTsn7MwbXjz1M48tQA1gof1Q!/r/dDABAAAAAAAA) 如图,出现Login Succeeded就表示登录成功了 ### 上传镜像 登录成功之后就可以在Docker Hub上面上传我们的自制镜像了,这里要注意,自制的镜像如果要上传的话,命名必须满足规范,即`namespace/name`格式,其中namespace必须是用户名,以前文中我们创建的Dockerfile为例,我们重新构建一个本地镜像并且上传到Docker Hub, 如图: ![image](http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/voYxPzTDdf6z9.59id0xZSqHsk2WcJP4R2*WMLnST7k!/r/dE0BAAAAAAAA) 这里`-t`后面的值替换成自己的`namespace/name`即可 镜像构建完成之后,就可以上传到docker hub上去了,命令如下 docker push 镜像名/id1234567 ![image](http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/soD28enic85haqpcHxIFtY8AW7fbsclgh4eiR9RWUqc!/r/dMMAAAAAAAAA) 上传成功后,就可以在docker hub上面看到刚刚上传的镜像了,如图: ![image](http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/QlMZGyX.WoS.bj*8K.LlVgf1mYw3c6q6bP5s*I57grU!/r/dLYAAAAAAAAA) 然后其他人如果需要使用的话,就可以直接从Dokcer Hub上面拉下来就好了,命令如下: docker pull namespace/name`]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Docker-8-Dockerfile的指令及使用方法]]></title>
+    <url>%2F2019%2F05%2F25%2FDocker-8-Dockerfile%E7%9A%84%E6%8C%87%E4%BB%A4%E5%8F%8A%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[述上文中,简单的使用了一个Dockerfile构建镜像,使用到了三个指令就是FROM,MAINTAINER和RUN,本文在来看一些其他的指令.他们的作用以及使用方式 指令详解COPY 复制文件格式12COPY &lt;源路径&gt;... &lt;目标路径&gt;COPY [&quot;&lt;源路径1&gt;&quot;,... &quot;&lt;目标路径&gt;&quot;] 和RUN指令一样,也是两种格式,一种类似于命令行,一种类似于函数调用,COPY指令将从构建上下文目录中&lt;源路径&gt;的文件/目录复制到新的一层的镜像内的&lt;目标路径&gt;位置. 比如:1COPY package.json /usr/src/app/ &lt;源路径&gt;可以是多个,甚至可以是通配符,其通配符规则要满足 Go 的 filepath.Match 规则,如:12COPY hom* /mydir/COPY hom?.txt /mydir/ &lt;目标路径&gt;可以是容器内的绝对路径,也可以是相对于工作目录的相对路径(工作目录可以用WORKDIR指令来指定).目标路径不需要事先创建,如果目录不存在会在复制文件前先行创建缺失目录. 此外,还需要注意一点,使用 COPY 指令,源文件的各种元数据都会保留.比如读、写、执行权限、文件变更时间等.这个特性对于镜像定制很有用.特别是构建相关文件都在使用 Git 进行管理的时候. ADD 更高级的复制文件格式12ADD &lt;源路径&gt;... &lt;目标路径&gt;ADD [&quot;&lt;源路径&gt;&quot;,... &quot;&lt;目标路径&gt;&quot;] ADD 指令和 COPY 的格式和性质基本一致。但是在 COPY 基础上增加了一些功能。 比如 &lt;源路径&gt; 可以是一个 URL，这种情况下，Docker 引擎会试图去下载这个链接的文件放到 &lt;目标路径&gt; 去。下载后的文件权限自动设置为 600，如果这并不是想要的权限，那么还需要增加额外的一层 RUN 进行权限调整，另外，如果下载的是个压缩包，需要解压缩，也一样还需要额外的一层 RUN 指令进行解压缩。所以不如直接使用 RUN 指令，然后使用 wget 或者 curl 工具下载，处理权限、解压缩、然后清理无用文件更合理。因此，这个功能其实并不实用，而且不推荐使用。 如果 &lt;源路径&gt; 为一个 tar 压缩文件的话，压缩格式为 gzip, bzip2 以及 xz 的情况下，ADD 指令将会自动解压缩这个压缩文件到 &lt;目标路径&gt; 去。 但在某些情况下，如果我们真的是希望复制个压缩文件进去，而不解压缩，这时就不可以使用 ADD 命令了。 另外需要注意的是，ADD 指令会令镜像构建缓存失效，从而可能会令镜像构建变得比较缓慢。 因此在 COPY 和 ADD 指令中选择的时候，可以遵循这样的原则，所有的文件复制均使用 COPY 指令，仅在需要自动解压缩的场合使用 ADD。 在使用该指令的时候还可以加上 –chown=\&lt;user>:\&lt;group> 选项来改变文件的所属用户及所属组。1234ADD --chown=55:mygroup files* /mydir/ADD --chown=bin files* /mydir/ADD --chown=1 files* /mydir/ADD --chown=10:11 files* /mydir/ CMD 设置容器启动时执行的操作指定容器启动时执行的命令,每个Dockerfile只能有一条CMD命令 格式使用 exec 执行,推荐方式:1CMD [&quot;executable&quot;,&quot;param1&quot;,&quot;param2&quot;] Shell格式:1CMD &lt;命令&gt; 参数列表格式:1CMD [&quot;参数1&quot;, &quot;参数2&quot;...] 在指定了 ENTRYPOINT 指令后,用 CMD 指定具体的参数。 这里与RUN指令的区别就是,RUN是在构建容器的时候执行的,CMD是在容器运行的时候执行的. ENTRYPOINT 入口点ENTRYPOINT用于给容器配置一个可执行程序,也就是说,每次使用镜像创建容器时,通过 ENTRYPOINT 指定的程序都会被设置为默认程序 格式数组/exec格式,推荐:1ENTRYPOINT [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;] Shell格式1ENTRYPOINT command param1 param2 ENTRYPOINT 与 CMD 非常类似,不同的是通过docker run执行的命令不会覆盖 ENTRYPOINT,而docker run命令中指定的任何参数,都会被当做参数再次传递给 ENTRYPOINT,Dockerfile中只允许有一个 ENTRYPOINT 命令,多指定时会覆盖前面的设置,而只执行最后的 ENTRYPOINT 指令. docker run运行容器时指定的参数都会被传递给 ENTRYPOINT ,且会覆盖 CMD 命令指定的参数.如,执行docker run \&lt;image> -d时,-d 参数将被传递给入口点. 也可以通过docker run --entrypoint重写 ENTRYPOINT 入口点.如:可以像下面这样指定一个容器执行程序:1ENTRYPOINT [&quot;/usr/bin/nginx&quot;] 完整构建代码:123456789# Version: 0.0.3FROM ubuntu:16.04MAINTAINER 何民三 &quot;cn.liuht@gmail.com&quot;RUN apt-get updateRUN apt-get install -y nginxRUN echo &apos;Hello World, 我是个容器&apos; \ &gt; /var/www/html/index.htmlENTRYPOINT [&quot;/usr/sbin/nginx&quot;]EXPOSE 80 使用docker build构建镜像,并将镜像指定为 itbilu/test:1docker build -t=&quot;itbilu/test&quot; . 构建完成后,使用itbilu/test启动一个容器:1docker run -i -t itbilu/test -g &quot;daemon off;&quot; 在运行容器时,我们使用了-g &quot;daemon off;&quot;,这个参数将会被传递给 ENTRYPOINT,最终在容器中执行的命令为 /usr/sbin/nginx -g &quot;daemon off;&quot; ENV 设置环境变量这个指令很简单，就是设置环境变量而已，无论是后面的其它指令，如 RUN，还是运行时的应用，都可以直接使用这里定义的环境变量。 格式12ENV &lt;key&gt; &lt;value&gt;ENV &lt;key1&gt;=&lt;value1&gt; &lt;key2&gt;=&lt;value2&gt;... 12ENV VERSION=1.0 DEBUG=on \ NAME=&quot;Happy Feet&quot; 这个例子中演示了如何换行，以及对含有空格的值用双引号括起来的办法，这和 Shell 下的行为是一致的。 ARG构建参数ARG用于指定传递给构建运行时的变量:1ARG &lt;name&gt;[=&lt;default value&gt;] 如，通过ARG指定两个变量：12ARG siteARG build_user=IT笔录 以上我们指定了 site 和 build_user 两个变量，其中 build_user 指定了默认值。在使用 docker build 构建镜像时，可以通过 –build-arg \&lt;varname>=\&lt;value> 参数来指定或重设置这些变量的值。 1docker build --build-arg site=itiblu.com -t itbilu/test . 这样我们构建了 itbilu/test 镜像，其中site会被设置为 itbilu.com，由于没有指定 build_user，其值将是默认值 IT 笔录。 VOLUME 定义匿名卷格式12VOLUME [&quot;&lt;路径1&gt;&quot;, &quot;&lt;路径2&gt;&quot;...] VOLUME &lt;路径&gt; 之前我们说过，容器运行时应该尽量保持容器存储层不发生写操作，对于数据库类需要保存动态数据的应用，其数据库文件应该保存于卷(volume)中，后面的章节我们会进一步介绍 Docker 卷的概念。为了防止运行时用户忘记将动态文件所保存目录挂载为卷，在 Dockerfile 中，我们可以事先指定某些目录挂载为匿名卷，这样在运行时如果用户不指定挂载，其应用也可以正常运行，不会向容器存储层写入大量数据。 1VOLUME /data 这里的 /data 目录就会在运行时自动挂载为匿名卷，任何向 /data 中写入的信息都不会记录进容器存储层，从而保证了容器存储层的无状态化。当然，运行时可以覆盖这个挂载设置。比如：1docker run -d -v mydata:/data xxxx 在这行命令中，就使用了 mydata 这个命名卷挂载到了 /data 这个位置，替代了 Dockerfile 中定义的匿名卷的挂载配置。 EXPOSE 声明端口格式1格式为 EXPOSE &lt;端口1&gt; [&lt;端口2&gt;...] EXPOSE 指令是声明运行时容器提供服务端口，这只是一个声明，在运行时并不会因为这个声明应用就会开启这个端口的服务。在 Dockerfile 中写入这样的声明有两个好处，一个是帮助镜像使用者理解这个镜像服务的守护端口，以方便配置映射；另一个用处则是在运行时使用随机端口映射时，也就是 docker run -P 时，会自动随机映射 EXPOSE 的端口。 要将 EXPOSE 和在运行时使用 -p &lt;宿主端口&gt;:&lt;容器端口&gt; 区分开来。-p，是映射宿主端口和容器端口，换句话说，就是将容器的对应端口服务公开给外界访问，而 EXPOSE 仅仅是声明容器打算使用什么端口而已，并不会自动在宿主进行端口映射。 WORKDIR 指定工作目录格式1WORKDIR &lt;工作目录路径&gt; 使用 WORKDIR 指令可以来指定工作目录（或者称为当前目录），以后各层的当前目录就被改为指定的目录，如该目录不存在，WORKDIR 会帮你建立目录。 之前提到一些初学者常犯的错误是把 Dockerfile 等同于 Shell 脚本来书写，这种错误的理解还可能会导致出现下面这样的错误：12RUN cd /appRUN echo &quot;hello&quot; &gt; world.txt 如果将这个 Dockerfile 进行构建镜像运行后，会发现找不到 /app/world.txt 文件，或者其内容不是 hello。原因其实很简单，在 Shell 中，连续两行是同一个进程执行环境，因此前一个命令修改的内存状态，会直接影响后一个命令；而在 Dockerfile 中，这两行 RUN 命令的执行环境根本不同，是两个完全不同的容器。这就是对 Dockerfile 构建分层存储的概念不了解所导致的错误。 之前说过每一个 RUN 都是启动一个容器、执行命令、然后提交存储层文件变更。第一层 RUN cd /app 的执行仅仅是当前进程的工作目录变更，一个内存上的变化而已，其结果不会造成任何文件变更。而到第二层的时候，启动的是一个全新的容器，跟第一层的容器更完全没关系，自然不可能继承前一层构建过程中的内存变化。 因此如果需要改变以后各层的工作目录的位置，那么应该使用 WORKDIR 指令。 USER 指定当前用户格式1USER &lt;用户名&gt;[:&lt;用户组&gt;] USER 指令和 WORKDIR 相似，都是改变环境状态并影响以后的层。WORKDIR 是改变工作目录，USER 则是改变之后层的执行 RUN, CMD 以及 ENTRYPOINT 这类命令的身份。 当然，和 WORKDIR 一样，USER 只是帮助你切换到指定用户而已，这个用户必须是事先建立好的，否则无法切换。 123RUN groupadd -r redis &amp;&amp; useradd -r -g redis redisUSER redisRUN [ &quot;redis-server&quot; ] 如果以 root 执行的脚本，在执行期间希望改变身份，比如希望以某个已经建立好的用户来运行某个服务进程，不要使用 su 或者 sudo，这些都需要比较麻烦的配置，而且在 TTY 缺失的环境下经常出错。建议使用 gosu 12345678# 建立 redis 用户，并使用 gosu 换另一个用户执行命令RUN groupadd -r redis &amp;&amp; useradd -r -g redis redis# 下载 gosuRUN wget -O /usr/local/bin/gosu &quot;https://github.com/tianon/gosu/releases/download/1.7/gosu-amd64&quot; \ &amp;&amp; chmod +x /usr/local/bin/gosu \ &amp;&amp; gosu nobody true# 设置 CMD，并以另外的用户执行CMD [ &quot;exec&quot;, &quot;gosu&quot;, &quot;redis&quot;, &quot;redis-server&quot; ] HEALTHCHECK 健康检查格式12HEALTHCHECK [选项] CMD &lt;命令&gt;：设置检查容器健康状况的命令HEALTHCHECK NONE：如果基础镜像有健康检查指令，使用这行可以屏蔽掉其健康检查指令 HEALTHCHECK 指令是告诉 Docker 应该如何进行判断容器的状态是否正常 当在一个镜像指定了 HEALTHCHECK 指令后，用其启动容器，初始状态会为 starting，在 HEALTHCHECK 指令检查成功后变为 healthy，如果连续一定次数失败，则会变为 unhealthy。 HEALTHCHECK 支持下列选项： --interval=&lt;间隔&gt;：两次健康检查的间隔，默认为 30 秒； --timeout=&lt;时长&gt;: 健康检查命令运行超时时间，如果超过这个时间，本次健康检查就被视为失败，默认 30 秒； --retries=&lt;次数&gt;：当连续失败指定次数后，则将容器状态视为 unhealthy，默认 3 次。 和 CMD, ENTRYPOINT 一样，HEALTHCHECK 只可以出现一次，如果写了多个，只有最后一个生效。 原文地址,参考文章地址]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Docker-7-Dockerfile的简单使用]]></title>
+    <url>%2F2019%2F05%2F25%2FDocker-7-Dockerfile%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[述上文中,我们使用commit的方式创建了一个本地的镜像,但是commit方式存在一些问题,比如不够透明化,无法重复,体积较大,为了解决这些问题,可以使用Dockerfile Dockerfile是一个文本文件,其内包含了一条条的指令(Instruction),每一条指令构建一层,因此每一条指令的内容,就是描述该层应当如何构建. 书写规则Dockerfile的指令是忽略大小写的,建议使用大写,使用#作为注释,每一行只支持一条指令,每条指令可以携带多个参数 示例先来看一个简单的例子,首先找个空白目录创建一个名为Dockerfile的文件,命令如下:1touch Dockerfile 编辑文件内容,如下:123FROM nginxMAINTAINER zhou &quot;xxx@sina.com&quot;RUN echo &apos;hello docker!&apos;&gt;/usr/share/nginx/html/index.html 在这个Dockerfile中一共就三行,用到了三个指令,FROM,MAINTAINER和RUN 命令详解FROM指定镜像,这里表示已nginx为基础,在该镜像的基础上构建 MAINTAINER表示镜像作者的信息,这命令可以不写 RUNRUN指令用来修改镜像,算是使用比较频繁的一个指令了,该指令可以用来安装程序、安装库以及配置应用程序等. 一个RUN指令执行会在当前镜像的基础上创建一个新的镜像层,接下来的指令将在这个新的镜像层上执行.这里要注意,不要写很多个RUN,否则会建立很多层,Union FS是有最大层数限制的,比如AUFS,曾经是最大不得超过42层,现在是不得超过 127 层. 可以使用&amp;&amp;将各个所需执行的命令串联起来,而且Dockerfile 支持 Shell 类的行尾添加 \ 的命令换行方式 RUN语句有两种不同的形式:shell格式和exec格式,本案例采用的shell格式,shell格式就像linux命令一样,exec格式则是一个JSON数组,将命令放到数组中即可 构建镜像在刚刚创建的Dockerfile的目录下执行下面的命令去构建镜像:1docker build -t zhou/nginx:v3 . 执行结果如下: 从输出结果中,就能清晰的看到镜像的构建过程. 构建完成之后就可以用这个镜像去运行容器了. 这里构建命令的-t参数,用来指定镜像的命名空间,仓库名以及TAG等信息 命令最后有一个.,指的是镜像构建上下文官方的描述是这样的: Docker采用了C/S架构，分为Docker客户端（Docker可执行程序）与Docker守护进程，Docker客户端通过命令行和API的形式与Docker守护进程进行通信，Docker守护进程则提供Docker服务。因此，我们操作的各种docker命令实际上都是由docker?客户端发送到docker守护进程上去执行。我们在构建一个镜像时，不可避免的需要将一些本地文件拷贝到镜像中，例如上文提到的COPY命令，用户在构建镜像时，需要指定构建镜像的上下文路径（即前文的.）,docker build在获得这个路径之后，会将路径下的所有内容打包，然后上传给Docker引擎。]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Docker-6-构建自己的镜像]]></title>
+    <url>%2F2019%2F05%2F25%2FDocker-6-%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E9%95%9C%E5%83%8F%2F</url>
+    <content type="text"><![CDATA[述上文中,介绍了对于镜像的一些常用的操作,还有镜像和容器的关系等,本文来看一下如何构建一个自己的镜像 创建容器这里我们创建两个nginx的容器,首先就需要有nginx的镜像,如果没有的话可以用以下命令下载一个下来:1docker pull nginx 首先启动一个nginx容器,然后复制一个本地的html进去做首页,如下: 可以看到这里容nginx的首页已经换成是我们自定义的了 然后再启动一个nginx,这次不替换首页, 用的镜像还是和上面的一样,命令如下: 这里可以发现我们第二次创建的这个容器的首页还是默认页面没有发生改变的,所以容器的修改并不能影响镜像 创建本地镜像具体操作如下: 这里主要命令是这个:1docker commit -m &quot;update index.html&quot; --author=&apos;zz&apos; 415fe3874fb7 zhou/nginx:v1 -m: 提交的备注 --author: 表示镜像的作者 415fe3874fb7: 创建镜像所依据的容器id zhou/nginx: 表示仓库名,zhou是名称空间,nginx是镜像名 v1: 表示仓库的tag 如图中,镜像创建完成之后,就可以通过docker images查看到刚刚创建的镜像了. 测试我们用刚刚创建的镜像建一个容器来看一下 如图,可以看到,这里的首页已经是改变过的了 在实际的使用过程中,并不会通过docker commit的方式创建镜像 使用 docker commit 意味着所有对镜像的操作都是黑箱操作，生成的镜像也被称为黑箱镜像，换句话说，就是除了制作镜像的人知道执行过什么命令、怎么生成的镜像，别人根本无从得知。而且，即使是这个制作镜像的人，过一段时间后也无法记清具体在操作的。虽然 docker diff 或许可以告诉得到一些线索，但是远远不到可以确保生成一致镜像的地步。这种黑箱镜像的维护工作是非常痛苦的。]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Docker-5-镜像的一些基本操作]]></title>
+    <url>%2F2019%2F05%2F25%2FDocker-5-%E9%95%9C%E5%83%8F%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%2F</url>
+    <content type="text"><![CDATA[述前面的文章中说的都是一些针对容器的操作,下面再来看一下镜像,镜像是容器运行的基础,容器是镜像运行后的形态 镜像是一个包含程序运行必要的环境和代码的只读文件,它采用分层的文件系统,将每一层的改变以读写的形式增加到原来的只读文件上 镜像和容器的关系前文中我们已经使用过容器了,我们在创建或者启动一个容器的时候,必须要指定一个镜像的名称或者id,这时镜像所扮演的角色就是容器的模板,不同的镜像可以构造出不同的容器. 我们上文中运行了一个nginx容器,命令如下:1docker run -itd --name nginx -p 80:80 nginx 命令中的最后一个nginx就表示创建这个容器所需要的模板 镜像的体系结构镜像的最底层是一个启动文件系统(bootfs)镜像,bootfs的上层镜像叫做根镜像,一般来说,根镜像是一个操作系统,例如Ubuntu,CentOS等,用户的镜像必须构建于根镜像之上,在根镜像之上,用户可以构建出各种各样的其他镜像 镜像的本质其实就是一系列文件的集合,一层套一层的结构有点类似于Git. 镜像的写时复制机制当docker第一次启动一个容器的时候,初始的读写层是空的,当文件系统发生变化时,这些变化都会应用到这一层之上,比如,如果你想修改一个文件,这个文件首先会从该读写层下面的只读层复制到该读写层,由此,该文件的只读版本依然存在于只读层,只是被读写层的该文件副本隐藏,该机制本被称之为写时复制. 查看本地镜像通过以下命令可以查询到所有的本地镜像:1docker images 返回值详解可以看到这里一共是有5个信息,下面来详细的看一下每个列代表的是什么意思 REPOSITORY仓库名称,仓库一般用来存放同一类型的镜像,仓库的名称由其创建者指定,如果没有指定则为\&lt;none>,一般来说,仓库名称有如下几种不同的形式: [namespace\ubuntu]: 这种仓库名称由命名空间和实际的仓库名组成,中间通过\隔开.当开发者在Docker Hub上创建一个用户时,用户名就是默认的命名空间,这个命令空间是用来区分Docker Hub上注册的不同用户或者组织(类似于GitHub上用户名的作用),如果将自己的镜像上传到Docker Hub上供别人使用,则必须指定命名空间 [ubuntu]:这种只有仓库名,对于这种没有命名空间的仓库名,可以认为其属于顶级命名空间,该空间的仓库只用于官方的镜像,由Docker官方进行管理,但一般会授权给第三方进行开发维护.当然用户自己创建的镜像也可以使用这种命名方式,但是将无法上传到Docker Hub上共享. [daocloud.io/library/redis]: 这种指定url路径的方式,一般用于非Docker Hub上的镜像命名,例如一个第三方服务商提供的镜像或者开发者?自己搭建的镜像中心,都可以使用这种命名方式命名 TAGTAG是镜像的标签,用来区分同一仓库中的不同镜像,默认是latest IMAGE_ID镜像的ID,唯一标识符 CREATED表示镜像创建的时间 SIZE表示镜像的大小 通配符过滤使用docker images可以列出所有的镜像,但是当我们本地镜像太多的时候,还可以通过通配符匹配,如下: 如果想要查看镜像的详细信息,也可以通过以下命令去查看:1docker inspect 镜像ID/名称 下载镜像我们去执行docker run命令的时候,如果本地没有镜像,就会自动去Docker Hub去下载,之前已经演示过了,我们也可以通过命令去Docker Hub上去搜索符合要求的镜像,命令如下:1docker search 镜像名称 返回列详解 NAME: 镜像名称 DESCRIPTION: 描述 STARS: 表示用户对镜像的评分,评分越高越可以放心使用 OFFICIAL: 是否为官方镜像 AUTOMATED: 是否使用了自动构建 在使用docker run运行容器的时候再去下载镜像,速度可能会有点慢,所以我们可以在镜像运行之前先把镜像给下载下来,命令如下:1docker pull 指定的镜像 这里就跟从github上往下拉代码是差不多的 删除镜像删除镜像的命令是docker rmi 镜像id/镜像名称,之前我们有用过,这里就不多说了]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Docker-4-容器的导入导出]]></title>
+    <url>%2F2019%2F05%2F25%2FDocker-4-%E5%AE%B9%E5%99%A8%E7%9A%84%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%2F</url>
+    <content type="text"><![CDATA[述docker的一大优势,就是可移植性,docker容器可以随意的进行导入导出,下面来看一下具体怎么操作 准备工作首先,我们创建一个容器,然后做一些基本的配置,这里以nginx为例,创建一个nginx容器,然后启动,将本地的一个index.html文件上传到容器中去,具体步骤如下 首先创建一个index.html文件,内容如下,路径自己随意,我这里是/usr/docker/nginx/,内容如下:12345678910&lt;!DOCTYPE html&gt;&lt;html&gt; &lt;head&gt; &lt;meta charset=&quot;utf-8&quot;&gt; &lt;title&gt;测试页面&lt;/title&gt; &lt;/head&gt; &lt;body&gt; &lt;p&gt;Hello Docker!&lt;/p&gt; &lt;/body&gt;&lt;/html&gt; 创建完成之后,运行一个nginx容器,命令如下:1docker run -itd --name nginx -p 80:80 nginx 最后把本地的这个网页copy到容器中去,命令如下:1docker cp /usr/docker/nginx/index.html nginx:/usr/share/nginx/html/ 这时候,访问ip:80,内容如下: 容器导出上面的操作完成之后,就可以通过export命令将容器导出,如下:1docker export 容器id/名称 &gt; 导出的路径 如图,这样就导出完成了 容器导入把我们现在docker中的镜像和容器都删掉然后做导入的操作,删除操作如下: 查看所有镜像的命令是:1docker images 删除镜像的命令是:1docker rmi 镜像id 删除完成之后就可以导入了,命令如下:12cd /usr/docker/nginxcat nginx.tar | docker import - importednginx:ilatest 如下: 导入完成之后,镜像里面就有了,就可以通过docker run去启动容器了]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Docker-3-容器的基本操作II]]></title>
+    <url>%2F2019%2F05%2F25%2FDocker-3-%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9CII%2F</url>
+    <content type="text"><![CDATA[述接着上文,还是来看一些对容器的操作 启动容器在上文中,我们分别使用了docker run和docker create的方式创建了一个容器,前者创建完容器之后就直接启动了,那对于docker create我们可以使用docker start命令来启动,命令如下:1docker start 容器id/容器名称 如图,就是通过容器的id去启动容器的,docker start启动的是一个已经存在的容器,要使用该命令启动一个容器,必须要先知道容器的id或者name 一般来说,第一次启动容器可以直接用docker run以后就用docker start就好了 重启容器容器在运行过程中,会不可避免的出问题,出了问题的时候,需要容器能够自动重启,我们可以在容器启动的时候使用–restart参数实现这一需求. docker的重启策略有以下几种: no: 表示不重启,默认即此 on:failure:[max-retries]: 在容器非正常退出(退出状态非0),才会重启容器,可以指定一个最大重试次数,重启次数达到上限之后会放弃重启 always: 始终重启容器,当docker守护进程启动时,无论容器当时的状态为何,都会尝试重启容器 ubless-stopped: 表示始终重启容器,但是当docker守护进程启动时,如果容器已经停止运行,则不会去重启它 停止容器通过docker stop命令可以停止一个容器1docker stop 容器id/容器名称 删除容器容器停止后,还是存在的,如果我们不需要了,可以通过docker rm去删除一个容器,删除容器只能删除已经停止的容器1docker rm 容器id/容器名 如图,只能删除停止状态的容器 , 如果非要删除一个运行状态的容器的话,可以通过加 -f参数实现,语法如下:1docker rm -f 容器id/容器名 批量删除批量删除命令如下:1docker rm $(docker ps -a -q) docker ps -a -q会列出所有的容器的id,供删除,同样的,这里也是只能删除停止的容器 还有一个命令,可以删除所有的停止状态的容器,如下:1docker container prune 查看容器信息容器创建成功后,可以通过docker inspect查看容器的详细信息,包括容器的id,容器名称,环境变量,运行命令,主机配置,网络配置以及数据卷等信息1docker inspect 容器id/名称 返回值如下: format参数上面返回的数据实在是太多了,看起来也不方便,使用format参数可以只查看用户关心的数据,如下: 查看容器运行状态:1docker inspect -f=&apos;&#123;&#123;.State.Running&#125;&#125;&apos; 容器id/名称 查看容器的id和名称:1docker inspect -f=&apos;&#123;&#123;.Name&#125;&#125; &#123;&#123;.ID&#125;&#125;&apos; 容器id/名称 查看容器内的进程查看某个容器中有哪些正在运行的进程,可以用以下命令:1docker top 容器id/名称 这里要确保查询的容器是启动的 查看容器日志要查看容器的日志可以使用以下命令:1docker logs 容器id/名称 我这里查看了一个redis容器的日志,返回值如下: 详细参数默认情况下只能看到历史日志,不能看到实时的日志,我们可以使用-f参数查看实时日志1docker logs -f 容器id/名称 这样看到的就是实时的日志了,但是日志又太多了,可以使用--tail参数控制日志输出行数,同时可以用-t来显示日志的输出时间,如下:]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Docker-2-容器的基本操作I]]></title>
+    <url>%2F2019%2F05%2F25%2FDocker-2-%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9CI%2F</url>
+    <content type="text"><![CDATA[述前文中简单的了解了一下docker,也在CentOS7的环境下安装了docker,那下面就来看一下docker中的一些基本的操作 查看容器查看正在运行的容器1docker ps 查看所有容器1docker ps -a 查看最近创建的容器查看最近创建的一个容器:1docker ps -l 查看最近创建的x个容器1docker ps -n=x 返回值详解 CONTAINER ID: 容器的唯一ID,是一个64位的十六进制整数,在不会混淆的情况下,可以只采用id的前几位进行标识一个容器 IMAGE: 表示创建容器时所使用的镜像 COMMAND: 表示容器最后运行的命令 CREATED: 创建容器的时间 STATUS: 容器的状态,这里可能显示一个容器的启动时间也可能是容器的关闭时间,具体要看容器当前的状态 PORTS: 容器对外开放的端口 NAMES: 容器的名字,如果不设置,会有一个默认的名字 创建容器docker创建容器有两种方式,一种是创建完成直接启动,一种是先创建,完了再去启动,两种方式其实是差不多的,当执行一个创建命令后,docker首先会去本地路径下找是不是有相应的镜像,如果没有的话就去docker hub上去搜索,搜到了的话先下载下来,然后再用刚下载下来的镜像创建[启动]容器. 容器的文件系统是在只读的镜像文件上添加一层可读可写的文件层,这样可以使在不改变镜像的情况下,只记录改变的数据. 创建一个容器不启动使用以下命令可以创建一个容器但是不启动,创建完成之后容器的状态处于停止状态:1docker create 镜像ID/镜像名 举个例子,比如我们要创建一个nginx的容器,命令如下:1docker create nginx 首先它会先看我本地有没有这个nginx的镜像,发现并没有,然后就去docker hub里面去下载这个镜像,下载的版本是最新的镜像,下载完成之后再用刚下载下来的镜像去创建容器 然后创建完成之后用docker ps -a查看一下,可以看到他的状态是Created,并没有启动,然后名称是一个默认的名称 这里我们也可以指定名称去创建容器,如下:1docker create --name=nginx nginx 这次创建我们本地有了镜像之后,就直接创建了不用再去docker hub去下载了 上面创建了容器之后,并没有去启动,下面再来看下直接创建并启动 创建容器并启动使用docker run命令可以创建并启动一个容器,这个命令又可以启动两种不同模式的容器:后台型容器和交互型容器 后台型容器就是一个在后台运行的容器,不需要和开发者进行交互,而交互型容器则需要接收开发者的输入进行处理给出反馈,在实际使用中,大部分情况都是创建后台型容器,不过在很多时候,后台型容器也不可避免进行交互 后台型容器还是以nginx为例,命令如下:1docker run --name nginx -d -p 8080:80 nginx –name 创建的容器名称 -d 表示容器在后台裕兴 -p 将容器的80端口映射到宿主机的8080端口 nginx 使用的镜像的名字/这里也可以替换成镜像的id 创建好了之后,可以看到他已经运行起来了,这时候我们就可以通过ip和端口访问了,如下: 这就是一个后台型容器的基本创建方式,再来看一下交互型容器 交互型容器比如要创建一个ubuntu容器,开发者可能需要在ubuntu上面输入命令执行相关操作,创建方式如下: 1docker run --name ubuntu -it ubuntu /bin/bash it: i表示开发容器的标准输入(STDIN),t表示告诉docker,为容器创建一个命令行终端 上图中,第一次创建是失败了,拉取镜像超时了,这是因为天朝网络的原因,多试几次就好了 然后拉取下来创建完成之后,进入了一个命令终端,在这个终端里面就可以操作我们刚创建ubuntu了 最后操作完成之后使用exit命令就退出去了,退出的同时,这个容器就关闭了,并不会后台运行,等我们下次再手动启动这个容器的时候就变成了后台运行的了 后台型进行交互我们上面创建的后台型容器如何进行交互呢, 也就是说怎样进入容器内部呢? 可以使用以下命令:1docker exec -it 容器id/容器名称 /bin/bash -ti的意思还是和上面一样的,就不多说了,退出容器用exit命令就退出了]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Docker-1-CentOS7环境下安装与运行]]></title>
+    <url>%2F2019%2F05%2F25%2FDocker-1-CentOS7%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85%E4%B8%8E%E8%BF%90%E8%A1%8C%2F</url>
+    <content type="text"><![CDATA[前置条件Docker支持以下的CentOS版本: CentOS 7(64-bit) CentOS 6.5(64-bit)或者更高的版本 Docker 运行在 CentOS 7 上,要求系统为64位,系统内核版本为 3.10 以上. Docker 运行在 CentOS-6.5 或更高的版本的 CentOS 上,要求系统为64位,系统内核版本为 2.6.32-431 或者更高版本. 安装首先docker要求系统内核版本为3.10以上,先查看系统版本是否支持docker 查看系统内核版本1uname -r 安装docker1yum -y install docker 验证是否安装成功1docker version 出现版本号等信息则安装成功,如下:12345Client: Version: 1.13.1 API version: 1.26 Package version: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running? 设置开启自启动1sudo systemctl enable docker 启动docker1systemctl start docker 常用启动关闭命令启动1systemctl start docker 守护进程重启1sudo systemctl daemon-reload 重启docker服务1systemctl restart docker 或者1sudo service docker restart 关闭docker1service docker stop 或1systemctl stop docker]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Docker-0-什么是Docker]]></title>
+    <url>%2F2019%2F05%2F25%2FDocker-0-%E4%BB%80%E4%B9%88%E6%98%AFDocker%2F</url>
+    <content type="text"><![CDATA[述如今Docker的使用已经非常普遍了,使用Docker技术可以帮助企业快速水平扩展服务,从而到达弹性部署业务的能力,在如今微服务架构越来越流行的情况下,使用微服务+Docker的完美组合,更加方便微服务架构运维部署落地 那么,到底什么是Docker,为什么要使用Docker,它有什么优势呢? 什么是DockerDocker 是一个开源的应用容器引擎,让开发者可以打包他们的应用以及依赖包到一个可移植的容器中,然后发布到任何流行的Linux 机器上,也可以实现虚拟化.容器是完全使用沙箱机制,相互之间不会有任何接口 为什么要使用Docker容器除了运行其中的应用外,基本不消耗额外的系统资源,使得应用的性能很高,同时系统的开销尽量小, 按照传统虚拟机运行的方式的话10个不同的应用就需要有10个虚拟机,而Docker只需要启动10个隔离的应用即可 Docker主要有以下几个优势: 简化环境管理在我们开发的过程中,经常会遇到代码在开发环境中可以运行,但是一到生产环境就运行不了了,这个问题很常见,对于开发和运维来说,最希望的就是一次创建和配置就可以在任意环境下正常运行 开发者可以使用一个标准的镜像来构建一套开发环境的容器,开发完成之后,运维可以直接用这个容器去部署,这样也就不会出现换了环境代码不能用的情况了 虚拟化更加轻量级说到容器,虚拟化,很多人总会想到虚拟机,想到VMware、VirtualBox等工具，,不同于这些虚拟技术,docker虚拟化更加轻量级 传统的虚拟机都是先虚拟出一个操作系统,然后在操作系统上完成各种各样的配置,这样并不能充分利用物理机的技能,docker是操作系统级别的虚拟技术,它运行在操作系统之上的用户空间,所有的容器都共用一个系统内核甚至公共库,容器引擎提供了进程级别的隔离,让每个容器都像运行在单独的系统之上,但是又能够共享很多底层资源.因此docker更为轻量、快速和易于管理 更轻松的迁移和扩展Docker容器几乎可以在任意平台上运行,包括物理机,虚拟机,服务器,个人电脑等等,这种兼容性可以让用户可以把一个应用程序从一个平台直接迁移到另一个平台上 Docker和虚拟机作为一种轻量级的虚拟化方式,Docker在运行应用上跟传统的虚拟机方式相比更有显著优势: Docker容器很快,启动停止可以在秒级别实现,这相比传统虚拟机方式要快的多 Docker容器对系统资源需求很少,一台主机上可以同时运行数千个docker容器 Docker通过类似Git的操作来方便用户获取,分发,和更新应用镜像,指令简明,学习成本低 Docker通过Dockerfile配置文件来支持灵活的自动化创建和部署机制,提高工作效率 特性 容器 虚拟机 启动速度 秒级 分钟级 硬盘使用 一般为MB 一般为GB 性能 接近原生 弱于 系统支持量 单机支持上千个容器 一般几十个 隔离性 安全隔离 完全隔离 虚拟机是实现了硬件上的虚拟,而Docker则是实现了操作系统级别的虚拟 Docker应用场景 加速本地开发 自动打包和部署应用 创建轻量,私有的PaaS环境 自动化测试和持续集成/部署 部署并扩展web应用,数据库和后端服务器 创建安全沙盒 轻量级的桌面虚拟化 Docker核心组件docker中有三大核心组件: 镜像镜像是一个只读的静态模板,它保存了容器需要的环境和应用的执行代码,可以将镜像看成是容器的代码,当代码运行起来之后,就成了容器,镜像和容器的关系也类似于程序和进程的关系 容器容器是一个运行时环境,是镜像的一个运行状态,它是镜像执行的动态表现. 库库是一个特定的用户存储镜像的目录,一个用户可以建立多个库来保存自己的镜像. 原文地址本系列文章来源]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Docker-Redis-三主三从集群架构搭建]]></title>
     <url>%2F2019%2F04%2F27%2FDocker-Redis-%E4%B8%89%E4%B8%BB%E4%B8%89%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E6%90%AD%E5%BB%BA%2F</url>
     <content type="text"><![CDATA[述上文中,我们搭建了一个一主二仆的一个Redis架构,在实际生产环境中,我们往往需要搭建一个redis集群,那本文来看一下,基于docker搭建一个三主三从的redis集群 环境准备一开始,准备还是用上面文章中拉下来的3.2.9版本的redis,结果在搭建集群的时候出了一些问题,可能是配置的原因,最后也没有深入去研究,所以这里还是用一个新的版本.5.0.0来搭建 然后拉一个redis5.0.0版本的下来1docker pull redis:5.0.0 创建集群配置文件在/usr/docker/redis-cluster下创建一个文件(这个路径是可以自定义的),redis-cluster.tmpl,文件内容如下:123456789101112131415161718#redis端口port $&#123;PORT&#125;#关闭保护模式，允许外网访问protected-mode no# 开启集群模式 cluster-enabled yes#集群配置名cluster-config-file nodes.conf#超时时间 cluster-node-timeout 5000#搭建集群主机的外网ipcluster-announce-ip $&#123;IP&#125;#节点映射端口cluster-announce-port $&#123;PORT&#125;#节点总线端cluster-announce-bus-port 1$&#123;PORT&#125;#持久化模式appendonly yes 创建每个节点的配置文件和文件夹首先需要两个变量,一个是我们的ip地址,一个是刚刚的目录,命令如下:1ip=xxx.xxx.xx.xx 1redisdir=&quot;/usr/docker/redis-cluster&quot; 变量搞定之后,就是循环创建文件夹和文件了,命令如下:12345for port in `seq 7000 7005`; do \ mkdir -p $&#123;redisdir&#125;/$&#123;port&#125;/conf \ &amp;&amp; PORT=$&#123;port&#125; IP=$&#123;ip&#125; envsubst &lt; ./redis-cluster.tmpl &gt; $&#123;redisdir&#125;/$&#123;port&#125;/conf/redis.conf \ &amp;&amp; mkdir -p $&#123;redisdir&#125;/$&#123;port&#125;/data; \done 执行完毕之后,随便打开一个看下,下面这样子,变量都被替换掉就ok了: 创建docker自定义网桥执行命令1docker network create redis-net 查看docker所有的网桥,命令是:1docker network ls 运行各个redis节点ok,上面的步骤完成之后,就可以启动容器了 定义一个初始值变量,用于叠加ip1execsh=&apos;/usr/local/bin/redis-cli --cluster create &apos; 这里这个路径就是这样的,不要去修改 然后循环运行6个容器123456789for port in `seq 7000 7005`; do \ docker run -d -ti -p $&#123;port&#125;:$&#123;port&#125; -p 1$&#123;port&#125;:1$&#123;port&#125; \ -v $&#123;redisdir&#125;/$&#123;port&#125;/conf/redis.conf:/usr/local/etc/redis/redis.conf \ -v $&#123;redisdir&#125;/$&#123;port&#125;/data:/data \ --privileged=true \ --restart always --name redis-$&#123;port&#125; --net redis-net \ --sysctl net.core.somaxconn=1024 redis:5.0.0 redis-server /usr/local/etc/redis/redis.conf; \ execsh=$&#123;execsh&#125;`docker inspect redis-$&#123;port&#125; | grep &quot;IPAddress&quot; | grep --color=auto -P &apos;(\d&#123;1,3&#125;.)&#123;3&#125;\d&#123;1,3&#125;&apos; -o`:$&#123;port&#125;&apos; &apos;done 如下图,就创建成功了 完成后执行下面的命令.往上面声明的那个变量后面追加--cluster-replicas 11execsh=$&#123;execsh&#125;&apos;--cluster-replicas 1&apos; 最后将拼接好的命令打印到控制台,后面进入到redis容器中需要用到1echo $&#123;execsh&#125; 返回值应该是这样的:1/usr/local/bin/redis-cli --cluster create 172.18.0.2:7000 172.18.0.3:7001 172.18.0.4:7002 172.18.0.5:7003 172.18.0.6:7004 172.18.0.7:7005 --cluster-replicas 1 这个返回的数据复制下来,等下要用 查看已启动的容器看一下6个容器是不是都启动了,如下:1docker ps 进入容器创建集群上面我们启动完成之后,都是单独的redis服务,并不是一个集群,然后我们先进入redis-7000这个容器的内部,命令如下:1docker exec -ti redis-7000 /bin/bash 然后执行我们上面复制下来的那个shell脚本1/usr/local/bin/redis-cli --cluster create 172.18.0.2:7000 172.18.0.3:7001 172.18.0.4:7002 172.18.0.5:7003 172.18.0.6:7004 172.18.0.7:7005 --cluster-replicas 1 返回如下: 红色圈住的地方,需要手动输入个yes. 校验是否创建成功在容器内使用redis-cli连接1redis-cli -p 7000 -c -c就表示集群模式 如图,我这里获取数据,他自动跳到了7002节点上面 接下来我们把7002节点先停了 然后,再次进到7000容器内部,再get数据,如下: 7002关闭了之后,又跳到了7005上面了 搭建成功最后再把刚停掉的节点启动起来,至此,一个三主三从的redis集群就搭建好了,参考文章,这里还有一种更方便的方法,可以看看]]></content>
