@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-17-docker-compose使用案例/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-14-心跳与空闲检测/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/25/Docker-17-docker-compose使用案例/" itemprop="url">Docker-17-docker-compose使用案例</a></h1>
+                <a class="post-title-link" href="/2019/07/02/Netty-14-心跳与空闲检测/" itemprop="url">Netty-14-心跳与空闲检测</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:28:37+08:00">
-                2019-05-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T11:07:34+08:00">
+                2019-07-02
               </time>
             
 
@@ -336,8 +336,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
+                  <a href="/categories/Netty/" itemprop="url" rel="index">
+                    <span itemprop="name">Netty</span>
                   </a>
                 </span>
 
@@ -375,12 +375,12 @@
       
         
           
-          述上文中,对docker-compose做了一个简单的介绍,以及安装,本文将通过一个简单的案例,来进一步了解docker-compose的使用   
-本文以jpress(Java版的wordPress)这样一个开源网站的部署为例,来了解docker-compose的使用,我们不必关注jpress的实
+          述连接假死现象: 在某一端(服务端或者客户端)看来底层TCP连接已经断开,但是应用程序并没有捕获到,因此认为这条连接仍然是存在的,从TCP层面来说,只有收到四次握手数据包或者一个RST数据包,连接的状态表示已断开.   
+引发的问题: 对于服务端来说,因为每条连接都耗费CPU和内存资源,大量假死的连
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/25/Docker-17-docker-compose使用案例/#more" rel="contents">
+            <a class="btn" href="/2019/07/02/Netty-14-心跳与空闲检测/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -431,7 +431,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-16-docker-compose简介与安装/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-13-性能优化处理/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -450,7 +450,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/25/Docker-16-docker-compose简介与安装/" itemprop="url">Docker-16-docker-compose简介与安装</a></h1>
+                <a class="post-title-link" href="/2019/07/02/Netty-13-性能优化处理/" itemprop="url">Netty-13-性能优化处理</a></h1>
         
 
         <div class="post-meta">
@@ -462,8 +462,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:28:26+08:00">
-                2019-05-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T11:06:56+08:00">
+                2019-07-02
               </time>
             
 
@@ -485,8 +485,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
+                  <a href="/categories/Netty/" itemprop="url" rel="index">
+                    <span itemprop="name">Netty</span>
                   </a>
                 </span>
 
@@ -524,12 +524,13 @@
       
         
           
-          述Docker Compose 是 Docker 官方编排（Orchestration）项目之一,负责快速的部署分布式应用.  
-Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and running multi-container Docker applica
+          述我们在实现完一系列的功能之后,会有很多的handler通过pipeline加到channel中去, 下面看一下如何去优化这些handler  
+优化第一步:共享handler首先来看下服务端的代码:  
+指令相关的handler很多,netty在这里的逻辑是:每次有新连接到来的时候,都会调用Cha
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/25/Docker-16-docker-compose简介与安装/#more" rel="contents">
+            <a class="btn" href="/2019/07/02/Netty-13-性能优化处理/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -580,7 +581,7 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-15-容器连接/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-12-channelHandler热拔插/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -599,7 +600,7 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/25/Docker-15-容器连接/" itemprop="url">Docker-15-容器连接</a></h1>
+                <a class="post-title-link" href="/2019/07/02/Netty-12-channelHandler热拔插/" itemprop="url">Netty-12-channelHandler热拔插</a></h1>
         
 
         <div class="post-meta">
@@ -611,8 +612,8 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:28:18+08:00">
-                2019-05-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T11:06:25+08:00">
+                2019-07-02
               </time>
             
 
@@ -634,8 +635,8 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
+                  <a href="/categories/Netty/" itemprop="url" rel="index">
+                    <span itemprop="name">Netty</span>
                   </a>
                 </span>
 
@@ -673,12 +674,13 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
       
         
           
-          述一般来说,容器启动后,都是通过端口映射使用容器提供的服务,实际上,端口映射只是使用容器服务的一种方式,除了这种方式外,还可以使用容器连接的方式来使用容器服务  
-例如,有两个容器,一个运行着Spring boot项目,另一个容器运行着mysql数据库,可以通过容器连接使Spring boot直接访
+          述前面的代码中,我们的客户端登录之后,存了一个标记,表示当前的channel是已登录的状态,然后每次发现系的时候都需要去验证一次用户是否登录,代码如下:   
+这里我们也可以在服务端加一个handler去验证用户是否登录   
+登录验证handler新建一个handler,代码如下:12345678
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/25/Docker-15-容器连接/#more" rel="contents">
+            <a class="btn" href="/2019/07/02/Netty-12-channelHandler热拔插/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -729,7 +731,7 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-14-数据卷容器/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-11-channelHandler的生命周期/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -748,7 +750,7 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/25/Docker-14-数据卷容器/" itemprop="url">Docker-14-数据卷容器</a></h1>
+                <a class="post-title-link" href="/2019/07/02/Netty-11-channelHandler的生命周期/" itemprop="url">Netty-11-channelHandler的生命周期</a></h1>
         
 
         <div class="post-meta">
@@ -760,8 +762,8 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:28:10+08:00">
-                2019-05-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T11:05:42+08:00">
+                2019-07-02
               </time>
             
 
@@ -783,8 +785,8 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
+                  <a href="/categories/Netty/" itemprop="url" rel="index">
+                    <span itemprop="name">Netty</span>
                   </a>
                 </span>
 
@@ -822,13 +824,12 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
       
         
           
-          述数据卷容器就是一个专门用来挂载数据卷的容器,该容器主要是供其他容器引用和使用,所谓的数据卷容器,实际上就是一个普通的容器.  
-创建数据卷容器命令如下:1docker run -tid -v /usr/share/nginx/html/ --name mydata ubuntu
-就是运行了一个ub
+          述我们之前在使用channelHanndler的时候,只重写了channelRead()和channelActive()这两个方法,它里面还有一些其他的方法, 这些方法的回调顺序就是channelHandler的生命周期   
+案例新建一个handler,名称是LifeCyCleTestHandle
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/25/Docker-14-数据卷容器/#more" rel="contents">
+            <a class="btn" href="/2019/07/02/Netty-11-channelHandler的生命周期/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -879,7 +880,7 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-13-数据卷/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-10-案例-粘包拆包/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -898,7 +899,7 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/25/Docker-13-数据卷/" itemprop="url">Docker-13-数据卷</a></h1>
+                <a class="post-title-link" href="/2019/07/02/Netty-10-案例-粘包拆包/" itemprop="url">Netty-10-案例-粘包拆包</a></h1>
         
 
         <div class="post-meta">
@@ -910,8 +911,8 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:28:01+08:00">
-                2019-05-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T11:05:16+08:00">
+                2019-07-02
               </time>
             
 
@@ -933,8 +934,8 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
+                  <a href="/categories/Netty/" itemprop="url" rel="index">
+                    <span itemprop="name">Netty</span>
                   </a>
                 </span>
 
@@ -972,12 +973,16 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
       
         
           
-          述数据卷,可以绕过拷贝系统,在多个容器之间,或者容器和宿主机之间共享目录或者文件,数据卷绕过了拷贝系统,可以达到本地磁盘I/O性能  
-示例以之前的nginx镜像为例,运行一个容器,然后再运行的时候,指定一个数据卷,用-v参数,具体命令如下:1docker run -tid --name nginx
+          述先来看一个简单的例子,服务端向客户端发送1000条数据,然后服务端打印出来代码如下   
+拆包粘包示例客户端代码:  
+服务端代码:   
+然后通过channel.pipeline().addLast()把这两个handler添加到对应的端,最后运行看服务端的输出   
+   
+这里存在以下三种类
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/25/Docker-13-数据卷/#more" rel="contents">
+            <a class="btn" href="/2019/07/02/Netty-10-案例-粘包拆包/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1028,7 +1033,7 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-12-容器网络/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-9-案例-构建客户端与服务端pipeline/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1047,7 +1052,7 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/25/Docker-12-容器网络/" itemprop="url">Docker-12-容器网络</a></h1>
+                <a class="post-title-link" href="/2019/07/02/Netty-9-案例-构建客户端与服务端pipeline/" itemprop="url">Netty-9-案例-构建客户端与服务端pipeline</a></h1>
         
 
         <div class="post-meta">
@@ -1059,8 +1064,8 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:27:50+08:00">
-                2019-05-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T11:04:39+08:00">
+                2019-07-02
               </time>
             
 
@@ -1082,8 +1087,8 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
+                  <a href="/categories/Netty/" itemprop="url" rel="index">
+                    <span itemprop="name">Netty</span>
                   </a>
                 </span>
 
@@ -1121,12 +1126,13 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
       
         
           
-          述要构建具有安全的一致行为的web应用程序,可以使用Docker网络特性.根据定义,网络为容器实现了完全隔离.因此,控制应用程序所在的网络很重要,Docker容器网络为您提供了这种控制能力.  
-默认网络docker提供了三种网络,可以通过docker network ls命令去查看,结果如下:  
+          述上文中,对pipeline和channelHandler和有了一个基本的了解,以及两种channelHandler的执行顺序.   
+在之前的案例中我们都是用if-else去判断数据包的类型, 那本文将通过使用channelHandler的方式,重构之前的代码  
+Netty 内置了很多开箱即用的
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/25/Docker-12-容器网络/#more" rel="contents">
+            <a class="btn" href="/2019/07/02/Netty-9-案例-构建客户端与服务端pipeline/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1177,7 +1183,7 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-11-创建自己的Docker-Hub/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-8-pipeline-和-channelHandler/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1196,7 +1202,7 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/25/Docker-11-创建自己的Docker-Hub/" itemprop="url">Docker-11-创建自己的Docker Hub</a></h1>
+                <a class="post-title-link" href="/2019/07/02/Netty-8-pipeline-和-channelHandler/" itemprop="url">Netty-8-pipeline 和 channelHandler</a></h1>
         
 
         <div class="post-meta">
@@ -1208,8 +1214,8 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:27:41+08:00">
-                2019-05-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T11:04:07+08:00">
+                2019-07-02
               </time>
             
 
@@ -1231,8 +1237,8 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
+                  <a href="/categories/Netty/" itemprop="url" rel="index">
+                    <span itemprop="name">Netty</span>
                   </a>
                 </span>
 
@@ -1270,13 +1276,12 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
       
         
           
-          述前面我们使用的Docker Hub是由Docker官方提供的,我们也可以搭建自己的Docker Hub,搭建方式也很容器,因为Docker官方已经将Docker注册服务器做成镜像了,我们直接pull下来运行即可   
-环境搭建拉取镜像命令如下:1docker pull registry
-运行容器镜
+          述上面两个案例中,我们接收到数据包之后,都是先转成Packet类型,然后再去判断是哪种类型,最后做出相应的处理,这里就会有一个问题,随着业务的增加,channelRead()中需要判断的类型越来越多,就需要写很多的if-else来判断,这个方法的代码就会越来越多  
+另外,每次发指令数据包都要手动调
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/25/Docker-11-创建自己的Docker-Hub/#more" rel="contents">
+            <a class="btn" href="/2019/07/02/Netty-8-pipeline-和-channelHandler/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1327,7 +1332,7 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-10-自动化构建/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-7-案例-客户端与服务端收发消息/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1346,7 +1351,7 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/25/Docker-10-自动化构建/" itemprop="url">Docker-10-自动化构建</a></h1>
+                <a class="post-title-link" href="/2019/07/02/Netty-7-案例-客户端与服务端收发消息/" itemprop="url">Netty-7-案例-客户端与服务端收发消息</a></h1>
         
 
         <div class="post-meta">
@@ -1358,8 +1363,8 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:27:31+08:00">
-                2019-05-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T11:03:39+08:00">
+                2019-07-02
               </time>
             
 
@@ -1381,8 +1386,8 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
+                  <a href="/categories/Netty/" itemprop="url" rel="index">
+                    <span itemprop="name">Netty</span>
                   </a>
                 </span>
 
@@ -1420,12 +1425,12 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
       
         
           
-          述上文看了如何把本地的镜像上传到Docker Hub上面,但是如果我们对镜像要进行修改的时候,就得先去改Dockerfile,然后再去build,再push到Docker Hub上面去,修改频繁的情况下,要一种重复这几个操作,这就比较难受了,所以下面来看下自动化构建   
-自动化构建自动化构建,就是
+          述上文中实现了客户端登录的案例,主要就是创建数据包,编码,写到服务端,然后解码,验证,再编码发送到客户端,客户端最后再解码   
+本文再来实现一个客户端收发消息的案例,具体功能如下:在控制台输入一串文字,然后按回车,客户端校验登录状态,然后把这个消息传给服务端,服务端收到之后打印出来,并向客户端发送
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/25/Docker-10-自动化构建/#more" rel="contents">
+            <a class="btn" href="/2019/07/02/Netty-7-案例-客户端与服务端收发消息/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1476,7 +1481,7 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-9-Docker-Hub上传自己的镜像/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-6-案例-客户端登录/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1495,7 +1500,7 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/25/Docker-9-Docker-Hub上传自己的镜像/" itemprop="url">Docker-9-Docker Hub上传自己的镜像</a></h1>
+                <a class="post-title-link" href="/2019/07/02/Netty-6-案例-客户端登录/" itemprop="url">Netty-6-案例-客户端登录</a></h1>
         
 
         <div class="post-meta">
@@ -1507,8 +1512,8 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:27:21+08:00">
-                2019-05-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T11:02:39+08:00">
+                2019-07-02
               </time>
             
 
@@ -1530,8 +1535,8 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
+                  <a href="/categories/Netty/" itemprop="url" rel="index">
+                    <span itemprop="name">Netty</span>
                   </a>
                 </span>
 
@@ -1569,12 +1574,13 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
       
         
           
-          述类似于GitHub提供的代码托管服务,Docker Hub提供了镜像托管服务,利用Docker Hub我们可以搜索,创建,分享和管理镜像,Docker Hub上的镜像分为两大类,一类是官方镜像,例如我们之前用到的nginx、mysql等,还有一类是普通的用户镜像,普通用户镜像由用户自己上传   
-
+          述上文中,说了客户端服务端的通信协议以及编解码,本文延续上文,实现一个客户端的登录   
+具体流程就是客户端去发送登录的数据包,然后服务端解码,验证是否可以登录,然后返回给客户端是否登录成功   
+我们之前有写过一个客户端服务端通信的案例,就是给客户端和服务端启动的时候都添加一个逻辑处理器,写数据就
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/25/Docker-9-Docker-Hub上传自己的镜像/#more" rel="contents">
+            <a class="btn" href="/2019/07/02/Netty-6-案例-客户端登录/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1625,7 +1631,7 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-8-Dockerfile的指令及使用方法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-5-客户端与服务端通信协议编解码/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1644,7 +1650,7 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/25/Docker-8-Dockerfile的指令及使用方法/" itemprop="url">Docker-8-Dockerfile的指令及使用方法</a></h1>
+                <a class="post-title-link" href="/2019/07/02/Netty-5-客户端与服务端通信协议编解码/" itemprop="url">Netty-5-客户端与服务端通信协议编解码</a></h1>
         
 
         <div class="post-meta">
@@ -1656,8 +1662,8 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:26:39+08:00">
-                2019-05-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T11:00:32+08:00">
+                2019-07-02
               </time>
             
 
@@ -1679,8 +1685,8 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
+                  <a href="/categories/Netty/" itemprop="url" rel="index">
+                    <span itemprop="name">Netty</span>
                   </a>
                 </span>
 
@@ -1718,12 +1724,14 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
       
         
           
-          述上文中,简单的使用了一个Dockerfile构建镜像,使用到了三个指令就是FROM,MAINTAINER和RUN,本文在来看一些其他的指令.他们的作用以及使用方式   
-指令详解COPY 复制文件格式12COPY &lt;源路径&gt;... &lt;目标路径&gt;COPY [&quot;&lt
+          述客户端与服务端的通信协议,就是客户端与服务端事先商量好的,每个二进制数据包中的每一段字节分别代表什么含义   
+看一下下面这个图:  
+如图,就是一个数据包,这个数据包中,第一个字节是1,表示是一个指令,比如是登录还是注册,然后下面是用户名,密码,中间有分隔符做分割   
+服务端收到这个数据包后,
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/25/Docker-8-Dockerfile的指令及使用方法/#more" rel="contents">
+            <a class="btn" href="/2019/07/02/Netty-5-客户端与服务端通信协议编解码/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1765,7 +1773,7 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1811,7 +1819,7 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">178</span>
+                  <span class="site-state-item-count">193</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1822,7 +1830,7 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1833,7 +1841,7 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1901,7 +1909,7 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共189.9k字</span>
+  <span class="post-count">博客全站共213.3k字</span>
 </div>
         
 

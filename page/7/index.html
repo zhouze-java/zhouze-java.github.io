@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-6-Hystrix断路器/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-21-Spring-Cloud-Bus整合RabbitMQ/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-6-Hystrix断路器/" itemprop="url">Spring Cloud-6-Hystrix断路器</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-21-Spring-Cloud-Bus整合RabbitMQ/" itemprop="url">Spring Cloud-21-Spring Cloud Bus整合RabbitMQ</a></h1>
         
 
         <div class="post-meta">
@@ -313,7 +313,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:07:16+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:10:47+08:00">
                 2019-04-10
               </time>
             
@@ -375,11 +375,12 @@
       
         
           
-          概念在微服务架构中,我们把系统拆分成多个服务单元,各个单元都运行在不同的进程中,他们之前如果要交互的话,就是通过远程调用的方式,这样就有可以能会因为网络原因,或者自身服务出现故障或延迟,而导致调用方的服务也出现延迟,若此时调用方的请求不断增加,最后就会因为等待出现故障的依赖方影响形成任务积压,最终导
+          述Spring Cloud Bus也是微服务架构中的必备组件,Spring Cloud Bus可以将分布式系统的节点与轻量级消息代理链接,然后可以实现广播状态更改(例如配置更改)或广播其他管理指令   
+Spring Cloud Bus就像一个分布式执行器,用于扩展的Spring Boot的应用程序
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-6-Hystrix断路器/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-21-Spring-Cloud-Bus整合RabbitMQ/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -430,7 +431,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-5-RestTemplate详解/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-20-分布式配置中心客户端配置细节/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -449,7 +450,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-5-RestTemplate详解/" itemprop="url">Spring Cloud-5-RestTemplate详解</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-20-分布式配置中心客户端配置细节/" itemprop="url">Spring Cloud-20-分布式配置中心客户端配置细节</a></h1>
         
 
         <div class="post-meta">
@@ -461,7 +462,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:07:08+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:10:38+08:00">
                 2019-04-10
               </time>
             
@@ -523,13 +524,13 @@
       
         
           
-          RestTemplate上文中,我们使用RestTemplate实现了最简单的服务访问,并且通过配置@LoadBalanced实现了负载均衡.   
-接下来,我们来看一下,RestTemplate针对几种不同请求类型和参数类型的服务调用实现   
-GET 请求在RestTemplate中,对于GET
+          述上文中详细的介绍了分布式配置中心的服务端配置细节,本文来看一下客户端的一些配置细节  
+服务化配置中心前几篇文章中,配置中心的服务端和客户端都是直接启动的,并没有交给注册中心去管理,而且在config-client中配置服务端的地址的时候都是直接写死的地址,这样显然不够灵活  
+我们可以交给服务注
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-5-RestTemplate详解/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-20-分布式配置中心客户端配置细节/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -580,7 +581,7 @@ GET 请求在RestTemplate中,对于GET
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-4-服务发现与消费-Ribbon负载均衡/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-19-分布式配置中心服务端配置细节/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -599,7 +600,7 @@ GET 请求在RestTemplate中,对于GET
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-4-服务发现与消费-Ribbon负载均衡/" itemprop="url">Spring Cloud-4-服务发现与消费 Ribbon负载均衡</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-19-分布式配置中心服务端配置细节/" itemprop="url">Spring Cloud-19-分布式配置中心服务端配置细节</a></h1>
         
 
         <div class="post-meta">
@@ -611,7 +612,7 @@ GET 请求在RestTemplate中,对于GET
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:06:59+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:10:27+08:00">
                 2019-04-10
               </time>
             
@@ -673,13 +674,14 @@ GET 请求在RestTemplate中,对于GET
       
         
           
-          之前的例子中,已经搭建起来了服务注册中心,包括单节点模式和高可用模式,同时呢服务提供者也有了,就是eureka-client,然后接下来尝试构建一个消费者.  
-服务消费者主要完成两个目标,发现服务以及消费服务.  
-其中,发现服务的任务是由eureka的客户端完成的,而服务消费的任务是由ribbo
+          述上文中我们了解了分布式配置中心Spring Cloud Config的一个基本的使用,那么本文就来详细的了解一下Spring Cloud Config,它里面的一些配置细节以及工作流程等   
+工作流程  
+上图就是Config Server的一个大致的工作流程.  
+首先,需要一个远程的Git仓
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-4-服务发现与消费-Ribbon负载均衡/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-19-分布式配置中心服务端配置细节/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -730,7 +732,7 @@ GET 请求在RestTemplate中,对于GET
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-3-高可用注册中心/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-18-分布式配置中心Spring-Cloud-Config/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -749,7 +751,7 @@ GET 请求在RestTemplate中,对于GET
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-3-高可用注册中心/" itemprop="url">Spring Cloud-3-高可用注册中心</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-18-分布式配置中心Spring-Cloud-Config/" itemprop="url">Spring Cloud-18-分布式配置中心Spring Cloud Config</a></h1>
         
 
         <div class="post-meta">
@@ -761,7 +763,7 @@ GET 请求在RestTemplate中,对于GET
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:06:50+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:10:13+08:00">
                 2019-04-10
               </time>
             
@@ -823,12 +825,12 @@ GET 请求在RestTemplate中,对于GET
       
         
           
-          在微服务架构这样的分布式环境中,我们需要充分考虑发生故障的情况,所以在生产环境中必须对各个组件进行高可用部署,对于微服务如此,对于服务注册中心也一样.   
-Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治理设计中,所有节点既是服务提供方,也是服务消费方,注册中心也不
+          述随着分布式项目越来越大,就需要将项目的配置文件抽出来单独管理,就需要用到Spring Cloud Config,Spring Cloud Config为分布式系统中的外部配置提供服务器和客户端支持  
+我们可以使用Config Server在所有环境中管理应用程序的外部属性,Config Serv
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-3-高可用注册中心/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-18-分布式配置中心Spring-Cloud-Config/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -879,7 +881,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-2-Eureka-Server-Client/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-17-Zuul异常处理源码分析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -898,7 +900,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-2-Eureka-Server-Client/" itemprop="url">Spring Cloud-2-Eureka Server & Client</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-17-Zuul异常处理源码分析/" itemprop="url">Spring Cloud-17-Zuul异常处理源码分析</a></h1>
         
 
         <div class="post-meta">
@@ -910,7 +912,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:06:38+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:10:03+08:00">
                 2019-04-10
               </time>
             
@@ -972,11 +974,14 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
       
         
           
-          搭建服务注册中心可以通过Spring Initializr来创建一个Spring boot的工程,命名为eureka-server,然后引入依赖1234&lt;dependency&gt;    &lt;groupId&gt;org.springframework.cloud&lt;/groupId
+          述本文来看一下Zuul的异常处理流程,以及如何自定义异常信息   
+Zuul生命周期看一下官方给出的Zuul请求的生命周期图:   
+从图上可以看出,正常情况下,请求都是按照pre→route→post的顺序来执行,最后由post返回response.  
+在看一下pre下面的custom filt
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-2-Eureka-Server-Client/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-17-Zuul异常处理源码分析/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1027,7 +1032,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-1-服务治理与Eureka/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-16-Zuul网关配置详解/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1046,7 +1051,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-1-服务治理与Eureka/" itemprop="url">Spring Cloud-1-服务治理与Eureka</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-16-Zuul网关配置详解/" itemprop="url">Spring Cloud-16-Zuul网关配置详解</a></h1>
         
 
         <div class="post-meta">
@@ -1058,7 +1063,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:06:23+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:09:55+08:00">
                 2019-04-10
               </time>
             
@@ -1120,13 +1125,13 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
       
         
           
-          服务治理服务治理可以说是微服务架构中最为核心和基础的模块,它主要用来实现各个微服务实例的自动化注册与发现.  
-那么为什么需要服务治理呢?  
-举个例子,某个系统在最初开始构建微服务系统的时候可能服务并不多,我们可以通过做一些静态配置来完成服务的调用.比如,有两个服务 A 和 B, 其中服务 A 需
+          述上文中初步使用了Zuul的路由和请求过滤,接下来就详细的看一下Zuul的路由配置  
+路由配置上文中,我们配置的一个路由规则是这样的:12345zuul:  routes:    api-a:      path: /api-a/**      serviceId: feign-consumer
+
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-1-服务治理与Eureka/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-16-Zuul网关配置详解/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1177,7 +1182,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-0-什么是微服务架构/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-15-Zuul网关使用及请求过滤/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1196,7 +1201,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-0-什么是微服务架构/" itemprop="url">Spring Cloud-0-什么是微服务架构</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-15-Zuul网关使用及请求过滤/" itemprop="url">Spring Cloud-15-Zuul网关使用及请求过滤</a></h1>
         
 
         <div class="post-meta">
@@ -1208,7 +1213,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:05:54+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:09:44+08:00">
                 2019-04-10
               </time>
             
@@ -1270,12 +1275,12 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
       
         
           
-          什么是微服务架构简单说,微服务是系统架构上的一种设计风格,它的主旨是将一个原本独立的系统拆分成多个小型服务,这些小型服务在各自的进程中运行,服务与服务之间通过HTTP的RESTful API进行通信.   
-比如说一个商城,可以将购买流程拆分成 登陆 选择商品 下单 商品发货 订单完成 等多个服务.
+          述微服务,就是把一个大的项目拆分成多个独立的模块,然后通过服务治理让这些独立的模块配合工作,随着业务的扩展,整个系统越来越大,随之带来的也会有很多问题  
+比如说,我的项目中有很多个独立服务都要对外提供服务,那么对于开发和运维人员来说,这些接口应该怎么管理?在微服务中,一个独立的系统被拆分成很多个模
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-0-什么是微服务架构/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-15-Zuul网关使用及请求过滤/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1326,7 +1331,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Elasticsearch-110-production-mode下启动时的bootstrap-check/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-14-Feign配置详解/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1345,7 +1350,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Elasticsearch-110-production-mode下启动时的bootstrap-check/" itemprop="url">Elasticsearch-110-production mode下启动时的bootstrap check</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-14-Feign配置详解/" itemprop="url">Spring Cloud-14-Feign配置详解</a></h1>
         
 
         <div class="post-meta">
@@ -1357,7 +1362,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T15:54:53+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:09:27+08:00">
                 2019-04-10
               </time>
             
@@ -1380,8 +1385,8 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -1419,11 +1424,12 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
       
         
           
-          bootstrap check经常会碰到一些es的用户,遇到一些奇怪的问题,主要是因为他们没有配置一些重要的设置.在es以前的老版本中,对这些设置错误的配置,会在日志里记录一些warning告警.但是有时候用户会忽略这些日志中的告警信息.为了确保说这些设置的错误配置告警信息可以引起用户的注意,es的
+          述之前有说过,Fegin是整合了Ribbon和Hystrix的,下面就看一下在Feign中是如何配置Ribbon和Hystrix的  
+Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接超时时间  ConnectTimeout: 600
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Elasticsearch-110-production-mode下启动时的bootstrap-check/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-14-Feign配置详解/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1474,7 +1480,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Elasticsearch-109-生产集群部署时对操作系统的一些设置/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-13-Feign的继承特性/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1493,7 +1499,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Elasticsearch-109-生产集群部署时对操作系统的一些设置/" itemprop="url">Elasticsearch-109-生产集群部署时对操作系统的一些设置</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-13-Feign的继承特性/" itemprop="url">Spring Cloud-13-Feign的继承特性</a></h1>
         
 
         <div class="post-meta">
@@ -1505,7 +1511,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T14:58:24+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:08:27+08:00">
                 2019-04-10
               </time>
             
@@ -1528,8 +1534,8 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -1567,18 +1573,12 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
       
         
           
-          概述理想情况下,es应该单独在一个服务器上运行,能够使用服务器上的所有资源.为了达到上述目标,我们需要配置操作系统,来允许用户运行es并且获取比默认情况下更多的资源.  
-在生产环境中下面的一些设置必须配置一下:  
-
-禁止swapping
-确保拥有足够的虚拟内存
-确保拥有足够的线程数量
-
-默认情况
+          述上文中,初步的使用了Feign,在写HelloService接口的时候,可以发现,代码可以直接从服务提供者中复制过来.   
+这些可以复制的代码Spring Cloud Feign对它进行了进一步的抽象,这里就用到了Feign的继承特性,那么下面就来看下如何使用Feign的继承特性,进一步简化代码
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Elasticsearch-109-生产集群部署时对操作系统的一些设置/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-13-Feign的继承特性/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1629,7 +1629,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Elasticsearch-108-Jvm和服务器内存分配的最佳实践以及原理分析/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-12-Feign入门/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1648,7 +1648,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Elasticsearch-108-Jvm和服务器内存分配的最佳实践以及原理分析/" itemprop="url">Elasticsearch-108-Jvm和服务器内存分配的最佳实践以及原理分析</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-12-Feign入门/" itemprop="url">Spring Cloud-12-Feign入门</a></h1>
         
 
         <div class="post-meta">
@@ -1660,7 +1660,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T14:36:21+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:08:18+08:00">
                 2019-04-10
               </time>
             
@@ -1683,8 +1683,8 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -1722,12 +1722,11 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
       
         
           
-          概述前文中,说了一些针对es集群可能会出现的一些问题的配置,本文来说一下如何合理的对es进行内存的分配,为什么?   
-Jvm Heap分配es默认会给jvm heap分配2个G的大小,对于几乎所有的生产环境来说,这个内存都太小了.如果用这个默认的heap size,那么生产环境的集群肯定表现不会太
+          述前面,我们使用了Ribbon,RestTemplate,Hystrix这些组件,都是spring cloud的一些非常基础的组件,在使用过程中,这些东西都是同时出现的,而且配置也差不多,每次开发都有很多相同的代码,因此Spring Cloud基于Netflix Feign整合了Ribbon和Hys
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Elasticsearch-108-Jvm和服务器内存分配的最佳实践以及原理分析/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-12-Feign入门/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1769,7 +1768,7 @@ Jvm Heap分配es默认会给jvm heap分配2个G的大小,对于几乎所有的�
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1815,7 +1814,7 @@ Jvm Heap分配es默认会给jvm heap分配2个G的大小,对于几乎所有的�
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">178</span>
+                  <span class="site-state-item-count">193</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1826,7 +1825,7 @@ Jvm Heap分配es默认会给jvm heap分配2个G的大小,对于几乎所有的�
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1837,7 +1836,7 @@ Jvm Heap分配es默认会给jvm heap分配2个G的大小,对于几乎所有的�
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1905,7 +1904,7 @@ Jvm Heap分配es默认会给jvm heap分配2个G的大小,对于几乎所有的�
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共189.9k字</span>
+  <span class="post-count">博客全站共213.3k字</span>
 </div>
         
 

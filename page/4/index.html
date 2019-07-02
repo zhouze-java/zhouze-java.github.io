@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-10-AOF持久化/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-2-容器的基本操作I/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-10-AOF持久化/" itemprop="url">Redis-10-AOF持久化</a></h1>
+                <a class="post-title-link" href="/2019/05/25/Docker-2-容器的基本操作I/" itemprop="url">Docker-2-容器的基本操作I</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:17:16+08:00">
-                2019-04-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:25:21+08:00">
+                2019-05-25
               </time>
             
 
@@ -336,8 +336,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -375,13 +375,16 @@
       
         
           
-          述上文中说了快照持久化,那本文再来看一下另外一种持久化的方式,就是AOF(append-only file)    
-AOF持久化AOF持久化是把被执行的命令都写到一个aof文件末尾,在恢复的时候只需要从头到尾执行一遍写命令即可恢复数据.  
-AOF在redis中默认是没有开启的,需要手动配置开启 
+          述前文中简单的了解了一下docker,也在CentOS7的环境下安装了docker,那下面就来看一下docker中的一些基本的操作    
+查看容器查看正在运行的容器1docker ps
+
+查看所有容器1docker ps -a
+   
+查看最近创建的容器查看最近创建的一个容器:1docker ps
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-10-AOF持久化/#more" rel="contents">
+            <a class="btn" href="/2019/05/25/Docker-2-容器的基本操作I/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -432,7 +435,7 @@ AOF在redis中默认是没有开启的,需要手动配置开启
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-9-快照持久化/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-1-CentOS7环境下安装与运行/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -451,7 +454,7 @@ AOF在redis中默认是没有开启的,需要手动配置开启
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-9-快照持久化/" itemprop="url">Redis-9-快照持久化</a></h1>
+                <a class="post-title-link" href="/2019/05/25/Docker-1-CentOS7环境下安装与运行/" itemprop="url">Docker-1-CentOS7环境下安装与运行</a></h1>
         
 
         <div class="post-meta">
@@ -463,8 +466,8 @@ AOF在redis中默认是没有开启的,需要手动配置开启
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:17:07+08:00">
-                2019-04-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:25:09+08:00">
+                2019-05-25
               </time>
             
 
@@ -486,8 +489,8 @@ AOF在redis中默认是没有开启的,需要手动配置开启
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -525,13 +528,17 @@ AOF在redis中默认是没有开启的,需要手动配置开启
       
         
           
-          述redis的持久化有两种方式,分别是快照持久化和AOF,具体使用哪种,需要结合项目的实际情况选择, 下面就先看一下快照持久化.   
-快照持久化, 就是说,redis在某个时间点上,对内存中的数据创建一个副本文件,副本文件中的数据在redis重启时会被自动加载.   
-配置方式redis中,快照持
+          前置条件Docker支持以下的CentOS版本:  
+
+CentOS 7(64-bit) 
+CentOS 6.5(64-bit)或者更高的版本  
+
+Docker 运行在 CentOS 7 上,要求系统为64位,系统内核版本为 3.10 以上.  
+Docker 运行在 CentOS-6.5 或更高
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-9-快照持久化/#more" rel="contents">
+            <a class="btn" href="/2019/05/25/Docker-1-CentOS7环境下安装与运行/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -582,7 +589,7 @@ AOF在redis中默认是没有开启的,需要手动配置开启
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-8-事务的使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-0-什么是Docker/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -601,7 +608,7 @@ AOF在redis中默认是没有开启的,需要手动配置开启
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-8-事务的使用/" itemprop="url">Redis-8-事务的使用</a></h1>
+                <a class="post-title-link" href="/2019/05/25/Docker-0-什么是Docker/" itemprop="url">Docker-0-什么是Docker</a></h1>
         
 
         <div class="post-meta">
@@ -613,8 +620,8 @@ AOF在redis中默认是没有开启的,需要手动配置开启
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:16:57+08:00">
-                2019-04-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:24:54+08:00">
+                2019-05-25
               </time>
             
 
@@ -636,8 +643,8 @@ AOF在redis中默认是没有开启的,需要手动配置开启
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -675,13 +682,12 @@ AOF在redis中默认是没有开启的,需要手动配置开启
       
         
           
-          述上文中说了redis中的发布与订阅,下面来看一下redis中的事务是如何使用的    
-redis是一个nosql数据库,那当然也就有事务的功能,但是和关系型数据库中的事务还是有点差异  
-事务redis中,可以通过MULTI命令开启一个事务,如下:12172.16.12.3:6379&gt; m
+          述如今Docker的使用已经非常普遍了,使用Docker技术可以帮助企业快速水平扩展服务,从而到达弹性部署业务的能力,在如今微服务架构越来越流行的情况下,使用微服务+Docker的完美组合,更加方便微服务架构运维部署落地   
+那么,到底什么是Docker,为什么要使用Docker,它有什么优势呢?
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-8-事务的使用/#more" rel="contents">
+            <a class="btn" href="/2019/05/25/Docker-0-什么是Docker/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -732,7 +738,7 @@ redis是一个nosql数据库,那当然也就有事务的功能,但是和关系�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-7-发布与订阅/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Docker-Redis-三主三从集群架构搭建/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -751,7 +757,7 @@ redis是一个nosql数据库,那当然也就有事务的功能,但是和关系�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-7-发布与订阅/" itemprop="url">Redis-7-发布与订阅</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Docker-Redis-三主三从集群架构搭建/" itemprop="url">Docker-Redis-三主三从集群架构搭建</a></h1>
         
 
         <div class="post-meta">
@@ -763,7 +769,7 @@ redis是一个nosql数据库,那当然也就有事务的功能,但是和关系�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:16:45+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T17:39:33+08:00">
                 2019-04-27
               </time>
             
@@ -786,8 +792,8 @@ redis是一个nosql数据库,那当然也就有事务的功能,但是和关系�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Docker-Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker-Redis</span>
                   </a>
                 </span>
 
@@ -825,13 +831,12 @@ redis是一个nosql数据库,那当然也就有事务的功能,但是和关系�
       
         
           
-          述前面,都是说了一些基础数据类型的一些常用的命令,本文来看一下redis中的发布与订阅   
-发布订阅reids中的发布与订阅类似于生活中的电台, 电台可以在某一个频率上发广播,而我们可以接收任何一个频率的广播   
-下面来看一下具体是如何使用的, 首先需要打开一个redis-cli,然后连接我们的
+          述上文中,我们搭建了一个一主二仆的一个Redis架构,在实际生产环境中,我们往往需要搭建一个redis集群,那本文来看一下,基于docker搭建一个三主三从的redis集群   
+环境准备一开始,准备还是用上面文章中拉下来的3.2.9版本的redis,结果在搭建集群的时候出了一些问题,可能是配置的原
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-7-发布与订阅/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Docker-Redis-三主三从集群架构搭建/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -882,7 +887,7 @@ redis是一个nosql数据库,那当然也就有事务的功能,但是和关系�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-6-针对散列和有序集合的常用命令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Docker-Redis-配置主从和哨兵/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -901,7 +906,7 @@ redis是一个nosql数据库,那当然也就有事务的功能,但是和关系�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-6-针对散列和有序集合的常用命令/" itemprop="url">Redis-6-针对散列和有序集合的常用命令</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Docker-Redis-配置主从和哨兵/" itemprop="url">Docker-Redis-配置主从和哨兵</a></h1>
         
 
         <div class="post-meta">
@@ -913,7 +918,7 @@ redis是一个nosql数据库,那当然也就有事务的功能,但是和关系�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:16:34+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T17:39:04+08:00">
                 2019-04-27
               </time>
             
@@ -936,8 +941,8 @@ redis是一个nosql数据库,那当然也就有事务的功能,但是和关系�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Docker-Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker-Redis</span>
                   </a>
                 </span>
 
@@ -975,13 +980,13 @@ redis是一个nosql数据库,那当然也就有事务的功能,但是和关系�
       
         
           
-          述上文中,介绍了list和set的一些常用的命令,下面再来看一下散列和有序集合的一些常用的命令   
-散列(hash)和java中的hashmap其实是差不多的,redis其实就是存放的键值对,散列也是存放的键值对,,下面来具体看下一下一些常用的操作   
-hsethset用来设置key指定的哈希集
+          述上文中,我们使用docker安装了redis,下面来配置一个一主二仆的一个主从结构,并且设置哨兵,基于上文中的环境,我们现在已经有一个Redis实例了  
+环境准备上文中我们是挂载的外部的配置文件,和数据文件,然后我们把这个文件夹复制两个出来,改下名字,如下:   
+然后修改这两个新的redis中
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-6-针对散列和有序集合的常用命令/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Docker-Redis-配置主从和哨兵/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1032,7 +1037,7 @@ hsethset用来设置key指定的哈希集
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-5-列表与集合的一些常用命令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Docker-Redis-安装运行Redis并挂载外部配置文件和数据/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1051,7 +1056,7 @@ hsethset用来设置key指定的哈希集
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-5-列表与集合的一些常用命令/" itemprop="url">Redis-5-列表与集合的一些常用命令</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Docker-Redis-安装运行Redis并挂载外部配置文件和数据/" itemprop="url">Docker-Redis-安装运行Redis并挂载外部配置文件和数据</a></h1>
         
 
         <div class="post-meta">
@@ -1063,7 +1068,7 @@ hsethset用来设置key指定的哈希集
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:16:21+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T17:38:34+08:00">
                 2019-04-27
               </time>
             
@@ -1086,8 +1091,8 @@ hsethset用来设置key指定的哈希集
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Docker-Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker-Redis</span>
                   </a>
                 </span>
 
@@ -1125,14 +1130,14 @@ hsethset用来设置key指定的哈希集
       
         
           
-          述前文中,介绍了String数据类型的一些常用的命令,那么下面来看一下一些针对列表与集合的常用命令   
-列表(list)列表是Redis中另外一种数据类型,下面我们来看看列表中一些基本的操作命令  
-lpush语法如下:1LPUSH key value [value ...]
-将一个或多个值插入到
+          安装运行Redis拉取镜像在国内的镜像市场找到redis, 选好版本,pull下来,传送门  
+选一个新的,并且稳定的版本,我这里选择的3.2.9版本  
+执行以下命令,pull镜像1docker pull daocloud.io/library/redis:3.2.9
+创建文件夹创建两个文件夹,一
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-5-列表与集合的一些常用命令/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Docker-Redis-安装运行Redis并挂载外部配置文件和数据/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1183,7 +1188,7 @@ lpush语法如下:1LPUSH key value [value ...]
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-4-针对String数据类型中Bit的相关命令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-19-常见使用场景/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1202,7 +1207,7 @@ lpush语法如下:1LPUSH key value [value ...]
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-4-针对String数据类型中Bit的相关命令/" itemprop="url">Redis-4-针对String数据类型中Bit的相关命令</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-19-常见使用场景/" itemprop="url">Redis-19-常见使用场景</a></h1>
         
 
         <div class="post-meta">
@@ -1214,7 +1219,7 @@ lpush语法如下:1LPUSH key value [value ...]
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:16:00+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:18:56+08:00">
                 2019-04-27
               </time>
             
@@ -1276,13 +1281,13 @@ lpush语法如下:1LPUSH key value [value ...]
       
         
           
-          概述上篇文章我们对String数据类型中一些基本的命令进行了介绍,但是没有涉及到Bit相关的命令,本文我们就来看看几个和Bit相关的命令.  
-redis中的字符串都是以二进制的方式进行存储的,举个例子,执行以下命令:12172.16.12.3:6379&gt; set k1 aOK
-a对应的ASC
+          述通过之前文章的介绍,现在redis也可以基本的使用了,那么到底什么时候该使用redis呢.下面就来说几个redis的常用场景   
+使用场景计数器数据统计的需求非常普遍，通过原子递增保持计数。例如，点赞数、收藏数、分享数等。
+排行榜排行榜按照得分进行排序，例如，展示最近、最热、点击率最高、活跃度最
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-4-针对String数据类型中Bit的相关命令/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-19-常见使用场景/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1333,7 +1338,7 @@ a对应的ASC
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-3-针对String数据类型的一些操作/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-18-缓存击穿、穿透、雪崩等问题及解决方案/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1352,7 +1357,7 @@ a对应的ASC
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-3-针对String数据类型的一些操作/" itemprop="url">Redis-3-针对String数据类型的一些操作</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-18-缓存击穿、穿透、雪崩等问题及解决方案/" itemprop="url">Redis-18-缓存击穿、穿透、雪崩等问题及解决方案</a></h1>
         
 
         <div class="post-meta">
@@ -1364,7 +1369,7 @@ a对应的ASC
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:15:48+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:18:46+08:00">
                 2019-04-27
               </time>
             
@@ -1426,12 +1431,16 @@ a对应的ASC
       
         
           
-          概述上文中,我们看了一些所有数据类型都通用的一些命令,下面再来看一下一些针对String类型独有的命令  
-操作String类型数据的一些命令append追加字符串,如果key存在的话,就直接在value后面追加内容,如果key不存在,就会先创建一个value是空字符串的数据,然后再追加,具体使用方
+          述上文说了redis的内存淘汰策略,下面再来看一下使用缓存的过程中一些常见的问题   
+我们在使用redis做缓存的时候,一般流程是这样的  
+
+请求进来时候首先查询redis判断是否存在缓存且缓存是否过期
+若已经存在不过期的缓存则直接获取返回
+若缓存不存在或已过期则重新查询数据库并将该数据存到re
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-3-针对String数据类型的一些操作/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-18-缓存击穿、穿透、雪崩等问题及解决方案/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1482,7 +1491,7 @@ a对应的ASC
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-2-数据类型与常用命令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-17-内存淘汰策略/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1501,7 +1510,7 @@ a对应的ASC
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-2-数据类型与常用命令/" itemprop="url">Redis-2-数据类型与常用命令</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-17-内存淘汰策略/" itemprop="url">Redis-17-内存淘汰策略</a></h1>
         
 
         <div class="post-meta">
@@ -1513,7 +1522,7 @@ a对应的ASC
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:15:18+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:18:35+08:00">
                 2019-04-27
               </time>
             
@@ -1575,12 +1584,13 @@ a对应的ASC
       
         
           
-          reids中的数据类型redis中的数据都是以key-value的形式存储的,数据类型其实是说value的数据类型,一共有以下几种数据类型:  
-String(字符串)String是redis中的最基本的数据类型,string类型是二进制安全的,意思是redis的string可以包含任何数据,比如j
+          述上文介绍了redis中的过期策略,本文再来看一下内存淘汰策略   
+内存淘汰策略指的是用户存储的一些key可以被Redis主动的删除,从而可能产生读miss的情况,那为什么Redis会有这种功能呢?  
+假设我现在有一个redis的服务器,内存是2G,随着系统业务的增长,reids中放的数据越来越
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-2-数据类型与常用命令/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-17-内存淘汰策略/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1631,7 +1641,7 @@ String(字符串)String是redis中的最基本的数据类型,string类型是二
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-1-远程连接/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-16-过期策略/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1650,7 +1660,7 @@ String(字符串)String是redis中的最基本的数据类型,string类型是二
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-1-远程连接/" itemprop="url">Redis-1-远程连接</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-16-过期策略/" itemprop="url">Redis-16-过期策略</a></h1>
         
 
         <div class="post-meta">
@@ -1662,7 +1672,7 @@ String(字符串)String是redis中的最基本的数据类型,string类型是二
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:14:00+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:18:27+08:00">
                 2019-04-27
               </time>
             
@@ -1724,15 +1734,13 @@ String(字符串)String是redis中的最基本的数据类型,string类型是二
       
         
           
-          远程连接我们在linux上装好redis服务之后,希望在windows端或者是Java应用中远程连接redis,就需要做出一些配置  
-配置文件修改修改redis.conf文件,具体如下:  
-
-bind 127.0.0.1,在配置文件中找到这个配置,注释掉
-requirepass foobared
+          述上文中介绍了redis和spring boot的整合使用,本文再来看一下redis中的过期策略,算是对之前内容的一个补充   
+过期策略在之前说命令行的时候,我们有给一个key设置过期时间,reids的过期策略就是说,一个key过期了的话redis会怎么处理这个key   
+过期策略通常有以下三种
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-1-远程连接/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-16-过期策略/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1774,7 +1782,7 @@ requirepass foobared
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1820,7 +1828,7 @@ requirepass foobared
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">178</span>
+                  <span class="site-state-item-count">193</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1831,7 +1839,7 @@ requirepass foobared
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1842,7 +1850,7 @@ requirepass foobared
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1910,7 +1918,7 @@ requirepass foobared
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共189.9k字</span>
+  <span class="post-count">博客全站共213.3k字</span>
 </div>
         
 
