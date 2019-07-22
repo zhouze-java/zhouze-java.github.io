@@ -91,7 +91,7 @@
 <meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/BO4t3vj2VUQopms6HVmqWnjVO8d6cSbMkzKqY2iXdwU!/r/dL8AAAAAAAAA">
 <meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/yAY8DKd8YJMqhV9wO7UMiLOLdw8yyrqMWuZooNdQDew!/r/dL8AAAAAAAAA">
 <meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/z7Z.mHVXrOuzUwpp5DY2LuAlU46Y9UI7QyqD8e*XdEQ!/r/dL8AAAAAAAAA">
-<meta property="og:updated_time" content="2019-04-10T09:17:19.250Z">
+<meta property="og:updated_time" content="2019-07-22T07:33:34.647Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring Cloud-14-Feign配置详解">
 <meta name="twitter:description" content="述之前有说过,Fegin是整合了Ribbon和Hystrix的,下面就看一下在Feign中是如何配置Ribbon和Hystrix的   Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接超时时间  ConnectTimeout: 600  # 读取超时时间  ReadTimeout: 6000  # 对所有操作请求都进行重试  OkT">
@@ -399,14 +399,11 @@
 <p><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/BO4t3vj2VUQopms6HVmqWnjVO8d6cSbMkzKqY2iXdwU!/r/dL8AAAAAAAAA" alt="image">  </p>
 <p><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/yAY8DKd8YJMqhV9wO7UMiLOLdw8yyrqMWuZooNdQDew!/r/dL8AAAAAAAAA" alt="image">  </p>
 <p><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/z7Z.mHVXrOuzUwpp5DY2LuAlU46Y9UI7QyqD8e*XdEQ!/r/dL8AAAAAAAAA" alt="image">  </p>
-<h3 id="其他配置"><a href="#其他配置" class="headerlink" title="其他配置"></a>其他配置</h3><p>Spring Cloud Feign支持对请求和响应进行GZIP压缩,以提高通信效率,配置方式如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">feign:</span><br><span class="line">  compression:</span><br><span class="line">    request:</span><br><span class="line">      # 配置请求GZIP压缩</span><br><span class="line">      enabled: true</span><br><span class="line">      # 配置压缩支持的MIME TYPE</span><br><span class="line">      mime-types: text/xml,application/xml,application/json</span><br><span class="line">      # 配置压缩数据大小的下限</span><br><span class="line">      min-request-size: 2048  </span><br><span class="line">    response:</span><br><span class="line">      # 配置响应GZIP压缩</span><br><span class="line">      enabled: true</span><br><span class="line">``` </span><br><span class="line">  </span><br><span class="line">Feign为每个Feign都提供了Feign.Logger实例,可以在配置中开启日志,具体步骤如下:  </span><br><span class="line">  </span><br><span class="line">application.yml中配置日志输出,设置日志输出级别:</span><br></pre></td></tr></table></figure></p>
-<h1 id="格式为logging-level-Feign客户端路径"><a href="#格式为logging-level-Feign客户端路径" class="headerlink" title="格式为logging.level.Feign客户端路径"></a>格式为logging.level.Feign客户端路径</h1><p>logging:<br>  level:<br>    com.euerka.consumer.service.HelloService: debug<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line">然后在配置类中添加以下内容:</span><br></pre></td></tr></table></figure></p>
-<p>@Configuration<br>public class CloudConfig {</p>
-<pre><code>@Bean
-Logger.Level feignLoggerLevel(){
-    return Logger.Level.FULL;
-}
-</code></pre><p>}<br><code>`</code></p>
+<h3 id="其他配置"><a href="#其他配置" class="headerlink" title="其他配置"></a>其他配置</h3><p>Spring Cloud Feign支持对请求和响应进行GZIP压缩,以提高通信效率,配置方式如下:  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">feign:</span><br><span class="line">  compression:</span><br><span class="line">    request:</span><br><span class="line">      # 配置请求GZIP压缩</span><br><span class="line">      enabled: true</span><br><span class="line">      # 配置压缩支持的MIME TYPE</span><br><span class="line">      mime-types: text/xml,application/xml,application/json</span><br><span class="line">      # 配置压缩数据大小的下限</span><br><span class="line">      min-request-size: 2048  </span><br><span class="line">    response:</span><br><span class="line">      # 配置响应GZIP压缩</span><br><span class="line">      enabled: true</span><br></pre></td></tr></table></figure>
+<p>Feign为每个Feign都提供了Feign.Logger实例,可以在配置中开启日志,具体步骤如下:  </p>
+<p>application.yml中配置日志输出,设置日志输出级别:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 格式为logging.level.Feign客户端路径</span><br><span class="line">logging:</span><br><span class="line">  level: </span><br><span class="line">    com.euerka.consumer.service.HelloService: debug</span><br></pre></td></tr></table></figure></p>
+<p>然后在配置类中添加以下内容:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class CloudConfig &#123;</span><br><span class="line">    </span><br><span class="line">    @Bean</span><br><span class="line">    Logger.Level feignLoggerLevel()&#123;</span><br><span class="line">        return Logger.Level.FULL;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>配置完成之后,控制台就会输出请求的详细日志.  </p>
 
       
@@ -587,7 +584,7 @@ Logger.Level feignLoggerLevel(){
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#述"><span class="nav-number">1.</span> <span class="nav-text">述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ribbon配置"><span class="nav-number">2.</span> <span class="nav-text">Ribbon配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#测试"><span class="nav-number">2.1.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不同的服务不同的配置"><span class="nav-number">2.2.</span> <span class="nav-text">不同的服务不同的配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hystrix配置"><span class="nav-number">3.</span> <span class="nav-text">Hystrix配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务降级配置"><span class="nav-number">4.</span> <span class="nav-text">服务降级配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他配置"><span class="nav-number">5.</span> <span class="nav-text">其他配置</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#格式为logging-level-Feign客户端路径"><span class="nav-number"></span> <span class="nav-text">格式为logging.level.Feign客户端路径</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#述"><span class="nav-number">1.</span> <span class="nav-text">述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ribbon配置"><span class="nav-number">2.</span> <span class="nav-text">Ribbon配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#测试"><span class="nav-number">2.1.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不同的服务不同的配置"><span class="nav-number">2.2.</span> <span class="nav-text">不同的服务不同的配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hystrix配置"><span class="nav-number">3.</span> <span class="nav-text">Hystrix配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务降级配置"><span class="nav-number">4.</span> <span class="nav-text">服务降级配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他配置"><span class="nav-number">5.</span> <span class="nav-text">其他配置</span></a></li></ol></div>
             
 
           </div>
@@ -638,7 +635,7 @@ Logger.Level feignLoggerLevel(){
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共213.3k字</span>
+  <span class="post-count">博客全站共213.4k字</span>
 </div>
         
 

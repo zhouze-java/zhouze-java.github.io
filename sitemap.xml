@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2019/04/10/Spring-Cloud-14-Feign%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/</loc>
+    
+    <lastmod>2019-07-22T07:33:34.647Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2019/07/02/Netty-14-%E5%BF%83%E8%B7%B3%E4%B8%8E%E7%A9%BA%E9%97%B2%E6%A3%80%E6%B5%8B/</loc>
     
     <lastmod>2019-07-02T03:13:07.343Z</lastmod>
@@ -467,13 +474,6 @@
     <loc>http://yoursite.com/2019/04/10/Spring-Cloud-15-Zuul%E7%BD%91%E5%85%B3%E4%BD%BF%E7%94%A8%E5%8F%8A%E8%AF%B7%E6%B1%82%E8%BF%87%E6%BB%A4/</loc>
     
     <lastmod>2019-04-10T09:17:27.911Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2019/04/10/Spring-Cloud-14-Feign%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/</loc>
-    
-    <lastmod>2019-04-10T09:17:19.250Z</lastmod>
     
   </url>
   
