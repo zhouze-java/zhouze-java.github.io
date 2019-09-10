@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/27/Elasticsearch-54-搜索实现召回率和精准度平衡/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/17/Elasticsearch-88-nested-object数据结构/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/27/Elasticsearch-54-搜索实现召回率和精准度平衡/" itemprop="url">Elasticsearch-54-搜索实现召回率和精准度平衡</a></h1>
+                <a class="post-title-link" href="/2019/01/17/Elasticsearch-88-nested-object数据结构/" itemprop="url">Elasticsearch-88-nested object数据结构</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-27T17:27:35+08:00">
-                2018-12-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-17T10:54:24+08:00">
+                2019-01-17
               </time>
             
 
@@ -375,13 +375,11 @@
       
         
           
-          首先需要了解两个概念,召回率和精准度   
-召回率比如搜索一个java spark,总共有100个document,能返回多少个document作为结果,这个就是召回率(recall)  
-精准度比如搜索一个java spark,能不能尽可能让包含java spark这个短语的,或者是java和sp
+          普通object类型用冗余数据的方式来建模,其实用的就是object类型,来看一个数据12345678910111213141516171819202122PUT /website/blogs/6&#123;  &quot;title&quot;: &quot;花无缺发表的一篇帖子&quot;,  
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/27/Elasticsearch-54-搜索实现召回率和精准度平衡/#more" rel="contents">
+            <a class="btn" href="/2019/01/17/Elasticsearch-88-nested-object数据结构/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -432,7 +430,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/27/Elasticsearch-53-基于slop参数实现近似匹配/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/16/Elasticsearch-87-基于共享锁和排它锁实现悲观锁并发控制/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -451,7 +449,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/27/Elasticsearch-53-基于slop参数实现近似匹配/" itemprop="url">Elasticsearch-53-基于slop参数实现近似匹配</a></h1>
+                <a class="post-title-link" href="/2019/01/16/Elasticsearch-87-基于共享锁和排它锁实现悲观锁并发控制/" itemprop="url">Elasticsearch-87-基于共享锁和排它锁实现悲观锁并发控制</a></h1>
         
 
         <div class="post-meta">
@@ -463,8 +461,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-27T11:43:56+08:00">
-                2018-12-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T17:16:20+08:00">
+                2019-01-16
               </time>
             
 
@@ -525,11 +523,13 @@
       
         
           
-          slop参数比如我们现在有一个搜索请求如下:1234567891011GET forum/article/_search&#123;  &quot;query&quot;: &#123;    &quot;match_phrase&quot;: &#123;      &quot;title&quo
+          共享锁和排它锁共享锁: 这份数据是共享的,然后多个线程过来,都可以获取同一个数据的共享锁,然后对这个数据执行读操作.排它锁: 是排他的操作,只能一个线程获取排他锁,然后执行增删改操作  
+读写锁分离   
+如果是要读取数据的话,那么任意多少个线程都可以进来然后读取数据,每个线程都可以上一个共享锁,但
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/27/Elasticsearch-53-基于slop参数实现近似匹配/#more" rel="contents">
+            <a class="btn" href="/2019/01/16/Elasticsearch-87-基于共享锁和排它锁实现悲观锁并发控制/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -580,7 +580,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/26/Elasticsearch-52-phrase-match搜索及原理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/16/Elasticsearch-86-基于document锁实现悲观锁并发控制/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -599,7 +599,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/26/Elasticsearch-52-phrase-match搜索及原理/" itemprop="url">Elasticsearch-52-phrase match搜索及原理</a></h1>
+                <a class="post-title-link" href="/2019/01/16/Elasticsearch-86-基于document锁实现悲观锁并发控制/" itemprop="url">Elasticsearch-86-基于document锁实现悲观锁并发控制</a></h1>
         
 
         <div class="post-meta">
@@ -611,8 +611,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-26T15:24:13+08:00">
-                2018-12-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T14:47:39+08:00">
+                2019-01-16
               </time>
             
 
@@ -673,11 +673,12 @@
       
         
           
-          近似匹配假设现在有两个document,他们的content的值分别是:java is my favourite programming language, and I also think spark is a very good big data system.java spark are ve
+          document锁上文中的全局锁,一次性就锁上了整个index,对这个index的所有增删改操作都会被block住,如果上锁不频繁,还可以,如果上锁释放锁的操作很频繁,显然不适用     
+document锁,顾名思义,每次就锁需要操作的几个doc,就可以了,被锁的doc,其他线程就不能对这些doc
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/26/Elasticsearch-52-phrase-match搜索及原理/#more" rel="contents">
+            <a class="btn" href="/2019/01/16/Elasticsearch-86-基于document锁实现悲观锁并发控制/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -728,7 +729,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/19/Elasticsearch-51-cross-fields搜索问题解决方案/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/Elasticsearch-85-基于全局锁实现悲观锁并发控制/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -747,7 +748,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/19/Elasticsearch-51-cross-fields搜索问题解决方案/" itemprop="url">Elasticsearch-51-cross-fields搜索问题解决方案</a></h1>
+                <a class="post-title-link" href="/2019/01/15/Elasticsearch-85-基于全局锁实现悲观锁并发控制/" itemprop="url">Elasticsearch-85-基于全局锁实现悲观锁并发控制</a></h1>
         
 
         <div class="post-meta">
@@ -759,8 +760,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-19T11:15:33+08:00">
-                2018-12-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T17:16:08+08:00">
+                2019-01-15
               </time>
             
 
@@ -821,12 +822,12 @@
       
         
           
-          解决方案一:使用copy_to用copy_to可以将多个field组合成一个field.   
-之前说的问题,其实就是出在了有多个field,那么我们只要把这些field合并成一个field即可,比如搜索一个人名,有first_name和last_name,将这两个field合并成一个full_na
+          并发控制的几种方案结合之前的文件系统的案例, 假设有多个线程过来,要并发的给/workspace/projects/helloworld下的README.txt修改文件名,这个时候就要进行并发的控制,避免多线程的并发安全问题.  
+基于version的乐观锁,先获取要修改的信息的版本号,然后和自己的
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/19/Elasticsearch-51-cross-fields搜索问题解决方案/#more" rel="contents">
+            <a class="btn" href="/2019/01/15/Elasticsearch-85-基于全局锁实现悲观锁并发控制/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -877,7 +878,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/19/Elasticsearch-50-most-fields策略进行cross-fields搜索的弊端/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/Elasticsearch-84-文件系统数据建模及搜索案例/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -896,7 +897,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/19/Elasticsearch-50-most-fields策略进行cross-fields搜索的弊端/" itemprop="url">Elasticsearch-50-most_fields策略进行cross-fields搜索的弊端</a></h1>
+                <a class="post-title-link" href="/2019/01/15/Elasticsearch-84-文件系统数据建模及搜索案例/" itemprop="url">Elasticsearch-84-文件系统数据建模及搜索案例</a></h1>
         
 
         <div class="post-meta">
@@ -908,8 +909,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-19T11:15:17+08:00">
-                2018-12-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T16:49:21+08:00">
+                2019-01-15
               </time>
             
 
@@ -970,11 +971,12 @@
       
         
           
-          cross-field搜索就是我们搜索一个唯一标识的时候跨越了多个field,比如一个人,标识是姓名,一个建筑的标识是地址. 姓名可以散落在多个field中,比如first_name和last_name中,地址可以散落在country,province,city中.跨多个field搜索一个标识,就是
+          数据建模对类似文件系统(filesystem)这种的 有多层级关系的数据进行建模,比如说路径这种多层级的数据   
+数据添加首先先自定义一个分词器.123456789101112PUT /fs&#123;  &quot;settings&quot;: &#123;    &quot;analysis
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/19/Elasticsearch-50-most-fields策略进行cross-fields搜索的弊端/#more" rel="contents">
+            <a class="btn" href="/2019/01/15/Elasticsearch-84-文件系统数据建模及搜索案例/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1025,7 +1027,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/17/Elasticsearch-49-实战案例-most-fields策略/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/Elasticsearch-83-聚合分析案例/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1044,7 +1046,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/17/Elasticsearch-49-实战案例-most-fields策略/" itemprop="url">Elasticsearch-49-实战案例-most-fields策略</a></h1>
+                <a class="post-title-link" href="/2019/01/15/Elasticsearch-83-聚合分析案例/" itemprop="url">Elasticsearch-83-聚合分析案例</a></h1>
         
 
         <div class="post-meta">
@@ -1056,8 +1058,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-17T18:01:03+08:00">
-                2018-12-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T16:49:02+08:00">
+                2019-01-15
               </time>
             
 
@@ -1118,11 +1120,12 @@
       
         
           
-          对比之前我们写了best-fields策略,本文将使用most-fields来搜索,那么两者有什么区别呢?best-fields策略:主要是说,将某一个field匹配尽可能多的关键词document优先返回回来most-fields策略:主要是说将更多filed匹配到某个关键词的document优先
+          需求对每个用户发表的博客进行分组
+添加测试数据123456789101112131415161718192021222324252627282930313233PUT /website/users/3&#123;  &quot;name&quot;: &quot;黄药师&quot;,  &quot;
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/17/Elasticsearch-49-实战案例-most-fields策略/#more" rel="contents">
+            <a class="btn" href="/2019/01/15/Elasticsearch-83-聚合分析案例/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1173,7 +1176,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/17/Elasticsearch-48-multi-match语法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/Elasticsearch-82-应用层关联查询与通过冗余数据关联对比/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1192,7 +1195,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/17/Elasticsearch-48-multi-match语法/" itemprop="url">Elasticsearch-48-multi_match语法</a></h1>
+                <a class="post-title-link" href="/2019/01/15/Elasticsearch-82-应用层关联查询与通过冗余数据关联对比/" itemprop="url">Elasticsearch-82-应用层关联查询与通过冗余数据关联对比</a></h1>
         
 
         <div class="post-meta">
@@ -1204,8 +1207,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-17T16:00:58+08:00">
-                2018-12-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T15:38:11+08:00">
+                2019-01-15
               </time>
             
 
@@ -1266,11 +1269,13 @@
       
         
           
-          minimum_should_match作用我们先来看一个查询123456789101112131415161718192021222324252627GET forum/article/_search&#123;  &quot;query&quot;: &#123;    &quot;dis_ma
+          关系型数据建模数据建模以一个博客网站作为案例背景,模拟用户发表各种博客,然后针对用户和博客之间的关系进行数据建模,同时针对建模好的数据执行各种搜索 + 聚合的操作   
+先以类似关系型数据库中的模型来构建数据,还是将有关联的数据分割为不同的实体   
+添加数据12345678910111213PUT
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/17/Elasticsearch-48-multi-match语法/#more" rel="contents">
+            <a class="btn" href="/2019/01/15/Elasticsearch-82-应用层关联查询与通过冗余数据关联对比/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1321,7 +1326,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/Elasticsearch-47-实战案例-基于dis-max实现best-fileds策略进行多字段搜索/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/Elasticsearch-81-关系型数据库与document类型数据模型对比/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1340,7 +1345,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/06/Elasticsearch-47-实战案例-基于dis-max实现best-fileds策略进行多字段搜索/" itemprop="url">Elasticsearch-47-实战案例-基于dis_max实现best fileds策略进行多字段搜索</a></h1>
+                <a class="post-title-link" href="/2019/01/15/Elasticsearch-81-关系型数据库与document类型数据模型对比/" itemprop="url">Elasticsearch-81-关系型数据库与document类型数据模型对比</a></h1>
         
 
         <div class="post-meta">
@@ -1352,8 +1357,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-06T22:19:27+08:00">
-                2018-12-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T15:36:41+08:00">
+                2019-01-15
               </time>
             
 
@@ -1414,11 +1419,11 @@
       
         
           
-          准备工作为帖子增加content字段1234567891011POST /forum/article/_bulk&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;1&quot;&#125; &#125;&#123; &quot;doc&
+          Java类有如下两个类,部门类和员工类12345678public class Department &#123;		private Integer deptId;	private String name;	private String desc;	private List&lt;Employee&
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/06/Elasticsearch-47-实战案例-基于dis-max实现best-fileds策略进行多字段搜索/#more" rel="contents">
+            <a class="btn" href="/2019/01/15/Elasticsearch-81-关系型数据库与document类型数据模型对比/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1469,7 +1474,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/Elasticsearch-46-多shard场景下relevance-score不准确的问题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/Elasticsearch-80-海量bucket的优化机制/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1488,7 +1493,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/05/Elasticsearch-46-多shard场景下relevance-score不准确的问题/" itemprop="url">Elasticsearch-46-多shard场景下relevance score不准确的问题</a></h1>
+                <a class="post-title-link" href="/2019/01/15/Elasticsearch-80-海量bucket的优化机制/" itemprop="url">Elasticsearch-80-海量bucket的优化机制</a></h1>
         
 
         <div class="post-meta">
@@ -1500,8 +1505,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-05T22:20:21+08:00">
-                2018-12-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T10:41:51+08:00">
+                2019-01-15
               </time>
             
 
@@ -1562,11 +1567,13 @@
       
         
           
-          场景一个index的数据被分配到了多个shard上,每个shard都包含一部分这个index的数据如图所示,一个搜索请求条件是title中包含java,假如shard1 上面有10条符合条件的document,这个请求到达shard1上的时候,默认是在这个shard本地local去进行IDF计算在s
+          概述先来看一个需求  
+现在有一堆数据,是每个演员的每个电影的评论,现在我们要取到10个演员的评论数量排名前5的电影   
+看一下请求体12345678910111213141516171819&#123;  &quot;aggs&quot; : &#123;    &quot;actors&quo
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/05/Elasticsearch-46-多shard场景下relevance-score不准确的问题/#more" rel="contents">
+            <a class="btn" href="/2019/01/15/Elasticsearch-80-海量bucket的优化机制/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1617,7 +1624,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/Elasticsearch-45-实战案例-基于boost的细粒度搜索条件权重控制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/Elasticsearch-79-fielddata-filter的细粒度内存加载控制以及预加载机制/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1636,7 +1643,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/05/Elasticsearch-45-实战案例-基于boost的细粒度搜索条件权重控制/" itemprop="url">Elasticsearch-45-实战案例-基于boost的细粒度搜索条件权重控制</a></h1>
+                <a class="post-title-link" href="/2019/01/15/Elasticsearch-79-fielddata-filter的细粒度内存加载控制以及预加载机制/" itemprop="url">Elasticsearch-79-fielddata filter的细粒度内存加载控制以及预加载机制</a></h1>
         
 
         <div class="post-meta">
@@ -1648,8 +1655,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-05T21:20:02+08:00">
-                2018-12-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T10:13:24+08:00">
+                2019-01-15
               </time>
             
 
@@ -1710,12 +1717,11 @@
       
         
           
-          场景我们来搜索一下标题必须包含 “blog” 的数据,然后可以包含 “java” “hadoop” “elasticsearch” “spark”的数据  
-实现组合搜索条件123456789101112131415161718192021222324252627282930313233343536
+          filter的细粒度内存加载控制12345678910111213141516POST /test_index/_mapping/my_type&#123;  &quot;properties&quot;: &#123;    &quot;my_field&quot;: &#123;      &q
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/05/Elasticsearch-45-实战案例-基于boost的细粒度搜索条件权重控制/#more" rel="contents">
+            <a class="btn" href="/2019/01/15/Elasticsearch-79-fielddata-filter的细粒度内存加载控制以及预加载机制/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1757,7 +1763,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/14/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/16/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/14/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="extend next" rel="next" href="/page/16/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1803,7 +1809,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">195</span>
+                  <span class="site-state-item-count">229</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1814,7 +1820,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1825,7 +1831,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1893,7 +1899,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共215.2k字</span>
+  <span class="post-count">博客全站共262k字</span>
 </div>
         
 

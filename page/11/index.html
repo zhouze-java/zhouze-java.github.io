@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/21/Elasticsearch-94-search-template搜索模板化/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-17-Zuul异常处理源码分析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/21/Elasticsearch-94-search-template搜索模板化/" itemprop="url">Elasticsearch-94-search template搜索模板化</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-17-Zuul异常处理源码分析/" itemprop="url">Spring Cloud-17-Zuul异常处理源码分析</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-21T11:59:20+08:00">
-                2019-01-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:10:03+08:00">
+                2019-04-10
               </time>
             
 
@@ -336,8 +336,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -375,12 +375,14 @@
       
         
           
-          简介search template 搜索模板,可以将一些常用的搜索模板化,每次要执行这个搜索的时候,就直接调用模板,然后传入参数就好了    
-入门先写一个简单的模板1234567891011121314GET /blog_website/blogs/_search/template&#123;  
+          述本文来看一下Zuul的异常处理流程,以及如何自定义异常信息   
+Zuul生命周期看一下官方给出的Zuul请求的生命周期图:   
+从图上可以看出,正常情况下,请求都是按照pre→route→post的顺序来执行,最后由post返回response.  
+在看一下pre下面的custom filt
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/21/Elasticsearch-94-search-template搜索模板化/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-17-Zuul异常处理源码分析/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -431,7 +433,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/18/Elasticsearch-93-深入剖析搜索结果的高亮显示/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-16-Zuul网关配置详解/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -450,7 +452,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/18/Elasticsearch-93-深入剖析搜索结果的高亮显示/" itemprop="url">Elasticsearch-93-深入剖析搜索结果的高亮显示</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-16-Zuul网关配置详解/" itemprop="url">Spring Cloud-16-Zuul网关配置详解</a></h1>
         
 
         <div class="post-meta">
@@ -462,8 +464,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T17:03:33+08:00">
-                2019-01-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:09:55+08:00">
+                2019-04-10
               </time>
             
 
@@ -485,8 +487,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -524,12 +526,13 @@
       
         
           
-          搜索结果高亮显示先来看一个最基本的高亮案例   
-首先创建一个索引1234567891011121314151617PUT /blog_website&#123;  &quot;mappings&quot;: &#123;    &quot;blogs&quot;: &#123;      &quo
+          述上文中初步使用了Zuul的路由和请求过滤,接下来就详细的看一下Zuul的路由配置  
+路由配置上文中,我们配置的一个路由规则是这样的:12345zuul:  routes:    api-a:      path: /api-a/**      serviceId: feign-consumer
+
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/18/Elasticsearch-93-深入剖析搜索结果的高亮显示/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-16-Zuul网关配置详解/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -580,7 +583,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/18/Elasticsearch-92-查询term-vectors词条向量信息/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-15-Zuul网关使用及请求过滤/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -599,7 +602,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/18/Elasticsearch-92-查询term-vectors词条向量信息/" itemprop="url">Elasticsearch-92-查询term vectors词条向量信息</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-15-Zuul网关使用及请求过滤/" itemprop="url">Spring Cloud-15-Zuul网关使用及请求过滤</a></h1>
         
 
         <div class="post-meta">
@@ -611,8 +614,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T14:44:41+08:00">
-                2019-01-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:09:44+08:00">
+                2019-04-10
               </time>
             
 
@@ -634,8 +637,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -673,15 +676,12 @@
       
         
           
-          term vectors介绍可以理解为,关于 词 的一些统计信息.   
-可以查询到的信息比如有 
-
-词条的信息,比如position位置,start_offset开始的偏移值, end_offset结束的偏移值,词条的payLoads(主要用于自定义字段的权重)   
-词条统计,doc_freq,
+          述微服务,就是把一个大的项目拆分成多个独立的模块,然后通过服务治理让这些独立的模块配合工作,随着业务的扩展,整个系统越来越大,随之带来的也会有很多问题  
+比如说,我的项目中有很多个独立服务都要对外提供服务,那么对于开发和运维人员来说,这些接口应该怎么管理?在微服务中,一个独立的系统被拆分成很多个模
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/18/Elasticsearch-92-查询term-vectors词条向量信息/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-15-Zuul网关使用及请求过滤/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -732,7 +732,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/18/Elasticsearch-91-祖孙三层数据关系建模及搜索/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-14-Feign配置详解/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -751,7 +751,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/18/Elasticsearch-91-祖孙三层数据关系建模及搜索/" itemprop="url">Elasticsearch-91-祖孙三层数据关系建模及搜索</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-14-Feign配置详解/" itemprop="url">Spring Cloud-14-Feign配置详解</a></h1>
         
 
         <div class="post-meta">
@@ -763,8 +763,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T10:10:11+08:00">
-                2019-01-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:09:27+08:00">
+                2019-04-10
               </time>
             
 
@@ -786,8 +786,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -825,11 +825,12 @@
       
         
           
-          数据建模祖孙三层的数据建模12345678910111213141516PUT /company&#123;  &quot;mappings&quot;: &#123;    &quot;country&quot;: &#123;&#125;,    &quot;rd_center&quot;: &
+          述之前有说过,Fegin是整合了Ribbon和Hystrix的,下面就看一下在Feign中是如何配置Ribbon和Hystrix的  
+Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接超时时间  ConnectTimeout: 600
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/18/Elasticsearch-91-祖孙三层数据关系建模及搜索/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-14-Feign配置详解/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -880,7 +881,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/17/Elasticsearch-90-父子关系类型的数据建模与搜索聚合/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-13-Feign的继承特性/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -899,7 +900,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/17/Elasticsearch-90-父子关系类型的数据建模与搜索聚合/" itemprop="url">Elasticsearch-90-父子关系类型的数据建模与搜索聚合</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-13-Feign的继承特性/" itemprop="url">Spring Cloud-13-Feign的继承特性</a></h1>
         
 
         <div class="post-meta">
@@ -911,8 +912,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-17T17:56:22+08:00">
-                2019-01-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:08:27+08:00">
+                2019-04-10
               </time>
             
 
@@ -934,8 +935,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -973,12 +974,12 @@
       
         
           
-          parent child建模之前用的nested object的建模方式,有个不好的地方,就是采取类似冗余数据的方式,将多个数据都放在了一起,维护成本比较高   
-parent child建模方式,采用的是类似数据库三范式的建模,多个实体都分割开来,每个实体之间都通过一些关联的方式,进行了父子关系的
+          述上文中,初步的使用了Feign,在写HelloService接口的时候,可以发现,代码可以直接从服务提供者中复制过来.   
+这些可以复制的代码Spring Cloud Feign对它进行了进一步的抽象,这里就用到了Feign的继承特性,那么下面就来看下如何使用Feign的继承特性,进一步简化代码
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/17/Elasticsearch-90-父子关系类型的数据建模与搜索聚合/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-13-Feign的继承特性/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1029,7 +1030,7 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/17/Elasticsearch-89-针对nested-object的聚合分析案例/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-12-Feign入门/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1048,7 +1049,7 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/17/Elasticsearch-89-针对nested-object的聚合分析案例/" itemprop="url">Elasticsearch-89-针对nested object的聚合分析案例</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-12-Feign入门/" itemprop="url">Spring Cloud-12-Feign入门</a></h1>
         
 
         <div class="post-meta">
@@ -1060,8 +1061,8 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-17T15:55:06+08:00">
-                2019-01-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:08:18+08:00">
+                2019-04-10
               </time>
             
 
@@ -1083,8 +1084,8 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -1122,12 +1123,11 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
       
         
           
-          对于nested object里面的数据,如何做聚合分析呢? 以上文的数据作为背景 来看两个案例   
-案例一需求: 按照评论日期进行划分bucket,拿到每个月评论的stars的平均值请求123456789101112131415161718192021222324252627GET /websi
+          述前面,我们使用了Ribbon,RestTemplate,Hystrix这些组件,都是spring cloud的一些非常基础的组件,在使用过程中,这些东西都是同时出现的,而且配置也差不多,每次开发都有很多相同的代码,因此Spring Cloud基于Netflix Feign整合了Ribbon和Hys
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/17/Elasticsearch-89-针对nested-object的聚合分析案例/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-12-Feign入门/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1178,7 +1178,7 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/17/Elasticsearch-88-nested-object数据结构/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-11-Hystrix仪表盘与Turbine集群监控/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1197,7 +1197,7 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/17/Elasticsearch-88-nested-object数据结构/" itemprop="url">Elasticsearch-88-nested object数据结构</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-11-Hystrix仪表盘与Turbine集群监控/" itemprop="url">Spring Cloud-11-Hystrix仪表盘与Turbine集群监控</a></h1>
         
 
         <div class="post-meta">
@@ -1209,8 +1209,8 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-17T10:54:24+08:00">
-                2019-01-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:08:09+08:00">
+                2019-04-10
               </time>
             
 
@@ -1232,8 +1232,8 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -1271,11 +1271,13 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
       
         
           
-          普通object类型用冗余数据的方式来建模,其实用的就是object类型,来看一个数据12345678910111213141516171819202122PUT /website/blogs/6&#123;  &quot;title&quot;: &quot;花无缺发表的一篇帖子&quot;,  
+          述Hystrix仪表盘,主要用来监控Hystrix的实时运行状态,通过仪表盘可以看到Hystrix的各项指标信息,从而快速发现系统中存在的问题, 记下来就来看一下具体如何使用  
+本文主要通过两个方面来使用Hystrix仪表盘,一个是单体应用的监控,另一个是整合Turbine对集群进行监控.  
+单
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/17/Elasticsearch-88-nested-object数据结构/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-11-Hystrix仪表盘与Turbine集群监控/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1326,7 +1328,7 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/16/Elasticsearch-87-基于共享锁和排它锁实现悲观锁并发控制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-10-Hystrix请求合并/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1345,7 +1347,7 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/16/Elasticsearch-87-基于共享锁和排它锁实现悲观锁并发控制/" itemprop="url">Elasticsearch-87-基于共享锁和排它锁实现悲观锁并发控制</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-10-Hystrix请求合并/" itemprop="url">Spring Cloud-10-Hystrix请求合并</a></h1>
         
 
         <div class="post-meta">
@@ -1357,8 +1359,8 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T17:16:20+08:00">
-                2019-01-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:08:00+08:00">
+                2019-04-10
               </time>
             
 
@@ -1380,8 +1382,8 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -1419,13 +1421,12 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
       
         
           
-          共享锁和排它锁共享锁: 这份数据是共享的,然后多个线程过来,都可以获取同一个数据的共享锁,然后对这个数据执行读操作.排它锁: 是排他的操作,只能一个线程获取排他锁,然后执行增删改操作  
-读写锁分离   
-如果是要读取数据的话,那么任意多少个线程都可以进来然后读取数据,每个线程都可以上一个共享锁,但
+          述在微服务的架构中,各个模块是通过互相请求来进行通信的,在高并发的情况下,通信次数的增加会导致总的通信时间增加,同时线程池的资源也是有限的,高并发的环境下,会有大量的线程处于等待状态,进而导致了响应延迟,要解决这些问题就可以使用Hystrix的请求合并.  
+具体原理是怎样的呢? Hystrix中的
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/16/Elasticsearch-87-基于共享锁和排它锁实现悲观锁并发控制/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-10-Hystrix请求合并/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1476,7 +1477,7 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/16/Elasticsearch-86-基于document锁实现悲观锁并发控制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-9-Hystrix请求缓存/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1495,7 +1496,7 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/16/Elasticsearch-86-基于document锁实现悲观锁并发控制/" itemprop="url">Elasticsearch-86-基于document锁实现悲观锁并发控制</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-9-Hystrix请求缓存/" itemprop="url">Spring Cloud-9-Hystrix请求缓存</a></h1>
         
 
         <div class="post-meta">
@@ -1507,8 +1508,8 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T14:47:39+08:00">
-                2019-01-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:07:48+08:00">
+                2019-04-10
               </time>
             
 
@@ -1530,8 +1531,8 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -1569,12 +1570,13 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
       
         
           
-          document锁上文中的全局锁,一次性就锁上了整个index,对这个index的所有增删改操作都会被block住,如果上锁不频繁,还可以,如果上锁释放锁的操作很频繁,显然不适用     
-document锁,顾名思义,每次就锁需要操作的几个doc,就可以了,被锁的doc,其他线程就不能对这些doc
+          述在高并发的情况下,处理好缓存,就能有效的降低服务器的压力,Spring Cloud的Hystrix也提供了请求缓存的能力,接下来,我们来看一下如何开启.   
+环境准备还是基于之前的服务注册中心,提供者和消费者, 先把服务注册中心开启, 服务提供者和消费者需要修改.   
+通过方法重载开启缓存当我
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/16/Elasticsearch-86-基于document锁实现悲观锁并发控制/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-9-Hystrix请求缓存/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1625,7 +1627,7 @@ document锁,顾名思义,每次就锁需要操作的几个doc,就可以了,被�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/Elasticsearch-85-基于全局锁实现悲观锁并发控制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-8-Hystrix的服务降级与异常处理/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1644,7 +1646,7 @@ document锁,顾名思义,每次就锁需要操作的几个doc,就可以了,被�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/15/Elasticsearch-85-基于全局锁实现悲观锁并发控制/" itemprop="url">Elasticsearch-85-基于全局锁实现悲观锁并发控制</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-8-Hystrix的服务降级与异常处理/" itemprop="url">Spring Cloud-8-Hystrix的服务降级与异常处理</a></h1>
         
 
         <div class="post-meta">
@@ -1656,8 +1658,8 @@ document锁,顾名思义,每次就锁需要操作的几个doc,就可以了,被�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T17:16:08+08:00">
-                2019-01-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:07:39+08:00">
+                2019-04-10
               </time>
             
 
@@ -1679,8 +1681,8 @@ document锁,顾名思义,每次就锁需要操作的几个doc,就可以了,被�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -1718,12 +1720,12 @@ document锁,顾名思义,每次就锁需要操作的几个doc,就可以了,被�
       
         
           
-          并发控制的几种方案结合之前的文件系统的案例, 假设有多个线程过来,要并发的给/workspace/projects/helloworld下的README.txt修改文件名,这个时候就要进行并发的控制,避免多线程的并发安全问题.  
-基于version的乐观锁,先获取要修改的信息的版本号,然后和自己的
+          之前我们用过了fallbackMethod这个东西,本文将详细说一下这个东西,也就是服务降级   
+服务降级前文中,fallbackMethod所描述的函数,就是一个备胎,用来实现服务的降级处理,在@HystrixCommand注解中,可以通过fallbackMethod来指定请求失败后调用的方法,
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/15/Elasticsearch-85-基于全局锁实现悲观锁并发控制/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-8-Hystrix的服务降级与异常处理/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1765,7 +1767,7 @@ document锁,顾名思义,每次就锁需要操作的几个doc,就可以了,被�
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1811,7 +1813,7 @@ document锁,顾名思义,每次就锁需要操作的几个doc,就可以了,被�
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">195</span>
+                  <span class="site-state-item-count">229</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1822,7 +1824,7 @@ document锁,顾名思义,每次就锁需要操作的几个doc,就可以了,被�
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1833,7 +1835,7 @@ document锁,顾名思义,每次就锁需要操作的几个doc,就可以了,被�
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1901,7 +1903,7 @@ document锁,顾名思义,每次就锁需要操作的几个doc,就可以了,被�
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共215.2k字</span>
+  <span class="post-count">博客全站共262k字</span>
 </div>
         
 

@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/22/Elasticsearch-24-search-api和Query-DSL基本语法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/03/Elasticsearch-58-通过ngram分词机制实现index-time搜索联想/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/22/Elasticsearch-24-search-api和Query-DSL基本语法/" itemprop="url">Elasticsearch-24-search api和Query DSL基本语法</a></h1>
+                <a class="post-title-link" href="/2019/01/03/Elasticsearch-58-通过ngram分词机制实现index-time搜索联想/" itemprop="url">Elasticsearch-58-通过ngram分词机制实现index-time搜索联想</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-22T17:53:50+08:00">
-                2018-11-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-03T14:34:56+08:00">
+                2019-01-03
               </time>
             
 
@@ -375,13 +375,11 @@
       
         
           
-          search api 的基本语法12GET /_search&#125;&#123;
-12345GET /_search&#123;    &quot;from&quot;:0,    &quot;size&quot;:10&#125;
-1GET /_search?from=0&amp;size=1
+          什么是ngram举个例子,现在有一个quick这个单词,在ngram的长度是1的时候,quick这个单词会被拆分为ngram length = 1的情况下被拆分为q u i c kngram length = 2的情况下被拆分为qu ui ic ckngram length = 3的情况下被拆分为q
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/22/Elasticsearch-24-search-api和Query-DSL基本语法/#more" rel="contents">
+            <a class="btn" href="/2019/01/03/Elasticsearch-58-通过ngram分词机制实现index-time搜索联想/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -432,7 +430,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/22/Elasticsearch-23-mapping复杂数据类型和object类型底层数据存储/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/02/Elasticsearch-57-搜索联想/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -451,7 +449,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/22/Elasticsearch-23-mapping复杂数据类型和object类型底层数据存储/" itemprop="url">Elasticsearch-23-_mapping复杂数据类型和object类型底层数据存储</a></h1>
+                <a class="post-title-link" href="/2019/01/02/Elasticsearch-57-搜索联想/" itemprop="url">Elasticsearch-57-搜索联想</a></h1>
         
 
         <div class="post-meta">
@@ -463,8 +461,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-22T16:49:46+08:00">
-                2018-11-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-02T17:52:55+08:00">
+                2019-01-02
               </time>
             
 
@@ -525,13 +523,12 @@
       
         
           
-          几种复杂的数据类型multivalue field比如数据是1&#123;&quot;tags&quot;:[&quot;tag1&quot;,&quot;tag2&quot;]&#125;
-这种数据建立索引时,与string类型是一样的, 数组中的数据是不能混的,要放字符串都放字符串. 
-empt
+          准备工作删除之前的my_index1DELETE /my_index
+然后再添加几条测试用的数据1234567891011121314151617181920212223242526272829POST /my_index/my_type/1&#123;  &quot;title&quot;:&qu
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/22/Elasticsearch-23-mapping复杂数据类型和object类型底层数据存储/#more" rel="contents">
+            <a class="btn" href="/2019/01/02/Elasticsearch-57-搜索联想/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -582,7 +579,7 @@ empt
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/22/Elasticsearch-22-mapping详解/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/02/Elasticsearch-56-前缀搜索-通配符搜索-正则搜索/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -601,7 +598,7 @@ empt
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/22/Elasticsearch-22-mapping详解/" itemprop="url">Elasticsearch-22-mapping详解</a></h1>
+                <a class="post-title-link" href="/2019/01/02/Elasticsearch-56-前缀搜索-通配符搜索-正则搜索/" itemprop="url">Elasticsearch-56-前缀搜索 通配符搜索 正则搜索</a></h1>
         
 
         <div class="post-meta">
@@ -613,8 +610,8 @@ empt
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-22T16:12:35+08:00">
-                2018-11-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-02T17:18:52+08:00">
+                2019-01-02
               </time>
             
 
@@ -675,14 +672,11 @@ empt
       
         
           
-          什么是mapping往es里面直接插入数据,es会自动建立索引,同时建立type以及对应的mapping.   
-mapping中就定义了每个field的数据类型  
-不同的数据类型,可能有的是精确搜索(exact value),有的是全文检索(full text).   
-exact value在
+          准备工作首先我们先手动建立一个index,再添加几条数据.创建index123456789101112PUT /my_index&#123;  &quot;mappings&quot;: &#123;    &quot;my_type&quot;: &#123;      &quot;propert
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/22/Elasticsearch-22-mapping详解/#more" rel="contents">
+            <a class="btn" href="/2019/01/02/Elasticsearch-56-前缀搜索-通配符搜索-正则搜索/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -733,7 +727,7 @@ exact value在
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/22/Elasticsearch-21-query-string分词和mapping案例遗留问题揭秘/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/02/Elasticsearch-55-使用rescoring机制优化近似匹配的性能/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -752,7 +746,7 @@ exact value在
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/22/Elasticsearch-21-query-string分词和mapping案例遗留问题揭秘/" itemprop="url">Elasticsearch-21-query string分词和mapping案例遗留问题揭秘</a></h1>
+                <a class="post-title-link" href="/2019/01/02/Elasticsearch-55-使用rescoring机制优化近似匹配的性能/" itemprop="url">Elasticsearch-55-使用rescoring机制优化近似匹配的性能</a></h1>
         
 
         <div class="post-meta">
@@ -764,8 +758,8 @@ exact value在
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-22T12:00:09+08:00">
-                2018-11-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-02T16:02:51+08:00">
+                2019-01-02
               </time>
             
 
@@ -826,12 +820,12 @@ exact value在
       
         
           
-          query string 分词query string必须以和index建立时相同的analyzer进行分词.  
-比如,我们有一个document,其中有一个field,它的值是:hello you and me,建立倒排索引.我们要搜索这个document对应的index,搜索文本是hello 
+          match 和 phrase match(proximity match)的区别match:只要简单的匹配到了一个term,就可以将term对应的doc返回.  
+phrase match:首先扫描到所有term的document list,然后对每个document都计算term position
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/22/Elasticsearch-21-query-string分词和mapping案例遗留问题揭秘/#more" rel="contents">
+            <a class="btn" href="/2019/01/02/Elasticsearch-55-使用rescoring机制优化近似匹配的性能/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -882,7 +876,7 @@ exact value在
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/22/Elasticsearch-20-分词器详解/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/27/Elasticsearch-54-搜索实现召回率和精准度平衡/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -901,7 +895,7 @@ exact value在
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/22/Elasticsearch-20-分词器详解/" itemprop="url">Elasticsearch-20-分词器详解</a></h1>
+                <a class="post-title-link" href="/2018/12/27/Elasticsearch-54-搜索实现召回率和精准度平衡/" itemprop="url">Elasticsearch-54-搜索实现召回率和精准度平衡</a></h1>
         
 
         <div class="post-meta">
@@ -913,8 +907,8 @@ exact value在
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-22T11:12:06+08:00">
-                2018-11-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-27T17:27:35+08:00">
+                2018-12-27
               </time>
             
 
@@ -975,13 +969,13 @@ exact value在
       
         
           
-          什么是分词器作用: 拆分词语,进行normalization操作(提升recall召回率)  
-比如说,有一个句子,然后将这个句子拆分成一个一个的单词,同时对每个单词进行normalization(时态转换,单复数转换等等).    
-recall召回率:简单来说就是搜索的时候,增加能够搜索到的结果
+          首先需要了解两个概念,召回率和精准度   
+召回率比如搜索一个java spark,总共有100个document,能返回多少个document作为结果,这个就是召回率(recall)  
+精准度比如搜索一个java spark,能不能尽可能让包含java spark这个短语的,或者是java和sp
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/22/Elasticsearch-20-分词器详解/#more" rel="contents">
+            <a class="btn" href="/2018/12/27/Elasticsearch-54-搜索实现召回率和精准度平衡/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1032,7 +1026,7 @@ recall召回率:简单来说就是搜索的时候,增加能够搜索到的结果
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/Elasticsearch-19-倒排索引核心原理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/27/Elasticsearch-53-基于slop参数实现近似匹配/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1051,7 +1045,7 @@ recall召回率:简单来说就是搜索的时候,增加能够搜索到的结果
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/21/Elasticsearch-19-倒排索引核心原理/" itemprop="url">Elasticsearch-19-倒排索引核心原理</a></h1>
+                <a class="post-title-link" href="/2018/12/27/Elasticsearch-53-基于slop参数实现近似匹配/" itemprop="url">Elasticsearch-53-基于slop参数实现近似匹配</a></h1>
         
 
         <div class="post-meta">
@@ -1063,8 +1057,8 @@ recall召回率:简单来说就是搜索的时候,增加能够搜索到的结果
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-21T19:47:32+08:00">
-                2018-11-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-27T11:43:56+08:00">
+                2018-12-27
               </time>
             
 
@@ -1125,13 +1119,11 @@ recall召回率:简单来说就是搜索的时候,增加能够搜索到的结果
       
         
           
-          场景假设我们现在有两个document.  
-document1: I really liked my small dogs, and I think my mom also liked them.  
-document2: He never liked any dogs, so I hope th
+          slop参数比如我们现在有一个搜索请求如下:1234567891011GET forum/article/_search&#123;  &quot;query&quot;: &#123;    &quot;match_phrase&quot;: &#123;      &quot;title&quo
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/21/Elasticsearch-19-倒排索引核心原理/#more" rel="contents">
+            <a class="btn" href="/2018/12/27/Elasticsearch-53-基于slop参数实现近似匹配/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1182,7 +1174,7 @@ document2: He never liked any dogs, so I hope th
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/Elasticsearch-18-精确匹配与全文检索/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/26/Elasticsearch-52-phrase-match搜索及原理/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1201,7 +1193,7 @@ document2: He never liked any dogs, so I hope th
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/21/Elasticsearch-18-精确匹配与全文检索/" itemprop="url">Elasticsearch-18-精确匹配与全文检索</a></h1>
+                <a class="post-title-link" href="/2018/12/26/Elasticsearch-52-phrase-match搜索及原理/" itemprop="url">Elasticsearch-52-phrase match搜索及原理</a></h1>
         
 
         <div class="post-meta">
@@ -1213,8 +1205,8 @@ document2: He never liked any dogs, so I hope th
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-21T17:57:53+08:00">
-                2018-11-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-26T15:24:13+08:00">
+                2018-12-26
               </time>
             
 
@@ -1275,12 +1267,11 @@ document2: He never liked any dogs, so I hope th
       
         
           
-          精确匹配(exact value)比如我们在之前的例子,通过精确匹配搜索 2017-01-01的时候, field中必须包含2017-01-01 才能搜索出来,如果只搜索个01,这样是搜不出来的
-全文检索 (full text)不单纯的只是匹配一个完整的值,而是可以对值进行分词后进行匹配,还可以通过
+          近似匹配假设现在有两个document,他们的content的值分别是:java is my favourite programming language, and I also think spark is a very good big data system.java spark are ve
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/21/Elasticsearch-18-精确匹配与全文检索/#more" rel="contents">
+            <a class="btn" href="/2018/12/26/Elasticsearch-52-phrase-match搜索及原理/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1331,7 +1322,7 @@ document2: He never liked any dogs, so I hope th
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/Elasticsearch-17-初识mapping/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/19/Elasticsearch-51-cross-fields搜索问题解决方案/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1350,7 +1341,7 @@ document2: He never liked any dogs, so I hope th
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/21/Elasticsearch-17-初识mapping/" itemprop="url">Elasticsearch-17-初识mapping</a></h1>
+                <a class="post-title-link" href="/2018/12/19/Elasticsearch-51-cross-fields搜索问题解决方案/" itemprop="url">Elasticsearch-51-cross-fields搜索问题解决方案</a></h1>
         
 
         <div class="post-meta">
@@ -1362,8 +1353,8 @@ document2: He never liked any dogs, so I hope th
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-21T17:43:32+08:00">
-                2018-11-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-19T11:15:33+08:00">
+                2018-12-19
               </time>
             
 
@@ -1424,11 +1415,12 @@ document2: He never liked any dogs, so I hope th
       
         
           
-          首先,我们先插入几条数据,让ES为我们自动建立一个索引1234567891011121314151617181920212223PUT /website/article/1&#123;  &quot;post_date&quot;: &quot;2017-01-01&quot;,  &quot;ti
+          解决方案一:使用copy_to用copy_to可以将多个field组合成一个field.   
+之前说的问题,其实就是出在了有多个field,那么我们只要把这些field合并成一个field即可,比如搜索一个人名,有first_name和last_name,将这两个field合并成一个full_na
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/21/Elasticsearch-17-初识mapping/#more" rel="contents">
+            <a class="btn" href="/2018/12/19/Elasticsearch-51-cross-fields搜索问题解决方案/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1479,7 +1471,7 @@ document2: He never liked any dogs, so I hope th
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/Elasticsearch-16-_search搜索详解/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/19/Elasticsearch-50-most-fields策略进行cross-fields搜索的弊端/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1498,7 +1490,7 @@ document2: He never liked any dogs, so I hope th
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/21/Elasticsearch-16-_search搜索详解/" itemprop="url">Elasticsearch-16-_search搜索详解</a></h1>
+                <a class="post-title-link" href="/2018/12/19/Elasticsearch-50-most-fields策略进行cross-fields搜索的弊端/" itemprop="url">Elasticsearch-50-most_fields策略进行cross-fields搜索的弊端</a></h1>
         
 
         <div class="post-meta">
@@ -1510,8 +1502,8 @@ document2: He never liked any dogs, so I hope th
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-21T16:43:02+08:00">
-                2018-11-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-19T11:15:17+08:00">
+                2018-12-19
               </time>
             
 
@@ -1572,19 +1564,11 @@ document2: He never liked any dogs, so I hope th
       
         
           
-          multi-index和multi-type搜索模式就是一次性搜索多个index和type下的数据  
-示例
-搜索所有index,所有type下的所有数据
-1GET /_search
-
-指定一个index,搜索其下所有的type的数据
-1GET /index/_search
-
-查询某个index下指
+          cross-field搜索就是我们搜索一个唯一标识的时候跨越了多个field,比如一个人,标识是姓名,一个建筑的标识是地址. 姓名可以散落在多个field中,比如first_name和last_name中,地址可以散落在country,province,city中.跨多个field搜索一个标识,就是
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/21/Elasticsearch-16-_search搜索详解/#more" rel="contents">
+            <a class="btn" href="/2018/12/19/Elasticsearch-50-most-fields策略进行cross-fields搜索的弊端/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1635,7 +1619,7 @@ document2: He never liked any dogs, so I hope th
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/20/Elasticsearch-15-写一致性原理及quorum机制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/17/Elasticsearch-49-实战案例-most-fields策略/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1654,7 +1638,7 @@ document2: He never liked any dogs, so I hope th
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/20/Elasticsearch-15-写一致性原理及quorum机制/" itemprop="url">Elasticsearch-15-写一致性原理及quorum机制</a></h1>
+                <a class="post-title-link" href="/2018/12/17/Elasticsearch-49-实战案例-most-fields策略/" itemprop="url">Elasticsearch-49-实战案例-most-fields策略</a></h1>
         
 
         <div class="post-meta">
@@ -1666,8 +1650,8 @@ document2: He never liked any dogs, so I hope th
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-20T17:09:33+08:00">
-                2018-11-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-17T18:01:03+08:00">
+                2018-12-17
               </time>
             
 
@@ -1728,14 +1712,11 @@ document2: He never liked any dogs, so I hope th
       
         
           
-          概念我们在发送任何一个增删改操作的时候,都可以带上一个consistency参数,指明我们想要的写一致性是什么,比如:1PUT /index/type/id?consistency=
-consistency的值可以有三个:  
-
-one:要求这个写操作,只要有一个primary shard是acti
+          对比之前我们写了best-fields策略,本文将使用most-fields来搜索,那么两者有什么区别呢?best-fields策略:主要是说,将某一个field匹配尽可能多的关键词document优先返回回来most-fields策略:主要是说将更多filed匹配到某个关键词的document优先
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/20/Elasticsearch-15-写一致性原理及quorum机制/#more" rel="contents">
+            <a class="btn" href="/2018/12/17/Elasticsearch-49-实战案例-most-fields策略/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1777,7 +1758,7 @@ one:要求这个写操作,只要有一个primary shard是acti
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/17/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/19/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/17/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="extend next" rel="next" href="/page/19/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1823,7 +1804,7 @@ one:要求这个写操作,只要有一个primary shard是acti
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">195</span>
+                  <span class="site-state-item-count">229</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1834,7 +1815,7 @@ one:要求这个写操作,只要有一个primary shard是acti
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1845,7 +1826,7 @@ one:要求这个写操作,只要有一个primary shard是acti
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1913,7 +1894,7 @@ one:要求这个写操作,只要有一个primary shard是acti
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共215.2k字</span>
+  <span class="post-count">博客全站共262k字</span>
 </div>
         
 

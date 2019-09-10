@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/Elasticsearch-84-文件系统数据建模及搜索案例/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-7-自定义Hystrix请求命令/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/15/Elasticsearch-84-文件系统数据建模及搜索案例/" itemprop="url">Elasticsearch-84-文件系统数据建模及搜索案例</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-7-自定义Hystrix请求命令/" itemprop="url">Spring Cloud-7-自定义Hystrix请求命令</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T16:49:21+08:00">
-                2019-01-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:07:27+08:00">
+                2019-04-10
               </time>
             
 
@@ -336,8 +336,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -375,12 +375,12 @@
       
         
           
-          数据建模对类似文件系统(filesystem)这种的 有多层级关系的数据进行建模,比如说路径这种多层级的数据   
-数据添加首先先自定义一个分词器.123456789101112PUT /fs&#123;  &quot;settings&quot;: &#123;    &quot;analysis
+          上文中,介绍了Hystrix断路器的简单使用,是通过注解的方式去实现的, 我们也可以通过继承类的方式来实现.   
+自定义HystrixCommand除了使用@HystrixCommand注解,也可以自定义类,继承HystrixCommand类. 如下:12345678910111213141516
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/15/Elasticsearch-84-文件系统数据建模及搜索案例/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-7-自定义Hystrix请求命令/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -431,7 +431,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/Elasticsearch-83-聚合分析案例/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-6-Hystrix断路器/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -450,7 +450,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/15/Elasticsearch-83-聚合分析案例/" itemprop="url">Elasticsearch-83-聚合分析案例</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-6-Hystrix断路器/" itemprop="url">Spring Cloud-6-Hystrix断路器</a></h1>
         
 
         <div class="post-meta">
@@ -462,8 +462,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T16:49:02+08:00">
-                2019-01-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:07:16+08:00">
+                2019-04-10
               </time>
             
 
@@ -485,8 +485,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -524,12 +524,11 @@
       
         
           
-          需求对每个用户发表的博客进行分组
-添加测试数据123456789101112131415161718192021222324252627282930313233PUT /website/users/3&#123;  &quot;name&quot;: &quot;黄药师&quot;,  &quot;
+          概念在微服务架构中,我们把系统拆分成多个服务单元,各个单元都运行在不同的进程中,他们之前如果要交互的话,就是通过远程调用的方式,这样就有可以能会因为网络原因,或者自身服务出现故障或延迟,而导致调用方的服务也出现延迟,若此时调用方的请求不断增加,最后就会因为等待出现故障的依赖方影响形成任务积压,最终导
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/15/Elasticsearch-83-聚合分析案例/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-6-Hystrix断路器/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -580,7 +579,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/Elasticsearch-82-应用层关联查询与通过冗余数据关联对比/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-5-RestTemplate详解/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -599,7 +598,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/15/Elasticsearch-82-应用层关联查询与通过冗余数据关联对比/" itemprop="url">Elasticsearch-82-应用层关联查询与通过冗余数据关联对比</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-5-RestTemplate详解/" itemprop="url">Spring Cloud-5-RestTemplate详解</a></h1>
         
 
         <div class="post-meta">
@@ -611,8 +610,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T15:38:11+08:00">
-                2019-01-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:07:08+08:00">
+                2019-04-10
               </time>
             
 
@@ -634,8 +633,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -673,13 +672,13 @@
       
         
           
-          关系型数据建模数据建模以一个博客网站作为案例背景,模拟用户发表各种博客,然后针对用户和博客之间的关系进行数据建模,同时针对建模好的数据执行各种搜索 + 聚合的操作   
-先以类似关系型数据库中的模型来构建数据,还是将有关联的数据分割为不同的实体   
-添加数据12345678910111213PUT
+          RestTemplate上文中,我们使用RestTemplate实现了最简单的服务访问,并且通过配置@LoadBalanced实现了负载均衡.   
+接下来,我们来看一下,RestTemplate针对几种不同请求类型和参数类型的服务调用实现   
+GET 请求在RestTemplate中,对于GET
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/15/Elasticsearch-82-应用层关联查询与通过冗余数据关联对比/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-5-RestTemplate详解/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -730,7 +729,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/Elasticsearch-81-关系型数据库与document类型数据模型对比/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-4-服务发现与消费-Ribbon负载均衡/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -749,7 +748,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/15/Elasticsearch-81-关系型数据库与document类型数据模型对比/" itemprop="url">Elasticsearch-81-关系型数据库与document类型数据模型对比</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-4-服务发现与消费-Ribbon负载均衡/" itemprop="url">Spring Cloud-4-服务发现与消费 Ribbon负载均衡</a></h1>
         
 
         <div class="post-meta">
@@ -761,8 +760,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T15:36:41+08:00">
-                2019-01-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:06:59+08:00">
+                2019-04-10
               </time>
             
 
@@ -784,8 +783,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -823,11 +822,13 @@
       
         
           
-          Java类有如下两个类,部门类和员工类12345678public class Department &#123;		private Integer deptId;	private String name;	private String desc;	private List&lt;Employee&
+          之前的例子中,已经搭建起来了服务注册中心,包括单节点模式和高可用模式,同时呢服务提供者也有了,就是eureka-client,然后接下来尝试构建一个消费者.  
+服务消费者主要完成两个目标,发现服务以及消费服务.  
+其中,发现服务的任务是由eureka的客户端完成的,而服务消费的任务是由ribbo
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/15/Elasticsearch-81-关系型数据库与document类型数据模型对比/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-4-服务发现与消费-Ribbon负载均衡/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -878,7 +879,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/Elasticsearch-80-海量bucket的优化机制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-3-高可用注册中心/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -897,7 +898,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/15/Elasticsearch-80-海量bucket的优化机制/" itemprop="url">Elasticsearch-80-海量bucket的优化机制</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-3-高可用注册中心/" itemprop="url">Spring Cloud-3-高可用注册中心</a></h1>
         
 
         <div class="post-meta">
@@ -909,8 +910,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T10:41:51+08:00">
-                2019-01-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:06:50+08:00">
+                2019-04-10
               </time>
             
 
@@ -932,8 +933,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -971,13 +972,12 @@
       
         
           
-          概述先来看一个需求  
-现在有一堆数据,是每个演员的每个电影的评论,现在我们要取到10个演员的评论数量排名前5的电影   
-看一下请求体12345678910111213141516171819&#123;  &quot;aggs&quot; : &#123;    &quot;actors&quo
+          在微服务架构这样的分布式环境中,我们需要充分考虑发生故障的情况,所以在生产环境中必须对各个组件进行高可用部署,对于微服务如此,对于服务注册中心也一样.   
+Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治理设计中,所有节点既是服务提供方,也是服务消费方,注册中心也不
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/15/Elasticsearch-80-海量bucket的优化机制/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-3-高可用注册中心/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1028,7 +1028,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/Elasticsearch-79-fielddata-filter的细粒度内存加载控制以及预加载机制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-2-Eureka-Server-Client/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1047,7 +1047,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/15/Elasticsearch-79-fielddata-filter的细粒度内存加载控制以及预加载机制/" itemprop="url">Elasticsearch-79-fielddata filter的细粒度内存加载控制以及预加载机制</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-2-Eureka-Server-Client/" itemprop="url">Spring Cloud-2-Eureka Server & Client</a></h1>
         
 
         <div class="post-meta">
@@ -1059,8 +1059,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T10:13:24+08:00">
-                2019-01-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:06:38+08:00">
+                2019-04-10
               </time>
             
 
@@ -1082,8 +1082,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -1121,11 +1121,11 @@
       
         
           
-          filter的细粒度内存加载控制12345678910111213141516POST /test_index/_mapping/my_type&#123;  &quot;properties&quot;: &#123;    &quot;my_field&quot;: &#123;      &q
+          搭建服务注册中心可以通过Spring Initializr来创建一个Spring boot的工程,命名为eureka-server,然后引入依赖1234&lt;dependency&gt;    &lt;groupId&gt;org.springframework.cloud&lt;/groupId
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/15/Elasticsearch-79-fielddata-filter的细粒度内存加载控制以及预加载机制/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-2-Eureka-Server-Client/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1176,7 +1176,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/14/Elasticsearch-78-fielddata内存控制及circuit-breaker短路器/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-1-服务治理与Eureka/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1195,7 +1195,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/14/Elasticsearch-78-fielddata内存控制及circuit-breaker短路器/" itemprop="url">Elasticsearch-78-fielddata内存控制及circuit breaker短路器</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-1-服务治理与Eureka/" itemprop="url">Spring Cloud-1-服务治理与Eureka</a></h1>
         
 
         <div class="post-meta">
@@ -1207,8 +1207,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-14T17:34:22+08:00">
-                2019-01-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:06:23+08:00">
+                2019-04-10
               </time>
             
 
@@ -1230,8 +1230,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -1269,12 +1269,13 @@
       
         
           
-          fielddata核心原理fielddata加载到内存的过程是lazy加载的,对一个分词field执行聚合时,才会加载,field执行聚合时,才会加载(query-time),而且是field-level加载的一个index的一个field,所有doc都会被加载,而不是少数doc   
-fieldd
+          服务治理服务治理可以说是微服务架构中最为核心和基础的模块,它主要用来实现各个微服务实例的自动化注册与发现.  
+那么为什么需要服务治理呢?  
+举个例子,某个系统在最初开始构建微服务系统的时候可能服务并不多,我们可以通过做一些静态配置来完成服务的调用.比如,有两个服务 A 和 B, 其中服务 A 需
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/14/Elasticsearch-78-fielddata内存控制及circuit-breaker短路器/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-1-服务治理与Eureka/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1325,7 +1326,7 @@ fieldd
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/14/Elasticsearch-77-fielddata原理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-0-什么是微服务架构/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1344,7 +1345,7 @@ fieldd
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/14/Elasticsearch-77-fielddata原理/" itemprop="url">Elasticsearch-77-fielddata原理</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-0-什么是微服务架构/" itemprop="url">Spring Cloud-0-什么是微服务架构</a></h1>
         
 
         <div class="post-meta">
@@ -1356,8 +1357,8 @@ fieldd
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-14T17:06:40+08:00">
-                2019-01-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:05:54+08:00">
+                2019-04-10
               </time>
             
 
@@ -1379,8 +1380,8 @@ fieldd
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -1418,11 +1419,12 @@ fieldd
       
         
           
-          对于不分词的field执行聚合操作.先来看一个请求12345678910GET /test_index/test_type/_search&#123;  &quot;aggs&quot;: &#123;    &quot;group_by_test_field&quot;: &#123;      
+          什么是微服务架构简单说,微服务是系统架构上的一种设计风格,它的主旨是将一个原本独立的系统拆分成多个小型服务,这些小型服务在各自的进程中运行,服务与服务之间通过HTTP的RESTful API进行通信.   
+比如说一个商城,可以将购买流程拆分成 登陆 选择商品 下单 商品发货 订单完成 等多个服务.
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/14/Elasticsearch-77-fielddata原理/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-0-什么是微服务架构/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1473,7 +1475,7 @@ fieldd
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/14/Elasticsearch-76-基于doc-value正排索引的聚合内部原理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Elasticsearch-110-production-mode下启动时的bootstrap-check/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1492,7 +1494,7 @@ fieldd
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/14/Elasticsearch-76-基于doc-value正排索引的聚合内部原理/" itemprop="url">Elasticsearch-76-基于doc value正排索引的聚合内部原理</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Elasticsearch-110-production-mode下启动时的bootstrap-check/" itemprop="url">Elasticsearch-110-production mode下启动时的bootstrap check</a></h1>
         
 
         <div class="post-meta">
@@ -1504,8 +1506,8 @@ fieldd
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-14T11:13:25+08:00">
-                2019-01-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T15:54:53+08:00">
+                2019-04-10
               </time>
             
 
@@ -1566,17 +1568,11 @@ fieldd
       
         
           
-          概述
-聚合分析的内部原理是什么  
-aggs term avg max等执行一个聚合操作的时候,内部原理是怎样的  
-用了什么样的数据结构去执行聚合  
-是不是用的倒排索引 
-
-聚合分析原理先来看一个搜索 + 聚合的请求123456789101112131415GET /test_index/tes
+          bootstrap check经常会碰到一些es的用户,遇到一些奇怪的问题,主要是因为他们没有配置一些重要的设置.在es以前的老版本中,对这些设置错误的配置,会在日志里记录一些warning告警.但是有时候用户会忽略这些日志中的告警信息.为了确保说这些设置的错误配置告警信息可以引起用户的注意,es的
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/14/Elasticsearch-76-基于doc-value正排索引的聚合内部原理/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Elasticsearch-110-production-mode下启动时的bootstrap-check/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1627,7 +1623,7 @@ aggs term avg max等执行一个聚合操作的时候,内部原理是怎样的
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/12/Elasticsearch-75-percentiles百分比算法及优化/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Elasticsearch-109-生产集群部署时对操作系统的一些设置/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1646,7 +1642,7 @@ aggs term avg max等执行一个聚合操作的时候,内部原理是怎样的
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/12/Elasticsearch-75-percentiles百分比算法及优化/" itemprop="url">Elasticsearch-75-percentiles百分比算法及优化</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Elasticsearch-109-生产集群部署时对操作系统的一些设置/" itemprop="url">Elasticsearch-109-生产集群部署时对操作系统的一些设置</a></h1>
         
 
         <div class="post-meta">
@@ -1658,8 +1654,8 @@ aggs term avg max等执行一个聚合操作的时候,内部原理是怎样的
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-12T16:05:19+08:00">
-                2019-01-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T14:58:24+08:00">
+                2019-04-10
               </time>
             
 
@@ -1720,18 +1716,18 @@ aggs term avg max等执行一个聚合操作的时候,内部原理是怎样的
       
         
           
-          需求背景有一个网站,记录了每次请求访问的耗时,需要统计tp50,tp90,tp99.  
+          概述理想情况下,es应该单独在一个服务器上运行,能够使用服务器上的所有资源.为了达到上述目标,我们需要配置操作系统,来允许用户运行es并且获取比默认情况下更多的资源.  
+在生产环境中下面的一些设置必须配置一下:  
 
-tp50:50%的请求的耗时最长在多长时间
-tp90:90%的请求的耗时最长在多长时间
-tp99:99%的请求的耗时最长在多长时间
+禁止swapping
+确保拥有足够的虚拟内存
+确保拥有足够的线程数量
 
-准备数据1DELETE /website
-创建索引123456789101
+默认情况
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/12/Elasticsearch-75-percentiles百分比算法及优化/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Elasticsearch-109-生产集群部署时对操作系统的一些设置/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1773,7 +1769,7 @@ tp99:99%的请求的耗时最长在多长时间
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1819,7 +1815,7 @@ tp99:99%的请求的耗时最长在多长时间
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">195</span>
+                  <span class="site-state-item-count">229</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1830,7 +1826,7 @@ tp99:99%的请求的耗时最长在多长时间
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1841,7 +1837,7 @@ tp99:99%的请求的耗时最长在多长时间
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1909,7 +1905,7 @@ tp99:99%的请求的耗时最长在多长时间
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共215.2k字</span>
+  <span class="post-count">博客全站共262k字</span>
 </div>
         
 

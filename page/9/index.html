@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-3-高可用注册中心/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-11-主从复制环境搭建/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-3-高可用注册中心/" itemprop="url">Spring Cloud-3-高可用注册中心</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-11-主从复制环境搭建/" itemprop="url">Redis-11-主从复制环境搭建</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:06:50+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:17:28+08:00">
+                2019-04-27
               </time>
             
 
@@ -336,8 +336,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -375,12 +375,11 @@
       
         
           
-          在微服务架构这样的分布式环境中,我们需要充分考虑发生故障的情况,所以在生产环境中必须对各个组件进行高可用部署,对于微服务如此,对于服务注册中心也一样.   
-Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治理设计中,所有节点既是服务提供方,也是服务消费方,注册中心也不
+          述上文中,介绍了两种redis的持久化方式,分别是RDB和AOF的方式,下面再来看看redis中的主从复制.主从配置也是一种数据备份的方案,而且可以在一定程度上提升redis性能,redis的主从复制和关系型数据库中的主从复制类似, 从机可以精确的复制主机上的数据, 配置好主从之后,一方面能够实现读
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-3-高可用注册中心/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-11-主从复制环境搭建/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -431,7 +430,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-2-Eureka-Server-Client/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-10-AOF持久化/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -450,7 +449,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-2-Eureka-Server-Client/" itemprop="url">Spring Cloud-2-Eureka Server & Client</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-10-AOF持久化/" itemprop="url">Redis-10-AOF持久化</a></h1>
         
 
         <div class="post-meta">
@@ -462,8 +461,8 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:06:38+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:17:16+08:00">
+                2019-04-27
               </time>
             
 
@@ -485,8 +484,8 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -524,11 +523,13 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
       
         
           
-          搭建服务注册中心可以通过Spring Initializr来创建一个Spring boot的工程,命名为eureka-server,然后引入依赖1234&lt;dependency&gt;    &lt;groupId&gt;org.springframework.cloud&lt;/groupId
+          述上文中说了快照持久化,那本文再来看一下另外一种持久化的方式,就是AOF(append-only file)    
+AOF持久化AOF持久化是把被执行的命令都写到一个aof文件末尾,在恢复的时候只需要从头到尾执行一遍写命令即可恢复数据.  
+AOF在redis中默认是没有开启的,需要手动配置开启 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-2-Eureka-Server-Client/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-10-AOF持久化/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -579,7 +580,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-1-服务治理与Eureka/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-9-快照持久化/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -598,7 +599,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-1-服务治理与Eureka/" itemprop="url">Spring Cloud-1-服务治理与Eureka</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-9-快照持久化/" itemprop="url">Redis-9-快照持久化</a></h1>
         
 
         <div class="post-meta">
@@ -610,8 +611,8 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:06:23+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:17:07+08:00">
+                2019-04-27
               </time>
             
 
@@ -633,8 +634,8 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -672,13 +673,13 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
       
         
           
-          服务治理服务治理可以说是微服务架构中最为核心和基础的模块,它主要用来实现各个微服务实例的自动化注册与发现.  
-那么为什么需要服务治理呢?  
-举个例子,某个系统在最初开始构建微服务系统的时候可能服务并不多,我们可以通过做一些静态配置来完成服务的调用.比如,有两个服务 A 和 B, 其中服务 A 需
+          述redis的持久化有两种方式,分别是快照持久化和AOF,具体使用哪种,需要结合项目的实际情况选择, 下面就先看一下快照持久化.   
+快照持久化, 就是说,redis在某个时间点上,对内存中的数据创建一个副本文件,副本文件中的数据在redis重启时会被自动加载.   
+配置方式redis中,快照持
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-1-服务治理与Eureka/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-9-快照持久化/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -729,7 +730,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-0-什么是微服务架构/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-8-事务的使用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -748,7 +749,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-0-什么是微服务架构/" itemprop="url">Spring Cloud-0-什么是微服务架构</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-8-事务的使用/" itemprop="url">Redis-8-事务的使用</a></h1>
         
 
         <div class="post-meta">
@@ -760,8 +761,8 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:05:54+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:16:57+08:00">
+                2019-04-27
               </time>
             
 
@@ -783,8 +784,8 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -822,12 +823,13 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
       
         
           
-          什么是微服务架构简单说,微服务是系统架构上的一种设计风格,它的主旨是将一个原本独立的系统拆分成多个小型服务,这些小型服务在各自的进程中运行,服务与服务之间通过HTTP的RESTful API进行通信.   
-比如说一个商城,可以将购买流程拆分成 登陆 选择商品 下单 商品发货 订单完成 等多个服务.
+          述上文中说了redis中的发布与订阅,下面来看一下redis中的事务是如何使用的    
+redis是一个nosql数据库,那当然也就有事务的功能,但是和关系型数据库中的事务还是有点差异  
+事务redis中,可以通过MULTI命令开启一个事务,如下:12172.16.12.3:6379&gt; m
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-0-什么是微服务架构/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-8-事务的使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -878,7 +880,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Elasticsearch-110-production-mode下启动时的bootstrap-check/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-7-发布与订阅/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -897,7 +899,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Elasticsearch-110-production-mode下启动时的bootstrap-check/" itemprop="url">Elasticsearch-110-production mode下启动时的bootstrap check</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-7-发布与订阅/" itemprop="url">Redis-7-发布与订阅</a></h1>
         
 
         <div class="post-meta">
@@ -909,8 +911,8 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T15:54:53+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:16:45+08:00">
+                2019-04-27
               </time>
             
 
@@ -932,8 +934,8 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -971,11 +973,13 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
       
         
           
-          bootstrap check经常会碰到一些es的用户,遇到一些奇怪的问题,主要是因为他们没有配置一些重要的设置.在es以前的老版本中,对这些设置错误的配置,会在日志里记录一些warning告警.但是有时候用户会忽略这些日志中的告警信息.为了确保说这些设置的错误配置告警信息可以引起用户的注意,es的
+          述前面,都是说了一些基础数据类型的一些常用的命令,本文来看一下redis中的发布与订阅   
+发布订阅reids中的发布与订阅类似于生活中的电台, 电台可以在某一个频率上发广播,而我们可以接收任何一个频率的广播   
+下面来看一下具体是如何使用的, 首先需要打开一个redis-cli,然后连接我们的
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Elasticsearch-110-production-mode下启动时的bootstrap-check/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-7-发布与订阅/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1026,7 +1030,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Elasticsearch-109-生产集群部署时对操作系统的一些设置/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-6-针对散列和有序集合的常用命令/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1045,7 +1049,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Elasticsearch-109-生产集群部署时对操作系统的一些设置/" itemprop="url">Elasticsearch-109-生产集群部署时对操作系统的一些设置</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-6-针对散列和有序集合的常用命令/" itemprop="url">Redis-6-针对散列和有序集合的常用命令</a></h1>
         
 
         <div class="post-meta">
@@ -1057,8 +1061,8 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T14:58:24+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:16:34+08:00">
+                2019-04-27
               </time>
             
 
@@ -1080,8 +1084,8 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -1119,18 +1123,13 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
       
         
           
-          概述理想情况下,es应该单独在一个服务器上运行,能够使用服务器上的所有资源.为了达到上述目标,我们需要配置操作系统,来允许用户运行es并且获取比默认情况下更多的资源.  
-在生产环境中下面的一些设置必须配置一下:  
-
-禁止swapping
-确保拥有足够的虚拟内存
-确保拥有足够的线程数量
-
-默认情况
+          述上文中,介绍了list和set的一些常用的命令,下面再来看一下散列和有序集合的一些常用的命令   
+散列(hash)和java中的hashmap其实是差不多的,redis其实就是存放的键值对,散列也是存放的键值对,,下面来具体看下一下一些常用的操作   
+hsethset用来设置key指定的哈希集
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Elasticsearch-109-生产集群部署时对操作系统的一些设置/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-6-针对散列和有序集合的常用命令/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1181,7 +1180,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Elasticsearch-108-Jvm和服务器内存分配的最佳实践以及原理分析/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-5-列表与集合的一些常用命令/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1200,7 +1199,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Elasticsearch-108-Jvm和服务器内存分配的最佳实践以及原理分析/" itemprop="url">Elasticsearch-108-Jvm和服务器内存分配的最佳实践以及原理分析</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-5-列表与集合的一些常用命令/" itemprop="url">Redis-5-列表与集合的一些常用命令</a></h1>
         
 
         <div class="post-meta">
@@ -1212,8 +1211,8 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T14:36:21+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:16:21+08:00">
+                2019-04-27
               </time>
             
 
@@ -1235,8 +1234,8 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -1274,12 +1273,14 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
       
         
           
-          概述前文中,说了一些针对es集群可能会出现的一些问题的配置,本文来说一下如何合理的对es进行内存的分配,为什么?   
-Jvm Heap分配es默认会给jvm heap分配2个G的大小,对于几乎所有的生产环境来说,这个内存都太小了.如果用这个默认的heap size,那么生产环境的集群肯定表现不会太
+          述前文中,介绍了String数据类型的一些常用的命令,那么下面来看一下一些针对列表与集合的常用命令   
+列表(list)列表是Redis中另外一种数据类型,下面我们来看看列表中一些基本的操作命令  
+lpush语法如下:1LPUSH key value [value ...]
+将一个或多个值插入到
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Elasticsearch-108-Jvm和服务器内存分配的最佳实践以及原理分析/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-5-列表与集合的一些常用命令/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1330,7 +1331,7 @@ Jvm Heap分配es默认会给jvm heap分配2个G的大小,对于几乎所有的�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Elasticsearch-107-不要随意调节JVM和Thread-Pool的原因/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-4-针对String数据类型中Bit的相关命令/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1349,7 +1350,7 @@ Jvm Heap分配es默认会给jvm heap分配2个G的大小,对于几乎所有的�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Elasticsearch-107-不要随意调节JVM和Thread-Pool的原因/" itemprop="url">Elasticsearch-107-不要随意调节JVM和Thread Pool的原因</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-4-针对String数据类型中Bit的相关命令/" itemprop="url">Redis-4-针对String数据类型中Bit的相关命令</a></h1>
         
 
         <div class="post-meta">
@@ -1361,8 +1362,8 @@ Jvm Heap分配es默认会给jvm heap分配2个G的大小,对于几乎所有的�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T11:43:28+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:16:00+08:00">
+                2019-04-27
               </time>
             
 
@@ -1384,8 +1385,8 @@ Jvm Heap分配es默认会给jvm heap分配2个G的大小,对于几乎所有的�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -1423,12 +1424,13 @@ Jvm Heap分配es默认会给jvm heap分配2个G的大小,对于几乎所有的�
       
         
           
-          概述es中有很多配置我们可以去调节,但是在99.99%的情况下,对于es来说,大部分的参数保留为默认的就可以了,因为这些参数经常被滥用和错误的调节,继而导致严重的稳定性问题以及性能的急剧下降.  
-Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉不用的内存,千万不要去调节默认
+          概述上篇文章我们对String数据类型中一些基本的命令进行了介绍,但是没有涉及到Bit相关的命令,本文我们就来看看几个和Bit相关的命令.  
+redis中的字符串都是以二进制的方式进行存储的,举个例子,执行以下命令:12172.16.12.3:6379&gt; set k1 aOK
+a对应的ASC
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Elasticsearch-107-不要随意调节JVM和Thread-Pool的原因/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-4-针对String数据类型中Bit的相关命令/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1479,7 +1481,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Elasticsearch-106-针对集群重启时shard恢复耗时过长问题的参数设置/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-3-针对String数据类型的一些操作/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1498,7 +1500,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Elasticsearch-106-针对集群重启时shard恢复耗时过长问题的参数设置/" itemprop="url">Elasticsearch-106-针对集群重启时shard恢复耗时过长问题的参数设置</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-3-针对String数据类型的一些操作/" itemprop="url">Redis-3-针对String数据类型的一些操作</a></h1>
         
 
         <div class="post-meta">
@@ -1510,8 +1512,8 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T11:42:48+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:15:48+08:00">
+                2019-04-27
               </time>
             
 
@@ -1533,8 +1535,8 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -1572,12 +1574,12 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
       
         
           
-          问题在集群重启的时候,有一些配置会影响shard的恢复,首先,我们需要理解默认配置下,shard恢复过程会发生什么事情.  
-假设集群中有10个node,每个node上面有一个shard, 可能是primary shard也可能是replica shard,就比如说我们有一个index,有5个pri
+          概述上文中,我们看了一些所有数据类型都通用的一些命令,下面再来看一下一些针对String类型独有的命令  
+操作String类型数据的一些命令append追加字符串,如果key存在的话,就直接在value后面追加内容,如果key不存在,就会先创建一个value是空字符串的数据,然后再追加,具体使用方
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Elasticsearch-106-针对集群重启时shard恢复耗时过长问题的参数设置/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-3-针对String数据类型的一些操作/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1628,7 +1630,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/09/Elasticsearch-105-针对集群脑裂问题定制的重要参数/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-2-数据类型与常用命令/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1647,7 +1649,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/09/Elasticsearch-105-针对集群脑裂问题定制的重要参数/" itemprop="url">Elasticsearch-105-针对集群脑裂问题定制的重要参数</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-2-数据类型与常用命令/" itemprop="url">Redis-2-数据类型与常用命令</a></h1>
         
 
         <div class="post-meta">
@@ -1659,8 +1661,8 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-09T17:29:18+08:00">
-                2019-04-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:15:18+08:00">
+                2019-04-27
               </time>
             
 
@@ -1682,8 +1684,8 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -1721,13 +1723,12 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
       
         
           
-          概念首先,来认识一下什么是集群脑裂,假设我们现在有一个集群,里面有三个节点,一个是master两个data,如下图:  
-假设现在出现了网络故障,导致一个集群被划分成了两片,两片中的节点无法相互通信,如下图:  
-如图就出现了两个netword partition, 图中在左边这个network p
+          reids中的数据类型redis中的数据都是以key-value的形式存储的,数据类型其实是说value的数据类型,一共有以下几种数据类型:  
+String(字符串)String是redis中的最基本的数据类型,string类型是二进制安全的,意思是redis的string可以包含任何数据,比如j
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/09/Elasticsearch-105-针对集群脑裂问题定制的重要参数/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-2-数据类型与常用命令/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1769,7 +1770,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1815,7 +1816,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">195</span>
+                  <span class="site-state-item-count">229</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1826,7 +1827,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1837,7 +1838,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1905,7 +1906,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共215.2k字</span>
+  <span class="post-count">博客全站共262k字</span>
 </div>
         
 

@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-13-Feign的继承特性/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Docker-Redis-配置主从和哨兵/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-13-Feign的继承特性/" itemprop="url">Spring Cloud-13-Feign的继承特性</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Docker-Redis-配置主从和哨兵/" itemprop="url">Docker-Redis-配置主从和哨兵</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:08:27+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T17:39:04+08:00">
+                2019-04-27
               </time>
             
 
@@ -336,8 +336,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Docker-Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker-Redis</span>
                   </a>
                 </span>
 
@@ -375,12 +375,13 @@
       
         
           
-          述上文中,初步的使用了Feign,在写HelloService接口的时候,可以发现,代码可以直接从服务提供者中复制过来.   
-这些可以复制的代码Spring Cloud Feign对它进行了进一步的抽象,这里就用到了Feign的继承特性,那么下面就来看下如何使用Feign的继承特性,进一步简化代码
+          述上文中,我们使用docker安装了redis,下面来配置一个一主二仆的一个主从结构,并且设置哨兵,基于上文中的环境,我们现在已经有一个Redis实例了  
+环境准备上文中我们是挂载的外部的配置文件,和数据文件,然后我们把这个文件夹复制两个出来,改下名字,如下:   
+然后修改这两个新的redis中
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-13-Feign的继承特性/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Docker-Redis-配置主从和哨兵/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -431,7 +432,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-12-Feign入门/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Docker-Redis-安装运行Redis并挂载外部配置文件和数据/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -450,7 +451,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-12-Feign入门/" itemprop="url">Spring Cloud-12-Feign入门</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Docker-Redis-安装运行Redis并挂载外部配置文件和数据/" itemprop="url">Docker-Redis-安装运行Redis并挂载外部配置文件和数据</a></h1>
         
 
         <div class="post-meta">
@@ -462,8 +463,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:08:18+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T17:38:34+08:00">
+                2019-04-27
               </time>
             
 
@@ -485,8 +486,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Docker-Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker-Redis</span>
                   </a>
                 </span>
 
@@ -524,11 +525,14 @@
       
         
           
-          述前面,我们使用了Ribbon,RestTemplate,Hystrix这些组件,都是spring cloud的一些非常基础的组件,在使用过程中,这些东西都是同时出现的,而且配置也差不多,每次开发都有很多相同的代码,因此Spring Cloud基于Netflix Feign整合了Ribbon和Hys
+          安装运行Redis拉取镜像在国内的镜像市场找到redis, 选好版本,pull下来,传送门  
+选一个新的,并且稳定的版本,我这里选择的3.2.9版本  
+执行以下命令,pull镜像1docker pull daocloud.io/library/redis:3.2.9
+创建文件夹创建两个文件夹,一
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-12-Feign入门/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Docker-Redis-安装运行Redis并挂载外部配置文件和数据/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -579,7 +583,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-11-Hystrix仪表盘与Turbine集群监控/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-19-常见使用场景/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -598,7 +602,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-11-Hystrix仪表盘与Turbine集群监控/" itemprop="url">Spring Cloud-11-Hystrix仪表盘与Turbine集群监控</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-19-常见使用场景/" itemprop="url">Redis-19-常见使用场景</a></h1>
         
 
         <div class="post-meta">
@@ -610,8 +614,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:08:09+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:18:56+08:00">
+                2019-04-27
               </time>
             
 
@@ -633,8 +637,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -672,13 +676,13 @@
       
         
           
-          述Hystrix仪表盘,主要用来监控Hystrix的实时运行状态,通过仪表盘可以看到Hystrix的各项指标信息,从而快速发现系统中存在的问题, 记下来就来看一下具体如何使用  
-本文主要通过两个方面来使用Hystrix仪表盘,一个是单体应用的监控,另一个是整合Turbine对集群进行监控.  
-单
+          述通过之前文章的介绍,现在redis也可以基本的使用了,那么到底什么时候该使用redis呢.下面就来说几个redis的常用场景   
+使用场景计数器数据统计的需求非常普遍，通过原子递增保持计数。例如，点赞数、收藏数、分享数等。
+排行榜排行榜按照得分进行排序，例如，展示最近、最热、点击率最高、活跃度最
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-11-Hystrix仪表盘与Turbine集群监控/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-19-常见使用场景/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -729,7 +733,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-10-Hystrix请求合并/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-18-缓存击穿、穿透、雪崩等问题及解决方案/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -748,7 +752,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-10-Hystrix请求合并/" itemprop="url">Spring Cloud-10-Hystrix请求合并</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-18-缓存击穿、穿透、雪崩等问题及解决方案/" itemprop="url">Redis-18-缓存击穿、穿透、雪崩等问题及解决方案</a></h1>
         
 
         <div class="post-meta">
@@ -760,8 +764,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:08:00+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:18:46+08:00">
+                2019-04-27
               </time>
             
 
@@ -783,8 +787,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -822,12 +826,16 @@
       
         
           
-          述在微服务的架构中,各个模块是通过互相请求来进行通信的,在高并发的情况下,通信次数的增加会导致总的通信时间增加,同时线程池的资源也是有限的,高并发的环境下,会有大量的线程处于等待状态,进而导致了响应延迟,要解决这些问题就可以使用Hystrix的请求合并.  
-具体原理是怎样的呢? Hystrix中的
+          述上文说了redis的内存淘汰策略,下面再来看一下使用缓存的过程中一些常见的问题   
+我们在使用redis做缓存的时候,一般流程是这样的  
+
+请求进来时候首先查询redis判断是否存在缓存且缓存是否过期
+若已经存在不过期的缓存则直接获取返回
+若缓存不存在或已过期则重新查询数据库并将该数据存到re
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-10-Hystrix请求合并/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-18-缓存击穿、穿透、雪崩等问题及解决方案/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -878,7 +886,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-9-Hystrix请求缓存/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-17-内存淘汰策略/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -897,7 +905,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-9-Hystrix请求缓存/" itemprop="url">Spring Cloud-9-Hystrix请求缓存</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-17-内存淘汰策略/" itemprop="url">Redis-17-内存淘汰策略</a></h1>
         
 
         <div class="post-meta">
@@ -909,8 +917,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:07:48+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:18:35+08:00">
+                2019-04-27
               </time>
             
 
@@ -932,8 +940,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -971,13 +979,13 @@
       
         
           
-          述在高并发的情况下,处理好缓存,就能有效的降低服务器的压力,Spring Cloud的Hystrix也提供了请求缓存的能力,接下来,我们来看一下如何开启.   
-环境准备还是基于之前的服务注册中心,提供者和消费者, 先把服务注册中心开启, 服务提供者和消费者需要修改.   
-通过方法重载开启缓存当我
+          述上文介绍了redis中的过期策略,本文再来看一下内存淘汰策略   
+内存淘汰策略指的是用户存储的一些key可以被Redis主动的删除,从而可能产生读miss的情况,那为什么Redis会有这种功能呢?  
+假设我现在有一个redis的服务器,内存是2G,随着系统业务的增长,reids中放的数据越来越
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-9-Hystrix请求缓存/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-17-内存淘汰策略/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1028,7 +1036,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-8-Hystrix的服务降级与异常处理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-16-过期策略/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1047,7 +1055,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-8-Hystrix的服务降级与异常处理/" itemprop="url">Spring Cloud-8-Hystrix的服务降级与异常处理</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-16-过期策略/" itemprop="url">Redis-16-过期策略</a></h1>
         
 
         <div class="post-meta">
@@ -1059,8 +1067,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:07:39+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:18:27+08:00">
+                2019-04-27
               </time>
             
 
@@ -1082,8 +1090,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -1121,12 +1129,13 @@
       
         
           
-          之前我们用过了fallbackMethod这个东西,本文将详细说一下这个东西,也就是服务降级   
-服务降级前文中,fallbackMethod所描述的函数,就是一个备胎,用来实现服务的降级处理,在@HystrixCommand注解中,可以通过fallbackMethod来指定请求失败后调用的方法,
+          述上文中介绍了redis和spring boot的整合使用,本文再来看一下redis中的过期策略,算是对之前内容的一个补充   
+过期策略在之前说命令行的时候,我们有给一个key设置过期时间,reids的过期策略就是说,一个key过期了的话redis会怎么处理这个key   
+过期策略通常有以下三种
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-8-Hystrix的服务降级与异常处理/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-16-过期策略/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1177,7 +1186,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-7-自定义Hystrix请求命令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-15-与Spring-Boot整合使用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1196,7 +1205,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-7-自定义Hystrix请求命令/" itemprop="url">Spring Cloud-7-自定义Hystrix请求命令</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-15-与Spring-Boot整合使用/" itemprop="url">Redis-15-与Spring Boot整合使用</a></h1>
         
 
         <div class="post-meta">
@@ -1208,8 +1217,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:07:27+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:18:17+08:00">
+                2019-04-27
               </time>
             
 
@@ -1231,8 +1240,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -1270,12 +1279,13 @@
       
         
           
-          上文中,介绍了Hystrix断路器的简单使用,是通过注解的方式去实现的, 我们也可以通过继承类的方式来实现.   
-自定义HystrixCommand除了使用@HystrixCommand注解,也可以自定义类,继承HystrixCommand类. 如下:12345678910111213141516
+          述我们在实际的开发中,通常是需要spring集成redis,这里就以spring boot为例,整合redis,做一些常用的操作   
+环境准备首先开启redis服务,可以用我们之前创建的集群,或者是开启一个单独的redis服务,并且开启远程连接,还是上篇文章的那三步     
+然后,新建一个Spr
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-7-自定义Hystrix请求命令/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-15-与Spring-Boot整合使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1326,7 +1336,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-6-Hystrix断路器/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-14-Jedis的基本使用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1345,7 +1355,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-6-Hystrix断路器/" itemprop="url">Spring Cloud-6-Hystrix断路器</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-14-Jedis的基本使用/" itemprop="url">Redis-14-Jedis的基本使用</a></h1>
         
 
         <div class="post-meta">
@@ -1357,8 +1367,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:07:16+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:18:08+08:00">
+                2019-04-27
               </time>
             
 
@@ -1380,8 +1390,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -1419,11 +1429,12 @@
       
         
           
-          概念在微服务架构中,我们把系统拆分成多个服务单元,各个单元都运行在不同的进程中,他们之前如果要交互的话,就是通过远程调用的方式,这样就有可以能会因为网络原因,或者自身服务出现故障或延迟,而导致调用方的服务也出现延迟,若此时调用方的请求不断增加,最后就会因为等待出现故障的依赖方影响形成任务积压,最终导
+          述前面的文章中介绍了一些reids的基本命令,数据结构,持久化方式,还有主从集群等等,我们操作redis的数据的时候一直是在redis-cli里面的,本文就来看一下如何用java去操作redis,java操作reids的方式有很多种,这里首先先介绍的是Jedis   
+准备工作远程连接reids的前
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-6-Hystrix断路器/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-14-Jedis的基本使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1474,7 +1485,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-5-RestTemplate详解/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-13-集群介绍/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1493,7 +1504,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-5-RestTemplate详解/" itemprop="url">Spring Cloud-5-RestTemplate详解</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-13-集群介绍/" itemprop="url">Redis-13-集群介绍</a></h1>
         
 
         <div class="post-meta">
@@ -1505,8 +1516,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:07:08+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:17:53+08:00">
+                2019-04-27
               </time>
             
 
@@ -1528,8 +1539,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -1567,13 +1578,11 @@
       
         
           
-          RestTemplate上文中,我们使用RestTemplate实现了最简单的服务访问,并且通过配置@LoadBalanced实现了负载均衡.   
-接下来,我们来看一下,RestTemplate针对几种不同请求类型和参数类型的服务调用实现   
-GET 请求在RestTemplate中,对于GET
+          述上文中,我们搭建的是主从结构的redis,那所有的写操作都是在master上的,然后同步更新到slave,所以从Master同步到Slave机器有一定的延迟,当系统很繁忙的时候,延迟问题会更加严重,Slave机器数量的增加也会使这个问题更加严重, 这时候就需要用到集群来提升reids的性能, 下面
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-5-RestTemplate详解/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-13-集群介绍/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1624,7 +1633,7 @@ GET 请求在RestTemplate中,对于GET
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-4-服务发现与消费-Ribbon负载均衡/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-12-哨兵模式/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1643,7 +1652,7 @@ GET 请求在RestTemplate中,对于GET
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-4-服务发现与消费-Ribbon负载均衡/" itemprop="url">Spring Cloud-4-服务发现与消费 Ribbon负载均衡</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-12-哨兵模式/" itemprop="url">Redis-12-哨兵模式</a></h1>
         
 
         <div class="post-meta">
@@ -1655,8 +1664,8 @@ GET 请求在RestTemplate中,对于GET
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:06:59+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:17:39+08:00">
+                2019-04-27
               </time>
             
 
@@ -1678,8 +1687,8 @@ GET 请求在RestTemplate中,对于GET
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -1717,13 +1726,12 @@ GET 请求在RestTemplate中,对于GET
       
         
           
-          之前的例子中,已经搭建起来了服务注册中心,包括单节点模式和高可用模式,同时呢服务提供者也有了,就是eureka-client,然后接下来尝试构建一个消费者.  
-服务消费者主要完成两个目标,发现服务以及消费服务.  
-其中,发现服务的任务是由eureka的客户端完成的,而服务消费的任务是由ribbo
+          述上文中,使用了两种方式搭建redis主从,这两种方式无论是哪种,都会存在一个问题,那就是在主机宕机的时候,就会发生群龙无首的情况,那么如果在master挂掉的时候,能够从slave中选举出一个来充当master,就不需要我们去手动重启主机了,这就是哨兵模式   
+环境准备本文环境基于上文中,如下这
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-4-服务发现与消费-Ribbon负载均衡/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-12-哨兵模式/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1765,7 +1773,7 @@ GET 请求在RestTemplate中,对于GET
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1811,7 +1819,7 @@ GET 请求在RestTemplate中,对于GET
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">195</span>
+                  <span class="site-state-item-count">229</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1822,7 +1830,7 @@ GET 请求在RestTemplate中,对于GET
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1833,7 +1841,7 @@ GET 请求在RestTemplate中,对于GET
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1901,7 +1909,7 @@ GET 请求在RestTemplate中,对于GET
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共215.2k字</span>
+  <span class="post-count">博客全站共262k字</span>
 </div>
         
 

@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Spring Security,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="述上文中,已经把短信登录流程的代码写好了,但是这些都没有加到 Spring Security 中, 所以并没有生效, 下面看一下如何将我们自定义的这个登录流程配置到 Spring Security 中去    配置这个登录方式,可能会在多个环境下用到,所以这里把配置类写到core项目里面去, 新建类 SmsAuthenticationSecurityConfig :1234567891011121">
+<meta name="keywords" content="Spring Security">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Security-12-短信登录配置及验证逻辑重构">
+<meta property="og:url" content="http://yoursite.com/2019/09/10/Spring-Security-12-短信登录配置及验证逻辑重构/index.html">
+<meta property="og:site_name" content="八度空间">
+<meta property="og:description" content="述上文中,已经把短信登录流程的代码写好了,但是这些都没有加到 Spring Security 中, 所以并没有生效, 下面看一下如何将我们自定义的这个登录流程配置到 Spring Security 中去    配置这个登录方式,可能会在多个环境下用到,所以这里把配置类写到core项目里面去, 新建类 SmsAuthenticationSecurityConfig :1234567891011121">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/N4gcg44e2*yaCitShm7NY.rNy9kcO5dIVLRv9MDiV0A!/r/dL8AAAAAAAAA">
+<meta property="og:updated_time" content="2019-09-10T08:02:26.467Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring Security-12-短信登录配置及验证逻辑重构">
+<meta name="twitter:description" content="述上文中,已经把短信登录流程的代码写好了,但是这些都没有加到 Spring Security 中, 所以并没有生效, 下面看一下如何将我们自定义的这个登录流程配置到 Spring Security 中去    配置这个登录方式,可能会在多个环境下用到,所以这里把配置类写到core项目里面去, 新建类 SmsAuthenticationSecurityConfig :1234567891011121">
+<meta name="twitter:image" content="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/N4gcg44e2*yaCitShm7NY.rNy9kcO5dIVLRv9MDiV0A!/r/dL8AAAAAAAAA">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/10/Spring-Security-12-短信登录配置及验证逻辑重构/">
+
+
+
+
+
+  <title>Spring Security-12-短信登录配置及验证逻辑重构 | 八度空间</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/zhouze-java" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+	
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">八度空间</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-12-短信登录配置及验证逻辑重构/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="周泽">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八度空间">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring Security-12-短信登录配置及验证逻辑重构</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:53:30+08:00">
+                2019-09-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="述"><a href="#述" class="headerlink" title="述"></a>述</h3><p>上文中,已经把短信登录流程的代码写好了,但是这些都没有加到 Spring Security 中, 所以并没有生效, 下面看一下如何将我们自定义的这个登录流程配置到 Spring Security 中去   </p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>这个登录方式,可能会在多个环境下用到,所以这里把配置类写到core项目里面去, 新建类 <code>SmsAuthenticationSecurityConfig</code> :<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class SmsAuthenticationSecurityConfig extends SecurityConfigurerAdapter&lt;DefaultSecurityFilterChain, HttpSecurity&gt; &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private AuthenticationSuccessHandler myAuthenticationSuccessHandler;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private AuthenticationFailureHandler myAuthenticationFailureHandler;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private UserDetailsService userDetailsService;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void configure(HttpSecurity http) throws Exception &#123;</span><br><span class="line">        // 过滤器的配置</span><br><span class="line">        SmsAuthenticationFilter smsAuthenticationFilter = new SmsAuthenticationFilter();</span><br><span class="line">        // 设置AuthenticationManager</span><br><span class="line">        smsAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));</span><br><span class="line">        // 设置登录成功失败的处理</span><br><span class="line">        smsAuthenticationFilter.setAuthenticationSuccessHandler(myAuthenticationSuccessHandler);</span><br><span class="line">        smsAuthenticationFilter.setAuthenticationFailureHandler(myAuthenticationFailureHandler);</span><br><span class="line"></span><br><span class="line">        // Provider的配置</span><br><span class="line">        SmsAuthenticationProvider smsAuthenticationProvider = new SmsAuthenticationProvider();</span><br><span class="line">        smsAuthenticationProvider.setUserDetailsService(userDetailsService);</span><br><span class="line"></span><br><span class="line">        http.authenticationProvider(smsAuthenticationProvider)</span><br><span class="line">                .addFilterAfter(smsAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>首先继承了 <code>SecurityConfigurerAdapter</code> ,然后重写 <code>configure(HttpSecurity http)</code> 方法,里面首先配置过滤器, 设置 <code>AuthenticationManager</code>, 还有登录成功失败的处理器   </p>
+<p>下面就是我们自己的 <code>Provider</code> 的配置, 最后是把这个 <code>Provider</code> 加到 <code>AuthenticationManager</code> 里面去, 再把我们的过滤器加到 <code>UsernamePasswordAuthenticationFilter</code> 的后面去   </p>
+<p>这个配置是在core里面的配置,web环境并没有, 然后我们需要把这段配置引到web环境中去, <code>BrowserSecurityConfig</code> 中, 修改如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Autowired</span><br><span class="line">private SmsAuthenticationSecurityConfig smsAuthenticationSecurityConfig;</span><br><span class="line"></span><br><span class="line">@Override</span><br><span class="line">protected void configure(HttpSecurity http) throws Exception &#123;</span><br><span class="line">   // ... 省略其他diamante</span><br><span class="line">            .csrf().disable()</span><br><span class="line">        .apply(smsAuthenticationSecurityConfig);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里重点就是 <code>.apply()</code> 方法,他可以把其他地方的配置也引过来,就相当于在这个方法里写一样    </p>
+<h3 id="常量配置"><a href="#常量配置" class="headerlink" title="常量配置"></a>常量配置</h3><p>我们系统中有一些常量,比如说 登录的url, 参数名, 等等. 这些常量都可以放在一个地方统一的管理. core项目里面 新建一个类 <code>SecurityConstants</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">public class SecurityConstants &#123;</span><br><span class="line">    /**</span><br><span class="line">     * 验证图片验证码时，http请求中默认的携带图片验证码信息的参数的名称</span><br><span class="line">     */</span><br><span class="line">    public static final String DEFAULT_PARAMETER_NAME_CODE_IMAGE = &quot;image&quot;;</span><br><span class="line">    </span><br><span class="line">    /**</span><br><span class="line">     * 验证短信验证码时，http请求中默认的携带短信验证码信息的参数的名称</span><br><span class="line">     */</span><br><span class="line">    public static final String DEFAULT_PARAMETER_NAME_CODE_SMS = &quot;sms&quot;;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 默认的处理验证码的url前缀</span><br><span class="line">     */</span><br><span class="line">    public static final String DEFAULT_VALIDATE_CODE_URL_PREFIX = &quot;/code&quot;;</span><br><span class="line">   </span><br><span class="line">    /**</span><br><span class="line">     * 当请求需要身份认证时，默认跳转的url</span><br><span class="line">     */</span><br><span class="line">    public static final String DEFAULT_UNAUTHENTICATION_URL = &quot;/authentication/require&quot;;</span><br><span class="line">   </span><br><span class="line">    /**</span><br><span class="line">     * 默认的用户名密码登录请求处理url</span><br><span class="line">     */</span><br><span class="line">    public static final String DEFAULT_LOGIN_PROCESSING_URL_FORM = &quot;/authentication/form&quot;;</span><br><span class="line">   </span><br><span class="line">    /**</span><br><span class="line">     * 默认的手机验证码登录请求处理url</span><br><span class="line">     */</span><br><span class="line">    public static final String DEFAULT_LOGIN_PROCESSING_URL_MOBILE = &quot;/authentication/mobile&quot;;</span><br><span class="line">  </span><br><span class="line">    /**</span><br><span class="line">     * 默认登录页面</span><br><span class="line">     */</span><br><span class="line">    public static final String DEFAULT_LOGIN_PAGE_URL = &quot;/login.html&quot;;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 发送短信验证码 或 验证短信验证码时，传递手机号的参数的名称</span><br><span class="line">     */</span><br><span class="line">    public static final String DEFAULT_PARAMETER_NAME_MOBILE = &quot;phoneNo&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后把我们之前直接写的都替换掉就好了,之后有什么常量也都写在这个里面     </p>
+<h3 id="验证逻辑重构"><a href="#验证逻辑重构" class="headerlink" title="验证逻辑重构"></a>验证逻辑重构</h3><p>之前一直没有写验证逻辑,图形验证码和短信验证码的验证逻辑其实是一样的,所以这个验证也是可以封装起来的   </p>
+<h4 id="ValidateCodeType修改"><a href="#ValidateCodeType修改" class="headerlink" title="ValidateCodeType修改"></a>ValidateCodeType修改</h4><p>首先是 <code>ValidateCodeType</code> ,加一个方法,就是通过枚举类型,获取参数名称,比如是图片类型,那枚举就是IMAGE,通过方法拿到参数名,就是我们上面常量中配置的 <code>image</code>, 修改后的代码如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public enum ValidateCodeType implements Serializable &#123;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 短信验证码</span><br><span class="line">     */</span><br><span class="line">    SMS&#123;</span><br><span class="line">        @Override</span><br><span class="line">        public String getParamNameOnValidate() &#123;</span><br><span class="line">            return SecurityConstants.DEFAULT_PARAMETER_NAME_CODE_SMS;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 图片验证码</span><br><span class="line">     */</span><br><span class="line">    IMAGE&#123;</span><br><span class="line">        @Override</span><br><span class="line">        public String getParamNameOnValidate() &#123;</span><br><span class="line">            return SecurityConstants.DEFAULT_PARAMETER_NAME_CODE_IMAGE;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    ;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 校验时从请求中获取的参数的名字</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public abstract String getParamNameOnValidate();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="ValidateCodeProcessorHolder"><a href="#ValidateCodeProcessorHolder" class="headerlink" title="ValidateCodeProcessorHolder"></a>ValidateCodeProcessorHolder</h4><p>然后新建一个类 <code>ValidateCodeProcessorHolder</code> ,这个类用来通过验证码类型获取验证码发送器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class ValidateCodeProcessorHolder &#123;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 收集系统中的所有&#123;@link ValidateCodeProcessor&#125; 的实现</span><br><span class="line">     */</span><br><span class="line">    @Autowired</span><br><span class="line">    private Map&lt;String, ValidateCodeProcessor&gt; validateCodeProcessors;</span><br><span class="line"></span><br><span class="line">    public ValidateCodeProcessor findValidateCodeProcessor (ValidateCodeType type) &#123;</span><br><span class="line">        return findValidateCodeProcessor(type.name().toLowerCase());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public ValidateCodeProcessor findValidateCodeProcessor(String type) &#123;</span><br><span class="line">        String name = type.toLowerCase() + ValidateCodeProcessor.class.getSimpleName();</span><br><span class="line"></span><br><span class="line">        ValidateCodeProcessor processor = validateCodeProcessors.get(name);</span><br><span class="line">        if (processor == null) &#123;</span><br><span class="line">            throw new ValidateCodeException(&quot;验证码处理器&quot; + name + &quot;不存在&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        return processor;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里主要就是收集所有的 <code>ValidateCodeProcessorHolder</code> 然后通过类型获取具体的处理器   </p>
+<p>这里,我们去 map 中取处理器的key是 <code>type + ValidateCodeProcessor.class.getSimpleName()</code> 所以说.我们的图片验证码处理器 应该改为 <code>imageValidateCodeProcessor</code>,然后短信验证码应该改为 <code>smsValidateCodeProcessor</code>   </p>
+<h4 id="ValidateCodeProcessor"><a href="#ValidateCodeProcessor" class="headerlink" title="ValidateCodeProcessor"></a>ValidateCodeProcessor</h4><p>然后是 <code>ValidateCodeProcessor</code>, 这个类中之前只有一个发送验证码的方法,然后现在再加一个校验的方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 校验验证码</span><br><span class="line"> * @param request</span><br><span class="line"> * @throws ServletRequestBindingException</span><br><span class="line"> */</span><br><span class="line">void validate(HttpServletRequest request) throws ServletRequestBindingException;</span><br></pre></td></tr></table></figure></p>
+<h4 id="AbstractValidateCodeProcessor"><a href="#AbstractValidateCodeProcessor" class="headerlink" title="AbstractValidateCodeProcessor"></a>AbstractValidateCodeProcessor</h4><p><code>AbstractValidateCodeProcessor</code> 需要去实现我们上面的验证的具体的逻辑   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 根据请求的url获取校验码的类型</span><br><span class="line"> * @param request</span><br><span class="line"> * @return ValidateCodeType</span><br><span class="line"> */</span><br><span class="line">private ValidateCodeType getValidateCodeType(HttpServletRequest request) &#123;</span><br><span class="line">    String type = StringUtils.substringBefore(getClass().getSimpleName(), &quot;CodeProcessor&quot;);</span><br><span class="line">    return ValidateCodeType.valueOf(type.toUpperCase());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Override</span><br><span class="line">public void validate(HttpServletRequest request) throws ServletRequestBindingException &#123;</span><br><span class="line">    // 获取验证的类型</span><br><span class="line">    ValidateCodeType processorType = getValidateCodeType(request);</span><br><span class="line">    // 获取redis中存的key的值</span><br><span class="line">    String redisKey = getRedisKey(request);</span><br><span class="line"></span><br><span class="line">    // 从缓存中拿出来</span><br><span class="line">    C codeInCache = (C) redisTemplate.opsForValue().get(redisKey);</span><br><span class="line"></span><br><span class="line">    // 然后是请求中的验证码</span><br><span class="line">    String codeInRequest;</span><br><span class="line">    try &#123;</span><br><span class="line">        codeInRequest = ServletRequestUtils.getStringParameter(request, processorType.getParamNameOnValidate());</span><br><span class="line">    &#125; catch (ServletRequestBindingException e) &#123;</span><br><span class="line">        throw new ValidateCodeException(&quot;获取验证码的值失败&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (StringUtils.isBlank(codeInRequest)) &#123;</span><br><span class="line">        throw new ValidateCodeException(&quot;验证码的值不能为空&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (codeInCache == null) &#123;</span><br><span class="line">        throw new ValidateCodeException(&quot;验证码不存在&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (codeInCache.expired()) &#123;</span><br><span class="line">        redisTemplate.delete(redisKey);</span><br><span class="line">        throw new ValidateCodeException(&quot;验证码已过期&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (!StringUtils.equalsIgnoreCase(codeInCache.getCode(), codeInRequest)) &#123;</span><br><span class="line">        throw new ValidateCodeException(&quot;验证码错误&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 最后通过的话也从缓存清除掉</span><br><span class="line">    redisTemplate.delete(redisKey);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先通过是哪个发送器,来确定类型. 然后还是之前的验证步骤   </p>
+<h4 id="ValidateCodeFilter"><a href="#ValidateCodeFilter" class="headerlink" title="ValidateCodeFilter"></a>ValidateCodeFilter</h4><p>最后是 filter 的修改,修改后的代码如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">@Slf4j</span><br><span class="line">@Component(&quot;validateCodeFilter&quot;)</span><br><span class="line">public class ValidateCodeFilter extends OncePerRequestFilter implements InitializingBean &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private ValidateCodeProcessorHolder validateCodeProcessorHolder;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private AuthenticationFailureHandler authenticationFailureHandler;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private RedisTemplate redisTemplate;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private SecurityProperties securityProperties;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 存放所有需要校验验证码的url</span><br><span class="line">     */</span><br><span class="line">    private Map&lt;String, ValidateCodeType&gt; urlMap = new HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 用来匹配url</span><br><span class="line">     */</span><br><span class="line">    private AntPathMatcher pathMatcher = new AntPathMatcher();</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void afterPropertiesSet() throws ServletException &#123;</span><br><span class="line">        super.afterPropertiesSet();</span><br><span class="line"></span><br><span class="line">        // 首先,登录请求必须验证.直接放进去</span><br><span class="line">        urlMap.put(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM, ValidateCodeType.IMAGE);</span><br><span class="line">        urlMap.put(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE, ValidateCodeType.SMS);</span><br><span class="line">        // 不同的表单做不同的处理</span><br><span class="line">        addUrlToMap(securityProperties.getCode().getImageCode().getUrls(), ValidateCodeType.IMAGE);</span><br><span class="line">        addUrlToMap(securityProperties.getCode().getSmsCode().getUrls(), ValidateCodeType.SMS);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 从配置中拆出路径来放到url里面</span><br><span class="line">     * @param urlString</span><br><span class="line">     * @param type</span><br><span class="line">     */</span><br><span class="line">    protected void addUrlToMap(String urlString, ValidateCodeType type) &#123;</span><br><span class="line">        if (StringUtils.isBlank(urlString)) &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        String[] urls = StringUtils.splitByWholeSeparatorPreserveAllTokens(urlString, &quot;,&quot;);</span><br><span class="line">        for (String url : urls) &#123;</span><br><span class="line">            urlMap.put(url, type);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException &#123;</span><br><span class="line">        log.info(&quot;进入验证码校验的filter.....&quot;);</span><br><span class="line">        try &#123;</span><br><span class="line">            // 这里做验证</span><br><span class="line">            validate(request);</span><br><span class="line">        &#125; catch (ValidateCodeException exception) &#123;</span><br><span class="line">            // 验证失败调用验证失败的处理</span><br><span class="line">            authenticationFailureHandler.onAuthenticationFailure(request, response, exception);</span><br><span class="line">            // 直接返回 不走下一个过滤器了</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        doFilter(request, response, filterChain);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void validate(HttpServletRequest request) throws ServletRequestBindingException &#123;</span><br><span class="line"></span><br><span class="line">        ValidateCodeType type = getValidateCodeType(request);</span><br><span class="line">        if (type == null)&#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        log.info(&quot;校验请求[&#123;&#125;]中的验证码,验证码类型是[&#123;&#125;]&quot;, request.getRequestURI(), type);</span><br><span class="line"></span><br><span class="line">        validateCodeProcessorHolder.findValidateCodeProcessor(type).validate(request);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 获取校验码的类型，如果当前请求不需要校验，则返回null</span><br><span class="line">     * @param request</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private ValidateCodeType getValidateCodeType(HttpServletRequest request) &#123;</span><br><span class="line">        ValidateCodeType result = null;</span><br><span class="line">        if (StringUtils.equalsIgnoreCase(request.getMethod(), &quot;get&quot;)) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Set&lt;String&gt; urls = urlMap.keySet();</span><br><span class="line">        for (String url : urls) &#123;</span><br><span class="line">            if (pathMatcher.match(url, request.getRequestURI())) &#123;</span><br><span class="line">                result = urlMap.get(url);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里的 urlMap 对应的是他们的 要拦截的url和对应的验证码类型,总体的逻辑还是没有变的,只是处理两个类型的验证码    </p>
+<h4 id="发送验证码的接口的修改"><a href="#发送验证码的接口的修改" class="headerlink" title="发送验证码的接口的修改"></a>发送验证码的接口的修改</h4><p>对 <code>ValidateCodeController</code> 做了一点改动,如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">@Slf4j</span><br><span class="line">public class ValidateCodeController &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private ValidateCodeProcessorHolder validateCodeProcessorHolder;</span><br><span class="line"></span><br><span class="line">    @GetMapping(SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + &quot;/&#123;type&#125;&quot;)</span><br><span class="line">    public void getCode(HttpServletRequest request, HttpServletResponse response, @PathVariable String type) throws IOException, ServletRequestBindingException &#123;</span><br><span class="line">        ValidateCodeProcessor processor = validateCodeProcessorHolder.findValidateCodeProcessor(type);</span><br><span class="line">        processor.createCode(request, response);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="登录页面修改"><a href="#登录页面修改" class="headerlink" title="登录页面修改"></a>登录页面修改</h4><p>常量配置中,默认接收的图片验证码参数名是 <code>image</code> 然后短信的是 <code>sms</code> ,页面对应的input框里面需要把参数的名字对应上   </p>
+<p>到这儿两种类型登录就都可以使用了,可以启动项目看下效果    </p>
+<p>首先,路径更新成了常量,然后这里获取验证码处理器就用了我们上面的 <code>ValidateCodeProcessorHolder</code>  </p>
+<h3 id="配置重构"><a href="#配置重构" class="headerlink" title="配置重构"></a>配置重构</h3><p>先来看一下我们现在的配置类  <code>BrowserSecurityConfig</code><br><img src="http://r.photo.store.qq.com/psb?/V10eEnSd0OPhSW/N4gcg44e2*yaCitShm7NY.rNy9kcO5dIVLRv9MDiV0A!/r/dL8AAAAAAAAA" alt="image">   </p>
+<p>这里可以看到,我们的配置都是左右都是可以分成几类的,然后这里就可以都拆分出来,就跟最后的 短信登录的配置一样,单独抽出来,然后这里通过 <code>apply()</code> 方法去引用   </p>
+<p>我们现在这个类是浏览器的配置类,然后之后后APP的配置的话,有通用的地方也是直接 <code>apply()</code> 连过去就好了   </p>
+<h4 id="AbstractChannelSecurityConfig"><a href="#AbstractChannelSecurityConfig" class="headerlink" title="AbstractChannelSecurityConfig"></a>AbstractChannelSecurityConfig</h4><p>首先新建一个配置类,里面放网页登录的配置,如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public class AbstractChannelSecurityConfig extends WebSecurityConfigurerAdapter &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    protected AuthenticationSuccessHandler myAuthenticationSuccessHandler;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    protected AuthenticationFailureHandler myAuthenticationFailureHandler;</span><br><span class="line"></span><br><span class="line">    protected void applyPasswordAuthenticationConfig(HttpSecurity http) throws Exception &#123;</span><br><span class="line">        http.formLogin()</span><br><span class="line">                .loginPage(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL)</span><br><span class="line">                .loginProcessingUrl(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM)</span><br><span class="line">                .successHandler(myAuthenticationSuccessHandler)</span><br><span class="line">                .failureHandler(myAuthenticationFailureHandler);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="ValidateCodeSecurityConfig"><a href="#ValidateCodeSecurityConfig" class="headerlink" title="ValidateCodeSecurityConfig"></a>ValidateCodeSecurityConfig</h4><p>再新建一个配置类放验证码的配置,如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@Component(&quot;validateCodeSecurityConfig&quot;)</span><br><span class="line">public class ValidateCodeSecurityConfig extends SecurityConfigurerAdapter&lt;DefaultSecurityFilterChain, HttpSecurity&gt; &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private Filter validateCodeFilter;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void configure(HttpSecurity http) throws Exception &#123;</span><br><span class="line">        http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="总的配置修改"><a href="#总的配置修改" class="headerlink" title="总的配置修改"></a>总的配置修改</h4><p>最后 <code>BrowserSecurityConfig</code> 里面把这两个引进来, 首先 <code>BrowserSecurityConfig</code> 需要继承 <code>AbstractChannelSecurityConfig</code>  这个里面放着用户名密码的配置, 是必须要有的 ,修改后的代码如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class BrowserSecurityConfig extends AbstractChannelSecurityConfig &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private SecurityProperties securityProperties;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private UserDetailsService userDetailsService;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private DataSource dataSource;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private SmsAuthenticationSecurityConfig smsAuthenticationSecurityConfig;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private ValidateCodeSecurityConfig validateCodeSecurityConfig;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public PasswordEncoder passwordEncoder()&#123;</span><br><span class="line">        return new BCryptPasswordEncoder();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public PersistentTokenRepository persistentTokenRepository() &#123;</span><br><span class="line">        JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();</span><br><span class="line">        tokenRepository.setDataSource(dataSource);</span><br><span class="line">        return tokenRepository;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void configure(HttpSecurity http) throws Exception &#123;</span><br><span class="line"></span><br><span class="line">        // web网页登录的配置</span><br><span class="line">        applyPasswordAuthenticationConfig(http);</span><br><span class="line"></span><br><span class="line">        http</span><br><span class="line">                    .apply(validateCodeSecurityConfig)</span><br><span class="line">                .and()</span><br><span class="line">                    .apply(smsAuthenticationSecurityConfig)</span><br><span class="line">                .and()</span><br><span class="line">                    .rememberMe()</span><br><span class="line">                    .tokenRepository(persistentTokenRepository())</span><br><span class="line">                    .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())</span><br><span class="line">                    .userDetailsService(userDetailsService)</span><br><span class="line">                .and()</span><br><span class="line">                    .authorizeRequests()</span><br><span class="line">                    // 匹配的是登录页的话放行</span><br><span class="line">                    .antMatchers(</span><br><span class="line">                            SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,</span><br><span class="line">                            SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,</span><br><span class="line">                            SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + &quot;/*&quot;,</span><br><span class="line">                            securityProperties.getBrowser().getLoginPage())</span><br><span class="line">                    .permitAll()</span><br><span class="line">                    // 授权请求. anyRequest 就表示所有的请求都需要权限认证</span><br><span class="line">                    .anyRequest().authenticated()</span><br><span class="line">                    .and()</span><br><span class="line">                    .csrf().disable()</span><br><span class="line">                ;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>浏览器的配置就直接写在了这里,其他可以通用的配置就抽出去   </p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>首先是一个验证码的重构, 通过验证码的类型去判断是那种处理,这样只需要一个filter就可以做这两种判断,之后如果再有别的类型也很好扩展   </p>
+<p>配置的重构主要就是把一些公用的配置全部抽出来,通过 <code>apply()</code> 的方式去引入   </p>
+<p><a href="https://github.com/zhouze-java/Spring-Security-Example/tree/security_11" target="_blank" rel="noopener">本文代码传送门</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring-Security/" <i="" class="fa fa-tag"> Spring Security</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/10/Spring-Security-11-实现短信登录流程/" rel="next" title="Spring Security-11-实现短信登录流程">
+                <i class="fa fa-chevron-left"></i> Spring Security-11-实现短信登录流程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/10/Spring-Security-13-OAuth2协议及Spring-Social简介/" rel="prev" title="Spring Security-13-OAuth2协议及Spring Social简介">
+                Spring Security-13-OAuth2协议及Spring Social简介 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTEyNi8xNzY1MQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">周泽</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">229</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#述"><span class="nav-number">1.</span> <span class="nav-text">述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">2.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常量配置"><span class="nav-number">3.</span> <span class="nav-text">常量配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证逻辑重构"><span class="nav-number">4.</span> <span class="nav-text">验证逻辑重构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ValidateCodeType修改"><span class="nav-number">4.1.</span> <span class="nav-text">ValidateCodeType修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ValidateCodeProcessorHolder"><span class="nav-number">4.2.</span> <span class="nav-text">ValidateCodeProcessorHolder</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ValidateCodeProcessor"><span class="nav-number">4.3.</span> <span class="nav-text">ValidateCodeProcessor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AbstractValidateCodeProcessor"><span class="nav-number">4.4.</span> <span class="nav-text">AbstractValidateCodeProcessor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ValidateCodeFilter"><span class="nav-number">4.5.</span> <span class="nav-text">ValidateCodeFilter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#发送验证码的接口的修改"><span class="nav-number">4.6.</span> <span class="nav-text">发送验证码的接口的修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#登录页面修改"><span class="nav-number">4.7.</span> <span class="nav-text">登录页面修改</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置重构"><span class="nav-number">5.</span> <span class="nav-text">配置重构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AbstractChannelSecurityConfig"><span class="nav-number">5.1.</span> <span class="nav-text">AbstractChannelSecurityConfig</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ValidateCodeSecurityConfig"><span class="nav-number">5.2.</span> <span class="nav-text">ValidateCodeSecurityConfig</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总的配置修改"><span class="nav-number">5.3.</span> <span class="nav-text">总的配置修改</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">周泽</span>
+
+  
+</div>
+
+<!-- 
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+ -->
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共262k字</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>

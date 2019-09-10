@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/11/Elasticsearch-74-cartinality-metric去重算法及性能优化/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Elasticsearch-108-Jvm和服务器内存分配的最佳实践以及原理分析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/11/Elasticsearch-74-cartinality-metric去重算法及性能优化/" itemprop="url">Elasticsearch-74-cartinality metric去重算法及性能优化</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Elasticsearch-108-Jvm和服务器内存分配的最佳实践以及原理分析/" itemprop="url">Elasticsearch-108-Jvm和服务器内存分配的最佳实践以及原理分析</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-11T17:39:19+08:00">
-                2019-01-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T14:36:21+08:00">
+                2019-04-10
               </time>
             
 
@@ -375,12 +375,12 @@
       
         
           
-          cartinality metriccartinality metric:对每个bucket中的指定的field进行去重,取去重之后的count,类似于count(distinct)   
-案例需求: 每月销售品牌的数量统计12345678910111213141516171819GET tvs/s
+          概述前文中,说了一些针对es集群可能会出现的一些问题的配置,本文来说一下如何合理的对es进行内存的分配,为什么?   
+Jvm Heap分配es默认会给jvm heap分配2个G的大小,对于几乎所有的生产环境来说,这个内存都太小了.如果用这个默认的heap size,那么生产环境的集群肯定表现不会太
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/11/Elasticsearch-74-cartinality-metric去重算法及性能优化/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Elasticsearch-108-Jvm和服务器内存分配的最佳实践以及原理分析/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -431,7 +431,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/11/Elasticsearch-73-易并行聚合算法-三角选择原则-近似聚合算法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Elasticsearch-107-不要随意调节JVM和Thread-Pool的原因/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -450,7 +450,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/11/Elasticsearch-73-易并行聚合算法-三角选择原则-近似聚合算法/" itemprop="url">Elasticsearch-73-易并行聚合算法 三角选择原则 近似聚合算法</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Elasticsearch-107-不要随意调节JVM和Thread-Pool的原因/" itemprop="url">Elasticsearch-107-不要随意调节JVM和Thread Pool的原因</a></h1>
         
 
         <div class="post-meta">
@@ -462,8 +462,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-11T16:02:47+08:00">
-                2019-01-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T11:43:28+08:00">
+                2019-04-10
               </time>
             
 
@@ -524,14 +524,12 @@
       
         
           
-          易并行聚合算法有些聚合分析的算法是很容易并行的,比如说max函数,如图  
-比如说,现在一共有三个shard,一个查询最大值的搜索请求过来了,那么coordinate node(协调节点)会把请求打到这三个shard上   
-  
-这个时候,3个shard把他们各自的最大值返回给coordinate
+          概述es中有很多配置我们可以去调节,但是在99.99%的情况下,对于es来说,大部分的参数保留为默认的就可以了,因为这些参数经常被滥用和错误的调节,继而导致严重的稳定性问题以及性能的急剧下降.  
+Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉不用的内存,千万不要去调节默认
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/11/Elasticsearch-73-易并行聚合算法-三角选择原则-近似聚合算法/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Elasticsearch-107-不要随意调节JVM和Thread-Pool的原因/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -582,7 +580,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/11/Elasticsearch-72-聚合分析-自定义排序/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Elasticsearch-106-针对集群重启时shard恢复耗时过长问题的参数设置/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -601,7 +599,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/11/Elasticsearch-72-聚合分析-自定义排序/" itemprop="url">Elasticsearch-72-聚合分析 自定义排序</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Elasticsearch-106-针对集群重启时shard恢复耗时过长问题的参数设置/" itemprop="url">Elasticsearch-106-针对集群重启时shard恢复耗时过长问题的参数设置</a></h1>
         
 
         <div class="post-meta">
@@ -613,8 +611,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-11T11:39:34+08:00">
-                2019-01-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T11:42:48+08:00">
+                2019-04-10
               </time>
             
 
@@ -675,12 +673,12 @@
       
         
           
-          之前全部的排序都是按照每个bucket的doc_count降序来排的,那么如何自定义排序呢  
-自定义排序需求: 按每种颜色的平均销售额降序排序123456789101112131415161718192021GET /tvs/sales/_search&#123;  &quot;size&quot
+          问题在集群重启的时候,有一些配置会影响shard的恢复,首先,我们需要理解默认配置下,shard恢复过程会发生什么事情.  
+假设集群中有10个node,每个node上面有一个shard, 可能是primary shard也可能是replica shard,就比如说我们有一个index,有5个pri
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/11/Elasticsearch-72-聚合分析-自定义排序/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Elasticsearch-106-针对集群重启时shard恢复耗时过长问题的参数设置/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -731,7 +729,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/11/Elasticsearch-71-过滤filter-聚合结合使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/09/Elasticsearch-105-针对集群脑裂问题定制的重要参数/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -750,7 +748,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/11/Elasticsearch-71-过滤filter-聚合结合使用/" itemprop="url">Elasticsearch-71-过滤filter 聚合结合使用</a></h1>
+                <a class="post-title-link" href="/2019/04/09/Elasticsearch-105-针对集群脑裂问题定制的重要参数/" itemprop="url">Elasticsearch-105-针对集群脑裂问题定制的重要参数</a></h1>
         
 
         <div class="post-meta">
@@ -762,8 +760,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-11T11:09:19+08:00">
-                2019-01-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-09T17:29:18+08:00">
+                2019-04-09
               </time>
             
 
@@ -824,12 +822,13 @@
       
         
           
-          filter过滤+聚合分析需求: 统计价格大于1200的电视的平均价格   
-请求:12345678910111213141516171819202122GET tvs/sales/_search&#123;  &quot;size&quot;: 0,  &quot;query&quot;: &#1
+          概念首先,来认识一下什么是集群脑裂,假设我们现在有一个集群,里面有三个节点,一个是master两个data,如下图:  
+假设现在出现了网络故障,导致一个集群被划分成了两片,两片中的节点无法相互通信,如下图:  
+如图就出现了两个netword partition, 图中在左边这个network p
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/11/Elasticsearch-71-过滤filter-聚合结合使用/#more" rel="contents">
+            <a class="btn" href="/2019/04/09/Elasticsearch-105-针对集群脑裂问题定制的重要参数/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -880,7 +879,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/Elasticsearch-70-搜索-聚合分析结合使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/25/Elasticsearch-104-生产集群必须配置的一些重要参数/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -899,7 +898,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/10/Elasticsearch-70-搜索-聚合分析结合使用/" itemprop="url">Elasticsearch-70-搜索 聚合分析结合使用</a></h1>
+                <a class="post-title-link" href="/2019/01/25/Elasticsearch-104-生产集群必须配置的一些重要参数/" itemprop="url">Elasticsearch-104-生产集群必须配置的一些重要参数</a></h1>
         
 
         <div class="post-meta">
@@ -911,8 +910,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-10T17:00:59+08:00">
-                2019-01-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-25T16:47:27+08:00">
+                2019-01-25
               </time>
             
 
@@ -973,13 +972,12 @@
       
         
           
-          之前的几个案例都是全部使用的聚合分析,接下来呢,使用搜索和聚合分析结合起来使用   
-案例需求: 统计指定品牌下每个颜色的销量  (小米)     
-请求:123456789101112131415161718GET tvs/sales/_search&#123;  &quot;size&quot;
+          es的默认参数es的默认参数是非常好的,适合绝大多数的情况,尤其是一些性能相关的配置.因此刚开始部署一个生产环境下的es集群时,几乎所有的配置参数都可以用默认的设置.有很多的生产环境场景下,都是因为es集群管理人员自己去调整es的某些配置,结果导致集群出现了严重的故障.  
+比如mysql或者ora
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/10/Elasticsearch-70-搜索-聚合分析结合使用/#more" rel="contents">
+            <a class="btn" href="/2019/01/25/Elasticsearch-104-生产集群必须配置的一些重要参数/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1030,7 +1028,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/09/Elasticsearch-69-深入聚合分析数据II/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/25/Elasticsearch-103-集群部署及zen-discovery集群发现机制/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1049,7 +1047,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/09/Elasticsearch-69-深入聚合分析数据II/" itemprop="url">Elasticsearch-69-深入聚合分析数据II</a></h1>
+                <a class="post-title-link" href="/2019/01/25/Elasticsearch-103-集群部署及zen-discovery集群发现机制/" itemprop="url">Elasticsearch-103-集群部署及zen discovery集群发现机制</a></h1>
         
 
         <div class="post-meta">
@@ -1061,8 +1059,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-09T15:40:50+08:00">
-                2019-01-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-25T15:37:16+08:00">
+                2019-01-25
               </time>
             
 
@@ -1123,15 +1121,13 @@
       
         
           
-          常用的几种metric操作上文中,用了avg和count这两个操作,一般来说,常用的metric操作就是以下几种  
-
-count: 计算数量,用terms操作来分组的话,就会自动有一个doc_count,就相当于是count   
-avg: 求一个bucket内,指定field数据的平均值  
-m
+          下载解压在elasticsearch的github上下载elasticsearch的v5.5.0版本部署, github传送门  
+下载的是tar.gz版本的,下载好之后,上传到服务器,解压,我这里上传到了/usr/elasticsearch目录下面1cd /usr/elasticsearch
+解压
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/09/Elasticsearch-69-深入聚合分析数据II/#more" rel="contents">
+            <a class="btn" href="/2019/01/25/Elasticsearch-103-集群部署及zen-discovery集群发现机制/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1182,7 +1178,7 @@ m
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/07/Elasticsearch-68-深入聚合分析数据I/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/25/Elasticsearch-102-虚拟机搭建集群环境配置/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1201,7 +1197,7 @@ m
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/07/Elasticsearch-68-深入聚合分析数据I/" itemprop="url">Elasticsearch-68-深入聚合分析数据I</a></h1>
+                <a class="post-title-link" href="/2019/01/25/Elasticsearch-102-虚拟机搭建集群环境配置/" itemprop="url">Elasticsearch-102-虚拟机搭建集群环境配置</a></h1>
         
 
         <div class="post-meta">
@@ -1213,8 +1209,8 @@ m
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-07T18:26:36+08:00">
-                2019-01-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-25T09:41:12+08:00">
+                2019-01-25
               </time>
             
 
@@ -1275,12 +1271,13 @@ m
       
         
           
-          背景本文,将以一个家电卖场中的电视销售数据为背景,进行各种各样角度的聚合分析  
-准备数据创建索引tvs123456789101112131415161718192021PUT /tvs&#123;	&quot;mappings&quot;: &#123;		&quot;sales&quot;: &
+          配置要求搭建一个4个节点的es集群,需要用到4台虚拟机,每个虚拟机的配置是2核4G   
+创建虚拟机可以用virtual box 或者 VM,然后下载CentOS 7 64位的镜像,然后分配4G内存,其他配置按默认的就ok  
+配置网络虚拟机创建好之后,配置网络,配置一个静态的ip,具体配置方法可以
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/07/Elasticsearch-68-深入聚合分析数据I/#more" rel="contents">
+            <a class="btn" href="/2019/01/25/Elasticsearch-102-虚拟机搭建集群环境配置/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1331,7 +1328,7 @@ m
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/07/Elasticsearch-67-聚合分析bucket和metric/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/24/Elasticsearch-101-生产集群部署服务器配置等建议/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1350,7 +1347,7 @@ m
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/07/Elasticsearch-67-聚合分析bucket和metric/" itemprop="url">Elasticsearch-67-聚合分析bucket和metric</a></h1>
+                <a class="post-title-link" href="/2019/01/24/Elasticsearch-101-生产集群部署服务器配置等建议/" itemprop="url">Elasticsearch-101-生产集群部署服务器配置等建议</a></h1>
         
 
         <div class="post-meta">
@@ -1362,8 +1359,8 @@ m
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-07T14:28:56+08:00">
-                2019-01-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-24T10:36:00+08:00">
+                2019-01-24
               </time>
             
 
@@ -1424,43 +1421,13 @@ m
       
         
           
-          核心概念bucket是一个数据的分组,metric就是对一个bucket执行的某种聚合分析的操作,比如说,求平均值,最大值,最小值等  
-举个例子,有这么一组数据  
-
-
-
-city
-name
-
-
-
-
-北京
-小李
-
-
-北京
-小王
-
-
-上海
-小张
-
-
-上海
-小丽
-
-
-上海
-小陈
-
-
-
-上面的数据可以通
+          述我们之前一直是在windows环境下去启动一个单节点的es进程,如果是在生产环境中,肯定是要部署在linux集群上面了  
+那么部署es的服务器对配置有什么要求呢   
+内存es是很吃内存的,es吃的主要不是你的jvm的内存,一般来说es用jvm heap(堆内存)还是用的比较少的,主要吃的是你的
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/07/Elasticsearch-67-聚合分析bucket和metric/#more" rel="contents">
+            <a class="btn" href="/2019/01/24/Elasticsearch-101-生产集群部署服务器配置等建议/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1511,7 +1478,7 @@ name
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/05/Elasticsearch-66-修改IK分词器源码基于mysql热更新词库/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/23/Elasticsearch-100-Java-API基于地理位置的搜索/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1530,7 +1497,7 @@ name
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/05/Elasticsearch-66-修改IK分词器源码基于mysql热更新词库/" itemprop="url">Elasticsearch-66-修改IK分词器源码基于mysql热更新词库</a></h1>
+                <a class="post-title-link" href="/2019/01/23/Elasticsearch-100-Java-API基于地理位置的搜索/" itemprop="url">Elasticsearch-100-Java API基于地理位置的搜索</a></h1>
         
 
         <div class="post-meta">
@@ -1542,8 +1509,8 @@ name
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-05T16:39:57+08:00">
-                2019-01-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-23T16:59:55+08:00">
+                2019-01-23
               </time>
             
 
@@ -1604,12 +1571,12 @@ name
       
         
           
-          上文中,我们如果要配置一个自定义的词语,或者停用词的时候,必须要手动添加到ik分词器的配置中,然后重启es节点,这样就很坑了,而且如果es集群中有上百个节点的话,那一个个的修改要疯了   
-通过修改ik分词器的源码,可以使用mysql作为词库,有词语更新的话,直接添加到mysql的表中就好了,不需要
+          案例背景比如我们有很多的4s店,然后呢给了用户一个app,在某个地方的时候,可以根据当前的地理位置搜索一下,自己附近的4s店   
+数据准备添加一个地理位置的field,手动设置mapping映射,然后添加一条测试数据123456789101112POST /car_shop/_mapping/sh
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/05/Elasticsearch-66-修改IK分词器源码基于mysql热更新词库/#more" rel="contents">
+            <a class="btn" href="/2019/01/23/Elasticsearch-100-Java-API基于地理位置的搜索/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1660,7 +1627,7 @@ name
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/05/Elasticsearch-65-IK分词器配置文件详解/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/23/Elasticsearch-99-Java API 常用的几种查询与组合查询/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1679,7 +1646,7 @@ name
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/05/Elasticsearch-65-IK分词器配置文件详解/" itemprop="url">Elasticsearch-65-IK分词器配置文件详解</a></h1>
+                <a class="post-title-link" href="/2019/01/23/Elasticsearch-99-Java API 常用的几种查询与组合查询/" itemprop="url">Elasticsearch-99-Java API 常用的几种查询与组合查询</a></h1>
         
 
         <div class="post-meta">
@@ -1691,8 +1658,8 @@ name
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-05T09:41:31+08:00">
-                2019-01-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-23T15:50:04+08:00">
+                2019-01-23
               </time>
             
 
@@ -1753,16 +1720,11 @@ name
       
         
           
-          ik配置文件ik配置文件地址: es目录/plugins/ik/config  
-
-main.dic:ik原生内置的中文词库,总共有27万多条,只要是这些单词,都会被分在一起  
-quantifier.dic:放了一些单位相关的词   
-suffix.dic:放了一些后缀
-surname.dic:中
+          常用的几种查询准备数据添加一条数据进去,供测试1234567PUT /car_shop/cars/5&#123;  &quot;brand&quot;: &quot;华晨宝马&quot;,  &quot;name&quot;: &quot;宝马318&quot;,  &quot;price&quot
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/05/Elasticsearch-65-IK分词器配置文件详解/#more" rel="contents">
+            <a class="btn" href="/2019/01/23/Elasticsearch-99-Java API 常用的几种查询与组合查询/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1804,7 +1766,7 @@ surname.dic:中
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1850,7 +1812,7 @@ surname.dic:中
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">195</span>
+                  <span class="site-state-item-count">229</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1861,7 +1823,7 @@ surname.dic:中
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1872,7 +1834,7 @@ surname.dic:中
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1940,7 +1902,7 @@ surname.dic:中
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共215.2k字</span>
+  <span class="post-count">博客全站共262k字</span>
 </div>
         
 
