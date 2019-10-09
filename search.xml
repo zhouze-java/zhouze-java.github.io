@@ -34,11 +34,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[ex]]></title>
-    <url>%2F2019%2F09%2F10%2Fex%2F</url>
-    <content type="text"></content>
-  </entry>
-  <entry>
     <title><![CDATA[Spring Security-32-授权部分源码跟踪]]></title>
     <url>%2F2019%2F09%2F10%2FSpring-Security-32-%E6%8E%88%E6%9D%83%E9%83%A8%E5%88%86%E6%BA%90%E7%A0%81%E8%B7%9F%E8%B8%AA%2F</url>
     <content type="text"><![CDATA[述上文中介绍了授权的一些基本的使用,本文来看一下, Spring Security 的授权部分的源码 首先来看一下流程图,如下: 这里的重点是最后面的三个拦截器 AnonymousAuthenticationFilter: 如果用户没有认证,给一个匿名的认证信息 ExceptionTranslationFilter: 捕获 FilterSecurityInterceptor 抛出来的异常并进行处理 FilterSecurityInterceptor: 具体的权限验证的逻辑 AnonymousAuthenticationFilter首先来看一下 AnonymousAuthenticationFilter 这个类的源码,如下: 然后这个类的构造函数如下: 这个类的主要作用就是,如果用户没有认证的话,就生成一个默认的认证信息以及默认的权限, 对应的就是上文中认证信息是 anonymous 的表达式 然后重点是 FilterSecurityInterceptor FilterSecurityInterceptor先来看幅图,如下: FilterSecurityInterceptor 主要就是用了 AccessDecisionManager 这个东西 AccessDecisionManager 用来管理 AccessDecisionVoter 就是投票者,主要是两个,一个是 AbstractAccessDecisionManager 还有一个是 AccessDecisionVoter AbstractAccessDecisionManager 又分别有三个实现: AffirmativeBased: 只要有一票否决则不能访问 (默认使用) ConsensusBased: 通过/不通过 哪一个票数多就遵循哪一个 UnanimousBased: 只要有一票否决则不允许访问 AccessDecisionVoter 在 spring3以上的版本中,就只有一个实现,就是 WebExpressionVoter ,，它投过就过,不过就不过 图中上面还有几个类: SecurityConfig: 所有的配置信息 ConfigAttribute: 对应了每一个url的配置信息 SecurityContextHolder Authentication: 用户身份信息及用户拥有的权限信息 有了这些类之后,大致流程是这样的: 拿到配置信息,用户身份信息,请求信息,然后给投票者进行投票,最后根据策略进行决定是否放行 下面来详细看一下源码 假设现在有一个请求,/users 需要 ROLE_ADMIN 这个角色,然后现在没有登录,去访问 然后看下具体的权限验证的方法: 这里投票的默认实现是 AffirmativeBased ,源码如下: 走到这儿权限的判断就完成了,之后因为没有登录,所以会抛异常,最后在 ExceptionTranslationFilter 中去处理 ExceptionTranslationFilter源码如下: 大致整个授权的流程就是这样, 至于登录后再去访问,可以跟着这个流程去试试,这里就不再贴代码了]]></content>
