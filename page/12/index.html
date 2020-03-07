@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-11-Hystrix仪表盘与Turbine集群监控/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-10-AOF持久化/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-11-Hystrix仪表盘与Turbine集群监控/" itemprop="url">Spring Cloud-11-Hystrix仪表盘与Turbine集群监控</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-10-AOF持久化/" itemprop="url">Redis-10-AOF持久化</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:08:09+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:17:16+08:00">
+                2019-04-27
               </time>
             
 
@@ -336,8 +336,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -375,13 +375,13 @@
       
         
           
-          述Hystrix仪表盘,主要用来监控Hystrix的实时运行状态,通过仪表盘可以看到Hystrix的各项指标信息,从而快速发现系统中存在的问题, 记下来就来看一下具体如何使用  
-本文主要通过两个方面来使用Hystrix仪表盘,一个是单体应用的监控,另一个是整合Turbine对集群进行监控.  
-单
+          述上文中说了快照持久化,那本文再来看一下另外一种持久化的方式,就是AOF(append-only file)    
+AOF持久化AOF持久化是把被执行的命令都写到一个aof文件末尾,在恢复的时候只需要从头到尾执行一遍写命令即可恢复数据.  
+AOF在redis中默认是没有开启的,需要手动配置开启 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-11-Hystrix仪表盘与Turbine集群监控/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-10-AOF持久化/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -432,7 +432,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-10-Hystrix请求合并/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-9-快照持久化/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -451,7 +451,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-10-Hystrix请求合并/" itemprop="url">Spring Cloud-10-Hystrix请求合并</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-9-快照持久化/" itemprop="url">Redis-9-快照持久化</a></h1>
         
 
         <div class="post-meta">
@@ -463,8 +463,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:08:00+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:17:07+08:00">
+                2019-04-27
               </time>
             
 
@@ -486,8 +486,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -525,12 +525,13 @@
       
         
           
-          述在微服务的架构中,各个模块是通过互相请求来进行通信的,在高并发的情况下,通信次数的增加会导致总的通信时间增加,同时线程池的资源也是有限的,高并发的环境下,会有大量的线程处于等待状态,进而导致了响应延迟,要解决这些问题就可以使用Hystrix的请求合并.  
-具体原理是怎样的呢? Hystrix中的
+          述redis的持久化有两种方式,分别是快照持久化和AOF,具体使用哪种,需要结合项目的实际情况选择, 下面就先看一下快照持久化.   
+快照持久化, 就是说,redis在某个时间点上,对内存中的数据创建一个副本文件,副本文件中的数据在redis重启时会被自动加载.   
+配置方式redis中,快照持
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-10-Hystrix请求合并/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-9-快照持久化/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -581,7 +582,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-9-Hystrix请求缓存/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-8-事务的使用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -600,7 +601,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-9-Hystrix请求缓存/" itemprop="url">Spring Cloud-9-Hystrix请求缓存</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-8-事务的使用/" itemprop="url">Redis-8-事务的使用</a></h1>
         
 
         <div class="post-meta">
@@ -612,8 +613,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:07:48+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:16:57+08:00">
+                2019-04-27
               </time>
             
 
@@ -635,8 +636,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -674,13 +675,13 @@
       
         
           
-          述在高并发的情况下,处理好缓存,就能有效的降低服务器的压力,Spring Cloud的Hystrix也提供了请求缓存的能力,接下来,我们来看一下如何开启.   
-环境准备还是基于之前的服务注册中心,提供者和消费者, 先把服务注册中心开启, 服务提供者和消费者需要修改.   
-通过方法重载开启缓存当我
+          述上文中说了redis中的发布与订阅,下面来看一下redis中的事务是如何使用的    
+redis是一个nosql数据库,那当然也就有事务的功能,但是和关系型数据库中的事务还是有点差异  
+事务redis中,可以通过MULTI命令开启一个事务,如下:12172.16.12.3:6379&gt; m
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-9-Hystrix请求缓存/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-8-事务的使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -731,7 +732,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-8-Hystrix的服务降级与异常处理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-7-发布与订阅/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -750,7 +751,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-8-Hystrix的服务降级与异常处理/" itemprop="url">Spring Cloud-8-Hystrix的服务降级与异常处理</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-7-发布与订阅/" itemprop="url">Redis-7-发布与订阅</a></h1>
         
 
         <div class="post-meta">
@@ -762,8 +763,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:07:39+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:16:45+08:00">
+                2019-04-27
               </time>
             
 
@@ -785,8 +786,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -824,12 +825,13 @@
       
         
           
-          之前我们用过了fallbackMethod这个东西,本文将详细说一下这个东西,也就是服务降级   
-服务降级前文中,fallbackMethod所描述的函数,就是一个备胎,用来实现服务的降级处理,在@HystrixCommand注解中,可以通过fallbackMethod来指定请求失败后调用的方法,
+          述前面,都是说了一些基础数据类型的一些常用的命令,本文来看一下redis中的发布与订阅   
+发布订阅reids中的发布与订阅类似于生活中的电台, 电台可以在某一个频率上发广播,而我们可以接收任何一个频率的广播   
+下面来看一下具体是如何使用的, 首先需要打开一个redis-cli,然后连接我们的
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-8-Hystrix的服务降级与异常处理/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-7-发布与订阅/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -880,7 +882,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-7-自定义Hystrix请求命令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-6-针对散列和有序集合的常用命令/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -899,7 +901,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-7-自定义Hystrix请求命令/" itemprop="url">Spring Cloud-7-自定义Hystrix请求命令</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-6-针对散列和有序集合的常用命令/" itemprop="url">Redis-6-针对散列和有序集合的常用命令</a></h1>
         
 
         <div class="post-meta">
@@ -911,8 +913,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:07:27+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:16:34+08:00">
+                2019-04-27
               </time>
             
 
@@ -934,8 +936,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -973,12 +975,13 @@
       
         
           
-          上文中,介绍了Hystrix断路器的简单使用,是通过注解的方式去实现的, 我们也可以通过继承类的方式来实现.   
-自定义HystrixCommand除了使用@HystrixCommand注解,也可以自定义类,继承HystrixCommand类. 如下:12345678910111213141516
+          述上文中,介绍了list和set的一些常用的命令,下面再来看一下散列和有序集合的一些常用的命令   
+散列(hash)和java中的hashmap其实是差不多的,redis其实就是存放的键值对,散列也是存放的键值对,,下面来具体看下一下一些常用的操作   
+hsethset用来设置key指定的哈希集
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-7-自定义Hystrix请求命令/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-6-针对散列和有序集合的常用命令/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1029,7 +1032,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-6-Hystrix断路器/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-5-列表与集合的一些常用命令/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1048,7 +1051,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-6-Hystrix断路器/" itemprop="url">Spring Cloud-6-Hystrix断路器</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-5-列表与集合的一些常用命令/" itemprop="url">Redis-5-列表与集合的一些常用命令</a></h1>
         
 
         <div class="post-meta">
@@ -1060,8 +1063,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:07:16+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:16:21+08:00">
+                2019-04-27
               </time>
             
 
@@ -1083,8 +1086,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -1122,11 +1125,14 @@
       
         
           
-          概念在微服务架构中,我们把系统拆分成多个服务单元,各个单元都运行在不同的进程中,他们之前如果要交互的话,就是通过远程调用的方式,这样就有可以能会因为网络原因,或者自身服务出现故障或延迟,而导致调用方的服务也出现延迟,若此时调用方的请求不断增加,最后就会因为等待出现故障的依赖方影响形成任务积压,最终导
+          述前文中,介绍了String数据类型的一些常用的命令,那么下面来看一下一些针对列表与集合的常用命令   
+列表(list)列表是Redis中另外一种数据类型,下面我们来看看列表中一些基本的操作命令  
+lpush语法如下:1LPUSH key value [value ...]
+将一个或多个值插入到
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-6-Hystrix断路器/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-5-列表与集合的一些常用命令/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1177,7 +1183,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-5-RestTemplate详解/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-4-针对String数据类型中Bit的相关命令/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1196,7 +1202,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-5-RestTemplate详解/" itemprop="url">Spring Cloud-5-RestTemplate详解</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-4-针对String数据类型中Bit的相关命令/" itemprop="url">Redis-4-针对String数据类型中Bit的相关命令</a></h1>
         
 
         <div class="post-meta">
@@ -1208,8 +1214,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:07:08+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:16:00+08:00">
+                2019-04-27
               </time>
             
 
@@ -1231,8 +1237,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -1270,13 +1276,13 @@
       
         
           
-          RestTemplate上文中,我们使用RestTemplate实现了最简单的服务访问,并且通过配置@LoadBalanced实现了负载均衡.   
-接下来,我们来看一下,RestTemplate针对几种不同请求类型和参数类型的服务调用实现   
-GET 请求在RestTemplate中,对于GET
+          概述上篇文章我们对String数据类型中一些基本的命令进行了介绍,但是没有涉及到Bit相关的命令,本文我们就来看看几个和Bit相关的命令.  
+redis中的字符串都是以二进制的方式进行存储的,举个例子,执行以下命令:12172.16.12.3:6379&gt; set k1 aOK
+a对应的ASC
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-5-RestTemplate详解/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-4-针对String数据类型中Bit的相关命令/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1327,7 +1333,7 @@ GET 请求在RestTemplate中,对于GET
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-4-服务发现与消费-Ribbon负载均衡/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-3-针对String数据类型的一些操作/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1346,7 +1352,7 @@ GET 请求在RestTemplate中,对于GET
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-4-服务发现与消费-Ribbon负载均衡/" itemprop="url">Spring Cloud-4-服务发现与消费 Ribbon负载均衡</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-3-针对String数据类型的一些操作/" itemprop="url">Redis-3-针对String数据类型的一些操作</a></h1>
         
 
         <div class="post-meta">
@@ -1358,8 +1364,8 @@ GET 请求在RestTemplate中,对于GET
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:06:59+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:15:48+08:00">
+                2019-04-27
               </time>
             
 
@@ -1381,8 +1387,8 @@ GET 请求在RestTemplate中,对于GET
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -1420,13 +1426,12 @@ GET 请求在RestTemplate中,对于GET
       
         
           
-          之前的例子中,已经搭建起来了服务注册中心,包括单节点模式和高可用模式,同时呢服务提供者也有了,就是eureka-client,然后接下来尝试构建一个消费者.  
-服务消费者主要完成两个目标,发现服务以及消费服务.  
-其中,发现服务的任务是由eureka的客户端完成的,而服务消费的任务是由ribbo
+          概述上文中,我们看了一些所有数据类型都通用的一些命令,下面再来看一下一些针对String类型独有的命令  
+操作String类型数据的一些命令append追加字符串,如果key存在的话,就直接在value后面追加内容,如果key不存在,就会先创建一个value是空字符串的数据,然后再追加,具体使用方
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-4-服务发现与消费-Ribbon负载均衡/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-3-针对String数据类型的一些操作/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1477,7 +1482,7 @@ GET 请求在RestTemplate中,对于GET
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-3-高可用注册中心/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-2-数据类型与常用命令/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1496,7 +1501,7 @@ GET 请求在RestTemplate中,对于GET
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-3-高可用注册中心/" itemprop="url">Spring Cloud-3-高可用注册中心</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-2-数据类型与常用命令/" itemprop="url">Redis-2-数据类型与常用命令</a></h1>
         
 
         <div class="post-meta">
@@ -1508,8 +1513,8 @@ GET 请求在RestTemplate中,对于GET
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:06:50+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:15:18+08:00">
+                2019-04-27
               </time>
             
 
@@ -1531,8 +1536,8 @@ GET 请求在RestTemplate中,对于GET
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -1570,12 +1575,12 @@ GET 请求在RestTemplate中,对于GET
       
         
           
-          在微服务架构这样的分布式环境中,我们需要充分考虑发生故障的情况,所以在生产环境中必须对各个组件进行高可用部署,对于微服务如此,对于服务注册中心也一样.   
-Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治理设计中,所有节点既是服务提供方,也是服务消费方,注册中心也不
+          reids中的数据类型redis中的数据都是以key-value的形式存储的,数据类型其实是说value的数据类型,一共有以下几种数据类型:  
+String(字符串)String是redis中的最基本的数据类型,string类型是二进制安全的,意思是redis的string可以包含任何数据,比如j
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-3-高可用注册中心/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-2-数据类型与常用命令/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1626,7 +1631,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-2-Eureka-Server-Client/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-1-远程连接/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1645,7 +1650,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-2-Eureka-Server-Client/" itemprop="url">Spring Cloud-2-Eureka Server & Client</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-1-远程连接/" itemprop="url">Redis-1-远程连接</a></h1>
         
 
         <div class="post-meta">
@@ -1657,8 +1662,8 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:06:38+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:14:00+08:00">
+                2019-04-27
               </time>
             
 
@@ -1680,8 +1685,8 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -1719,11 +1724,15 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
       
         
           
-          搭建服务注册中心可以通过Spring Initializr来创建一个Spring boot的工程,命名为eureka-server,然后引入依赖1234&lt;dependency&gt;    &lt;groupId&gt;org.springframework.cloud&lt;/groupId
+          远程连接我们在linux上装好redis服务之后,希望在windows端或者是Java应用中远程连接redis,就需要做出一些配置  
+配置文件修改修改redis.conf文件,具体如下:  
+
+bind 127.0.0.1,在配置文件中找到这个配置,注释掉
+requirepass foobared
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-2-Eureka-Server-Client/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-1-远程连接/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1765,7 +1774,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1811,7 +1820,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">233</span>
+                  <span class="site-state-item-count">258</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1871,7 +1880,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1901,7 +1910,7 @@ Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共264.8k字</span>
+  <span class="post-count">博客全站共288.8k字</span>
 </div>
         
 

@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-14-心跳与空闲检测/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-22-Spring-Security-OAuth-简介/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/02/Netty-14-心跳与空闲检测/" itemprop="url">Netty-14-心跳与空闲检测</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-22-Spring-Security-OAuth-简介/" itemprop="url">Spring Security-22-Spring Security OAuth 简介</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T11:07:34+08:00">
-                2019-07-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:55:01+08:00">
+                2019-09-10
               </time>
             
 
@@ -336,8 +336,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
                   </a>
                 </span>
 
@@ -375,12 +375,12 @@
       
         
           
-          述连接假死现象: 在某一端(服务端或者客户端)看来底层TCP连接已经断开,但是应用程序并没有捕获到,因此认为这条连接仍然是存在的,从TCP层面来说,只有收到四次握手数据包或者一个RST数据包,连接的状态表示已断开.   
-引发的问题: 对于服务端来说,因为每条连接都耗费CPU和内存资源,大量假死的连
+          述之前的 Spring Social 中,我们是去访问别人的 OAuth 服务,在我们自己的系统中,客户端访问服务还是基于 session 的,结构大致如下:   
+如果是前后端分离开发,再按上面这种方式开发就比较繁琐,而且安全性和客户体验差, 一旦 JSESSIONID 泄露,那可能就会被伪造身份
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/07/02/Netty-14-心跳与空闲检测/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-22-Spring-Security-OAuth-简介/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -431,7 +431,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-13-性能优化处理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-21-退出登录/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -450,7 +450,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/02/Netty-13-性能优化处理/" itemprop="url">Netty-13-性能优化处理</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-21-退出登录/" itemprop="url">Spring Security-21-退出登录</a></h1>
         
 
         <div class="post-meta">
@@ -462,8 +462,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T11:06:56+08:00">
-                2019-07-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:54:54+08:00">
+                2019-09-10
               </time>
             
 
@@ -485,8 +485,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
                   </a>
                 </span>
 
@@ -524,13 +524,12 @@
       
         
           
-          述我们在实现完一系列的功能之后,会有很多的handler通过pipeline加到channel中去, 下面看一下如何去优化这些handler  
-优化第一步:共享handler首先来看下服务端的代码:  
-指令相关的handler很多,netty在这里的逻辑是:每次有新连接到来的时候,都会调用Cha
+          述退出登录的功能,Spring Security 也提供了默认的实现, 接口是 /logout, 直接访问 http://www.pinzhi365.com/logout 接口效果如下:   
+这里会挑战到 /authentication/require?logout 这个请求里面,原因是默认的注销
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/07/02/Netty-13-性能优化处理/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-21-退出登录/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -581,7 +580,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-12-channelHandler热拔插/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-20-Session管理/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -600,7 +599,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/02/Netty-12-channelHandler热拔插/" itemprop="url">Netty-12-channelHandler热拔插</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-20-Session管理/" itemprop="url">Spring Security-20-Session管理</a></h1>
         
 
         <div class="post-meta">
@@ -612,8 +611,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T11:06:25+08:00">
-                2019-07-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:54:46+08:00">
+                2019-09-10
               </time>
             
 
@@ -635,8 +634,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
                   </a>
                 </span>
 
@@ -674,13 +673,18 @@
       
         
           
-          述前面的代码中,我们的客户端登录之后,存了一个标记,表示当前的channel是已登录的状态,然后每次发现系的时候都需要去验证一次用户是否登录,代码如下:   
-这里我们也可以在服务端加一个handler去验证用户是否登录   
-登录验证handler新建一个handler,代码如下:12345678
+          述在之前我们已经实现了三种方式的用户登录:  
+
+用户名密码登录
+短信验证码登录
+第三方社交网站登录   
+
+前面两种是使用表单提交的方式登录,后面一种是走 OAuth 流程登录, 但是不管是哪种类型的登陆,最后的用户认证信息都会放到 session 中去    
+对于session的一些配置,比如
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/07/02/Netty-12-channelHandler热拔插/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-20-Session管理/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -731,7 +735,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-11-channelHandler的生命周期/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-19-绑定和解绑处理/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -750,7 +754,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/02/Netty-11-channelHandler的生命周期/" itemprop="url">Netty-11-channelHandler的生命周期</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-19-绑定和解绑处理/" itemprop="url">Spring Security-19-绑定和解绑处理</a></h1>
         
 
         <div class="post-meta">
@@ -762,8 +766,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T11:05:42+08:00">
-                2019-07-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:54:36+08:00">
+                2019-09-10
               </time>
             
 
@@ -785,8 +789,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
                   </a>
                 </span>
 
@@ -824,12 +828,12 @@
       
         
           
-          述我们之前在使用channelHanndler的时候,只重写了channelRead()和channelActive()这两个方法,它里面还有一些其他的方法, 这些方法的回调顺序就是channelHandler的生命周期   
-案例新建一个handler,名称是LifeCyCleTestHandle
+          述在使用第三方登录时,有一个常见的场景就是用户登录完成之后,再去绑定/解绑第三方社交账号   
+绑定也是需要走一下 OAuth 流程,用户授权完成之后,将第三方的用户信息与当前系统的用户信息做一个绑定, 这里和登录不同的地方是, 登录是不知道当前用户信息的,需要先拿到第三方用户信息然后去 userc
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/07/02/Netty-11-channelHandler的生命周期/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-19-绑定和解绑处理/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -880,7 +884,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-10-案例-粘包拆包/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-18-开发微信登录/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -899,7 +903,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/02/Netty-10-案例-粘包拆包/" itemprop="url">Netty-10-案例-粘包拆包</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-18-开发微信登录/" itemprop="url">Spring Security-18-开发微信登录</a></h1>
         
 
         <div class="post-meta">
@@ -911,8 +915,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T11:05:16+08:00">
-                2019-07-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:54:26+08:00">
+                2019-09-10
               </time>
             
 
@@ -934,8 +938,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
                   </a>
                 </span>
 
@@ -973,16 +977,314 @@
       
         
           
-          述先来看一个简单的例子,服务端向客户端发送1000条数据,然后服务端打印出来代码如下   
-拆包粘包示例客户端代码:  
-服务端代码:   
-然后通过channel.pipeline().addLast()把这两个handler添加到对应的端,最后运行看服务端的输出   
+          述上文中实现了整个QQ登录的流程,本文来实现以下微信的授权登录, 总体逻辑是和QQ一样的,部分地方有所区别   
+ServiceProvider构建构建 ServiceProvider 需要 API 和 OAuth2Operations  
+微信API新建接口 WeChat12345678publi
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/10/Spring-Security-18-开发微信登录/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-17-处理注册逻辑/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="周泽">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八度空间">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-17-处理注册逻辑/" itemprop="url">Spring Security-17-处理注册逻辑</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:54:19+08:00">
+                2019-09-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          述上文中,最后QQ授权成功,获取到用户信息之后,是跳转到了一个 /sign/up 的请求上去, 下面首先看一下为什么会跳转到注册页面上去   
+首先,按照 security 的登录流程, 上文中获取到了 QQ 信息,然后组成一个未认证的 SocialAuthenticationToken 对象, 然
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/10/Spring-Security-17-处理注册逻辑/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-16-开发QQ登录-下/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="周泽">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八度空间">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-16-开发QQ登录-下/" itemprop="url">Spring Security-16-开发QQ登录(下)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:54:06+08:00">
+                2019-09-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          述上文中,整个QQ登录的流程的代码已经写完了,可以启动项目试一下, 点QQ登录,效果如下:   
    
-这里存在以下三种类
+可以看下QQ的文档, 就是回调地址不合法   
+这只是一个问题,在运行代码的过程中还会有几个问题,下面来看一下   
+回调地址上面的问题就是回调地址不对, 在QQ互联里面,需要在自己应用中去配置
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/07/02/Netty-10-案例-粘包拆包/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-16-开发QQ登录-下/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1033,7 +1335,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-9-案例-构建客户端与服务端pipeline/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-15-开发QQ登录-中/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1052,7 +1354,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/02/Netty-9-案例-构建客户端与服务端pipeline/" itemprop="url">Netty-9-案例-构建客户端与服务端pipeline</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-15-开发QQ登录-中/" itemprop="url">Spring Security-15-开发QQ登录(中)</a></h1>
         
 
         <div class="post-meta">
@@ -1064,8 +1366,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T11:04:39+08:00">
-                2019-07-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:53:58+08:00">
+                2019-09-10
               </time>
             
 
@@ -1087,8 +1389,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
                   </a>
                 </span>
 
@@ -1126,13 +1428,12 @@
       
         
           
-          述上文中,对pipeline和channelHandler和有了一个基本的了解,以及两种channelHandler的执行顺序.   
-在之前的案例中我们都是用if-else去判断数据包的类型, 那本文将通过使用channelHandler的方式,重构之前的代码  
-Netty 内置了很多开箱即用的
+          述上文中实现了 ServiceProvider 的部分, 然后剩下就是 ConnectionFactory 创建 Connection 的部分还有与数据量交互的部分   
+ConnectionFactory 构建适配器实现要构建 ConnectionFactory 就需要 ServiceProvid
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/07/02/Netty-9-案例-构建客户端与服务端pipeline/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-15-开发QQ登录-中/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1183,7 +1484,7 @@ Netty 内置了很多开箱即用的
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-8-pipeline-和-channelHandler/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-14-开发QQ登录-上/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1202,7 +1503,7 @@ Netty 内置了很多开箱即用的
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/02/Netty-8-pipeline-和-channelHandler/" itemprop="url">Netty-8-pipeline 和 channelHandler</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-14-开发QQ登录-上/" itemprop="url">Spring Security-14-开发QQ登录(上)</a></h1>
         
 
         <div class="post-meta">
@@ -1214,8 +1515,8 @@ Netty 内置了很多开箱即用的
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T11:04:07+08:00">
-                2019-07-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:53:48+08:00">
+                2019-09-10
               </time>
             
 
@@ -1237,8 +1538,8 @@ Netty 内置了很多开箱即用的
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
                   </a>
                 </span>
 
@@ -1276,12 +1577,12 @@ Netty 内置了很多开箱即用的
       
         
           
-          述上面两个案例中,我们接收到数据包之后,都是先转成Packet类型,然后再去判断是哪种类型,最后做出相应的处理,这里就会有一个问题,随着业务的增加,channelRead()中需要判断的类型越来越多,就需要写很多的if-else来判断,这个方法的代码就会越来越多  
-另外,每次发指令数据包都要手动调
+          述本文开始,实现一个第三方登录,以QQ为例,首先需要去QQ互联里面,申请开发者认证,然后创建应用,搞到AppId,和AppKey   
+实现流程按照上文中的实现流程,先是构建 ServiceProvider ,然后是 ConnectionFactory 然后 Connection 最后交互数据库  
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/07/02/Netty-8-pipeline-和-channelHandler/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-14-开发QQ登录-上/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1332,7 +1633,7 @@ Netty 内置了很多开箱即用的
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-7-案例-客户端与服务端收发消息/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-13-OAuth2协议及Spring-Social简介/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1351,7 +1652,7 @@ Netty 内置了很多开箱即用的
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/02/Netty-7-案例-客户端与服务端收发消息/" itemprop="url">Netty-7-案例-客户端与服务端收发消息</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-13-OAuth2协议及Spring-Social简介/" itemprop="url">Spring Security-13-OAuth2协议及Spring Social简介</a></h1>
         
 
         <div class="post-meta">
@@ -1363,8 +1664,8 @@ Netty 内置了很多开箱即用的
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T11:03:39+08:00">
-                2019-07-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:53:38+08:00">
+                2019-09-10
               </time>
             
 
@@ -1386,8 +1687,8 @@ Netty 内置了很多开箱即用的
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
                   </a>
                 </span>
 
@@ -1425,313 +1726,12 @@ Netty 内置了很多开箱即用的
       
         
           
-          述上文中实现了客户端登录的案例,主要就是创建数据包,编码,写到服务端,然后解码,验证,再编码发送到客户端,客户端最后再解码   
-本文再来实现一个客户端收发消息的案例,具体功能如下:在控制台输入一串文字,然后按回车,客户端校验登录状态,然后把这个消息传给服务端,服务端收到之后打印出来,并向客户端发送
+          述上文中,已经实现了短信登录的方式, 常见的登录方式还有第三方登录,比如集成微信或者QQ登录, 第三方登录我们可以使用 Spring Social 去开发, 这里首先得要了解一下 OAuth2 协议   
+OAuth协议简介以微信登录为例,使用微信登录后,通常我们需要去微信拿用户的信息, 最常见的方
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/07/02/Netty-7-案例-客户端与服务端收发消息/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-6-案例-客户端登录/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="周泽">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="八度空间">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/02/Netty-6-案例-客户端登录/" itemprop="url">Netty-6-案例-客户端登录</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T11:02:39+08:00">
-                2019-07-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          述上文中,说了客户端服务端的通信协议以及编解码,本文延续上文,实现一个客户端的登录   
-具体流程就是客户端去发送登录的数据包,然后服务端解码,验证是否可以登录,然后返回给客户端是否登录成功   
-我们之前有写过一个客户端服务端通信的案例,就是给客户端和服务端启动的时候都添加一个逻辑处理器,写数据就
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/02/Netty-6-案例-客户端登录/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-5-客户端与服务端通信协议编解码/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="周泽">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="八度空间">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/02/Netty-5-客户端与服务端通信协议编解码/" itemprop="url">Netty-5-客户端与服务端通信协议编解码</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T11:00:32+08:00">
-                2019-07-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          述客户端与服务端的通信协议,就是客户端与服务端事先商量好的,每个二进制数据包中的每一段字节分别代表什么含义   
-看一下下面这个图:  
-如图,就是一个数据包,这个数据包中,第一个字节是1,表示是一个指令,比如是登录还是注册,然后下面是用户名,密码,中间有分隔符做分割   
-服务端收到这个数据包后,
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/02/Netty-5-客户端与服务端通信协议编解码/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-13-OAuth2协议及Spring-Social简介/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1773,7 +1773,7 @@ Netty 内置了很多开箱即用的
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1819,7 +1819,7 @@ Netty 内置了很多开箱即用的
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">233</span>
+                  <span class="site-state-item-count">258</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1879,7 +1879,7 @@ Netty 内置了很多开箱即用的
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1909,7 +1909,7 @@ Netty 内置了很多开箱即用的
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共264.8k字</span>
+  <span class="post-count">博客全站共288.8k字</span>
 </div>
         
 

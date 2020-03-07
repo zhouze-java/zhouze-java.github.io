@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Spring Boot,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="述上文中了解了 Spring Boot 的异常报告器的工作原理,但是并没有看到他的调用时机, 其实就是在 run 方法的 catch 部分的 handleRunFailure() 中做处理,下面我们来看一下这个方法的具体处理流程     源码跟踪首先还是进入 run 方法,进到 catch 块中,找到 handleRunFailure() 这个方法,如下       之后进到这个方法看一下">
+<meta name="keywords" content="Spring Boot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Boot-15-异常处理流程">
+<meta property="og:url" content="http://yoursite.com/2020/03/07/Spring-Boot-15-异常处理流程/index.html">
+<meta property="og:site_name" content="八度空间">
+<meta property="og:description" content="述上文中了解了 Spring Boot 的异常报告器的工作原理,但是并没有看到他的调用时机, 其实就是在 run 方法的 catch 部分的 handleRunFailure() 中做处理,下面我们来看一下这个方法的具体处理流程     源码跟踪首先还是进入 run 方法,进到 catch 块中,找到 handleRunFailure() 这个方法,如下       之后进到这个方法看一下">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRa52q2dVedgAxhcLTfyt4DHkkt75oyJPJ6f8xjhoxP1WgN1lx*8X7gKtrcl7m5lSXQ89V14V3qPm5EiouDqCLeo!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRXhPMT.JnOx6eIRwe*n5n*HElzT0NSnaYeqEH7SIc572Xmqtzvne0WIfPWn2Fz7rh1farZOKoAd0djNH2F9TLq4!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRSr8qvY6q2xqM2sUgRQP6GkZhVw8lEUHwHa*J4t20PSbnTZITVzeclcPeqePmk3Vh0wzSb2RJD0c0JzHjZXk*NY!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRb9nvT6nngHAkSokEefymL025nReOuecUgLN4ygq34CY9DPqz2BA7X74JE.Zh3Uq.tJK*ofX673PepVe4eOy3QQ!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRS7rvTIM3OPT2eW4EPStgUGJIdOweJbgnCsl.ixvZ.i6mZMg0WSk6.LkYrvyGgjAH8h5ebQ8*RRunU.MefTzSYo!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRd5r3soUt9472UuNHxqSGv1Pca8MqKaGxady3VVYWMP4k.AkW0NHWJhK1m1WEl.Q2DKpNxYAkSNHN3x2g17GmCI!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRV9FvsQnR6e8ahzF8t6zRK4DriGumWI13Q3LZ7oxnFZGxu1.XDJTp5.Ndd6GDb0jgX.KGJZFmtECK2vgAxbuDTU!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRfd*6fDFuf79a8rXvhFytpI9oPJOYuB.0c6DZKm*RAPcaJQRDEYJy8SlcjuoFx0tm0uwiJKaKCYdtuSLQMN1GEM!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRbHmiTJGsoMHd9DqfoNLyPlaUtg*U*cBEIHFVIQSYilw0c9nKf4XBFCZk6rc.XUw2iHBZPP.PkWv89VOp8W0eEg!/r">
+<meta property="og:updated_time" content="2020-03-07T07:43:22.952Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring Boot-15-异常处理流程">
+<meta name="twitter:description" content="述上文中了解了 Spring Boot 的异常报告器的工作原理,但是并没有看到他的调用时机, 其实就是在 run 方法的 catch 部分的 handleRunFailure() 中做处理,下面我们来看一下这个方法的具体处理流程     源码跟踪首先还是进入 run 方法,进到 catch 块中,找到 handleRunFailure() 这个方法,如下       之后进到这个方法看一下">
+<meta name="twitter:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRa52q2dVedgAxhcLTfyt4DHkkt75oyJPJ6f8xjhoxP1WgN1lx*8X7gKtrcl7m5lSXQ89V14V3qPm5EiouDqCLeo!/r">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/03/07/Spring-Boot-15-异常处理流程/">
+
+
+
+
+
+  <title>Spring Boot-15-异常处理流程 | 八度空间</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/zhouze-java" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+	
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">八度空间</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-15-异常处理流程/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="周泽">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八度空间">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring Boot-15-异常处理流程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:39:11+08:00">
+                2020-03-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="述"><a href="#述" class="headerlink" title="述"></a>述</h3><p>上文中了解了 Spring Boot 的异常报告器的工作原理,但是并没有看到他的调用时机, 其实就是在 run 方法的 catch 部分的 <code>handleRunFailure()</code> 中做处理,下面我们来看一下这个方法的具体处理流程    </p>
+<h3 id="源码跟踪"><a href="#源码跟踪" class="headerlink" title="源码跟踪"></a>源码跟踪</h3><p>首先还是进入 run 方法,进到 catch 块中,找到 <code>handleRunFailure()</code> 这个方法,如下  </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRa52q2dVedgAxhcLTfyt4DHkkt75oyJPJ6f8xjhoxP1WgN1lx*8X7gKtrcl7m5lSXQ89V14V3qPm5EiouDqCLeo!/r" alt="image">   </p>
+<p>之后进到这个方法看一下    </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRXhPMT.JnOx6eIRwe*n5n*HElzT0NSnaYeqEH7SIc572Xmqtzvne0WIfPWn2Fz7rh1farZOKoAd0djNH2F9TLq4!/r" alt="image">   </p>
+<p>这个方法一共做了五件事:  </p>
+<ol>
+<li>处理退出状态码</li>
+<li>发送失败事件</li>
+<li>错误报告</li>
+<li>关闭 context </li>
+<li>把异常重新抛出去   </li>
+</ol>
+<p>一个一个看一下这几件事情的具体处理流程    </p>
+<h3 id="状态码处理"><a href="#状态码处理" class="headerlink" title="状态码处理"></a>状态码处理</h3><p>首先进入 <code>handleExitCode()</code> 这个方法看一下   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRSr8qvY6q2xqM2sUgRQP6GkZhVw8lEUHwHa*J4t20PSbnTZITVzeclcPeqePmk3Vh0wzSb2RJD0c0JzHjZXk*NY!/r" alt="image">  </p>
+<p>这个里面调用了 <code>getExitCodeFromException()</code> 去获取状态码,点进去继续往下看   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRb9nvT6nngHAkSokEefymL025nReOuecUgLN4ygq34CY9DPqz2BA7X74JE.Zh3Uq.tJK*ofX673PepVe4eOy3QQ!/r" alt="image">   </p>
+<p>具体的计算方法如下   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRS7rvTIM3OPT2eW4EPStgUGJIdOweJbgnCsl.ixvZ.i6mZMg0WSk6.LkYrvyGgjAH8h5ebQ8*RRunU.MefTzSYo!/r" alt="image">   </p>
+<p>总体来说,就是找到 <code>ExitCodeExceptionMapper</code> 的实现类,然后根据具体的错误,找到对应的状态码, 0是正常退出, 否则为非正常退出   </p>
+<h3 id="发送失败事件"><a href="#发送失败事件" class="headerlink" title="发送失败事件"></a>发送失败事件</h3><p>状态码处理完毕后,判断了 <code>listeners</code> 是否为空,然后发送了一个失败事件, 判空原因主要是防止监听器还没加载完毕,程序就出错了,具体发送事件的原理这里就不分析了,可以回头到监听器的那里去看   </p>
+<h3 id="错误报告"><a href="#错误报告" class="headerlink" title="错误报告"></a>错误报告</h3><p>接着往下看一下 <code>reportFailure()</code> 错误报告的这个方法   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRd5r3soUt9472UuNHxqSGv1Pca8MqKaGxady3VVYWMP4k.AkW0NHWJhK1m1WEl.Q2DKpNxYAkSNHN3x2g17GmCI!/r" alt="image">   </p>
+<p>这里先去 <code>exceptionReporters</code> 集合,其实就我们上文中介绍的 <code>FailureAnalyzers</code> 这一个类,  当然我们也可以手动写一个 <code>SpringBootExceptionReporter</code> 的实现,但是这里的 <code>reportException()</code> 返回 true 的话,就不会进入下一个了,具体的报告流程我们在上文中详细分析过了      </p>
+<h3 id="关闭-context"><a href="#关闭-context" class="headerlink" title="关闭 context"></a>关闭 context</h3><p>接着往下看,调用了 <code>context.close()</code> 这方法,点进去,看看具体做了哪些事情   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRV9FvsQnR6e8ahzF8t6zRK4DriGumWI13Q3LZ7oxnFZGxu1.XDJTp5.Ndd6GDb0jgX.KGJZFmtECK2vgAxbuDTU!/r" alt="image">   </p>
+<p>这里先调用了 <code>doClose()</code> 方法, 然后把钩子方法移除掉, 钩子方法就是在 jvm 退出的时候做的一些事情, 然后我们来关心一下 <code>doClose()</code> 这个方法   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRfd*6fDFuf79a8rXvhFytpI9oPJOYuB.0c6DZKm*RAPcaJQRDEYJy8SlcjuoFx0tm0uwiJKaKCYdtuSLQMN1GEM!/r" alt="image">   </p>
+<h3 id="重新抛出异常"><a href="#重新抛出异常" class="headerlink" title="重新抛出异常"></a>重新抛出异常</h3><p>最后一步会调用 <code>ReflectionUtils.rethrowRuntimeException(exception)</code> 这个方法把异常重新抛出去,这里点进去看一下   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRbHmiTJGsoMHd9DqfoNLyPlaUtg*U*cBEIHFVIQSYilw0c9nKf4XBFCZk6rc.XUw2iHBZPP.PkWv89VOp8W0eEg!/r" alt="image">   </p>
+<p>这里先把异常做个包装,然后再抛出去,以上就是全部的异常处理流程    </p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><code>handleExitCode()</code> 作用: </p>
+<ul>
+<li>计算退出状态码,为0是正常退出,非0则是异常退出   </li>
+<li>发送 <code>ExitCodeEvent</code> 事件</li>
+<li>记录 exitCode 的值</li>
+</ul>
+<p><code>listeners.failed()</code> 作用:   </p>
+<ul>
+<li>发送 <code>ApplicationFailedEvent</code> 事件</li>
+</ul>
+<p><code>reportFailure()</code> 作用: </p>
+<ul>
+<li>调用异常报告器, 成功的话记录已处理的异常  </li>
+</ul>
+<p><code>context.close()</code> 作用: </p>
+<ul>
+<li>更改应用上下文状态</li>
+<li>销毁单例Bean</li>
+<li>将 beanFactory 置空</li>
+<li>关闭web容器(web环境中)</li>
+<li>移除 <code>shutdownHook</code> 钩子方法  </li>
+</ul>
+<p><code>ReflectionUtils.rethrowRuntimeException(exception)</code> 作用: </p>
+<ul>
+<li>包装异常,重新抛出  </li>
+</ul>
+<p>钩子方法 (shutdownHook) 介绍: </p>
+<ul>
+<li>jvm 退出的时候执行的业务逻辑  </li>
+<li>通过 <code>Runtime.getRuntime().addShutdownHook()</code> 方法添加  </li>
+<li>通过 <code>Runtime.getRuntime().removeShutdownHook()</code> 方法移除  </li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring-Boot/" <i="" class="fa fa-tag"> Spring Boot</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/07/Spring-Boot-14-异常报告器/" rel="next" title="Spring Boot-14-异常报告器">
+                <i class="fa fa-chevron-left"></i> Spring Boot-14-异常报告器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/07/Spring-Boot-16-配置类解析流程/" rel="prev" title="Spring Boot-16-配置类解析流程">
+                Spring Boot-16-配置类解析流程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTEyNi8xNzY1MQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">周泽</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">258</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#述"><span class="nav-number">1.</span> <span class="nav-text">述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源码跟踪"><span class="nav-number">2.</span> <span class="nav-text">源码跟踪</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态码处理"><span class="nav-number">3.</span> <span class="nav-text">状态码处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发送失败事件"><span class="nav-number">4.</span> <span class="nav-text">发送失败事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#错误报告"><span class="nav-number">5.</span> <span class="nav-text">错误报告</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关闭-context"><span class="nav-number">6.</span> <span class="nav-text">关闭 context</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重新抛出异常"><span class="nav-number">7.</span> <span class="nav-text">重新抛出异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">周泽</span>
+
+  
+</div>
+
+<!-- 
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+ -->
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共288.8k字</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>

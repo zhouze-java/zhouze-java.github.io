@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Spring Boot,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="述上文中用一个简单的案例,来了解了一下监听器的实现,下面再来看一下监听器在Spring Boot框架中的实现,围绕以下四个方面来看以下:    事件 监听器 广播器 触发机制  监听器ApplicationListener 这个类,就是系统监听器的实现,代码如下:       这里就是一个函数式接口,然后这里有一个继承自 ApplicationEvent 的泛型,可以在声明的时候,表示对哪种事件感">
+<meta name="keywords" content="Spring Boot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Boot-4-监听器实现">
+<meta property="og:url" content="http://yoursite.com/2020/03/07/Spring-Boot-4-监听器实现/index.html">
+<meta property="og:site_name" content="八度空间">
+<meta property="og:description" content="述上文中用一个简单的案例,来了解了一下监听器的实现,下面再来看一下监听器在Spring Boot框架中的实现,围绕以下四个方面来看以下:    事件 监听器 广播器 触发机制  监听器ApplicationListener 这个类,就是系统监听器的实现,代码如下:       这里就是一个函数式接口,然后这里有一个继承自 ApplicationEvent 的泛型,可以在声明的时候,表示对哪种事件感">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRVHva72Vz6SAdJiLqqdlgzTN5ft8UD9v.DERsEdkVelcQIqDFJMX3VU6lMy0n9XKv4Eoufp4NFUSkSrVR6IEHvE!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRfOGNEPp1YjBhlb909kwxWroGdnCwXIkdtOfhrQ0*SBL41CqgI4*..9N1DTrrhGY48nlWj82YDPMbTAP2ih1cfw!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRbgL0oeRBfAulztl.e3Y.pMzdw*2mnLbpa4JS564KUKqmWc.qEHjeR.c08z5cc2UDXPHVsn1vT5QdtWfKlWMcW8!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRRsv1I9S.WMrtgP9VGZVeWQaPl4fpWuUZMEjPvWMF6S47yR7jvUS9vXO.LJVS4iwsS6k0n32mgfeYxbEeq0VRlA!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRXaE02VzSkRD7rtlQUGbXKv7SfNT81HpH6C*q9ELOpLfx7XHu2o3ETUxFr240aZHQVoOdh4UxD26tUvMdr01o30!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRf3WhLUiAD96ijmQlGzNv2fFdTIy2YW2GOpAlKAAzMJWVdSX.*rX6jet8T0BTDzhiVdFMOGH.DuCuPevp.w2toY!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRULTeqnhlIJRYGAkoBBnnXZKE31uvdIkMdqROCzz5ej*p*KvFLNU0mtT7TTBHt52LUx59kgOSgBqnXrJ5NGTbZY!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRdyb0Ut2NqVCcqVLFL55amqSY8jDZfZQUEGDOe2lyPDqOQyUWYRClziX4xagDMUSKCCEHWr6xVUx6Q3x*KFok8k!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRb8TAxahuxWBYB2dOYcii8lxqfWYHVYlt42M0GKSvPTkoCBLyh4YqBiBgqwoznuLKB91iKDjVDOE5QKsN4W2cGI!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRQIprGMLyW8hJxKxdyFSsV28sP*CrJMn0lYdjjl9qZI0n61eHBIkQzeuEGOjeAXjvta.v8AqkOE1nxItSYeX40k!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRdLhv2j3kkEtRxA4IY4U3feuYhavHvZgH.8F*AqxTVOeEkU15BTTAGE4yomvCO9celLaV2CAjgC2cRfCAco8cDo!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRcCci87CkJOWwMrqfnIolh42Nd0FxcsPXiqRwYAPd0EjLb61SaKEdN9v9PloluC.QkWRmNB3D8iuF4eOUoqOA6A!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRSZ1LIrkbPo99fKkR5fcdYv*f0bgNGjo38Tpc0mZCxv13gm1pz0hv5wQdS.om2wQHnuso.f*Xq3wJRdMv.AfCmw!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRUVXwW7FqqacoMYvUMDOvEZMg3VWg8osv3sMOJbTVQOUsU1.5Gnjtt2.JYlp9ry8Q3FzCUe9Ek4X30HGeg.Z0.o!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRUTAserG6RsfQdCyv.wHVuRxDxFyXPVDHWfacJpz1f6tHDF6zER9dV2avgHyvdrc9csMHyYnFRuEWkoEqp0lq4Q!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRai1z3Lz2Hb4Mp3p*gDZTOJoMbcjBR5pteDuw5XZanqjfEbePVTqhN23TmBE4kxVfwdhhG9D6Ofg7sHi0TA5M2Y!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRRArJjviN84G8qmCsXvR.kmj2lyXjieknLjAlQvT6EJ7IPQUykvS.3sM04T3uoXJbocHI4bZM5vsVOHSDeUOUgU!/r">
+<meta property="og:updated_time" content="2020-03-07T07:36:05.013Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring Boot-4-监听器实现">
+<meta name="twitter:description" content="述上文中用一个简单的案例,来了解了一下监听器的实现,下面再来看一下监听器在Spring Boot框架中的实现,围绕以下四个方面来看以下:    事件 监听器 广播器 触发机制  监听器ApplicationListener 这个类,就是系统监听器的实现,代码如下:       这里就是一个函数式接口,然后这里有一个继承自 ApplicationEvent 的泛型,可以在声明的时候,表示对哪种事件感">
+<meta name="twitter:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRVHva72Vz6SAdJiLqqdlgzTN5ft8UD9v.DERsEdkVelcQIqDFJMX3VU6lMy0n9XKv4Eoufp4NFUSkSrVR6IEHvE!/r">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/03/07/Spring-Boot-4-监听器实现/">
+
+
+
+
+
+  <title>Spring Boot-4-监听器实现 | 八度空间</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/zhouze-java" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+	
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">八度空间</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-4-监听器实现/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="周泽">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八度空间">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring Boot-4-监听器实现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:30:17+08:00">
+                2020-03-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="述"><a href="#述" class="headerlink" title="述"></a>述</h3><p>上文中用一个简单的案例,来了解了一下监听器的实现,下面再来看一下监听器在Spring Boot框架中的实现,围绕以下四个方面来看以下:  </p>
+<ul>
+<li>事件</li>
+<li>监听器</li>
+<li>广播器</li>
+<li>触发机制</li>
+</ul>
+<h3 id="监听器"><a href="#监听器" class="headerlink" title="监听器"></a>监听器</h3><p><code>ApplicationListener</code> 这个类,就是系统监听器的实现,代码如下:   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRVHva72Vz6SAdJiLqqdlgzTN5ft8UD9v.DERsEdkVelcQIqDFJMX3VU6lMy0n9XKv4Eoufp4NFUSkSrVR6IEHvE!/r" alt="image">  </p>
+<p>这里就是一个函数式接口,然后这里有一个继承自 <code>ApplicationEvent</code> 的泛型,可以在声明的时候,表示对哪种事件感兴趣,然后里面的一个方法就是,监听到感兴趣的事件时,要做的事情.   </p>
+<p>这个接口跟我们之前demo中的 <code>WeatherListener</code> 是类似的   </p>
+<h3 id="广播器"><a href="#广播器" class="headerlink" title="广播器"></a>广播器</h3><p><code>ApplicationEventMulticaster</code> 是系统广播器的接口, 看下源码:  </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRfOGNEPp1YjBhlb909kwxWroGdnCwXIkdtOfhrQ0*SBL41CqgI4*..9N1DTrrhGY48nlWj82YDPMbTAP2ih1cfw!/r" alt="image">   </p>
+<p>这里的几个方法,其实就是添加监听器,移除监听器,广播事件这三种,和我们demo中的 <code>EventMulticaster</code> 也是对应的  </p>
+<h3 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h3><p>Spring Boot 的系统事件,类图如下:   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRbgL0oeRBfAulztl.e3Y.pMzdw*2mnLbpa4JS564KUKqmWc.qEHjeR.c08z5cc2UDXPHVsn1vT5QdtWfKlWMcW8!/r" alt="image">  </p>
+<p>这里一共有 7 个事件,作用分别如下:  </p>
+<ul>
+<li><code>ApplicationStartingEvent</code>: <code>ApplicationStartingEvent</code> 是 <code>SpringBoot</code> 启动开始的时候执行的事件,在该事件中可以获取到 <code>SpringApplication</code> 对象,可做一些执行前的设置.   </li>
+<li><code>ApplicationEnvironmentPreparedEvent</code>: 表示系统环境变量已经创建完成,但是上下文 <code>context</code> 还没有创建  </li>
+<li><code>ApplicationContextInitializedEvent</code>: 表示 <code>ApplicationContext</code> 上下文已经准备好  </li>
+<li><code>ApplicationPreparedEvent</code>: 表示 SpringBoot上下文 <code>context</code> 创建完成,但此时 Spring 中的 bean 还没有完全加载完成.这里可以将上下文传递出去做一些额外的操作,但是在该监听器中是无法获取自定义 bean 并进行操作的.  </li>
+<li><code>ApplicationStartedEvent</code>: 表示所有的bean已经准备完成,但是还没有调用 <code>ApplicationRunner</code> 和 <code>CommandLineRunner</code> </li>
+<li><code>ApplicationReadyEvent</code>: <code>ApplicationRunner</code> 和 <code>CommandLineRunner</code> 已经完成调用了,也意味着 SpringBoot 加载已经完成.   </li>
+<li><code>ApplicationFailedEvent</code>: 容器在启动的时候发生异常的时候发送   </li>
+</ul>
+<h4 id="事件发发送顺序"><a href="#事件发发送顺序" class="headerlink" title="事件发发送顺序"></a>事件发发送顺序</h4><p><code>ApplicationStartingEvent</code> -&gt; <code>ApplicationEnvironmentPreparedEvent</code> -&gt; <code>ApplicationContextInitializedEvent</code> -&gt; <code>ApplicationPreparedEvent</code> -&gt; <code>ApplicationStartedEvent</code> -&gt; <code>ApplicationReadyEvent</code>  </p>
+<h3 id="监听器注册"><a href="#监听器注册" class="headerlink" title="监听器注册"></a>监听器注册</h3><p>Spring Boot中提供了很多监听器,下面来看一下这些监听器是如何被注册到容器中的   </p>
+<p>类似之前的系统初始化器,我们来看一下源码, 如下:   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRRsv1I9S.WMrtgP9VGZVeWQaPl4fpWuUZMEjPvWMF6S47yR7jvUS9vXO.LJVS4iwsS6k0n32mgfeYxbEeq0VRlA!/r" alt="image">  </p>
+<p>这里其实和之前的系统初始化器的加载方式是一样的,都是通过 <code>SpringFactoriesLoader</code> 来加载的,点进去看一下源码:  </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRXaE02VzSkRD7rtlQUGbXKv7SfNT81HpH6C*q9ELOpLfx7XHu2o3ETUxFr240aZHQVoOdh4UxD26tUvMdr01o30!/r" alt="监听器注册2">   </p>
+<p>这里和之前的系统初始化器是一样的,就不再详细介绍了    </p>
+<h3 id="触发机制"><a href="#触发机制" class="headerlink" title="触发机制"></a>触发机制</h3><p>上面了解了事件,监听器,广播器,然后四个要素中还有触发机制,这些事件是怎么被发送的,下面来详细看一下  </p>
+<p>以 starting 事件为例,这个是在框架启动,也就是调用run方法的时候,进入run方法看一下源码,如下:   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRf3WhLUiAD96ijmQlGzNv2fFdTIy2YW2GOpAlKAAzMJWVdSX.*rX6jet8T0BTDzhiVdFMOGH.DuCuPevp.w2toY!/r" alt="image">  </p>
+<p>这里会把所有的监听器都封装到一个 <code>SpringApplicationRunListeners</code> 对象中,这个其实就是 <code>SpringApplicationRunListener</code> 对象的一个集合<br>进入这个 <code>starting</code> 方法看一下,如下:   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRULTeqnhlIJRYGAkoBBnnXZKE31uvdIkMdqROCzz5ej*p*KvFLNU0mtT7TTBHt52LUx59kgOSgBqnXrJ5NGTbZY!/r" alt="image">  </p>
+<p>可以看到,这里是去调用的 <code>SpringApplicationRunListener</code> 的 <code>starting()</code> 方法,继续往下一级去看,进入 <code>SpringApplicationRunListener</code> 如下:   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRdyb0Ut2NqVCcqVLFL55amqSY8jDZfZQUEGDOe2lyPDqOQyUWYRClziX4xagDMUSKCCEHWr6xVUx6Q3x*KFok8k!/r" alt="image">  </p>
+<p>这里其实就是对所有系统事件的一个封装,在我们之前的demo中,我们是手动创建广播器,然后创建事件发送, 那这里其实就是对这一步进行了一个封装, Spring 容器在运行过程中是不需要构建具体的事件,然后再调用广播器广播, 都是通过这个方法完成的, 以 <code>starting()</code> 方法为例, 我们进入子类看一下:  </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRb8TAxahuxWBYB2dOYcii8lxqfWYHVYlt42M0GKSvPTkoCBLyh4YqBiBgqwoznuLKB91iKDjVDOE5QKsN4W2cGI!/r" alt="image">   </p>
+<p>这里首先找到了广播器,然后发送了一个 <code>ApplicationStartingEvent</code> 事件  </p>
+<h4 id="案例改造"><a href="#案例改造" class="headerlink" title="案例改造"></a>案例改造</h4><p>以之前的天气案例为基础,我们也将代码改造成 Spring Boot 这种方式来试一下   </p>
+<p>首先,创建一个 <code>WeatherRunListener</code> 对应上面的 <code>SpringApplicationRunListener</code>, 代码如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class WeatherRunListener  &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private WeatherEventMulticaster weatherEventMulticaster;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 发送下雪事件</span><br><span class="line">     */</span><br><span class="line">    public void snow()&#123;</span><br><span class="line">        weatherEventMulticaster.multicastEvent(new SnowEvent());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 发送下雨事件</span><br><span class="line">     */</span><br><span class="line">    public void rain()&#123;</span><br><span class="line">        weatherEventMulticaster.multicastEvent(new RainEvent());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里需要给 <code>WeatherEventMulticaster</code> 加上 <code>@Component</code> 注解, 同样的 <code>RainListener</code> 和 <code>SnowListener</code> 也需要加上 <code>@Component</code> 注解<br>然后修改 <code>AbstractEventMulticaster</code> , 如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 监听器的集合</span><br><span class="line"> */</span><br><span class="line">@Autowired</span><br><span class="line">private List&lt;WeatherListener&gt; listeners;</span><br></pre></td></tr></table></figure></p>
+<p>这里只修改存放 <code>WeatherListener</code> 的集合即可, <code>RainListener</code> 和 <code>SnowListener</code> 已经交给了Spring容器去管理,所以这里直接让Spring容器去注入就好了   </p>
+<p>然后写个单元测试:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void test1()&#123;</span><br><span class="line">    weatherRunListener.rain();</span><br><span class="line">    weatherRunListener.snow();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>执行,控制台输出如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">2020-02-02 18:28:21.830  INFO 16736 --- [    Test worker] c.z.s.e.m.WeatherEventMulticaster        : begin broadcast weather event...</span><br><span class="line">2020-02-02 18:28:21.831  INFO 16736 --- [    Test worker] c.z.s.example.listener.RainListener      : Its Rain</span><br><span class="line">2020-02-02 18:28:21.835  INFO 16736 --- [    Test worker] c.z.s.e.m.WeatherEventMulticaster        : end broadcast weather event ...</span><br><span class="line">2020-02-02 18:28:21.835  INFO 16736 --- [    Test worker] c.z.s.e.m.WeatherEventMulticaster        : begin broadcast weather event...</span><br><span class="line">2020-02-02 18:28:21.836  INFO 16736 --- [    Test worker] c.z.s.example.listener.SnowListener      : Its snow</span><br><span class="line">2020-02-02 18:28:21.836  INFO 16736 --- [    Test worker] c.z.s.e.m.WeatherEventMulticaster        : end broadcast weather event ...</span><br></pre></td></tr></table></figure></p>
+<p>这种方式就和 Spring Boot 发送事件的方式一样,做了一次封装   </p>
+<h3 id="事件广播源码"><a href="#事件广播源码" class="headerlink" title="事件广播源码"></a>事件广播源码</h3><p>还是以 starting 方法为例,看一下广播器具体是怎么发送事件的  </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRQIprGMLyW8hJxKxdyFSsV28sP*CrJMn0lYdjjl9qZI0n61eHBIkQzeuEGOjeAXjvta.v8AqkOE1nxItSYeX40k!/r" alt="image">  </p>
+<p>这里点击进入广播器的发送方法    </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRdLhv2j3kkEtRxA4IY4U3feuYhavHvZgH.8F*AqxTVOeEkU15BTTAGE4yomvCO9celLaV2CAjgC2cRfCAco8cDo!/r" alt="image">   </p>
+<p>这里的重点是 <code>getApplicationListeners</code> 这个方法,获取对当前事件感兴趣的监听器的集合,点进去往下看  </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRcCci87CkJOWwMrqfnIolh42Nd0FxcsPXiqRwYAPd0EjLb61SaKEdN9v9PloluC.QkWRmNB3D8iuF4eOUoqOA6A!/r" alt="image">  </p>
+<p>这里主要是从缓存找,然后找不到的话再去计算,计算完成后放入缓存中,供下次使用,再进入具体计算的方法  </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRSZ1LIrkbPo99fKkR5fcdYv*f0bgNGjo38Tpc0mZCxv13gm1pz0hv5wQdS.om2wQHnuso.f*Xq3wJRdMv.AfCmw!/r" alt="image">   </p>
+<p>进入 <code>supportsEvent()</code> 继续看   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRUVXwW7FqqacoMYvUMDOvEZMg3VWg8osv3sMOJbTVQOUsU1.5Gnjtt2.JYlp9ry8Q3FzCUe9Ek4X30HGeg.Z0.o!/r" alt="image">  </p>
+<p>这里做了一次转换,如果不是 就做个适配 <code>new GenericApplicationListenerAdapter(listener)</code> ,把监听器都转成 <code>GenericApplicationListener</code> 然后做判断  </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRUTAserG6RsfQdCyv.wHVuRxDxFyXPVDHWfacJpz1f6tHDF6zER9dV2avgHyvdrc9csMHyYnFRuEWkoEqp0lq4Q!/r" alt="image">  </p>
+<p>总之这里是要转成一个 <code>GenericApplicationListener</code> 然后再做判断   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRai1z3Lz2Hb4Mp3p*gDZTOJoMbcjBR5pteDuw5XZanqjfEbePVTqhN23TmBE4kxVfwdhhG9D6Ofg7sHi0TA5M2Y!/r" alt="image">  </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRRArJjviN84G8qmCsXvR.kmj2lyXjieknLjAlQvT6EJ7IPQUykvS.3sM04T3uoXJbocHI4bZM5vsVOHSDeUOUgU!/r" alt="image">  </p>
+<p>这里打个断点走一下会更清晰   </p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>了解监听器是如何注册到 Spring 容器中的</li>
+<li>Spring Boot 中的事件发送机制</li>
+<li>如何获取事件的所有感兴趣的监听器  </li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring-Boot/" <i="" class="fa fa-tag"> Spring Boot</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/07/Spring-Boot-3-监听器案例/" rel="next" title="Spring Boot-3-监听器案例">
+                <i class="fa fa-chevron-left"></i> Spring Boot-3-监听器案例
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/07/Spring-Boot-5-自定义监听器/" rel="prev" title="Spring Boot-5-自定义监听器">
+                Spring Boot-5-自定义监听器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTEyNi8xNzY1MQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">周泽</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">258</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#述"><span class="nav-number">1.</span> <span class="nav-text">述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#监听器"><span class="nav-number">2.</span> <span class="nav-text">监听器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#广播器"><span class="nav-number">3.</span> <span class="nav-text">广播器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件"><span class="nav-number">4.</span> <span class="nav-text">事件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#事件发发送顺序"><span class="nav-number">4.1.</span> <span class="nav-text">事件发发送顺序</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#监听器注册"><span class="nav-number">5.</span> <span class="nav-text">监听器注册</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#触发机制"><span class="nav-number">6.</span> <span class="nav-text">触发机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#案例改造"><span class="nav-number">6.1.</span> <span class="nav-text">案例改造</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件广播源码"><span class="nav-number">7.</span> <span class="nav-text">事件广播源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">周泽</span>
+
+  
+</div>
+
+<!-- 
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+ -->
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共288.8k字</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>

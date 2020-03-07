@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/26/Elasticsearch-32-type底层数据结构/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/02/Elasticsearch-57-搜索联想/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/26/Elasticsearch-32-type底层数据结构/" itemprop="url">Elasticsearch-32-type底层数据结构</a></h1>
+                <a class="post-title-link" href="/2019/01/02/Elasticsearch-57-搜索联想/" itemprop="url">Elasticsearch-57-搜索联想</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-26T14:54:50+08:00">
-                2018-11-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-02T17:52:55+08:00">
+                2019-01-02
               </time>
             
 
@@ -375,12 +375,12 @@
       
         
           
-          type的底层数据结构type是一个index中用来区分类似的数据的,类似的数据有可能有不同的field,而且有不同的属性来控制索引的建立  
-es是基于Lucene的,在es中每个field都有自己的数据类型,比如date,text等,但在底层的Lucene建立索引的时候,全部是opaque by
+          准备工作删除之前的my_index1DELETE /my_index
+然后再添加几条测试用的数据1234567891011121314151617181920212223242526272829POST /my_index/my_type/1&#123;  &quot;title&quot;:&qu
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/26/Elasticsearch-32-type底层数据结构/#more" rel="contents">
+            <a class="btn" href="/2019/01/02/Elasticsearch-57-搜索联想/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -431,7 +431,7 @@ es是基于Lucene的,在es中每个field都有自己的数据类型,比如date,t
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/24/Elasticsearch-31-手动创建索引以及定制分词器/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/02/Elasticsearch-56-前缀搜索-通配符搜索-正则搜索/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -450,7 +450,7 @@ es是基于Lucene的,在es中每个field都有自己的数据类型,比如date,t
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/24/Elasticsearch-31-手动创建索引以及定制分词器/" itemprop="url">Elasticsearch-31-手动创建索引以及定制分词器</a></h1>
+                <a class="post-title-link" href="/2019/01/02/Elasticsearch-56-前缀搜索-通配符搜索-正则搜索/" itemprop="url">Elasticsearch-56-前缀搜索 通配符搜索 正则搜索</a></h1>
         
 
         <div class="post-meta">
@@ -462,8 +462,8 @@ es是基于Lucene的,在es中每个field都有自己的数据类型,比如date,t
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-24T16:38:15+08:00">
-                2018-11-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-02T17:18:52+08:00">
+                2019-01-02
               </time>
             
 
@@ -524,11 +524,11 @@ es是基于Lucene的,在es中每个field都有自己的数据类型,比如date,t
       
         
           
-          索引创建索引语法:1234567891011121314PUT /index&#123;    &quot;settings&quot;:&#123;        // any settings...    &#125;,    &quot;mappings&quot;:&#123;       
+          准备工作首先我们先手动建立一个index,再添加几条数据.创建index123456789101112PUT /my_index&#123;  &quot;mappings&quot;: &#123;    &quot;my_type&quot;: &#123;      &quot;propert
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/24/Elasticsearch-31-手动创建索引以及定制分词器/#more" rel="contents">
+            <a class="btn" href="/2019/01/02/Elasticsearch-56-前缀搜索-通配符搜索-正则搜索/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -579,7 +579,7 @@ es是基于Lucene的,在es中每个field都有自己的数据类型,比如date,t
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/24/Elasticsearch-30-scroll滚动查询/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/02/Elasticsearch-55-使用rescoring机制优化近似匹配的性能/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -598,7 +598,7 @@ es是基于Lucene的,在es中每个field都有自己的数据类型,比如date,t
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/24/Elasticsearch-30-scroll滚动查询/" itemprop="url">Elasticsearch-30-scroll滚动查询</a></h1>
+                <a class="post-title-link" href="/2019/01/02/Elasticsearch-55-使用rescoring机制优化近似匹配的性能/" itemprop="url">Elasticsearch-55-使用rescoring机制优化近似匹配的性能</a></h1>
         
 
         <div class="post-meta">
@@ -610,8 +610,8 @@ es是基于Lucene的,在es中每个field都有自己的数据类型,比如date,t
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-24T15:34:11+08:00">
-                2018-11-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-02T16:02:51+08:00">
+                2019-01-02
               </time>
             
 
@@ -672,13 +672,12 @@ es是基于Lucene的,在es中每个field都有自己的数据类型,比如date,t
       
         
           
-          scroll查询如果我们要一次性查询10万条数据,那么性能会很差,此时一般会采用scroll滚动查询,一批一批的查,直到所有的数据都查询处理完成.  
-使用scroll滚动搜索,可以先搜索一批数据,然后下次再搜索一批数据,以此类推,直到搜索出全部的数据来  
-scroll搜索会在第一次搜索的时候,保
+          match 和 phrase match(proximity match)的区别match:只要简单的匹配到了一个term,就可以将term对应的doc返回.  
+phrase match:首先扫描到所有term的document list,然后对每个document都计算term position
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/24/Elasticsearch-30-scroll滚动查询/#more" rel="contents">
+            <a class="btn" href="/2019/01/02/Elasticsearch-55-使用rescoring机制优化近似匹配的性能/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -729,7 +728,7 @@ scroll搜索会在第一次搜索的时候,保
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/24/Elasticsearch-29-搜索原理内核解析/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/27/Elasticsearch-54-搜索实现召回率和精准度平衡/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -748,7 +747,7 @@ scroll搜索会在第一次搜索的时候,保
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/24/Elasticsearch-29-搜索原理内核解析/" itemprop="url">Elasticsearch-29-搜索原理内核解析</a></h1>
+                <a class="post-title-link" href="/2018/12/27/Elasticsearch-54-搜索实现召回率和精准度平衡/" itemprop="url">Elasticsearch-54-搜索实现召回率和精准度平衡</a></h1>
         
 
         <div class="post-meta">
@@ -760,8 +759,8 @@ scroll搜索会在第一次搜索的时候,保
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-24T01:03:40+08:00">
-                2018-11-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-27T17:27:35+08:00">
+                2018-12-27
               </time>
             
 
@@ -822,12 +821,13 @@ scroll搜索会在第一次搜索的时候,保
       
         
           
-          query phase假设我们有一个index里面的数据分布在3个primary shard上(对应的replica也有),现在总共有7个shard,我们现在要搜索这个index中的数据的第10000条到10010条.如图所示  
-请求发送给某一个shard时,这个shard就是coordinate
+          首先需要了解两个概念,召回率和精准度   
+召回率比如搜索一个java spark,总共有100个document,能返回多少个document作为结果,这个就是召回率(recall)  
+精准度比如搜索一个java spark,能不能尽可能让包含java spark这个短语的,或者是java和sp
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/24/Elasticsearch-29-搜索原理内核解析/#more" rel="contents">
+            <a class="btn" href="/2018/12/27/Elasticsearch-54-搜索实现召回率和精准度平衡/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -878,7 +878,7 @@ scroll搜索会在第一次搜索的时候,保
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/23/Elasticsearch-28-doc-values初步了解/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/27/Elasticsearch-53-基于slop参数实现近似匹配/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -897,7 +897,7 @@ scroll搜索会在第一次搜索的时候,保
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/23/Elasticsearch-28-doc-values初步了解/" itemprop="url">Elasticsearch-28-doc values初步了解</a></h1>
+                <a class="post-title-link" href="/2018/12/27/Elasticsearch-53-基于slop参数实现近似匹配/" itemprop="url">Elasticsearch-53-基于slop参数实现近似匹配</a></h1>
         
 
         <div class="post-meta">
@@ -909,8 +909,8 @@ scroll搜索会在第一次搜索的时候,保
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-23T21:39:41+08:00">
-                2018-11-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-27T11:43:56+08:00">
+                2018-12-27
               </time>
             
 
@@ -971,12 +971,11 @@ scroll搜索会在第一次搜索的时候,保
       
         
           
-          doc value搜索的时候,要依靠倒排索引去搜索,但是在排序的时候需要依靠正排索引,找到每个document的每个field,然后进行排序,所谓的正排索引,其实就是doc values  
-es在建立索引的时候,一方面会建立倒排索引,以供搜索使用;一方面还会建立正排索引,也就是doc values
+          slop参数比如我们现在有一个搜索请求如下:1234567891011GET forum/article/_search&#123;  &quot;query&quot;: &#123;    &quot;match_phrase&quot;: &#123;      &quot;title&quo
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/23/Elasticsearch-28-doc-values初步了解/#more" rel="contents">
+            <a class="btn" href="/2018/12/27/Elasticsearch-53-基于slop参数实现近似匹配/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1027,7 +1026,7 @@ es在建立索引的时候,一方面会建立倒排索引,以供搜索使用;一
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/23/Elasticsearch-27-搜索相关度TF-IDF算法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/26/Elasticsearch-52-phrase-match搜索及原理/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1046,7 +1045,7 @@ es在建立索引的时候,一方面会建立倒排索引,以供搜索使用;一
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/23/Elasticsearch-27-搜索相关度TF-IDF算法/" itemprop="url">Elasticsearch-27-搜索相关度TF&IDF算法</a></h1>
+                <a class="post-title-link" href="/2018/12/26/Elasticsearch-52-phrase-match搜索及原理/" itemprop="url">Elasticsearch-52-phrase match搜索及原理</a></h1>
         
 
         <div class="post-meta">
@@ -1058,8 +1057,8 @@ es在建立索引的时候,一方面会建立倒排索引,以供搜索使用;一
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-23T18:22:54+08:00">
-                2018-11-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-26T15:24:13+08:00">
+                2018-12-26
               </time>
             
 
@@ -1120,13 +1119,11 @@ es在建立索引的时候,一方面会建立倒排索引,以供搜索使用;一
       
         
           
-          算法介绍relevance score算法,简单来说就是计算出一个索引中的文本,与搜索文本,他们之间的关联匹配程度  
-Elasticsearch使用的是 term frequency/inverse document frequency算法，简称为TF/IDF算法  
-TF算法(Term freq
+          近似匹配假设现在有两个document,他们的content的值分别是:java is my favourite programming language, and I also think spark is a very good big data system.java spark are ve
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/23/Elasticsearch-27-搜索相关度TF-IDF算法/#more" rel="contents">
+            <a class="btn" href="/2018/12/26/Elasticsearch-52-phrase-match搜索及原理/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1177,7 +1174,7 @@ TF算法(Term freq
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/23/Elasticsearch-26-字符串排序问题及解决方案/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/19/Elasticsearch-51-cross-fields搜索问题解决方案/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1196,7 +1193,7 @@ TF算法(Term freq
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/23/Elasticsearch-26-字符串排序问题及解决方案/" itemprop="url">Elasticsearch-26-字符串排序问题及解决方案</a></h1>
+                <a class="post-title-link" href="/2018/12/19/Elasticsearch-51-cross-fields搜索问题解决方案/" itemprop="url">Elasticsearch-51-cross-fields搜索问题解决方案</a></h1>
         
 
         <div class="post-meta">
@@ -1208,8 +1205,8 @@ TF算法(Term freq
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-23T17:36:17+08:00">
-                2018-11-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-19T11:15:33+08:00">
+                2018-12-19
               </time>
             
 
@@ -1270,13 +1267,12 @@ TF算法(Term freq
       
         
           
-          字符串排序问题如果对一个string类型的field进行排序,结果往往不准确,因为string类型的field要进行分词,分词后是多个单词,再排序就不是我们想要的结果了
-如何解决通常解决方式是,将一个string类型的field建立两次索引,一个分词用来进行搜索,一个不分词用来排序  
-示例我们之前
+          解决方案一:使用copy_to用copy_to可以将多个field组合成一个field.   
+之前说的问题,其实就是出在了有多个field,那么我们只要把这些field合并成一个field即可,比如搜索一个人名,有first_name和last_name,将这两个field合并成一个full_na
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/23/Elasticsearch-26-字符串排序问题及解决方案/#more" rel="contents">
+            <a class="btn" href="/2018/12/19/Elasticsearch-51-cross-fields搜索问题解决方案/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1327,7 +1323,7 @@ TF算法(Term freq
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/23/Elasticsearch-25-Query-DSL常用查询/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/19/Elasticsearch-50-most-fields策略进行cross-fields搜索的弊端/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1346,7 +1342,7 @@ TF算法(Term freq
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/23/Elasticsearch-25-Query-DSL常用查询/" itemprop="url">Elasticsearch-25-Query DSL常用查询</a></h1>
+                <a class="post-title-link" href="/2018/12/19/Elasticsearch-50-most-fields策略进行cross-fields搜索的弊端/" itemprop="url">Elasticsearch-50-most_fields策略进行cross-fields搜索的弊端</a></h1>
         
 
         <div class="post-meta">
@@ -1358,8 +1354,8 @@ TF算法(Term freq
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-23T11:50:36+08:00">
-                2018-11-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-19T11:15:17+08:00">
+                2018-12-19
               </time>
             
 
@@ -1420,11 +1416,11 @@ TF算法(Term freq
       
         
           
-          Query DSL的常用的几种查询语法match all查询查询全部123456GET /index/type/_search&#123;    &quot;query&quot;:&#123;        &quot;match_all&quot;:&#123;&#125;    &#125;&
+          cross-field搜索就是我们搜索一个唯一标识的时候跨越了多个field,比如一个人,标识是姓名,一个建筑的标识是地址. 姓名可以散落在多个field中,比如first_name和last_name中,地址可以散落在country,province,city中.跨多个field搜索一个标识,就是
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/23/Elasticsearch-25-Query-DSL常用查询/#more" rel="contents">
+            <a class="btn" href="/2018/12/19/Elasticsearch-50-most-fields策略进行cross-fields搜索的弊端/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1475,7 +1471,7 @@ TF算法(Term freq
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/22/Elasticsearch-24-search-api和Query-DSL基本语法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/17/Elasticsearch-49-实战案例-most-fields策略/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1494,7 +1490,7 @@ TF算法(Term freq
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/22/Elasticsearch-24-search-api和Query-DSL基本语法/" itemprop="url">Elasticsearch-24-search api和Query DSL基本语法</a></h1>
+                <a class="post-title-link" href="/2018/12/17/Elasticsearch-49-实战案例-most-fields策略/" itemprop="url">Elasticsearch-49-实战案例-most-fields策略</a></h1>
         
 
         <div class="post-meta">
@@ -1506,8 +1502,8 @@ TF算法(Term freq
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-22T17:53:50+08:00">
-                2018-11-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-17T18:01:03+08:00">
+                2018-12-17
               </time>
             
 
@@ -1568,13 +1564,11 @@ TF算法(Term freq
       
         
           
-          search api 的基本语法12GET /_search&#125;&#123;
-12345GET /_search&#123;    &quot;from&quot;:0,    &quot;size&quot;:10&#125;
-1GET /_search?from=0&amp;size=1
+          对比之前我们写了best-fields策略,本文将使用most-fields来搜索,那么两者有什么区别呢?best-fields策略:主要是说,将某一个field匹配尽可能多的关键词document优先返回回来most-fields策略:主要是说将更多filed匹配到某个关键词的document优先
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/22/Elasticsearch-24-search-api和Query-DSL基本语法/#more" rel="contents">
+            <a class="btn" href="/2018/12/17/Elasticsearch-49-实战案例-most-fields策略/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1625,7 +1619,7 @@ TF算法(Term freq
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/22/Elasticsearch-23-mapping复杂数据类型和object类型底层数据存储/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/17/Elasticsearch-48-multi-match语法/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1644,7 +1638,7 @@ TF算法(Term freq
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/22/Elasticsearch-23-mapping复杂数据类型和object类型底层数据存储/" itemprop="url">Elasticsearch-23-_mapping复杂数据类型和object类型底层数据存储</a></h1>
+                <a class="post-title-link" href="/2018/12/17/Elasticsearch-48-multi-match语法/" itemprop="url">Elasticsearch-48-multi_match语法</a></h1>
         
 
         <div class="post-meta">
@@ -1656,8 +1650,8 @@ TF算法(Term freq
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-22T16:49:46+08:00">
-                2018-11-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-17T16:00:58+08:00">
+                2018-12-17
               </time>
             
 
@@ -1718,13 +1712,11 @@ TF算法(Term freq
       
         
           
-          几种复杂的数据类型multivalue field比如数据是1&#123;&quot;tags&quot;:[&quot;tag1&quot;,&quot;tag2&quot;]&#125;
-这种数据建立索引时,与string类型是一样的, 数组中的数据是不能混的,要放字符串都放字符串. 
-empt
+          minimum_should_match作用我们先来看一个查询123456789101112131415161718192021222324252627GET forum/article/_search&#123;  &quot;query&quot;: &#123;    &quot;dis_ma
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/22/Elasticsearch-23-mapping复杂数据类型和object类型底层数据存储/#more" rel="contents">
+            <a class="btn" href="/2018/12/17/Elasticsearch-48-multi-match语法/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1766,7 +1758,7 @@ empt
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/20/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/page/22/">22</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/22/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/20/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/page/22/">22</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/22/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1812,7 +1804,7 @@ empt
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">233</span>
+                  <span class="site-state-item-count">258</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1872,7 +1864,7 @@ empt
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1902,7 +1894,7 @@ empt
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共264.8k字</span>
+  <span class="post-count">博客全站共288.8k字</span>
 </div>
         
 

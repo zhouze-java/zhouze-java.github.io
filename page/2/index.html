@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-27-注册逻辑重构/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-13-Spring-Profile解析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-27-注册逻辑重构/" itemprop="url">Spring Security-27-注册逻辑重构</a></h1>
+                <a class="post-title-link" href="/2020/03/07/Spring-Boot-13-Spring-Profile解析/" itemprop="url">Spring Boot-13-Spring Profile解析</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:55:46+08:00">
-                2019-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:38:19+08:00">
+                2020-03-07
               </time>
             
 
@@ -336,8 +336,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Security</span>
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
                   </a>
                 </span>
 
@@ -375,16 +375,11 @@
       
         
           
-          述社交账号登录的逻辑完成之后,再来重构一下用户注册的逻辑, 回顾一下之前浏览器端写的注册逻辑   
-
-用户授权第三方登录之后,social 拿到用户的信息
-查询 userconnection 表,看有没有对应的数据
-没有找到的话,跳转到我们配置的注册页,默认是 /signUp
-到注册页填写信息,发送
+          述在日常开发中,有这样一种情况,就是开发环境,测试环境,生产环境,所需要的配置不同,我们通常会使用不同的配置文件来解决这个问题,比如开发环境我们有一个 application-dev.yml 的配置,然后生产环境有一个 application-prod.yml 的配置, 然后再不同的环境中,我们可以
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-27-注册逻辑重构/#more" rel="contents">
+            <a class="btn" href="/2020/03/07/Spring-Boot-13-Spring-Profile解析/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -435,7 +430,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-26-社交账号登录重构/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-12-属性加载解析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -454,7 +449,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-26-社交账号登录重构/" itemprop="url">Spring Security-26-社交账号登录重构</a></h1>
+                <a class="post-title-link" href="/2020/03/07/Spring-Boot-12-属性加载解析/" itemprop="url">Spring Boot-12-属性加载解析</a></h1>
         
 
         <div class="post-meta">
@@ -466,8 +461,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:55:38+08:00">
-                2019-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:38:02+08:00">
+                2020-03-07
               </time>
             
 
@@ -489,8 +484,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Security</span>
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
                   </a>
                 </span>
 
@@ -528,12 +523,11 @@
       
         
           
-          述上文中实现了用户名密码登录与短信验证码登录的重构,还剩最后一种登录方式,就是第三方社交账号的登录,下面再把第三方登录重构一下    
-在App里面使用第三方登录和之前的浏览器里面的第三方登录在流程上有一些区别, 在App的环境中,使用第三方用户访问的不是我们服务中的某个路径, 而是服务提供商提供的
+          述上文中了解了如何通过 Spring Aware 来获取属性,最终其实是使用 Environment 对象来获取系统中的属性的,那么 Environment 对象是怎么来的, Spring Boot 是如何将我们的属性配置,转成一个 Environment 对象的, 下面来看一下获取 Environ
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-26-社交账号登录重构/#more" rel="contents">
+            <a class="btn" href="/2020/03/07/Spring-Boot-12-属性加载解析/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -584,7 +578,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-25-用户名密码登录重构/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-11-Spring-Aware解析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -603,7 +597,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-25-用户名密码登录重构/" itemprop="url">Spring Security-25-用户名密码登录重构</a></h1>
+                <a class="post-title-link" href="/2020/03/07/Spring-Boot-11-Spring-Aware解析/" itemprop="url">Spring Boot-11-Spring Aware解析</a></h1>
         
 
         <div class="post-meta">
@@ -615,8 +609,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:55:29+08:00">
-                2019-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:37:22+08:00">
+                2020-03-07
               </time>
             
 
@@ -638,8 +632,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Security</span>
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
                   </a>
                 </span>
 
@@ -677,13 +671,12 @@
       
         
           
-          述上文中,了解了 Spring Security OAuth 的一个大致的流程,本文将我们之前写的用户名密码登录的方式重新修改一下,让他登录之后也返回一个token, 后续请求都通过token来请求   
-实现思路回顾一下之前的流程图:     
-我们在用户名密码等登陆认证完成之后,会生成一个已认证
+          述上文中,介绍了几种 Spring Boot 中的属性配置方式,那么配置完成之后,要在系统里面怎么获取,下面来介绍一种通过 Spring Aware 获取属性的方式   
+获取属性这里利用之前学过的启动加载器去打印要获取的属性, 这里还是创建一个类 EnvironmentApplicationRun
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-25-用户名密码登录重构/#more" rel="contents">
+            <a class="btn" href="/2020/03/07/Spring-Boot-11-Spring-Aware解析/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -734,7 +727,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-24-Spring-Security-OAuth核心源码/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-10-属性配置/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -753,7 +746,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-24-Spring-Security-OAuth核心源码/" itemprop="url">Spring Security-24-Spring Security OAuth核心源码</a></h1>
+                <a class="post-title-link" href="/2020/03/07/Spring-Boot-10-属性配置/" itemprop="url">Spring Boot-10-属性配置</a></h1>
         
 
         <div class="post-meta">
@@ -765,8 +758,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:55:20+08:00">
-                2019-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:33:07+08:00">
+                2020-03-07
               </time>
             
 
@@ -788,8 +781,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Security</span>
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
                   </a>
                 </span>
 
@@ -827,11 +820,12 @@
       
         
           
-          述上文中,实现了认证服务器和资源服务器,四种 OAuth 的授权也可以使用了,但是现在仅限于 Spring Security OAuth 给出的4种授权模式,我们之前写的 用户名密码认证, 短信认证, 第三方社交账号认证,这都是不支持的, 那如何让我们自己写的认证方式也按照 OAuth 这样返回一个
+          述在项目开发过程中,有很多工作是针对配置文件的,比如 Spring Boot 提供的一些属性,还有我们自定义的一些配置,下面就来了解一下 Spring Boot 中的属性配置的几种方式   
+命令行配置方式我们在服务器中手动启动一个jar包的时候,用的命令,比如是 java -jar xxx.jar
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-24-Spring-Security-OAuth核心源码/#more" rel="contents">
+            <a class="btn" href="/2020/03/07/Spring-Boot-10-属性配置/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -882,7 +876,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-23-实现标准的OAuth服务提供商/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-9-启动加载器/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -901,7 +895,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-23-实现标准的OAuth服务提供商/" itemprop="url">Spring Security-23-实现标准的OAuth服务提供商</a></h1>
+                <a class="post-title-link" href="/2020/03/07/Spring-Boot-9-启动加载器/" itemprop="url">Spring Boot-9-启动加载器</a></h1>
         
 
         <div class="post-meta">
@@ -913,8 +907,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:55:11+08:00">
-                2019-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:32:31+08:00">
+                2020-03-07
               </time>
             
 
@@ -936,8 +930,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Security</span>
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
                   </a>
                 </span>
 
@@ -975,11 +969,13 @@
       
         
           
-          述本文开始将构建一个 OAuth 服务提供商, 主要就是两大块, 认证服务器和资源服务器, 之后的代码都写在 app 的项目里,所以先把demo项目中的 web 的依赖改成 app 的依赖12345&lt;dependency&gt;    &lt;groupId&gt;com.security&l
+          述在我们的日常开发中,可能需要在容器启动之后,立马做一些事情,这时候就可以借助 Spring Boot 的启动加载器去实现.   
+启动加载器启动加载器有两种方式实现,分别是实现 CommandLineRunner 和 ApplicationRunner ,然后重写里面的 run 方法   
+实现C
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-23-实现标准的OAuth服务提供商/#more" rel="contents">
+            <a class="btn" href="/2020/03/07/Spring-Boot-9-启动加载器/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1030,7 +1026,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-22-Spring-Security-OAuth-简介/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-8-Banner解析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1049,7 +1045,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-22-Spring-Security-OAuth-简介/" itemprop="url">Spring Security-22-Spring Security OAuth 简介</a></h1>
+                <a class="post-title-link" href="/2020/03/07/Spring-Boot-8-Banner解析/" itemprop="url">Spring Boot-8-Banner解析</a></h1>
         
 
         <div class="post-meta">
@@ -1061,8 +1057,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:55:01+08:00">
-                2019-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:32:19+08:00">
+                2020-03-07
               </time>
             
 
@@ -1084,8 +1080,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Security</span>
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
                   </a>
                 </span>
 
@@ -1123,12 +1119,12 @@
       
         
           
-          述之前的 Spring Social 中,我们是去访问别人的 OAuth 服务,在我们自己的系统中,客户端访问服务还是基于 session 的,结构大致如下:   
-如果是前后端分离开发,再按上面这种方式开发就比较繁琐,而且安全性和客户体验差, 一旦 JSESSIONID 泄露,那可能就会被伪造身份
+          述上文中,分析了Spring容器的 refresh 流程,还有 Bean 的实例化流程,本文来了解一下 Spring Boot 中的 Banner 的解析,还有他的原理    
+自定义Banner Spring Boot 默认的 Banner 图如下: 1234567   .   ____     
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-22-Spring-Security-OAuth-简介/#more" rel="contents">
+            <a class="btn" href="/2020/03/07/Spring-Boot-8-Banner解析/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1179,7 +1175,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-21-退出登录/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-7-Bean实例化流程/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1198,7 +1194,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-21-退出登录/" itemprop="url">Spring Security-21-退出登录</a></h1>
+                <a class="post-title-link" href="/2020/03/07/Spring-Boot-7-Bean实例化流程/" itemprop="url">Spring Boot-7-Bean实例化流程</a></h1>
         
 
         <div class="post-meta">
@@ -1210,8 +1206,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:54:54+08:00">
-                2019-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:31:57+08:00">
+                2020-03-07
               </time>
             
 
@@ -1233,8 +1229,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Security</span>
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
                   </a>
                 </span>
 
@@ -1272,12 +1268,12 @@
       
         
           
-          述退出登录的功能,Spring Security 也提供了默认的实现, 接口是 /logout, 直接访问 http://www.pinzhi365.com/logout 接口效果如下:   
-这里会挑战到 /authentication/require?logout 这个请求里面,原因是默认的注销
+          述上文中大致了解了Spring容器的refresh的过程,其中 finishBeanFactoryInitialization() 方法没有详细说明, 这个方法就是 Spring 容器实例化 Bean 的方法, 下面来详细看一下这个方法   
+Spring容器Bean实例化流程首先,进入 finis
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-21-退出登录/#more" rel="contents">
+            <a class="btn" href="/2020/03/07/Spring-Boot-7-Bean实例化流程/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1328,7 +1324,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-20-Session管理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-6-refresh方法解析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1347,7 +1343,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-20-Session管理/" itemprop="url">Spring Security-20-Session管理</a></h1>
+                <a class="post-title-link" href="/2020/03/07/Spring-Boot-6-refresh方法解析/" itemprop="url">Spring Boot-6-refresh方法解析</a></h1>
         
 
         <div class="post-meta">
@@ -1359,8 +1355,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:54:46+08:00">
-                2019-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:31:43+08:00">
+                2020-03-07
               </time>
             
 
@@ -1382,8 +1378,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Security</span>
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
                   </a>
                 </span>
 
@@ -1421,18 +1417,11 @@
       
         
           
-          述在之前我们已经实现了三种方式的用户登录:  
-
-用户名密码登录
-短信验证码登录
-第三方社交网站登录   
-
-前面两种是使用表单提交的方式登录,后面一种是走 OAuth 流程登录, 但是不管是哪种类型的登陆,最后的用户认证信息都会放到 session 中去    
-对于session的一些配置,比如
+          述前面介绍了一些Spring容器在初始化时的系统初始化器以及监听器的加载等,Spring容器创建之后,会调用它的refresh方法,refresh的时候会做很多事情:比如完成配置类的解析.各种 BeanFactoryPostProcessor 和 BeanPostProcessor 的注册、国际化配
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-20-Session管理/#more" rel="contents">
+            <a class="btn" href="/2020/03/07/Spring-Boot-6-refresh方法解析/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1483,7 +1472,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-19-绑定和解绑处理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-5-自定义监听器/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1502,7 +1491,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-19-绑定和解绑处理/" itemprop="url">Spring Security-19-绑定和解绑处理</a></h1>
+                <a class="post-title-link" href="/2020/03/07/Spring-Boot-5-自定义监听器/" itemprop="url">Spring Boot-5-自定义监听器</a></h1>
         
 
         <div class="post-meta">
@@ -1514,8 +1503,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:54:36+08:00">
-                2019-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:30:56+08:00">
+                2020-03-07
               </time>
             
 
@@ -1537,8 +1526,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Security</span>
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
                   </a>
                 </span>
 
@@ -1576,12 +1565,13 @@
       
         
           
-          述在使用第三方登录时,有一个常见的场景就是用户登录完成之后,再去绑定/解绑第三方社交账号   
-绑定也是需要走一下 OAuth 流程,用户授权完成之后,将第三方的用户信息与当前系统的用户信息做一个绑定, 这里和登录不同的地方是, 登录是不知道当前用户信息的,需要先拿到第三方用户信息然后去 userc
+          述了解了监听器的工作原理之后,我们来看一下自定义的监听器如何实现   
+监听器的实现跟之前的系统初始化器的实现基本是一致的   
+第一种方式创建监听器,实现 ApplicationListener ,泛型是些对应的感兴趣的事件,如下:12345678910@Order(1)@Slf4jpublic 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-19-绑定和解绑处理/#more" rel="contents">
+            <a class="btn" href="/2020/03/07/Spring-Boot-5-自定义监听器/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1632,7 +1622,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-18-开发微信登录/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-4-监听器实现/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1651,7 +1641,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-18-开发微信登录/" itemprop="url">Spring Security-18-开发微信登录</a></h1>
+                <a class="post-title-link" href="/2020/03/07/Spring-Boot-4-监听器实现/" itemprop="url">Spring Boot-4-监听器实现</a></h1>
         
 
         <div class="post-meta">
@@ -1663,8 +1653,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:54:26+08:00">
-                2019-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:30:17+08:00">
+                2020-03-07
               </time>
             
 
@@ -1686,8 +1676,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Security</span>
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
                   </a>
                 </span>
 
@@ -1725,13 +1715,20 @@
       
         
           
-          述上文中实现了整个QQ登录的流程,本文来实现以下微信的授权登录, 总体逻辑是和QQ一样的,部分地方有所区别   
-ServiceProvider构建构建 ServiceProvider 需要 API 和 OAuth2Operations  
-微信API新建接口 WeChat12345678publi
+          述上文中用一个简单的案例,来了解了一下监听器的实现,下面再来看一下监听器在Spring Boot框架中的实现,围绕以下四个方面来看以下:  
+
+事件
+监听器
+广播器
+触发机制
+
+监听器ApplicationListener 这个类,就是系统监听器的实现,代码如下:   
+  
+这里就是一个函数式接口
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-18-开发微信登录/#more" rel="contents">
+            <a class="btn" href="/2020/03/07/Spring-Boot-4-监听器实现/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1773,7 +1770,7 @@ ServiceProvider构建构建 ServiceProvider 需要 API 和 OAuth2Operations
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1819,7 +1816,7 @@ ServiceProvider构建构建 ServiceProvider 需要 API 和 OAuth2Operations
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">233</span>
+                  <span class="site-state-item-count">258</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1879,7 +1876,7 @@ ServiceProvider构建构建 ServiceProvider 需要 API 和 OAuth2Operations
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1909,7 +1906,7 @@ ServiceProvider构建构建 ServiceProvider 需要 API 和 OAuth2Operations
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共264.8k字</span>
+  <span class="post-count">博客全站共288.8k字</span>
 </div>
         
 

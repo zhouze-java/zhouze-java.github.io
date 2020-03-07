@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Spring Boot,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="述上文中了解了如何通过 Spring Aware 来获取属性,最终其实是使用 Environment 对象来获取系统中的属性的,那么 Environment 对象是怎么来的, Spring Boot 是如何将我们的属性配置,转成一个 Environment 对象的, 下面来看一下获取 Environment 对象的源码    源码解析还是先进入项目的run方法,找到关于 Environment 的">
+<meta name="keywords" content="Spring Boot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Boot-12-属性加载解析">
+<meta property="og:url" content="http://yoursite.com/2020/03/07/Spring-Boot-12-属性加载解析/index.html">
+<meta property="og:site_name" content="八度空间">
+<meta property="og:description" content="述上文中了解了如何通过 Spring Aware 来获取属性,最终其实是使用 Environment 对象来获取系统中的属性的,那么 Environment 对象是怎么来的, Spring Boot 是如何将我们的属性配置,转成一个 Environment 对象的, 下面来看一下获取 Environment 对象的源码    源码解析还是先进入项目的run方法,找到关于 Environment 的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRc1FDSuHU6dvnDuK828AINPoYQSssA.4GRCU*HaQh0qT75k0lpBao3OcgdG04JB2XsywRrRwVzFJyzmarYLnqvc!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRRKW1QxuG5M1k38UzXSIPN8wl1Kgny68xU0W8J3wjXuFOiTHpZ6*Fhqq.*eLBPHdpQh5bvm*UEaRUz07oTQgxmQ!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRUoSL1aoBYQYpszaw.7RfeUch48YnbLFRW7m1tthn3Z2cIY9T8MQ98eKQMCStz7GppMa.xpJULWpwM.MHMIkQ1Q!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRap3Os8Tbb5*KE8f51QzXdEYvby*w1dTfw1l9KO1NCeWIxAoIHltJsgyc3WFZJdT6ma13LuIPkmLOfdILe237CA!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRaHsTAw7vn2BAHJtxAcRypHeL3zBDAlIO.0RWaZv9K8yXeTLWemCmd8EEHPm82SaQKXfMAst*LvdP2PtL1.qYCQ!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRTjc*K.IjbN7wSLigZni1A6zfFlrmJ.P0u49hLe4dgf*t2sQruhnxqu*Fy43gE6icvoHsQwbzGgOUYC3nAcfoGY!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRemToKIXNjSqPcHWI76tNYsUcbSxwRpyq4WIAWnOniYv*c59*X25iSaCsfKcI0eIhJaWZSq33a7L0euaUccdyck!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRXuC7pVQfPpVlNAsZDaWA7n1U.bG5on.fHHh6flIGnZUbWBUb7xo5qmkRGdvyvgSb*Y1ozfnlk5seUc.AKWbJl8!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRWiJ6hNcNsxZnIxlypzzTJMRiBAooZYLLheJ9omhUUsVKWX9vfBEdS4JPqEZs5JMwNk8nZiBfbiE0sJLzfS*4zM!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRcj8YO4uqiCBFKLbpQTDDKFmmYMjFefnOqEMTNn9I6tBLX2R*RS7ei*LW09xwrng90vme6wAZTr8CVP4sEukdWE!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRXveC7rD5cFrsi*5C8*3HESUn1qigyYWjKE4Cuvv7s0Ck2rCBCJKfTDzRcUrtniuh4vTEBi*I7uyYecYZIq3KBI!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRdz18Fw4BFJIa0VDwuJmsAZEZQd00y.lFClMQ.mJXiudLIOI0GiEbZuy0dqAJqjRyhWxRRYrVyG*8S9XlCcTAUA!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRfsp5lOc69k5od8DtECr.k5zh7oztyNu.aGduucN*v9xsdnqdotAbDZyQaSO5KKP4wkOocDQgca0V93mSOwUxOA!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRTT5V2OFBSDqshHtlDwU*DsDmu0Sbn0o5gyS02KrR1GZsCo9rksr.mIWi7icWWcrXSTv8oKh1xOPj4lIqX.b4oU!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRcFikfTf8fEPvkwfz8T4FB8R4CY6ZR8EKHEGB6JC822qYHdJknVSI1iXFvS0EiStp1bpbGcpSxNqAweZUmcORoA!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRY.C*mBGAr0Q.PaXiYRbvo4ZXysPy4*W5ul3vZWRF1uLeZcW3bzijCXxDvJf3vEWGzZ5Ht.FqeiAnR74gdPb6v0!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRYueMR55MsIepv.SPVa*AdJaBcn6J3mYRKufsZ9V6WOvNuLsTtQjAi.pGfG2amzNGlHNZ*YMJ8aF7yOum0ymkEQ!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRfjoAXNFB.mFHWORk3owB.7*iF8t695Te7EPc3ajI0VrsYNrC7nbDvQwp60grcSp9DScUcyoE8aQNOto2BCOBvw!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRU9u7iHWJBjMiIEBaGd2UVWmrHfTJ.w4OwNaDe2oF5.FaaiaYvEXK8bDAUgJhAIdDaPStbAjKgTWx1TSvQfJySE!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRZHhZ1E7YewxElLyW*Fqycv1NjzRhZULVsuQauMEr6h99Rrg1.shhdhyxj6XR9sPPR*JOvcI74v9XR9ex8YFmyE!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRXfcdgm7waLWi7.Hp0utAOENSLKllM*IfFkre5rbSyYqLSdbSLelWc9i5Uer7xrxAGDSnqqMzJ20roIDUPWxcLk!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRXfcdgm7waLWi7.Hp0utAOENSLKllM*IfFkre5rbSyYqLSdbSLelWc9i5Uer7xrxAGDSnqqMzJ20roIDUPWxcLk!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRfDeM2bsAVVSzcAZ*IeYN.26dhj8MjjTeEH6L*30T2WH9.kXX7rhmei.U6TxyYZ6w1cHVFcGWxkqNKD9oOIsdRo!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRQbOk7YL79sjs7YAgVgA9Eir0xu2gjz0aE3BDNxO41yZrEliN9qeGRbZp5DDEyjYXtvH61oNEX.JMPHOn8ECmFk!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRdl76Cf3xEbNDBpccMLyW1jdg20oKSXXQ62GOzs6ww5FWU*0DLhOSXqvLQo0RjxOz*h0p7BUOifuWtvZuMufQvk!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRcF4rYdaDVArzmUpM1X4xmUw8i.gVPbht2VVLTNIjt*e.SsCwV1z58czoqj*GkohqCQdqT*WqmnhZUVNYsHwyHM!/r">
+<meta property="og:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRQqfdLeTE8rGds2NI8oY0santhJjIntL8gkT9Mnx492PUflnLAxk3HguI*m*YbmaFxMtEz2KCsBrp8BoGYTsx30!/r">
+<meta property="og:updated_time" content="2020-03-07T07:42:58.873Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring Boot-12-属性加载解析">
+<meta name="twitter:description" content="述上文中了解了如何通过 Spring Aware 来获取属性,最终其实是使用 Environment 对象来获取系统中的属性的,那么 Environment 对象是怎么来的, Spring Boot 是如何将我们的属性配置,转成一个 Environment 对象的, 下面来看一下获取 Environment 对象的源码    源码解析还是先进入项目的run方法,找到关于 Environment 的">
+<meta name="twitter:image" content="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRc1FDSuHU6dvnDuK828AINPoYQSssA.4GRCU*HaQh0qT75k0lpBao3OcgdG04JB2XsywRrRwVzFJyzmarYLnqvc!/r">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/03/07/Spring-Boot-12-属性加载解析/">
+
+
+
+
+
+  <title>Spring Boot-12-属性加载解析 | 八度空间</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/zhouze-java" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+	
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">八度空间</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-12-属性加载解析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="周泽">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八度空间">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring Boot-12-属性加载解析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:38:02+08:00">
+                2020-03-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="述"><a href="#述" class="headerlink" title="述"></a>述</h3><p>上文中了解了如何通过 Spring Aware 来获取属性,最终其实是使用 <code>Environment</code> 对象来获取系统中的属性的,那么 <code>Environment</code> 对象是怎么来的, Spring Boot 是如何将我们的属性配置,转成一个 <code>Environment</code> 对象的, 下面来看一下获取 <code>Environment</code> 对象的源码   </p>
+<h3 id="源码解析"><a href="#源码解析" class="headerlink" title="源码解析"></a>源码解析</h3><p>还是先进入项目的run方法,找到关于 <code>Environment</code> 的部分,如下:   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRc1FDSuHU6dvnDuK828AINPoYQSssA.4GRCU*HaQh0qT75k0lpBao3OcgdG04JB2XsywRrRwVzFJyzmarYLnqvc!/r" alt="image">   </p>
+<p>进入这个方法看一下, 先大致了解一下这个方法做的事情   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRRKW1QxuG5M1k38UzXSIPN8wl1Kgny68xU0W8J3wjXuFOiTHpZ6*Fhqq.*eLBPHdpQh5bvm*UEaRUz07oTQgxmQ!/r" alt="image">  </p>
+<p>然后我们就围绕着这个方法的流程,看一下他这里的每一步都怎么处理的   </p>
+<h4 id="getOrCreateEnvironment"><a href="#getOrCreateEnvironment" class="headerlink" title="getOrCreateEnvironment()"></a>getOrCreateEnvironment()</h4><p>进入第一个 <code>getOrCreateEnvironment()</code> 方法,如下:   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRUoSL1aoBYQYpszaw.7RfeUch48YnbLFRW7m1tthn3Z2cIY9T8MQ98eKQMCStz7GppMa.xpJULWpwM.MHMIkQ1Q!/r" alt="image">   </p>
+<p>然后我们看一下获取到的这个 <code>StandardServletEnvironment</code> 对象的类图   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRap3Os8Tbb5*KE8f51QzXdEYvby*w1dTfw1l9KO1NCeWIxAoIHltJsgyc3WFZJdT6ma13LuIPkmLOfdILe237CA!/r" alt="image">   </p>
+<p>可以看到这里先继承了 <code>StandardEnvironment</code> 然后 <code>StandardEnvironment</code> 又继承了 <code>AbstractEnvironment</code>,所以这里这个构造首先是会去调用父类的构造,也就是 <code>AbstractEnvironment</code>, 我们进去这个类看一下他的构造方法   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRaHsTAw7vn2BAHJtxAcRypHeL3zBDAlIO.0RWaZv9K8yXeTLWemCmd8EEHPm82SaQKXfMAst*LvdP2PtL1.qYCQ!/r" alt="image">  </p>
+<p>这里调用了 <code>customizePropertySources</code> 方法,传入了 <code>propertySources</code>,继续点进去看一下   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRTjc*K.IjbN7wSLigZni1A6zfFlrmJ.P0u49hLe4dgf*t2sQruhnxqu*Fy43gE6icvoHsQwbzGgOUYC3nAcfoGY!/r" alt="image">   </p>
+<p>可以看到这里是一个空的实现, 具体的实现由子类完成,我们创建的子类是 <code>StandardServletEnvironment</code> ,所以这里会调用 <code>StandardServletEnvironment</code> 的 <code>customizePropertySources()</code> 方法,进入   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRemToKIXNjSqPcHWI76tNYsUcbSxwRpyq4WIAWnOniYv*c59*X25iSaCsfKcI0eIhJaWZSq33a7L0euaUccdyck!/r" alt="image">   </p>
+<p>这里最后调用的父类就是 <code>StandardEnvironment.customizePropertySources()</code> 这个方法   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRXuC7pVQfPpVlNAsZDaWA7n1U.bG5on.fHHh6flIGnZUbWBUb7xo5qmkRGdvyvgSb*Y1ozfnlk5seUc.AKWbJl8!/r" alt="image">   </p>
+<p>综上所述,这里 <code>new StandardServletEnvironment()</code> 就是添加了几个属性源   </p>
+<h4 id="configureEnvironment"><a href="#configureEnvironment" class="headerlink" title="configureEnvironment()"></a>configureEnvironment()</h4><p>回到 <code>prepareEnvironment()</code> 方法,再来看下面的 <code>configureEnvironment()</code> 这个方法   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRWiJ6hNcNsxZnIxlypzzTJMRiBAooZYLLheJ9omhUUsVKWX9vfBEdS4JPqEZs5JMwNk8nZiBfbiE0sJLzfS*4zM!/r" alt="image">   </p>
+<p>这里又调用了两个方法 <code>configurePropertySources()</code> 和 <code>configureProfiles()</code>, 分别看一下  </p>
+<h5 id="configurePropertySources"><a href="#configurePropertySources" class="headerlink" title="configurePropertySources()"></a>configurePropertySources()</h5><p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRcj8YO4uqiCBFKLbpQTDDKFmmYMjFefnOqEMTNn9I6tBLX2R*RS7ei*LW09xwrng90vme6wAZTr8CVP4sEukdWE!/r" alt="image">   </p>
+<p>这里来看一下这个 <code>SimpleCommandLinePropertySource</code> 的构造   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRXveC7rD5cFrsi*5C8*3HESUn1qigyYWjKE4Cuvv7s0Ck2rCBCJKfTDzRcUrtniuh4vTEBi*I7uyYecYZIq3KBI!/r" alt="image">   </p>
+<p>进入 <code>parse()</code> 方法   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRdz18Fw4BFJIa0VDwuJmsAZEZQd00y.lFClMQ.mJXiudLIOI0GiEbZuy0dqAJqjRyhWxRRYrVyG*8S9XlCcTAUA!/r" alt="image">   </p>
+<p>所以这个方法就是用来解析命令行的配置,然后添加到属性源中   </p>
+<h5 id="configureProfiles"><a href="#configureProfiles" class="headerlink" title="configureProfiles()"></a>configureProfiles()</h5><p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRfsp5lOc69k5od8DtECr.k5zh7oztyNu.aGduucN*v9xsdnqdotAbDZyQaSO5KKP4wkOocDQgca0V93mSOwUxOA!/r" alt="image">  </p>
+<p>这里这个集合的用处我们之后再说   </p>
+<h4 id="ConfigurationPropertySources-attach"><a href="#ConfigurationPropertySources-attach" class="headerlink" title="ConfigurationPropertySources.attach"></a>ConfigurationPropertySources.attach</h4><p>继续往下看 <code>prepareEnvironment</code> 中的 <code>ConfigurationPropertySources.attach</code>, 点进去,如下:   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRTT5V2OFBSDqshHtlDwU*DsDmu0Sbn0o5gyS02KrR1GZsCo9rksr.mIWi7icWWcrXSTv8oKh1xOPj4lIqX.b4oU!/r" alt="image">   </p>
+<h4 id="environmentPrepared"><a href="#environmentPrepared" class="headerlink" title="environmentPrepared"></a>environmentPrepared</h4><p>上面的流程都执行完成之后,会发送一个 <code>ApplicationEnvironmentPreparedEvent</code> 事件,这里就会调用 Spring Boot 的广播器发送,具体逻辑我们在监听器的那里已经看过了, 最后会进入 <code>SimpleApplicationEventMulticaster.multicastEvent()</code> 这个方法发送  </p>
+<p>我们这里打个断点进去,如下  </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRcFikfTf8fEPvkwfz8T4FB8R4CY6ZR8EKHEGB6JC822qYHdJknVSI1iXFvS0EiStp1bpbGcpSxNqAweZUmcORoA!/r" alt="image">   </p>
+<p>通过 <code>getApplicationListeners()</code> 这个方法,拿到所有对这个事件感兴趣的监听器然后依次调用他们的 <code>onApplicationEvent()</code> 方法   </p>
+<p>然后如图中,这里一共有 7 个监听器对这个事件感兴趣,我们这里重点关注第一个, 也就是 <code>ConfigFileApplicationListener</code> ,然后进去看一下他的 <code>onApplicationEvent()</code> 这个方法   </p>
+<h5 id="ConfigFileApplicationListener"><a href="#ConfigFileApplicationListener" class="headerlink" title="ConfigFileApplicationListener"></a>ConfigFileApplicationListener</h5><p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRY.C*mBGAr0Q.PaXiYRbvo4ZXysPy4*W5ul3vZWRF1uLeZcW3bzijCXxDvJf3vEWGzZ5Ht.FqeiAnR74gdPb6v0!/r" alt="image">   </p>
+<p>这里主要是通过 <code>SpringFactoriesLoader</code> 找到所有的 <code>EnvironmentPostProcessor</code>, 然后会把当前类 <code>ConfigFileApplicationListener</code> 也放到 <code>EnvironmentPostProcessor</code> 的集合中,因为 <code>ConfigFileApplicationListener</code> 也实现了 <code>EnvironmentPostProcessor</code> 这个接口   </p>
+<p>拿到之后做个排序,我们来看一下他一共有哪些 <code>EnvironmentPostProcessor</code>   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRYueMR55MsIepv.SPVa*AdJaBcn6J3mYRKufsZ9V6WOvNuLsTtQjAi.pGfG2amzNGlHNZ*YMJ8aF7yOum0ymkEQ!/r" alt="image">   </p>
+<p>这里一共找到了 5 个 <code>EnvironmentPostProcessor</code> 的实现,我们重点关注前面4个   </p>
+<h6 id="SystemEnvironmentPropertySourceEnvironmentPostProcessor"><a href="#SystemEnvironmentPropertySourceEnvironmentPostProcessor" class="headerlink" title="SystemEnvironmentPropertySourceEnvironmentPostProcessor"></a>SystemEnvironmentPropertySourceEnvironmentPostProcessor</h6><p>断点继续往下走,先看第一个 <code>SystemEnvironmentPropertySourceEnvironmentPostProcessor</code> </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRfjoAXNFB.mFHWORk3owB.7*iF8t695Te7EPc3ajI0VrsYNrC7nbDvQwp60grcSp9DScUcyoE8aQNOto2BCOBvw!/r" alt="image">   </p>
+<p>这个类就是把之前的命令行的数据源转换成了一个新的对象,然后把之前的替换掉,实际属性并没有新增或者删除   </p>
+<h6 id="SpringApplicationJsonEnvironmentPostProcessor"><a href="#SpringApplicationJsonEnvironmentPostProcessor" class="headerlink" title="SpringApplicationJsonEnvironmentPostProcessor"></a>SpringApplicationJsonEnvironmentPostProcessor</h6><p>下一个是 <code>SpringApplicationJsonEnvironmentPostProcessor</code>   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRU9u7iHWJBjMiIEBaGd2UVWmrHfTJ.w4OwNaDe2oF5.FaaiaYvEXK8bDAUgJhAIdDaPStbAjKgTWx1TSvQfJySE!/r" alt="image">   </p>
+<p>这里进入上面 <code>JsonPropertyValue.get</code> 这个方法看一下  </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRZHhZ1E7YewxElLyW*Fqycv1NjzRhZULVsuQauMEr6h99Rrg1.shhdhyxj6XR9sPPR*JOvcI74v9XR9ex8YFmyE!/r" alt="image">   </p>
+<p>这个类做的事情其实就是解析通过 <code>SPRING_APPLICATION_JSON</code> 这种方式指定的属性,最后添加到属性源中去    </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRXfcdgm7waLWi7.Hp0utAOENSLKllM*IfFkre5rbSyYqLSdbSLelWc9i5Uer7xrxAGDSnqqMzJ20roIDUPWxcLk!/r" alt="image">   </p>
+<h6 id="CloudFoundryVcapEnvironmentPostProcessor"><a href="#CloudFoundryVcapEnvironmentPostProcessor" class="headerlink" title="CloudFoundryVcapEnvironmentPostProcessor"></a>CloudFoundryVcapEnvironmentPostProcessor</h6><p>进入这个类看一下源码  </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRXfcdgm7waLWi7.Hp0utAOENSLKllM*IfFkre5rbSyYqLSdbSLelWc9i5Uer7xrxAGDSnqqMzJ20roIDUPWxcLk!/r" alt="image">   </p>
+<p>这里是 Spring Cloud 环境中设置的一些属性,当前环境并不是 cloud 环境,所以不做详细分析   </p>
+<h6 id="ConfigFileApplicationListener-1"><a href="#ConfigFileApplicationListener-1" class="headerlink" title="ConfigFileApplicationListener"></a>ConfigFileApplicationListener</h6><p>最后就是当前类 <code>ConfigFileApplicationListener</code><br><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRfDeM2bsAVVSzcAZ*IeYN.26dhj8MjjTeEH6L*30T2WH9.kXX7rhmei.U6TxyYZ6w1cHVFcGWxkqNKD9oOIsdRo!/r" alt="image">  </p>
+<p>这里首先添加了个随机数的属性源,然后创建了一个 <code>Loader</code> 对象,调用 <code>load()</code> 方法,我们点进去看一下   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRQbOk7YL79sjs7YAgVgA9Eir0xu2gjz0aE3BDNxO41yZrEliN9qeGRbZp5DDEyjYXtvH61oNEX.JMPHOn8ECmFk!/r" alt="image">   </p>
+<p>这部分是解析我们的配置文件,之后再详细分析   </p>
+<p>所以这个类做的事情就是添加随机数属性源,然后解析配置文件    </p>
+<h4 id="bindToSpringApplication"><a href="#bindToSpringApplication" class="headerlink" title="bindToSpringApplication()"></a>bindToSpringApplication()</h4><p>回到 <code>prepareEnvironment()</code> 方法中,继续往下看一下 <code>bindToSpringApplication()</code> 这个方法   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRdl76Cf3xEbNDBpccMLyW1jdg20oKSXXQ62GOzs6ww5FWU*0DLhOSXqvLQo0RjxOz*h0p7BUOifuWtvZuMufQvk!/r" alt="image">  </p>
+<p>这个方法作用就是将环境变量中的 <code>spring.main</code> 绑定到 <code>springApplication</code> 这个类中   </p>
+<p>到这儿, <code>prepareEnvironment()</code> 这个方法做的事情我们就分析完了  </p>
+<h4 id="ConfigurationClassParser"><a href="#ConfigurationClassParser" class="headerlink" title="ConfigurationClassParser"></a>ConfigurationClassParser</h4><p>之后我们再来看一个类 <code>ConfigurationClassParser</code> ,这个类的作用主要是用来解析 <code>@PropertySource</code> 配置的属性集,源码如下   </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRcF4rYdaDVArzmUpM1X4xmUw8i.gVPbht2VVLTNIjt*e.SsCwV1z58czoqj*GkohqCQdqT*WqmnhZUVNYsHwyHM!/r" alt="image">  </p>
+<p><img src="http://r.photo.store.qq.com/psc?/V10eEnSd1fQ6Vf/2aGbA7qLSN6GeC6g0ZsuRQqfdLeTE8rGds2NI8oY0santhJjIntL8gkT9Mnx492PUflnLAxk3HguI*m*YbmaFxMtEz2KCsBrp8BoGYTsx30!/r" alt="image">   </p>
+<p>这里就先大致的看一下,后面再去详细介绍   </p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>本文,我们了解了 Spring Boot 的属性加载, 分析了 <code>prepareEnvironment()</code> 这个方法,然后我们来做一个总结   </p>
+<p><code>getOrCreateEnvironment()</code> 方法主要做的事情是:  </p>
+<ul>
+<li>添加 <code>servletConfigInitParams</code> 属性集</li>
+<li>添加 <code>servletContextInitParams</code> 属性集</li>
+<li>添加Jndi属性集</li>
+<li>添加 <code>systemProperties</code> 属性集</li>
+<li>添加 <code>systemEnvironment</code> 属性集</li>
+</ul>
+<p><code>configureEnvironment()</code> 方法主要做的事情是:  </p>
+<ul>
+<li>添加 <code>defaultProperties</code> 属性集</li>
+<li>添加 <code>commandLineArgs</code> 属性集</li>
+</ul>
+<p><code>listeners.environmentPrepared()</code> 方法主要做的事情:  </p>
+<ul>
+<li>添加 <code>SPRING_APPLICATION_JSON</code> 属性集</li>
+<li>添加 <code>vcap</code> 属性集,前提是在 Spring Cloud 的环境下 </li>
+<li>添加 <code>random</code> 属性集</li>
+<li>添加 <code>application-profile</code> 属性集</li>
+</ul>
+<p><code>ConfigurationPropertySources.attach()</code> 方法做的事情: </p>
+<ul>
+<li>添加 <code>configurationProperties</code> 属性集  </li>
+</ul>
+<p><code>ConfigurationClassParser</code> 做的事情: </p>
+<ul>
+<li>添加 <code>@PropertySource</code> 属性集   </li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring-Boot/" <i="" class="fa fa-tag"> Spring Boot</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/07/Spring-Boot-11-Spring-Aware解析/" rel="next" title="Spring Boot-11-Spring Aware解析">
+                <i class="fa fa-chevron-left"></i> Spring Boot-11-Spring Aware解析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/07/Spring-Boot-13-Spring-Profile解析/" rel="prev" title="Spring Boot-13-Spring Profile解析">
+                Spring Boot-13-Spring Profile解析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTEyNi8xNzY1MQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">周泽</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">258</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#述"><span class="nav-number">1.</span> <span class="nav-text">述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源码解析"><span class="nav-number">2.</span> <span class="nav-text">源码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#getOrCreateEnvironment"><span class="nav-number">2.1.</span> <span class="nav-text">getOrCreateEnvironment()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#configureEnvironment"><span class="nav-number">2.2.</span> <span class="nav-text">configureEnvironment()</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#configurePropertySources"><span class="nav-number">2.2.1.</span> <span class="nav-text">configurePropertySources()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#configureProfiles"><span class="nav-number">2.2.2.</span> <span class="nav-text">configureProfiles()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ConfigurationPropertySources-attach"><span class="nav-number">2.3.</span> <span class="nav-text">ConfigurationPropertySources.attach</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#environmentPrepared"><span class="nav-number">2.4.</span> <span class="nav-text">environmentPrepared</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ConfigFileApplicationListener"><span class="nav-number">2.4.1.</span> <span class="nav-text">ConfigFileApplicationListener</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#SystemEnvironmentPropertySourceEnvironmentPostProcessor"><span class="nav-number">2.4.1.1.</span> <span class="nav-text">SystemEnvironmentPropertySourceEnvironmentPostProcessor</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SpringApplicationJsonEnvironmentPostProcessor"><span class="nav-number">2.4.1.2.</span> <span class="nav-text">SpringApplicationJsonEnvironmentPostProcessor</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#CloudFoundryVcapEnvironmentPostProcessor"><span class="nav-number">2.4.1.3.</span> <span class="nav-text">CloudFoundryVcapEnvironmentPostProcessor</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#ConfigFileApplicationListener-1"><span class="nav-number">2.4.1.4.</span> <span class="nav-text">ConfigFileApplicationListener</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bindToSpringApplication"><span class="nav-number">2.5.</span> <span class="nav-text">bindToSpringApplication()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ConfigurationClassParser"><span class="nav-number">2.6.</span> <span class="nav-text">ConfigurationClassParser</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">周泽</span>
+
+  
+</div>
+
+<!-- 
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+ -->
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共288.8k字</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>

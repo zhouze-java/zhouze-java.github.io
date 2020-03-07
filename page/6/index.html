@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-4-ByteBuf详解/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-12-短信登录配置及验证逻辑重构/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/02/Netty-4-ByteBuf详解/" itemprop="url">Netty-4-ByteBuf详解</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-12-短信登录配置及验证逻辑重构/" itemprop="url">Spring Security-12-短信登录配置及验证逻辑重构</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T10:56:27+08:00">
-                2019-07-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:53:30+08:00">
+                2019-09-10
               </time>
             
 
@@ -336,8 +336,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
                   </a>
                 </span>
 
@@ -375,16 +375,319 @@
       
         
           
-          述上文中,我们服务端与客户端之间的通信的数据都是通过ByteBuf来传输的,本文来详细的看一下这个ByteBuf   
-ByteBuf数据结构ByteBuf数据结构如下图:  
+          述上文中,已经把短信登录流程的代码写好了,但是这些都没有加到 Spring Security 中, 所以并没有生效, 下面看一下如何将我们自定义的这个登录流程配置到 Spring Security 中去   
+配置这个登录方式,可能会在多个环境下用到,所以这里把配置类写到core项目里面去, 新建类
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/10/Spring-Security-12-短信登录配置及验证逻辑重构/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-11-实现短信登录流程/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="周泽">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八度空间">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-11-实现短信登录流程/" itemprop="url">Spring Security-11-实现短信登录流程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:53:20+08:00">
+                2019-09-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          述上文中实现了验证码发送接口的开发,以及重构, 本文再来看一下如何实现短信验证码的登录   
+先来回顾一下之前的用户名密码的登录认证流程  
+然后我们要做一个短信认证的流程,就仿照这个流程来就ok了    
+基本思路  
+跟之前的用户名密码的登录流程是一样的   
+
+提供一个校验验证码的filter
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/10/Spring-Security-11-实现短信登录流程/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-10-验证码发送代码重构/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="周泽">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八度空间">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-10-验证码发送代码重构/" itemprop="url">Spring Security-10-验证码发送代码重构</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:53:10+08:00">
+                2019-09-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          述上文中实现了验证码的发送,先后的发送的代码是这样的   
    
-从图中来看,ByteBuf是一个字节容器,容器里面的数据一共有三个部分  
+这两个发送的方法其实都是一样的. 只是最后一个是返回图片给页面,一个是给用户发送验证码, 那这两个方法其实可以抽象出来,封装成一个, 下面看一下这些逻辑该如何去重构   
+验证码发送器图片验证码或者短信验证码的逻辑如下:  
 
-第一部分是已经丢弃的字节,这部分数据
+生成
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/07/02/Netty-4-ByteBuf详解/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-10-验证码发送代码重构/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -435,7 +738,7 @@ ByteBuf数据结构ByteBuf数据结构如下图:
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-3-案例-客户端服务端通信/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-9-实现短信验证码接口/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -454,7 +757,7 @@ ByteBuf数据结构ByteBuf数据结构如下图:
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/02/Netty-3-案例-客户端服务端通信/" itemprop="url">Netty-3-案例-客户端服务端通信</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-9-实现短信验证码接口/" itemprop="url">Spring Security-9-实现短信验证码接口</a></h1>
         
 
         <div class="post-meta">
@@ -466,8 +769,8 @@ ByteBuf数据结构ByteBuf数据结构如下图:
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T10:54:10+08:00">
-                2019-07-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:52:59+08:00">
+                2019-09-10
               </time>
             
 
@@ -489,8 +792,8 @@ ByteBuf数据结构ByteBuf数据结构如下图:
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
                   </a>
                 </span>
 
@@ -528,13 +831,12 @@ ByteBuf数据结构ByteBuf数据结构如下图:
       
         
           
-          述前面已经了解了netty服务端和客户端的启动流程,本文将通过一个小案例,来了解服务端和客户端是如何通信的   
-案例功能是,客户端连接成功后,向服务端写一段数据,服务端收到数据之后打印,并向客户端回一段数据,具体实现流程如下:   
-客户端发送数据到服务端上文中有说,客户端相关的数据读写是通过Bo
+          述很多情况下,一个网站登录需要支持短信登录,就是输入手机号,发送验证码,然后用验证码去登录,这也是一种很常见的登录方式, 但是 Spring Security 并没有给我们提供一个短信验证码的登录的方式,这个就需要我们自己去实现了.   
+本文先来配置一个发送短信的接口,以及做一些验证码这块的代码的
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/07/02/Netty-3-案例-客户端服务端通信/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-9-实现短信验证码接口/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -585,7 +887,7 @@ ByteBuf数据结构ByteBuf数据结构如下图:
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-2-客户端启动流程/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-8-记住我-功能实现及原理/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -604,7 +906,7 @@ ByteBuf数据结构ByteBuf数据结构如下图:
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/02/Netty-2-客户端启动流程/" itemprop="url">Netty-2-客户端启动流程</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-8-记住我-功能实现及原理/" itemprop="url">Spring Security-8-记住我 功能实现及原理</a></h1>
         
 
         <div class="post-meta">
@@ -616,8 +918,8 @@ ByteBuf数据结构ByteBuf数据结构如下图:
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T10:53:16+08:00">
-                2019-07-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:52:50+08:00">
+                2019-09-10
               </time>
             
 
@@ -639,8 +941,8 @@ ByteBuf数据结构ByteBuf数据结构如下图:
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
                   </a>
                 </span>
 
@@ -678,12 +980,15 @@ ByteBuf数据结构ByteBuf数据结构如下图:
       
         
           
-          述上文中说了服务端的启动流程以及一些额外的设置等, 本文再来详细看一下客户端的启动流程   
-NettyClient解析代码如下:123456789101112131415161718192021222324252627public class NettyClient &#123;    publi
+          述一个网站往往是登录一次之后,一周内或者一月内都不需要重新登录, 这里就是用到了记住我的功能,不管是浏览器关闭,或者是我们服务端的服务重启,都没有关系,用户都不需要重新去登录, 下面看一下如何去实现这个功能  
+原理简介如下图:   
+先来简单的看一下这个流程   
+
+用户的认证请求过来之后,首先会
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/07/02/Netty-2-客户端启动流程/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-8-记住我-功能实现及原理/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -734,7 +1039,7 @@ NettyClient解析代码如下:123456789101112131415161718192021222324252627publi
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-1-服务端启动详解/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-7-可配置图形验证码/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -753,7 +1058,7 @@ NettyClient解析代码如下:123456789101112131415161718192021222324252627publi
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/02/Netty-1-服务端启动详解/" itemprop="url">Netty-1-服务端启动详解</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-7-可配置图形验证码/" itemprop="url">Spring Security-7-可配置图形验证码</a></h1>
         
 
         <div class="post-meta">
@@ -765,8 +1070,8 @@ NettyClient解析代码如下:123456789101112131415161718192021222324252627publi
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T10:52:31+08:00">
-                2019-07-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:52:32+08:00">
+                2019-09-10
               </time>
             
 
@@ -788,8 +1093,8 @@ NettyClient解析代码如下:123456789101112131415161718192021222324252627publi
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
                   </a>
                 </span>
 
@@ -827,12 +1132,12 @@ NettyClient解析代码如下:123456789101112131415161718192021222324252627publi
       
         
           
-          述上文中通过一个简单的例子,对netty有了一个大致的了解,本文来详细看一下Netty服务端的启动.   
-NettyServer解析代码如下:1234567891011121314151617public class NettyServer &#123;    public static void
+          述上文中,实现了一个简单的图形验证码,但是这个是写死的, 图片的长宽,验证码的位数都是写死的,然后我们希望做成一个可配置的,就是由调用方去决定这些可变的参数还有验证码拦截的接口,我们现在是只拦截登录请求,这个也可以做成一个可配置的,由调用方去决定,拦截哪些请求  
+最后就是把验证码的生成逻辑也做成可
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/07/02/Netty-1-服务端启动详解/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-7-可配置图形验证码/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -883,7 +1188,7 @@ NettyServer解析代码如下:1234567891011121314151617public class NettyServer 
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-0-Netty简介/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-6-添加图形验证码/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -902,7 +1207,7 @@ NettyServer解析代码如下:1234567891011121314151617public class NettyServer 
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/02/Netty-0-Netty简介/" itemprop="url">Netty-0-Netty简介</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-6-添加图形验证码/" itemprop="url">Spring Security-6-添加图形验证码</a></h1>
         
 
         <div class="post-meta">
@@ -914,8 +1219,8 @@ NettyServer解析代码如下:1234567891011121314151617public class NettyServer 
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T10:51:35+08:00">
-                2019-07-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:52:17+08:00">
+                2019-09-10
               </time>
             
 
@@ -937,8 +1242,8 @@ NettyServer解析代码如下:1234567891011121314151617public class NettyServer 
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
                   </a>
                 </span>
 
@@ -976,13 +1281,15 @@ NettyServer解析代码如下:1234567891011121314151617public class NettyServer 
       
         
           
-          述在了解netty之前,先来看一个简单的案例,一个客户端,一个服务端,客户端每隔两秒发送一个带有时间戳的”hello world”给服务端,服务端收到之后打印.   
-IO编程上面这个案例用传统的IO方式实现代码如下:   
-IOServer:1234567891011121314151617181
+          述前面的文章中主要实现了登录认证的功能,本文来在登录的时候加个图形验证码,然后做成一个可配置的图形验证码,先来看一下图形验证码该如何实现    
+图形验证码
+首先我们要生成一个图片验证码
+这个验证码需要放到session中或者缓存中,用来跟用户输入的做验证 
+然后还要把这个验证加到我们的认证流程中去
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/07/02/Netty-0-Netty简介/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-6-添加图形验证码/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1033,7 +1340,7 @@ IOServer:1234567891011121314151617181
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-17-docker-compose使用案例/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-5-认证流程梳理/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1052,7 +1359,7 @@ IOServer:1234567891011121314151617181
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/25/Docker-17-docker-compose使用案例/" itemprop="url">Docker-17-docker-compose使用案例</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-5-认证流程梳理/" itemprop="url">Spring Security-5-认证流程梳理</a></h1>
         
 
         <div class="post-meta">
@@ -1064,8 +1371,8 @@ IOServer:1234567891011121314151617181
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:28:37+08:00">
-                2019-05-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:52:08+08:00">
+                2019-09-10
               </time>
             
 
@@ -1087,8 +1394,8 @@ IOServer:1234567891011121314151617181
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
                   </a>
                 </span>
 
@@ -1126,12 +1433,14 @@ IOServer:1234567891011121314151617181
       
         
           
-          述上文中,对docker-compose做了一个简单的介绍,以及安装,本文将通过一个简单的案例,来进一步了解docker-compose的使用   
-本文以jpress(Java版的wordPress)这样一个开源网站的部署为例,来了解docker-compose的使用,我们不必关注jpress的实
+          述前面的文章中首先分析了认证流程的源码,然后我们又实现了自己的登录流程以及一些自定义的处理,下面再来梳理一下这些认证的流程   
+认证这里我们之前就已经分析过认证流程了,这里再坐下补充以及回顾,先看下图:   
+   
+首先是进到了 UsernamePasswordAuthenticationFil
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/25/Docker-17-docker-compose使用案例/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-5-认证流程梳理/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1182,7 +1491,7 @@ IOServer:1234567891011121314151617181
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-16-docker-compose简介与安装/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-4-自定义登录成功失败处理/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1201,7 +1510,7 @@ IOServer:1234567891011121314151617181
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/25/Docker-16-docker-compose简介与安装/" itemprop="url">Docker-16-docker-compose简介与安装</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-4-自定义登录成功失败处理/" itemprop="url">Spring Security-4-自定义登录成功失败处理</a></h1>
         
 
         <div class="post-meta">
@@ -1213,8 +1522,8 @@ IOServer:1234567891011121314151617181
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:28:26+08:00">
-                2019-05-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:51:56+08:00">
+                2019-09-10
               </time>
             
 
@@ -1236,8 +1545,8 @@ IOServer:1234567891011121314151617181
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
                   </a>
                 </span>
 
@@ -1275,12 +1584,12 @@ IOServer:1234567891011121314151617181
       
         
           
-          述Docker Compose 是 Docker 官方编排（Orchestration）项目之一,负责快速的部署分布式应用.  
-Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and running multi-container Docker applica
+          述上文中,我们实现了一个自定义的可配置的登录页,效果就是首先一个请求过来,如果需要认证的话,就跳转到认证的界面,然后认证完成之后,再跳转到最开始访问的页面  
+在实际的环境中,我们登录成功之后可能并不是去跳转页面, 在前后端分离的环境中一般都是返回一个json格式的用户信息,然后登录失败也是返回具体
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/25/Docker-16-docker-compose简介与安装/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-4-自定义登录成功失败处理/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1331,7 +1640,7 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-15-容器连接/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-3-自定义登录页/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1350,7 +1659,7 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/25/Docker-15-容器连接/" itemprop="url">Docker-15-容器连接</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-3-自定义登录页/" itemprop="url">Spring Security-3-自定义登录页</a></h1>
         
 
         <div class="post-meta">
@@ -1362,8 +1671,8 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:28:18+08:00">
-                2019-05-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:51:46+08:00">
+                2019-09-10
               </time>
             
 
@@ -1385,8 +1694,8 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
                   </a>
                 </span>
 
@@ -1424,311 +1733,11 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
       
         
           
-          述一般来说,容器启动后,都是通过端口映射使用容器提供的服务,实际上,端口映射只是使用容器服务的一种方式,除了这种方式外,还可以使用容器连接的方式来使用容器服务  
-例如,有两个容器,一个运行着Spring boot项目,另一个容器运行着mysql数据库,可以通过容器连接使Spring boot直接访
+          述上文中实现了用户自定义的登录认证,但是用的登录页面是默认的登录页,在实际开发中,当然不可能用这种登录页,所以还是需要我们自己去搞一个登录的页面的, 还有一个问题就是,现在大部分开发都是前后端分离的, 如果是针对App的接口的话,我们直接返回一个html页面是不可以的,应该是返回一个json串给前端
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/25/Docker-15-容器连接/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-14-数据卷容器/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="周泽">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="八度空间">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/25/Docker-14-数据卷容器/" itemprop="url">Docker-14-数据卷容器</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:28:10+08:00">
-                2019-05-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          述数据卷容器就是一个专门用来挂载数据卷的容器,该容器主要是供其他容器引用和使用,所谓的数据卷容器,实际上就是一个普通的容器.  
-创建数据卷容器命令如下:1docker run -tid -v /usr/share/nginx/html/ --name mydata ubuntu
-就是运行了一个ub
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/05/25/Docker-14-数据卷容器/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-13-数据卷/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="周泽">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="八度空间">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/25/Docker-13-数据卷/" itemprop="url">Docker-13-数据卷</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:28:01+08:00">
-                2019-05-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          述数据卷,可以绕过拷贝系统,在多个容器之间,或者容器和宿主机之间共享目录或者文件,数据卷绕过了拷贝系统,可以达到本地磁盘I/O性能  
-示例以之前的nginx镜像为例,运行一个容器,然后再运行的时候,指定一个数据卷,用-v参数,具体命令如下:1docker run -tid --name nginx
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/05/25/Docker-13-数据卷/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-3-自定义登录页/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1770,7 +1779,7 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1816,7 +1825,7 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">233</span>
+                  <span class="site-state-item-count">258</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1876,7 +1885,7 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1906,7 +1915,7 @@ Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共264.8k字</span>
+  <span class="post-count">博客全站共288.8k字</span>
 </div>
         
 

@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="八度空间">
 <meta property="og:description" content="述上文中,安装配置好了nginx,然后下面就可以去使用了    我这里打算是部署一个VUE的前端项目,然后还有一个 Spring Boot 的 jar 包, vue是需要用到nginx部署的, nginx的端口需要是80,或者https要443, 这里就以http的为例    nginx 用了80端口, 也就是说后端的jar就不可以用80了, 但是我的项目中又使用了微信的接口,微信要求端口必须是8">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-25T10:04:33.217Z">
+<meta property="og:updated_time" content="2019-10-25T10:13:52.920Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx-记录一次部署项目的经过">
 <meta name="twitter:description" content="述上文中,安装配置好了nginx,然后下面就可以去使用了    我这里打算是部署一个VUE的前端项目,然后还有一个 Spring Boot 的 jar 包, vue是需要用到nginx部署的, nginx的端口需要是80,或者https要443, 这里就以http的为例    nginx 用了80端口, 也就是说后端的jar就不可以用80了, 但是我的项目中又使用了微信的接口,微信要求端口必须是8">
@@ -380,7 +380,7 @@
 <p>nginx 用了80端口, 也就是说后端的jar就不可以用80了, 但是我的项目中又使用了微信的接口,微信要求端口必须是80, 那么问题来了, 我一台服务器中,用到了两个 80 端口,这怎么搞   </p>
 <p>其实也简单,再买一台服务器就好了,但是,我没有钱,你说有钱多好,我要有钱我也这么玩儿,主要是没钱.   </p>
 <p>没办法,只能想办法用一台服务器去部署了,通过网上查了一些相关资料, 了解到一个解决方案, 就是用两个二级域名, 比如说,一个 <code>www.xxx.com</code> 用来访问前端的项目, 还有一个 <code>api.xxx.com</code> 用来访问后端的接口, 然后nginx监听 80 端口,通过不同的域名转发到前后端. 大概就是这么个流程, 下面来看下具体怎么操作     </p>
-<h3 id="VUE打包用nginx部署"><a href="#VUE打包用nginx部署" class="headerlink" title="VUE打包用nginx部署"></a>VUE打包用nginx部署</h3><p>VUE项目在开发环境中,是使用 <code>npm run dev</code> 去允许的,但是在生产环境中,是要打包成一堆静态文件的, 命令是 <code>npm run build</code> 打包好了之后,会在项目的目录下生成一个 <code>dist</code> 的文件夹,里面有一个 <code>index.html</code> 和一个 <code>static</code> 文件夹,可能还有个icon,这个就是要传到服务器上去的东西   </p>
+<h3 id="VUE打包用nginx部署"><a href="#VUE打包用nginx部署" class="headerlink" title="VUE打包用nginx部署"></a>VUE打包用nginx部署</h3><p>VUE项目在开发环境中,是使用 <code>npm run dev</code> 去运行的,但是在生产环境中,是要打包成一堆静态文件的, 命令是 <code>npm run build</code> 打包好了之后,会在项目的目录下生成一个 <code>dist</code> 的文件夹,里面有一个 <code>index.html</code> 和一个 <code>static</code> 文件夹,可能还有个icon,这个就是要传到服务器上去的东西   </p>
 <p>上文中,使用docker安装了nginx,并且映射出来几个目录, 其中有一个 <code>/usr/local/docker/nginx/html</code> 这个目录, 把打包好的文件都丢进去   </p>
 <p>上传完成之后需要去修改一下配置, <code>/usr/local/docker/nginx/conf.d</code> 这个目录下,有一个 <code>default.conf</code> ,用这个就可以,当然你也可以新建一个去写,这个文件夹下所有的.conf文件都会被 <code>/usr/local/docker/nginx/conf</code> 下面的 <code>nginx.conf</code> 收集起来   </p>
 <p>我这里就直接去修改 <code>default.conf</code> 了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim default.conf</span><br></pre></td></tr></table></figure></p>
@@ -432,6 +432,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/07/Spring-Boot-使用-AOP-切片拦截请求/" rel="prev" title="Spring Boot-使用 AOP 切片拦截请求">
+                Spring Boot-使用 AOP 切片拦截请求 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -513,7 +517,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">233</span>
+                  <span class="site-state-item-count">258</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -589,7 +593,7 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -619,7 +623,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共264.8k字</span>
+  <span class="post-count">博客全站共288.8k字</span>
 </div>
         
 

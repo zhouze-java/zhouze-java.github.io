@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/25/Nginx-记录一次部署项目的经过/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-23-自定义starter/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/10/25/Nginx-记录一次部署项目的经过/" itemprop="url">Nginx-记录一次部署项目的经过</a></h1>
+                <a class="post-title-link" href="/2020/03/07/Spring-Boot-23-自定义starter/" itemprop="url">Spring Boot-23-自定义starter</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-25T18:02:52+08:00">
-                2019-10-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:41:24+08:00">
+                2020-03-07
               </time>
             
 
@@ -336,8 +336,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Nginx/" itemprop="url" rel="index">
-                    <span itemprop="name">Nginx</span>
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
                   </a>
                 </span>
 
@@ -375,13 +375,12 @@
       
         
           
-          述上文中,安装配置好了nginx,然后下面就可以去使用了   
-我这里打算是部署一个VUE的前端项目,然后还有一个 Spring Boot 的 jar 包, vue是需要用到nginx部署的, nginx的端口需要是80,或者https要443, 这里就以http的为例   
-nginx 用了80端
+          述本文来了解一下 Spring Boot 中的 starter, starter 是 Spring Boot 中的一个可拔插的插件,需要使用的时候只要引入对应的包, 比如我们要使用web环境,就会引入 spring-boot-starter-web   
+starter 和 jar包导入的区别就是 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/10/25/Nginx-记录一次部署项目的经过/#more" rel="contents">
+            <a class="btn" href="/2020/03/07/Spring-Boot-23-自定义starter/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -432,7 +431,7 @@ nginx 用了80端
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/25/Nginx-通过docker安装使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-22-Conditional注解使用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -451,7 +450,7 @@ nginx 用了80端
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/10/25/Nginx-通过docker安装使用/" itemprop="url">Nginx-通过docker安装使用</a></h1>
+                <a class="post-title-link" href="/2020/03/07/Spring-Boot-22-Conditional注解使用/" itemprop="url">Spring Boot-22-@Conditional注解使用</a></h1>
         
 
         <div class="post-meta">
@@ -463,8 +462,8 @@ nginx 用了80端
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-25T18:02:25+08:00">
-                2019-10-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:41:12+08:00">
+                2020-03-07
               </time>
             
 
@@ -486,8 +485,8 @@ nginx 用了80端
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Nginx/" itemprop="url" rel="index">
-                    <span itemprop="name">Nginx</span>
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
                   </a>
                 </span>
 
@@ -525,12 +524,11 @@ nginx 用了80端
       
         
           
-          述最近打算部署一个个人的网站,由于之前做的都是后端的事情,部署个jar包就可以了,也没有完整的部署过一个项目,然后就去了解了一些nginx的用法,这里做一下记录   
-首先还是打算用docker安装, 比较方便,之后挂载一下文件以及配置的目录就可以了,不了解docker的同学,可以先去熟悉一下,下面
+          述在我们 Spring Boot 项目中,很多地方都用到了 @Conditional 注解用来指定一些条件, 这个注解的作用是根据是否满足某一个特定的条件来决定是否创建某个 Bean ,这个注解的存在也是 Spring Boot 实现自动配置的关键基础能力,比如我们在 web 工厂类加载的部分就遇到
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/10/25/Nginx-通过docker安装使用/#more" rel="contents">
+            <a class="btn" href="/2020/03/07/Spring-Boot-22-Conditional注解使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -581,7 +579,7 @@ nginx 用了80端
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/08/Spring-Security-35-跨域问题及解决方案/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-21-web个性化配置原理解析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -600,7 +598,7 @@ nginx 用了80端
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/10/08/Spring-Security-35-跨域问题及解决方案/" itemprop="url">Spring Security-35-跨域问题及解决方案</a></h1>
+                <a class="post-title-link" href="/2020/03/07/Spring-Boot-21-web个性化配置原理解析/" itemprop="url">Spring Boot-21-web个性化配置原理解析</a></h1>
         
 
         <div class="post-meta">
@@ -612,8 +610,8 @@ nginx 用了80端
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-08T12:08:00+08:00">
-                2019-10-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:40:55+08:00">
+                2020-03-07
               </time>
             
 
@@ -635,8 +633,8 @@ nginx 用了80端
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Security</span>
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
                   </a>
                 </span>
 
@@ -674,12 +672,14 @@ nginx 用了80端
       
         
           
-          述最近在使用过程中,遇到了这样一个问题,就是跨域的处理,算是踩的一个坑,记录一下   
-Spring boot 中跨域的处理Spring boot中处理跨域的方式有很多种,这里不去一个一个细说,只写一个我用的解决方案,部分代码如下:123456789101112131415@Beanpublic W
+          述在项目中,我们可以自定义一些 web 容器的配置,比如最常见的端口号,我们可以通过 server.port 配置,那么这些自定义的配置,是如何被应用到web容器中的, 下面来看一下 web 容器的个性化配置原理解析   
+源码解析首先进入 createWebServer() 方法中  
+   
+然
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/10/08/Spring-Security-35-跨域问题及解决方案/#more" rel="contents">
+            <a class="btn" href="/2020/03/07/Spring-Boot-21-web个性化配置原理解析/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -730,7 +730,7 @@ Spring boot 中跨域的处理Spring boot中处理跨域的方式有很多种,�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/08/Spring-Security-34-自定义403返回/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-20-web工厂类加载解析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -749,7 +749,7 @@ Spring boot 中跨域的处理Spring boot中处理跨域的方式有很多种,�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/10/08/Spring-Security-34-自定义403返回/" itemprop="url">Spring Security-34-自定义403返回</a></h1>
+                <a class="post-title-link" href="/2020/03/07/Spring-Boot-20-web工厂类加载解析/" itemprop="url">Spring Boot-20-web工厂类加载解析</a></h1>
         
 
         <div class="post-meta">
@@ -761,8 +761,8 @@ Spring boot 中跨域的处理Spring boot中处理跨域的方式有很多种,�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-08T12:04:28+08:00">
-                2019-10-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:40:34+08:00">
+                2020-03-07
               </time>
             
 
@@ -784,8 +784,8 @@ Spring boot 中跨域的处理Spring boot中处理跨域的方式有很多种,�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Security</span>
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
                   </a>
                 </span>
 
@@ -823,13 +823,11 @@ Spring boot 中跨域的处理Spring boot中处理跨域的方式有很多种,�
       
         
           
-          述之后的文章会记录一些在日常使用过程中遇到的一些问题  
-假设有如下一段配置:1.antMatchers(&quot;/test/*&quot;).hasRole(&quot;USER&quot;)
-表示 /test/* 这种请求只有在是USER角色的情况下才能访问,这时候如果使用了一个没有USER
+          述上文中了解了web容器的一个整体的启动流程, 在 createWebServer() 这个方法中,调用了 getWebServerFactory() 这个方法, 通过这个方法获取 webServerFactory 工厂, 就是去容器中找 ServletWebServerFactory 的实现类, 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/10/08/Spring-Security-34-自定义403返回/#more" rel="contents">
+            <a class="btn" href="/2020/03/07/Spring-Boot-20-web工厂类加载解析/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -880,7 +878,7 @@ Spring boot 中跨域的处理Spring boot中处理跨域的方式有很多种,�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-33-权限配置分离/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-19-web容器启动解析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -899,7 +897,7 @@ Spring boot 中跨域的处理Spring boot中处理跨域的方式有很多种,�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-33-权限配置分离/" itemprop="url">Spring Security-33-权限配置分离</a></h1>
+                <a class="post-title-link" href="/2020/03/07/Spring-Boot-19-web容器启动解析/" itemprop="url">Spring Boot-19-web容器启动解析</a></h1>
         
 
         <div class="post-meta">
@@ -911,8 +909,8 @@ Spring boot 中跨域的处理Spring boot中处理跨域的方式有很多种,�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:56:49+08:00">
-                2019-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:40:18+08:00">
+                2020-03-07
               </time>
             
 
@@ -934,8 +932,8 @@ Spring boot 中跨域的处理Spring boot中处理跨域的方式有很多种,�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Security</span>
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
                   </a>
                 </span>
 
@@ -973,12 +971,12 @@ Spring boot 中跨域的处理Spring boot中处理跨域的方式有很多种,�
       
         
           
-          述之前的权限配置中,遗留了一个问题,就是在我们公用模块的配置中,有如下的配置   
-这里这个 /user/register 的配置其实是调用方的url, 在我们的公用项目里面,并不知道这些路径,所以我们需要实现的功能就是,调用方去自己的项目里面配置他的权限,然后我们把这些配置集中起来加到 Sprin
+          述接下来了解一下 Spring Boot 中, web 环境启动的一些流程,比如 Spring Boot 是如何判断当前是否是 web 环境的,又是怎么启动 tomcat 容器的, 如何将 tomcat 替换成别的 web 容器等等   
+WebApplicationType在 Spring Boo
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-33-权限配置分离/#more" rel="contents">
+            <a class="btn" href="/2020/03/07/Spring-Boot-19-web容器启动解析/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1029,7 +1027,7 @@ Spring boot 中跨域的处理Spring boot中处理跨域的方式有很多种,�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-32-授权部分源码跟踪/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-18-配置类解析核心方法/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1048,7 +1046,7 @@ Spring boot 中跨域的处理Spring boot中处理跨域的方式有很多种,�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-32-授权部分源码跟踪/" itemprop="url">Spring Security-32-授权部分源码跟踪</a></h1>
+                <a class="post-title-link" href="/2020/03/07/Spring-Boot-18-配置类解析核心方法/" itemprop="url">Spring Boot-18-配置类解析核心方法</a></h1>
         
 
         <div class="post-meta">
@@ -1060,8 +1058,8 @@ Spring boot 中跨域的处理Spring boot中处理跨域的方式有很多种,�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:56:28+08:00">
-                2019-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:40:02+08:00">
+                2020-03-07
               </time>
             
 
@@ -1083,8 +1081,8 @@ Spring boot 中跨域的处理Spring boot中处理跨域的方式有很多种,�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Security</span>
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
                   </a>
                 </span>
 
@@ -1122,16 +1120,14 @@ Spring boot 中跨域的处理Spring boot中处理跨域的方式有很多种,�
       
         
           
-          述上文中介绍了授权的一些基本的使用,本文来看一下, Spring Security 的授权部分的源码   
-首先来看一下流程图,如下:    
-这里的重点是最后面的三个拦截器  
-
-AnonymousAuthenticationFilter: 如果用户没有认证,给一个匿名的认证信息
-Exceptio
+          述接着上文,继续分析配置类的解析的核心方法, 上文中我们留了一个 ConfigurationClassParser.doProcessConfigurationClass() 方法,没有详细分析,下面来看一下这个类具体是怎么处理的  
+源码跟踪  
+从上往下依次看   
+内部类处理先看一下代码片段 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-32-授权部分源码跟踪/#more" rel="contents">
+            <a class="btn" href="/2020/03/07/Spring-Boot-18-配置类解析核心方法/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1182,7 +1178,7 @@ Exceptio
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-31-授权的使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-17-配置类解析逻辑/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1201,7 +1197,7 @@ Exceptio
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-31-授权的使用/" itemprop="url">Spring Security-31-授权的使用</a></h1>
+                <a class="post-title-link" href="/2020/03/07/Spring-Boot-17-配置类解析逻辑/" itemprop="url">Spring Boot-17-配置类解析逻辑</a></h1>
         
 
         <div class="post-meta">
@@ -1213,8 +1209,8 @@ Exceptio
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:56:20+08:00">
-                2019-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:39:44+08:00">
+                2020-03-07
               </time>
             
 
@@ -1236,8 +1232,8 @@ Exceptio
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Security</span>
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
                   </a>
                 </span>
 
@@ -1275,12 +1271,11 @@ Exceptio
       
         
           
-          述之前的部分都是说的是认证的流程,并没有详细的使用过权限,本文来看一下如何做权限控制.   
-其实在我们之前的使用中,已经用到了一部分的权限控制,如下:12345678910111213141516.authorizeRequests()    // 匹配的是登录页的话放行    .antMatch
+          述上文中,了解了配置类解析的一个入口和整体的流程,本文来详细的了解一下配置类解析的逻辑,也就是上文说的 ConfigurationClassPostProcessor.processConfigBeanDefinitions() 这个方法中 do-while 循环的 do 部分,看一下他具体是如何处
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-31-授权的使用/#more" rel="contents">
+            <a class="btn" href="/2020/03/07/Spring-Boot-17-配置类解析逻辑/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1331,7 +1326,7 @@ Exceptio
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-30-单点登录案例/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-16-配置类解析流程/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1350,7 +1345,7 @@ Exceptio
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-30-单点登录案例/" itemprop="url">Spring Security-30-单点登录案例</a></h1>
+                <a class="post-title-link" href="/2020/03/07/Spring-Boot-16-配置类解析流程/" itemprop="url">Spring Boot-16-配置类解析流程</a></h1>
         
 
         <div class="post-meta">
@@ -1362,8 +1357,8 @@ Exceptio
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:56:12+08:00">
-                2019-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:39:27+08:00">
+                2020-03-07
               </time>
             
 
@@ -1385,8 +1380,8 @@ Exceptio
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Security</span>
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
                   </a>
                 </span>
 
@@ -1424,12 +1419,11 @@ Exceptio
       
         
           
-          述上文中,将默认的token替换成了 jwt ,本文将基于 jwt 实现一个单点登录的案例,流程图如下:   
-大概流程就是,应用A去请求登录,然后跳转到统一的认证服务器上去做认证,之后返回给应用A一个token, 这时候B应用去请求登录,认证服务器会发现应用A已经登录过了,那就不需要再认证了,直接
+          述配置类,是我们在 Spring Boot 项目中经常使用的, 就是用 @Configuration 注解修饰的类, 然后在配置类中,我们可以使用 @Bean 注解修饰一个方法, 这个方法返回的 class 对象,就会被注入到 Spring 容器中,下面我们来大致了解一下 Spring Boot 框
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-30-单点登录案例/#more" rel="contents">
+            <a class="btn" href="/2020/03/07/Spring-Boot-16-配置类解析流程/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1480,7 +1474,7 @@ Exceptio
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-29-使用JWT替换默认的Token/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-15-异常处理流程/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1499,7 +1493,7 @@ Exceptio
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-29-使用JWT替换默认的Token/" itemprop="url">Spring Security-29-使用JWT替换默认的Token</a></h1>
+                <a class="post-title-link" href="/2020/03/07/Spring-Boot-15-异常处理流程/" itemprop="url">Spring Boot-15-异常处理流程</a></h1>
         
 
         <div class="post-meta">
@@ -1511,8 +1505,8 @@ Exceptio
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:56:04+08:00">
-                2019-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:39:11+08:00">
+                2020-03-07
               </time>
             
 
@@ -1534,8 +1528,8 @@ Exceptio
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Security</span>
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
                   </a>
                 </span>
 
@@ -1573,12 +1567,12 @@ Exceptio
       
         
           
-          述默认的token生成规则其实就是一个UUID,就是一个随机的字符串,然后存到redis中去,使用JWT的话,token中可以存放一些信息,我们服务端也不需要保存这个token, 服务器通过使用保存的密钥验证token的正确性,只要正确即通过验证   
-使用JWT,在分布式系统中,很好地解决了单点登
+          述上文中了解了 Spring Boot 的异常报告器的工作原理,但是并没有看到他的调用时机, 其实就是在 run 方法的 catch 部分的 handleRunFailure() 中做处理,下面我们来看一下这个方法的具体处理流程    
+源码跟踪首先还是进入 run 方法,进到 catch 块中,找
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-29-使用JWT替换默认的Token/#more" rel="contents">
+            <a class="btn" href="/2020/03/07/Spring-Boot-15-异常处理流程/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1629,7 +1623,7 @@ Exceptio
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-28-Token配置/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-14-异常报告器/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1648,7 +1642,7 @@ Exceptio
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-28-Token配置/" itemprop="url">Spring Security-28-Token配置</a></h1>
+                <a class="post-title-link" href="/2020/03/07/Spring-Boot-14-异常报告器/" itemprop="url">Spring Boot-14-异常报告器</a></h1>
         
 
         <div class="post-meta">
@@ -1660,8 +1654,8 @@ Exceptio
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:55:54+08:00">
-                2019-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:38:54+08:00">
+                2020-03-07
               </time>
             
 
@@ -1683,8 +1677,8 @@ Exceptio
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Security</span>
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
                   </a>
                 </span>
 
@@ -1722,12 +1716,14 @@ Exceptio
       
         
           
-          述前面的文章中,实现了我们三种自定义登录方式的 token 返回,做的也全是一些资源服务器的配置,本文再来看一些关于认证服务器的配置, 比如 Token 的过期时间,存储方式等等   
-认证服务器配置在之前的配置类 MyAuthorizationServerConfig 做修改,首先继承 Autho
+          述本文我们来了解一下 Spring Boot 的异常报告器,它是 Spring Boot 帮我们定位程序错误的一个工具,就是在程序运行错误的时候,在控制台打印出一个错误报告,方便我们排查问题,下面来看一下异常报告器是如何工作的  
+异常报告器解析首先还是进入启动类的run方法看一下   
+   
+S
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-28-Token配置/#more" rel="contents">
+            <a class="btn" href="/2020/03/07/Spring-Boot-14-异常报告器/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1769,7 +1765,7 @@ Exceptio
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1815,7 +1811,7 @@ Exceptio
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">233</span>
+                  <span class="site-state-item-count">258</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1875,7 +1871,7 @@ Exceptio
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1905,7 +1901,7 @@ Exceptio
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共264.8k字</span>
+  <span class="post-count">博客全站共288.8k字</span>
 </div>
         
 
