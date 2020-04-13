@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Elasticsearch-107-不要随意调节JVM和Thread-Pool的原因/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-13-Feign的继承特性/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Elasticsearch-107-不要随意调节JVM和Thread-Pool的原因/" itemprop="url">Elasticsearch-107-不要随意调节JVM和Thread Pool的原因</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-13-Feign的继承特性/" itemprop="url">Spring Cloud-13-Feign的继承特性</a></h1>
         
 
         <div class="post-meta">
@@ -313,7 +313,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T11:43:28+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:08:27+08:00">
                 2019-04-10
               </time>
             
@@ -336,8 +336,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -375,12 +375,12 @@
       
         
           
-          概述es中有很多配置我们可以去调节,但是在99.99%的情况下,对于es来说,大部分的参数保留为默认的就可以了,因为这些参数经常被滥用和错误的调节,继而导致严重的稳定性问题以及性能的急剧下降.  
-Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉不用的内存,千万不要去调节默认
+          述上文中,初步的使用了Feign,在写HelloService接口的时候,可以发现,代码可以直接从服务提供者中复制过来.   
+这些可以复制的代码Spring Cloud Feign对它进行了进一步的抽象,这里就用到了Feign的继承特性,那么下面就来看下如何使用Feign的继承特性,进一步简化代码
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Elasticsearch-107-不要随意调节JVM和Thread-Pool的原因/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-13-Feign的继承特性/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -431,7 +431,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Elasticsearch-106-针对集群重启时shard恢复耗时过长问题的参数设置/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-12-Feign入门/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -450,7 +450,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Elasticsearch-106-针对集群重启时shard恢复耗时过长问题的参数设置/" itemprop="url">Elasticsearch-106-针对集群重启时shard恢复耗时过长问题的参数设置</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-12-Feign入门/" itemprop="url">Spring Cloud-12-Feign入门</a></h1>
         
 
         <div class="post-meta">
@@ -462,7 +462,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T11:42:48+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:08:18+08:00">
                 2019-04-10
               </time>
             
@@ -485,8 +485,8 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -524,12 +524,11 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
       
         
           
-          问题在集群重启的时候,有一些配置会影响shard的恢复,首先,我们需要理解默认配置下,shard恢复过程会发生什么事情.  
-假设集群中有10个node,每个node上面有一个shard, 可能是primary shard也可能是replica shard,就比如说我们有一个index,有5个pri
+          述前面,我们使用了Ribbon,RestTemplate,Hystrix这些组件,都是spring cloud的一些非常基础的组件,在使用过程中,这些东西都是同时出现的,而且配置也差不多,每次开发都有很多相同的代码,因此Spring Cloud基于Netflix Feign整合了Ribbon和Hys
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Elasticsearch-106-针对集群重启时shard恢复耗时过长问题的参数设置/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-12-Feign入门/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -580,7 +579,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/09/Elasticsearch-105-针对集群脑裂问题定制的重要参数/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-11-Hystrix仪表盘与Turbine集群监控/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -599,7 +598,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/09/Elasticsearch-105-针对集群脑裂问题定制的重要参数/" itemprop="url">Elasticsearch-105-针对集群脑裂问题定制的重要参数</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-11-Hystrix仪表盘与Turbine集群监控/" itemprop="url">Spring Cloud-11-Hystrix仪表盘与Turbine集群监控</a></h1>
         
 
         <div class="post-meta">
@@ -611,8 +610,8 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-09T17:29:18+08:00">
-                2019-04-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:08:09+08:00">
+                2019-04-10
               </time>
             
 
@@ -634,8 +633,8 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -673,13 +672,13 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
       
         
           
-          概念首先,来认识一下什么是集群脑裂,假设我们现在有一个集群,里面有三个节点,一个是master两个data,如下图:  
-假设现在出现了网络故障,导致一个集群被划分成了两片,两片中的节点无法相互通信,如下图:  
-如图就出现了两个netword partition, 图中在左边这个network p
+          述Hystrix仪表盘,主要用来监控Hystrix的实时运行状态,通过仪表盘可以看到Hystrix的各项指标信息,从而快速发现系统中存在的问题, 记下来就来看一下具体如何使用  
+本文主要通过两个方面来使用Hystrix仪表盘,一个是单体应用的监控,另一个是整合Turbine对集群进行监控.  
+单
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/09/Elasticsearch-105-针对集群脑裂问题定制的重要参数/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-11-Hystrix仪表盘与Turbine集群监控/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -730,7 +729,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/25/Elasticsearch-104-生产集群必须配置的一些重要参数/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-10-Hystrix请求合并/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -749,7 +748,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/25/Elasticsearch-104-生产集群必须配置的一些重要参数/" itemprop="url">Elasticsearch-104-生产集群必须配置的一些重要参数</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-10-Hystrix请求合并/" itemprop="url">Spring Cloud-10-Hystrix请求合并</a></h1>
         
 
         <div class="post-meta">
@@ -761,8 +760,8 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-25T16:47:27+08:00">
-                2019-01-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:08:00+08:00">
+                2019-04-10
               </time>
             
 
@@ -784,8 +783,8 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -823,12 +822,12 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
       
         
           
-          es的默认参数es的默认参数是非常好的,适合绝大多数的情况,尤其是一些性能相关的配置.因此刚开始部署一个生产环境下的es集群时,几乎所有的配置参数都可以用默认的设置.有很多的生产环境场景下,都是因为es集群管理人员自己去调整es的某些配置,结果导致集群出现了严重的故障.  
-比如mysql或者ora
+          述在微服务的架构中,各个模块是通过互相请求来进行通信的,在高并发的情况下,通信次数的增加会导致总的通信时间增加,同时线程池的资源也是有限的,高并发的环境下,会有大量的线程处于等待状态,进而导致了响应延迟,要解决这些问题就可以使用Hystrix的请求合并.  
+具体原理是怎样的呢? Hystrix中的
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/25/Elasticsearch-104-生产集群必须配置的一些重要参数/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-10-Hystrix请求合并/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -879,7 +878,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/25/Elasticsearch-103-集群部署及zen-discovery集群发现机制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-9-Hystrix请求缓存/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -898,7 +897,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/25/Elasticsearch-103-集群部署及zen-discovery集群发现机制/" itemprop="url">Elasticsearch-103-集群部署及zen discovery集群发现机制</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-9-Hystrix请求缓存/" itemprop="url">Spring Cloud-9-Hystrix请求缓存</a></h1>
         
 
         <div class="post-meta">
@@ -910,8 +909,8 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-25T15:37:16+08:00">
-                2019-01-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:07:48+08:00">
+                2019-04-10
               </time>
             
 
@@ -933,8 +932,8 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -972,13 +971,13 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
       
         
           
-          下载解压在elasticsearch的github上下载elasticsearch的v5.5.0版本部署, github传送门  
-下载的是tar.gz版本的,下载好之后,上传到服务器,解压,我这里上传到了/usr/elasticsearch目录下面1cd /usr/elasticsearch
-解压
+          述在高并发的情况下,处理好缓存,就能有效的降低服务器的压力,Spring Cloud的Hystrix也提供了请求缓存的能力,接下来,我们来看一下如何开启.   
+环境准备还是基于之前的服务注册中心,提供者和消费者, 先把服务注册中心开启, 服务提供者和消费者需要修改.   
+通过方法重载开启缓存当我
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/25/Elasticsearch-103-集群部署及zen-discovery集群发现机制/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-9-Hystrix请求缓存/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1029,7 +1028,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/25/Elasticsearch-102-虚拟机搭建集群环境配置/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-8-Hystrix的服务降级与异常处理/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1048,7 +1047,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/25/Elasticsearch-102-虚拟机搭建集群环境配置/" itemprop="url">Elasticsearch-102-虚拟机搭建集群环境配置</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-8-Hystrix的服务降级与异常处理/" itemprop="url">Spring Cloud-8-Hystrix的服务降级与异常处理</a></h1>
         
 
         <div class="post-meta">
@@ -1060,8 +1059,8 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-25T09:41:12+08:00">
-                2019-01-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:07:39+08:00">
+                2019-04-10
               </time>
             
 
@@ -1083,8 +1082,8 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -1122,13 +1121,12 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
       
         
           
-          配置要求搭建一个4个节点的es集群,需要用到4台虚拟机,每个虚拟机的配置是2核4G   
-创建虚拟机可以用virtual box 或者 VM,然后下载CentOS 7 64位的镜像,然后分配4G内存,其他配置按默认的就ok  
-配置网络虚拟机创建好之后,配置网络,配置一个静态的ip,具体配置方法可以
+          之前我们用过了fallbackMethod这个东西,本文将详细说一下这个东西,也就是服务降级   
+服务降级前文中,fallbackMethod所描述的函数,就是一个备胎,用来实现服务的降级处理,在@HystrixCommand注解中,可以通过fallbackMethod来指定请求失败后调用的方法,
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/25/Elasticsearch-102-虚拟机搭建集群环境配置/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-8-Hystrix的服务降级与异常处理/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1179,7 +1177,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/24/Elasticsearch-101-生产集群部署服务器配置等建议/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-7-自定义Hystrix请求命令/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1198,7 +1196,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/24/Elasticsearch-101-生产集群部署服务器配置等建议/" itemprop="url">Elasticsearch-101-生产集群部署服务器配置等建议</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-7-自定义Hystrix请求命令/" itemprop="url">Spring Cloud-7-自定义Hystrix请求命令</a></h1>
         
 
         <div class="post-meta">
@@ -1210,8 +1208,8 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-24T10:36:00+08:00">
-                2019-01-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:07:27+08:00">
+                2019-04-10
               </time>
             
 
@@ -1233,8 +1231,8 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -1272,13 +1270,12 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
       
         
           
-          述我们之前一直是在windows环境下去启动一个单节点的es进程,如果是在生产环境中,肯定是要部署在linux集群上面了  
-那么部署es的服务器对配置有什么要求呢   
-内存es是很吃内存的,es吃的主要不是你的jvm的内存,一般来说es用jvm heap(堆内存)还是用的比较少的,主要吃的是你的
+          上文中,介绍了Hystrix断路器的简单使用,是通过注解的方式去实现的, 我们也可以通过继承类的方式来实现.   
+自定义HystrixCommand除了使用@HystrixCommand注解,也可以自定义类,继承HystrixCommand类. 如下:12345678910111213141516
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/24/Elasticsearch-101-生产集群部署服务器配置等建议/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-7-自定义Hystrix请求命令/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1329,7 +1326,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/23/Elasticsearch-100-Java-API基于地理位置的搜索/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-6-Hystrix断路器/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1348,7 +1345,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/23/Elasticsearch-100-Java-API基于地理位置的搜索/" itemprop="url">Elasticsearch-100-Java API基于地理位置的搜索</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-6-Hystrix断路器/" itemprop="url">Spring Cloud-6-Hystrix断路器</a></h1>
         
 
         <div class="post-meta">
@@ -1360,8 +1357,8 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-23T16:59:55+08:00">
-                2019-01-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:07:16+08:00">
+                2019-04-10
               </time>
             
 
@@ -1383,8 +1380,8 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -1422,12 +1419,11 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
       
         
           
-          案例背景比如我们有很多的4s店,然后呢给了用户一个app,在某个地方的时候,可以根据当前的地理位置搜索一下,自己附近的4s店   
-数据准备添加一个地理位置的field,手动设置mapping映射,然后添加一条测试数据123456789101112POST /car_shop/_mapping/sh
+          概念在微服务架构中,我们把系统拆分成多个服务单元,各个单元都运行在不同的进程中,他们之前如果要交互的话,就是通过远程调用的方式,这样就有可以能会因为网络原因,或者自身服务出现故障或延迟,而导致调用方的服务也出现延迟,若此时调用方的请求不断增加,最后就会因为等待出现故障的依赖方影响形成任务积压,最终导
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/23/Elasticsearch-100-Java-API基于地理位置的搜索/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-6-Hystrix断路器/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1478,7 +1474,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/23/Elasticsearch-99-Java API 常用的几种查询与组合查询/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-5-RestTemplate详解/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1497,7 +1493,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/23/Elasticsearch-99-Java API 常用的几种查询与组合查询/" itemprop="url">Elasticsearch-99-Java API 常用的几种查询与组合查询</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-5-RestTemplate详解/" itemprop="url">Spring Cloud-5-RestTemplate详解</a></h1>
         
 
         <div class="post-meta">
@@ -1509,8 +1505,8 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-23T15:50:04+08:00">
-                2019-01-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:07:08+08:00">
+                2019-04-10
               </time>
             
 
@@ -1532,8 +1528,8 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -1571,11 +1567,13 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
       
         
           
-          常用的几种查询准备数据添加一条数据进去,供测试1234567PUT /car_shop/cars/5&#123;  &quot;brand&quot;: &quot;华晨宝马&quot;,  &quot;name&quot;: &quot;宝马318&quot;,  &quot;price&quot
+          RestTemplate上文中,我们使用RestTemplate实现了最简单的服务访问,并且通过配置@LoadBalanced实现了负载均衡.   
+接下来,我们来看一下,RestTemplate针对几种不同请求类型和参数类型的服务调用实现   
+GET 请求在RestTemplate中,对于GET
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/23/Elasticsearch-99-Java API 常用的几种查询与组合查询/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-5-RestTemplate详解/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1626,7 +1624,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/23/Elasticsearch-98-Java-API-常用的几种API及搜索模板调用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-4-服务发现与消费-Ribbon负载均衡/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1645,7 +1643,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/23/Elasticsearch-98-Java-API-常用的几种API及搜索模板调用/" itemprop="url">Elasticsearch-98-Java API 常用的几种API及搜索模板调用</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-4-服务发现与消费-Ribbon负载均衡/" itemprop="url">Spring Cloud-4-服务发现与消费 Ribbon负载均衡</a></h1>
         
 
         <div class="post-meta">
@@ -1657,8 +1655,8 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-23T15:12:26+08:00">
-                2019-01-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:06:59+08:00">
+                2019-04-10
               </time>
             
 
@@ -1680,8 +1678,8 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -1719,12 +1717,13 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
       
         
           
-          案例背景以汽车零售为案例背景,简单来说,会涉及到三个数据,汽车信息,汽车销售记录,汽车4S店信息  
-准备工作创建索引123456789101112131415161718192021222324252627PUT /car_shop&#123;    &quot;mappings&quot;: &
+          之前的例子中,已经搭建起来了服务注册中心,包括单节点模式和高可用模式,同时呢服务提供者也有了,就是eureka-client,然后接下来尝试构建一个消费者.  
+服务消费者主要完成两个目标,发现服务以及消费服务.  
+其中,发现服务的任务是由eureka的客户端完成的,而服务消费的任务是由ribbo
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/23/Elasticsearch-98-Java-API-常用的几种API及搜索模板调用/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-4-服务发现与消费-Ribbon负载均衡/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1766,7 +1765,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1812,7 +1811,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">258</span>
+                  <span class="site-state-item-count">275</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1823,7 +1822,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1834,7 +1833,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1902,7 +1901,7 @@ Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉�
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共288.8k字</span>
+  <span class="post-count">博客全站共309k字</span>
 </div>
         
 

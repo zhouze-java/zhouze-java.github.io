@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Docker-Redis-安装运行Redis并挂载外部配置文件和数据/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-14-数据卷容器/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Docker-Redis-安装运行Redis并挂载外部配置文件和数据/" itemprop="url">Docker-Redis-安装运行Redis并挂载外部配置文件和数据</a></h1>
+                <a class="post-title-link" href="/2019/05/25/Docker-14-数据卷容器/" itemprop="url">Docker-14-数据卷容器</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T17:38:34+08:00">
-                2019-04-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:28:10+08:00">
+                2019-05-25
               </time>
             
 
@@ -336,8 +336,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker-Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker-Redis</span>
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -375,14 +375,13 @@
       
         
           
-          安装运行Redis拉取镜像在国内的镜像市场找到redis, 选好版本,pull下来,传送门  
-选一个新的,并且稳定的版本,我这里选择的3.2.9版本  
-执行以下命令,pull镜像1docker pull daocloud.io/library/redis:3.2.9
-创建文件夹创建两个文件夹,一
+          述数据卷容器就是一个专门用来挂载数据卷的容器,该容器主要是供其他容器引用和使用,所谓的数据卷容器,实际上就是一个普通的容器.  
+创建数据卷容器命令如下:1docker run -tid -v /usr/share/nginx/html/ --name mydata ubuntu
+就是运行了一个ub
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Docker-Redis-安装运行Redis并挂载外部配置文件和数据/#more" rel="contents">
+            <a class="btn" href="/2019/05/25/Docker-14-数据卷容器/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -433,7 +432,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-19-常见使用场景/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-13-数据卷/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -452,7 +451,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-19-常见使用场景/" itemprop="url">Redis-19-常见使用场景</a></h1>
+                <a class="post-title-link" href="/2019/05/25/Docker-13-数据卷/" itemprop="url">Docker-13-数据卷</a></h1>
         
 
         <div class="post-meta">
@@ -464,8 +463,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:18:56+08:00">
-                2019-04-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:28:01+08:00">
+                2019-05-25
               </time>
             
 
@@ -487,8 +486,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -526,13 +525,12 @@
       
         
           
-          述通过之前文章的介绍,现在redis也可以基本的使用了,那么到底什么时候该使用redis呢.下面就来说几个redis的常用场景   
-使用场景计数器数据统计的需求非常普遍，通过原子递增保持计数。例如，点赞数、收藏数、分享数等。
-排行榜排行榜按照得分进行排序，例如，展示最近、最热、点击率最高、活跃度最
+          述数据卷,可以绕过拷贝系统,在多个容器之间,或者容器和宿主机之间共享目录或者文件,数据卷绕过了拷贝系统,可以达到本地磁盘I/O性能  
+示例以之前的nginx镜像为例,运行一个容器,然后再运行的时候,指定一个数据卷,用-v参数,具体命令如下:1docker run -tid --name nginx
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-19-常见使用场景/#more" rel="contents">
+            <a class="btn" href="/2019/05/25/Docker-13-数据卷/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -583,7 +581,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-18-缓存击穿、穿透、雪崩等问题及解决方案/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-12-容器网络/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -602,7 +600,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-18-缓存击穿、穿透、雪崩等问题及解决方案/" itemprop="url">Redis-18-缓存击穿、穿透、雪崩等问题及解决方案</a></h1>
+                <a class="post-title-link" href="/2019/05/25/Docker-12-容器网络/" itemprop="url">Docker-12-容器网络</a></h1>
         
 
         <div class="post-meta">
@@ -614,8 +612,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:18:46+08:00">
-                2019-04-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:27:50+08:00">
+                2019-05-25
               </time>
             
 
@@ -637,8 +635,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -676,16 +674,12 @@
       
         
           
-          述上文说了redis的内存淘汰策略,下面再来看一下使用缓存的过程中一些常见的问题   
-我们在使用redis做缓存的时候,一般流程是这样的  
-
-请求进来时候首先查询redis判断是否存在缓存且缓存是否过期
-若已经存在不过期的缓存则直接获取返回
-若缓存不存在或已过期则重新查询数据库并将该数据存到re
+          述要构建具有安全的一致行为的web应用程序,可以使用Docker网络特性.根据定义,网络为容器实现了完全隔离.因此,控制应用程序所在的网络很重要,Docker容器网络为您提供了这种控制能力.  
+默认网络docker提供了三种网络,可以通过docker network ls命令去查看,结果如下:  
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-18-缓存击穿、穿透、雪崩等问题及解决方案/#more" rel="contents">
+            <a class="btn" href="/2019/05/25/Docker-12-容器网络/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -736,7 +730,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-17-内存淘汰策略/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-11-创建自己的Docker-Hub/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -755,7 +749,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-17-内存淘汰策略/" itemprop="url">Redis-17-内存淘汰策略</a></h1>
+                <a class="post-title-link" href="/2019/05/25/Docker-11-创建自己的Docker-Hub/" itemprop="url">Docker-11-创建自己的Docker Hub</a></h1>
         
 
         <div class="post-meta">
@@ -767,8 +761,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:18:35+08:00">
-                2019-04-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:27:41+08:00">
+                2019-05-25
               </time>
             
 
@@ -790,8 +784,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -829,13 +823,13 @@
       
         
           
-          述上文介绍了redis中的过期策略,本文再来看一下内存淘汰策略   
-内存淘汰策略指的是用户存储的一些key可以被Redis主动的删除,从而可能产生读miss的情况,那为什么Redis会有这种功能呢?  
-假设我现在有一个redis的服务器,内存是2G,随着系统业务的增长,reids中放的数据越来越
+          述前面我们使用的Docker Hub是由Docker官方提供的,我们也可以搭建自己的Docker Hub,搭建方式也很容器,因为Docker官方已经将Docker注册服务器做成镜像了,我们直接pull下来运行即可   
+环境搭建拉取镜像命令如下:1docker pull registry
+运行容器镜
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-17-内存淘汰策略/#more" rel="contents">
+            <a class="btn" href="/2019/05/25/Docker-11-创建自己的Docker-Hub/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -886,7 +880,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-16-过期策略/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-10-自动化构建/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -905,7 +899,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-16-过期策略/" itemprop="url">Redis-16-过期策略</a></h1>
+                <a class="post-title-link" href="/2019/05/25/Docker-10-自动化构建/" itemprop="url">Docker-10-自动化构建</a></h1>
         
 
         <div class="post-meta">
@@ -917,8 +911,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:18:27+08:00">
-                2019-04-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:27:31+08:00">
+                2019-05-25
               </time>
             
 
@@ -940,8 +934,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -979,13 +973,12 @@
       
         
           
-          述上文中介绍了redis和spring boot的整合使用,本文再来看一下redis中的过期策略,算是对之前内容的一个补充   
-过期策略在之前说命令行的时候,我们有给一个key设置过期时间,reids的过期策略就是说,一个key过期了的话redis会怎么处理这个key   
-过期策略通常有以下三种
+          述上文看了如何把本地的镜像上传到Docker Hub上面,但是如果我们对镜像要进行修改的时候,就得先去改Dockerfile,然后再去build,再push到Docker Hub上面去,修改频繁的情况下,要一种重复这几个操作,这就比较难受了,所以下面来看下自动化构建   
+自动化构建自动化构建,就是
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-16-过期策略/#more" rel="contents">
+            <a class="btn" href="/2019/05/25/Docker-10-自动化构建/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1036,7 +1029,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-15-与Spring-Boot整合使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-9-Docker-Hub上传自己的镜像/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1055,7 +1048,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-15-与Spring-Boot整合使用/" itemprop="url">Redis-15-与Spring Boot整合使用</a></h1>
+                <a class="post-title-link" href="/2019/05/25/Docker-9-Docker-Hub上传自己的镜像/" itemprop="url">Docker-9-Docker Hub上传自己的镜像</a></h1>
         
 
         <div class="post-meta">
@@ -1067,8 +1060,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:18:17+08:00">
-                2019-04-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:27:21+08:00">
+                2019-05-25
               </time>
             
 
@@ -1090,8 +1083,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -1129,13 +1122,12 @@
       
         
           
-          述我们在实际的开发中,通常是需要spring集成redis,这里就以spring boot为例,整合redis,做一些常用的操作   
-环境准备首先开启redis服务,可以用我们之前创建的集群,或者是开启一个单独的redis服务,并且开启远程连接,还是上篇文章的那三步     
-然后,新建一个Spr
+          述类似于GitHub提供的代码托管服务,Docker Hub提供了镜像托管服务,利用Docker Hub我们可以搜索,创建,分享和管理镜像,Docker Hub上的镜像分为两大类,一类是官方镜像,例如我们之前用到的nginx、mysql等,还有一类是普通的用户镜像,普通用户镜像由用户自己上传   
+
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-15-与Spring-Boot整合使用/#more" rel="contents">
+            <a class="btn" href="/2019/05/25/Docker-9-Docker-Hub上传自己的镜像/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1186,7 +1178,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-14-Jedis的基本使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-8-Dockerfile的指令及使用方法/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1205,7 +1197,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-14-Jedis的基本使用/" itemprop="url">Redis-14-Jedis的基本使用</a></h1>
+                <a class="post-title-link" href="/2019/05/25/Docker-8-Dockerfile的指令及使用方法/" itemprop="url">Docker-8-Dockerfile的指令及使用方法</a></h1>
         
 
         <div class="post-meta">
@@ -1217,8 +1209,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:18:08+08:00">
-                2019-04-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:26:39+08:00">
+                2019-05-25
               </time>
             
 
@@ -1240,8 +1232,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -1279,12 +1271,12 @@
       
         
           
-          述前面的文章中介绍了一些reids的基本命令,数据结构,持久化方式,还有主从集群等等,我们操作redis的数据的时候一直是在redis-cli里面的,本文就来看一下如何用java去操作redis,java操作reids的方式有很多种,这里首先先介绍的是Jedis   
-准备工作远程连接reids的前
+          述上文中,简单的使用了一个Dockerfile构建镜像,使用到了三个指令就是FROM,MAINTAINER和RUN,本文在来看一些其他的指令.他们的作用以及使用方式   
+指令详解COPY 复制文件格式12COPY &lt;源路径&gt;... &lt;目标路径&gt;COPY [&quot;&lt
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-14-Jedis的基本使用/#more" rel="contents">
+            <a class="btn" href="/2019/05/25/Docker-8-Dockerfile的指令及使用方法/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1335,7 +1327,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-13-集群介绍/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-7-Dockerfile的简单使用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1354,7 +1346,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-13-集群介绍/" itemprop="url">Redis-13-集群介绍</a></h1>
+                <a class="post-title-link" href="/2019/05/25/Docker-7-Dockerfile的简单使用/" itemprop="url">Docker-7-Dockerfile的简单使用</a></h1>
         
 
         <div class="post-meta">
@@ -1366,8 +1358,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:17:53+08:00">
-                2019-04-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:26:31+08:00">
+                2019-05-25
               </time>
             
 
@@ -1389,8 +1381,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -1428,11 +1420,12 @@
       
         
           
-          述上文中,我们搭建的是主从结构的redis,那所有的写操作都是在master上的,然后同步更新到slave,所以从Master同步到Slave机器有一定的延迟,当系统很繁忙的时候,延迟问题会更加严重,Slave机器数量的增加也会使这个问题更加严重, 这时候就需要用到集群来提升reids的性能, 下面
+          述上文中,我们使用commit的方式创建了一个本地的镜像,但是commit方式存在一些问题,比如不够透明化,无法重复,体积较大,为了解决这些问题,可以使用Dockerfile  
+Dockerfile是一个文本文件,其内包含了一条条的指令(Instruction),每一条指令构建一层,因此每一条指令
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-13-集群介绍/#more" rel="contents">
+            <a class="btn" href="/2019/05/25/Docker-7-Dockerfile的简单使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1483,7 +1476,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-12-哨兵模式/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-6-构建自己的镜像/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1502,7 +1495,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-12-哨兵模式/" itemprop="url">Redis-12-哨兵模式</a></h1>
+                <a class="post-title-link" href="/2019/05/25/Docker-6-构建自己的镜像/" itemprop="url">Docker-6-构建自己的镜像</a></h1>
         
 
         <div class="post-meta">
@@ -1514,8 +1507,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:17:39+08:00">
-                2019-04-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:26:16+08:00">
+                2019-05-25
               </time>
             
 
@@ -1537,8 +1530,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -1576,12 +1569,14 @@
       
         
           
-          述上文中,使用了两种方式搭建redis主从,这两种方式无论是哪种,都会存在一个问题,那就是在主机宕机的时候,就会发生群龙无首的情况,那么如果在master挂掉的时候,能够从slave中选举出一个来充当master,就不需要我们去手动重启主机了,这就是哨兵模式   
-环境准备本文环境基于上文中,如下这
+          述上文中,介绍了对于镜像的一些常用的操作,还有镜像和容器的关系等,本文来看一下如何构建一个自己的镜像   
+创建容器这里我们创建两个nginx的容器,首先就需要有nginx的镜像,如果没有的话可以用以下命令下载一个下来:1docker pull nginx
+   
+首先启动一个nginx容器,然后复
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-12-哨兵模式/#more" rel="contents">
+            <a class="btn" href="/2019/05/25/Docker-6-构建自己的镜像/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1632,7 +1627,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-11-主从复制环境搭建/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/Docker-5-镜像的一些基本操作/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1651,7 +1646,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/27/Redis-11-主从复制环境搭建/" itemprop="url">Redis-11-主从复制环境搭建</a></h1>
+                <a class="post-title-link" href="/2019/05/25/Docker-5-镜像的一些基本操作/" itemprop="url">Docker-5-镜像的一些基本操作</a></h1>
         
 
         <div class="post-meta">
@@ -1663,8 +1658,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:17:28+08:00">
-                2019-04-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:26:03+08:00">
+                2019-05-25
               </time>
             
 
@@ -1686,8 +1681,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -1725,11 +1720,13 @@
       
         
           
-          述上文中,介绍了两种redis的持久化方式,分别是RDB和AOF的方式,下面再来看看redis中的主从复制.主从配置也是一种数据备份的方案,而且可以在一定程度上提升redis性能,redis的主从复制和关系型数据库中的主从复制类似, 从机可以精确的复制主机上的数据, 配置好主从之后,一方面能够实现读
+          述前面的文章中说的都是一些针对容器的操作,下面再来看一下镜像,镜像是容器运行的基础,容器是镜像运行后的形态   
+镜像是一个包含程序运行必要的环境和代码的只读文件,它采用分层的文件系统,将每一层的改变以读写的形式增加到原来的只读文件上   
+镜像和容器的关系前文中我们已经使用过容器了,我们在创建或者
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/27/Redis-11-主从复制环境搭建/#more" rel="contents">
+            <a class="btn" href="/2019/05/25/Docker-5-镜像的一些基本操作/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1771,7 +1768,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1817,7 +1814,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">258</span>
+                  <span class="site-state-item-count">275</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1828,7 +1825,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1839,7 +1836,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1907,7 +1904,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共288.8k字</span>
+  <span class="post-count">博客全站共309k字</span>
 </div>
         
 

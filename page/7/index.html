@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-2-自定义用户登录/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-19-绑定和解绑处理/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-2-自定义用户登录/" itemprop="url">Spring Security-2-自定义用户登录</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-19-绑定和解绑处理/" itemprop="url">Spring Security-19-绑定和解绑处理</a></h1>
         
 
         <div class="post-meta">
@@ -313,7 +313,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:51:35+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:54:36+08:00">
                 2019-09-10
               </time>
             
@@ -375,12 +375,12 @@
       
         
           
-          述上一个案例中,我们简单的实现了用户的登录,用的是Spring Security的默认的用户名和密码, 实际情况中,我们肯定是要从数据库里面去获取用户信息,然后接下来就看一下具体的要如何实现   
-大致流程登录就是用户名,密码还有一些其他的校验, 上文中对认证源码有了一些大致的了解,我们自定义登录主
+          述在使用第三方登录时,有一个常见的场景就是用户登录完成之后,再去绑定/解绑第三方社交账号   
+绑定也是需要走一下 OAuth 流程,用户授权完成之后,将第三方的用户信息与当前系统的用户信息做一个绑定, 这里和登录不同的地方是, 登录是不知道当前用户信息的,需要先拿到第三方用户信息然后去 userc
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-2-自定义用户登录/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-19-绑定和解绑处理/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -431,7 +431,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-1-基本原理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-18-开发微信登录/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -450,7 +450,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-1-基本原理/" itemprop="url">Spring Security-1-基本原理</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-18-开发微信登录/" itemprop="url">Spring Security-18-开发微信登录</a></h1>
         
 
         <div class="post-meta">
@@ -462,7 +462,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:51:16+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:54:26+08:00">
                 2019-09-10
               </time>
             
@@ -524,14 +524,314 @@
       
         
           
-          述前文中,简单的使用了一下Spring Security,做了基本的用户名密码的认证,下面来大致的看一下,登录这个过程,Spring Security做了哪些事情   
-基本原理Spring Security的认证授权等处理是经过一系列的filter实现的,大致流程图如下:   
+          述上文中实现了整个QQ登录的流程,本文来实现以下微信的授权登录, 总体逻辑是和QQ一样的,部分地方有所区别   
+ServiceProvider构建构建 ServiceProvider 需要 API 和 OAuth2Operations  
+微信API新建接口 WeChat12345678publi
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/10/Spring-Security-18-开发微信登录/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-17-处理注册逻辑/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="周泽">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八度空间">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-17-处理注册逻辑/" itemprop="url">Spring Security-17-处理注册逻辑</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:54:19+08:00">
+                2019-09-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          述上文中,最后QQ授权成功,获取到用户信息之后,是跳转到了一个 /sign/up 的请求上去, 下面首先看一下为什么会跳转到注册页面上去   
+首先,按照 security 的登录流程, 上文中获取到了 QQ 信息,然后组成一个未认证的 SocialAuthenticationToken 对象, 然
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/10/Spring-Security-17-处理注册逻辑/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-16-开发QQ登录-下/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="周泽">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="八度空间">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-16-开发QQ登录-下/" itemprop="url">Spring Security-16-开发QQ登录(下)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:54:06+08:00">
+                2019-09-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          述上文中,整个QQ登录的流程的代码已经写完了,可以启动项目试一下, 点QQ登录,效果如下:   
    
-一个请求进
+可以看下QQ的文档, 就是回调地址不合法   
+这只是一个问题,在运行代码的过程中还会有几个问题,下面来看一下   
+回调地址上面的问题就是回调地址不对, 在QQ互联里面,需要在自己应用中去配置
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-1-基本原理/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-16-开发QQ登录-下/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -582,7 +882,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-0-简介及简单使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-15-开发QQ登录-中/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -601,7 +901,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-0-简介及简单使用/" itemprop="url">Spring Security-0-简介及简单使用</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-15-开发QQ登录-中/" itemprop="url">Spring Security-15-开发QQ登录(中)</a></h1>
         
 
         <div class="post-meta">
@@ -613,7 +913,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:51:03+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:53:58+08:00">
                 2019-09-10
               </time>
             
@@ -675,13 +975,12 @@
       
         
           
-          简介Spring Security是一个强大的和高度可定制的身份验证和访问控制框架  
-
-Spring Security着重于为Java应用程序提供身份验证和授权。身份验证是为用户建立一个他所声明的主体的过程（主体一般式指用户，设备或可以在你系统中执行动作的其他系统）。授权指的是一个用户能否在你的应
+          述上文中实现了 ServiceProvider 的部分, 然后剩下就是 ConnectionFactory 创建 Connection 的部分还有与数据量交互的部分   
+ConnectionFactory 构建适配器实现要构建 ConnectionFactory 就需要 ServiceProvid
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-0-简介及简单使用/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-15-开发QQ登录-中/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -732,7 +1031,7 @@ Spring Security着重于为Java应用程序提供身份验证和授权。身份�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/03/Spring-Boot-全局异常处理及自定义异常/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-14-开发QQ登录-上/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -751,7 +1050,7 @@ Spring Security着重于为Java应用程序提供身份验证和授权。身份�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/08/03/Spring-Boot-全局异常处理及自定义异常/" itemprop="url">Spring Boot-全局异常处理及自定义异常</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-14-开发QQ登录-上/" itemprop="url">Spring Security-14-开发QQ登录(上)</a></h1>
         
 
         <div class="post-meta">
@@ -763,8 +1062,8 @@ Spring Security着重于为Java应用程序提供身份验证和授权。身份�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-03T17:21:21+08:00">
-                2019-08-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:53:48+08:00">
+                2019-09-10
               </time>
             
 
@@ -786,8 +1085,8 @@ Spring Security着重于为Java应用程序提供身份验证和授权。身份�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Boot</span>
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
                   </a>
                 </span>
 
@@ -825,12 +1124,12 @@ Spring Security着重于为Java应用程序提供身份验证和授权。身份�
       
         
           
-          述在日常开发过程中,我们使用Spring Boot,如果程序中抛出了一个异常,那我们在网页中看到的内容可能如下:返回的是一个默认的错误页面,那如果我们是用的postMan等工具去请求接口呢, 看到的信息会是一个json字符串,如下:  
-那他是怎么实现不同的环境返回不同的内容呢? 下面来看一下Spr
+          述本文开始,实现一个第三方登录,以QQ为例,首先需要去QQ互联里面,申请开发者认证,然后创建应用,搞到AppId,和AppKey   
+实现流程按照上文中的实现流程,先是构建 ServiceProvider ,然后是 ConnectionFactory 然后 Connection 最后交互数据库  
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/08/03/Spring-Boot-全局异常处理及自定义异常/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-14-开发QQ登录-上/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -881,7 +1180,7 @@ Spring Security着重于为Java应用程序提供身份验证和授权。身份�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/03/Spring-自定义注解校验字段格式/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-13-OAuth2协议及Spring-Social简介/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -900,7 +1199,7 @@ Spring Security着重于为Java应用程序提供身份验证和授权。身份�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/08/03/Spring-自定义注解校验字段格式/" itemprop="url">Spring-自定义注解校验字段格式</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-13-OAuth2协议及Spring-Social简介/" itemprop="url">Spring Security-13-OAuth2协议及Spring Social简介</a></h1>
         
 
         <div class="post-meta">
@@ -912,8 +1211,8 @@ Spring Security着重于为Java应用程序提供身份验证和授权。身份�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-03T17:19:38+08:00">
-                2019-08-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:53:38+08:00">
+                2019-09-10
               </time>
             
 
@@ -935,8 +1234,8 @@ Spring Security着重于为Java应用程序提供身份验证和授权。身份�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring</span>
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
                   </a>
                 </span>
 
@@ -974,12 +1273,12 @@ Spring Security着重于为Java应用程序提供身份验证和授权。身份�
       
         
           
-          述在我们日常编码中,服务端需要校验很多字段的格式,比如是不是为空,字段长度等等各种验证,这些验证如果写到我们的代码逻辑中的话,每次开始都需要做大量的校验,而且还有可能在不同的方法中校验的逻辑相同,那就可能会复制大量相同的代码,看着很烦   
-java给我们提供了很多验证的注解,比如下面这个model
+          述上文中,已经实现了短信登录的方式, 常见的登录方式还有第三方登录,比如集成微信或者QQ登录, 第三方登录我们可以使用 Spring Social 去开发, 这里首先得要了解一下 OAuth2 协议   
+OAuth协议简介以微信登录为例,使用微信登录后,通常我们需要去微信拿用户的信息, 最常见的方
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/08/03/Spring-自定义注解校验字段格式/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-13-OAuth2协议及Spring-Social简介/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1030,7 +1329,7 @@ java给我们提供了很多验证的注解,比如下面这个model
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-14-心跳与空闲检测/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-12-短信登录配置及验证逻辑重构/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1049,7 +1348,7 @@ java给我们提供了很多验证的注解,比如下面这个model
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/02/Netty-14-心跳与空闲检测/" itemprop="url">Netty-14-心跳与空闲检测</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-12-短信登录配置及验证逻辑重构/" itemprop="url">Spring Security-12-短信登录配置及验证逻辑重构</a></h1>
         
 
         <div class="post-meta">
@@ -1061,8 +1360,8 @@ java给我们提供了很多验证的注解,比如下面这个model
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T11:07:34+08:00">
-                2019-07-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:53:30+08:00">
+                2019-09-10
               </time>
             
 
@@ -1084,8 +1383,8 @@ java给我们提供了很多验证的注解,比如下面这个model
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
                   </a>
                 </span>
 
@@ -1123,12 +1422,12 @@ java给我们提供了很多验证的注解,比如下面这个model
       
         
           
-          述连接假死现象: 在某一端(服务端或者客户端)看来底层TCP连接已经断开,但是应用程序并没有捕获到,因此认为这条连接仍然是存在的,从TCP层面来说,只有收到四次握手数据包或者一个RST数据包,连接的状态表示已断开.   
-引发的问题: 对于服务端来说,因为每条连接都耗费CPU和内存资源,大量假死的连
+          述上文中,已经把短信登录流程的代码写好了,但是这些都没有加到 Spring Security 中, 所以并没有生效, 下面看一下如何将我们自定义的这个登录流程配置到 Spring Security 中去   
+配置这个登录方式,可能会在多个环境下用到,所以这里把配置类写到core项目里面去, 新建类
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/07/02/Netty-14-心跳与空闲检测/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-12-短信登录配置及验证逻辑重构/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1179,7 +1478,7 @@ java给我们提供了很多验证的注解,比如下面这个model
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-13-性能优化处理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-11-实现短信登录流程/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1198,7 +1497,7 @@ java给我们提供了很多验证的注解,比如下面这个model
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/02/Netty-13-性能优化处理/" itemprop="url">Netty-13-性能优化处理</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-11-实现短信登录流程/" itemprop="url">Spring Security-11-实现短信登录流程</a></h1>
         
 
         <div class="post-meta">
@@ -1210,8 +1509,8 @@ java给我们提供了很多验证的注解,比如下面这个model
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T11:06:56+08:00">
-                2019-07-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:53:20+08:00">
+                2019-09-10
               </time>
             
 
@@ -1233,8 +1532,8 @@ java给我们提供了很多验证的注解,比如下面这个model
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
                   </a>
                 </span>
 
@@ -1272,13 +1571,17 @@ java给我们提供了很多验证的注解,比如下面这个model
       
         
           
-          述我们在实现完一系列的功能之后,会有很多的handler通过pipeline加到channel中去, 下面看一下如何去优化这些handler  
-优化第一步:共享handler首先来看下服务端的代码:  
-指令相关的handler很多,netty在这里的逻辑是:每次有新连接到来的时候,都会调用Cha
+          述上文中实现了验证码发送接口的开发,以及重构, 本文再来看一下如何实现短信验证码的登录   
+先来回顾一下之前的用户名密码的登录认证流程  
+然后我们要做一个短信认证的流程,就仿照这个流程来就ok了    
+基本思路  
+跟之前的用户名密码的登录流程是一样的   
+
+提供一个校验验证码的filter
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/07/02/Netty-13-性能优化处理/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-11-实现短信登录流程/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1329,7 +1632,7 @@ java给我们提供了很多验证的注解,比如下面这个model
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-12-channelHandler热拔插/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-10-验证码发送代码重构/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1348,7 +1651,7 @@ java给我们提供了很多验证的注解,比如下面这个model
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/02/Netty-12-channelHandler热拔插/" itemprop="url">Netty-12-channelHandler热拔插</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-10-验证码发送代码重构/" itemprop="url">Spring Security-10-验证码发送代码重构</a></h1>
         
 
         <div class="post-meta">
@@ -1360,8 +1663,8 @@ java给我们提供了很多验证的注解,比如下面这个model
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T11:06:25+08:00">
-                2019-07-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:53:10+08:00">
+                2019-09-10
               </time>
             
 
@@ -1383,8 +1686,8 @@ java给我们提供了很多验证的注解,比如下面这个model
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
                   </a>
                 </span>
 
@@ -1422,315 +1725,16 @@ java给我们提供了很多验证的注解,比如下面这个model
       
         
           
-          述前面的代码中,我们的客户端登录之后,存了一个标记,表示当前的channel是已登录的状态,然后每次发现系的时候都需要去验证一次用户是否登录,代码如下:   
-这里我们也可以在服务端加一个handler去验证用户是否登录   
-登录验证handler新建一个handler,代码如下:12345678
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/02/Netty-12-channelHandler热拔插/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-11-channelHandler的生命周期/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="周泽">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="八度空间">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/02/Netty-11-channelHandler的生命周期/" itemprop="url">Netty-11-channelHandler的生命周期</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T11:05:42+08:00">
-                2019-07-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          述我们之前在使用channelHanndler的时候,只重写了channelRead()和channelActive()这两个方法,它里面还有一些其他的方法, 这些方法的回调顺序就是channelHandler的生命周期   
-案例新建一个handler,名称是LifeCyCleTestHandle
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/02/Netty-11-channelHandler的生命周期/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/Netty-10-案例-粘包拆包/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="周泽">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="八度空间">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/02/Netty-10-案例-粘包拆包/" itemprop="url">Netty-10-案例-粘包拆包</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T11:05:16+08:00">
-                2019-07-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          述先来看一个简单的例子,服务端向客户端发送1000条数据,然后服务端打印出来代码如下   
-拆包粘包示例客户端代码:  
-服务端代码:   
-然后通过channel.pipeline().addLast()把这两个handler添加到对应的端,最后运行看服务端的输出   
+          述上文中实现了验证码的发送,先后的发送的代码是这样的   
    
-这里存在以下三种类
+这两个发送的方法其实都是一样的. 只是最后一个是返回图片给页面,一个是给用户发送验证码, 那这两个方法其实可以抽象出来,封装成一个, 下面看一下这些逻辑该如何去重构   
+验证码发送器图片验证码或者短信验证码的逻辑如下:  
+
+生成
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/07/02/Netty-10-案例-粘包拆包/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-10-验证码发送代码重构/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1772,7 +1776,7 @@ java给我们提供了很多验证的注解,比如下面这个model
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1818,7 +1822,7 @@ java给我们提供了很多验证的注解,比如下面这个model
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">258</span>
+                  <span class="site-state-item-count">275</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1829,7 +1833,7 @@ java给我们提供了很多验证的注解,比如下面这个model
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1840,7 +1844,7 @@ java给我们提供了很多验证的注解,比如下面这个model
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1908,7 +1912,7 @@ java给我们提供了很多验证的注解,比如下面这个model
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共288.8k字</span>
+  <span class="post-count">博客全站共309k字</span>
 </div>
         
 

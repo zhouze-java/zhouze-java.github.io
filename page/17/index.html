@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/22/Elasticsearch-97-基于地理位置的搜索和聚合/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-3-高可用注册中心/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/22/Elasticsearch-97-基于地理位置的搜索和聚合/" itemprop="url">Elasticsearch-97-基于地理位置的搜索和聚合</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-3-高可用注册中心/" itemprop="url">Spring Cloud-3-高可用注册中心</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-22T16:01:58+08:00">
-                2019-01-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:06:50+08:00">
+                2019-04-10
               </time>
             
 
@@ -336,8 +336,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -375,13 +375,12 @@
       
         
           
-          案例背景一个酒店o2o的app,根据用户指定的位置,找到周围的符合条件的酒店.  
-geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记录了经度和纬度,通过经纬度,就可以定位地球上的位置   
-创建索引123456789101112PUT /my_index&#123; 
+          在微服务架构这样的分布式环境中,我们需要充分考虑发生故障的情况,所以在生产环境中必须对各个组件进行高可用部署,对于微服务如此,对于服务注册中心也一样.   
+Eureka Server的设计一开始就考虑了高可用问题,在eureka的服务治理设计中,所有节点既是服务提供方,也是服务消费方,注册中心也不
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/22/Elasticsearch-97-基于地理位置的搜索和聚合/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-3-高可用注册中心/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -432,7 +431,7 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/22/Elasticsearch-96-使用动态映射模板定制自己的映射策略/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-2-Eureka-Server-Client/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -451,7 +450,7 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/22/Elasticsearch-96-使用动态映射模板定制自己的映射策略/" itemprop="url">Elasticsearch-96-使用动态映射模板定制自己的映射策略</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-2-Eureka-Server-Client/" itemprop="url">Spring Cloud-2-Eureka Server & Client</a></h1>
         
 
         <div class="post-meta">
@@ -463,8 +462,8 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-22T11:33:56+08:00">
-                2019-01-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:06:38+08:00">
+                2019-04-10
               </time>
             
 
@@ -486,8 +485,8 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -525,12 +524,11 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
       
         
           
-          述比如说,我们本来没有某个type,或者说没有某个field,但是希望在插入数据的时候,es自动为我们做一个识别,动态映射出这个type的mapping,包括每个field的数据类型,一般用的动态映射就是dynamic mapping   
-这里有个问题,如果说,我们其实对dynamic mappi
+          搭建服务注册中心可以通过Spring Initializr来创建一个Spring boot的工程,命名为eureka-server,然后引入依赖1234&lt;dependency&gt;    &lt;groupId&gt;org.springframework.cloud&lt;/groupId
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/22/Elasticsearch-96-使用动态映射模板定制自己的映射策略/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-2-Eureka-Server-Client/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -581,7 +579,7 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/21/Elasticsearch-95-基于completion-suggest实现搜索提示/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-1-服务治理与Eureka/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -600,7 +598,7 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/21/Elasticsearch-95-基于completion-suggest实现搜索提示/" itemprop="url">Elasticsearch-95-基于completion suggest实现搜索提示</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-1-服务治理与Eureka/" itemprop="url">Spring Cloud-1-服务治理与Eureka</a></h1>
         
 
         <div class="post-meta">
@@ -612,8 +610,8 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-21T16:11:41+08:00">
-                2019-01-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:06:23+08:00">
+                2019-04-10
               </time>
             
 
@@ -635,8 +633,8 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -674,12 +672,13 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
       
         
           
-          completion suggest搜索联想,智能提示,自动完成(auto completion)比如说,google搜索 Elastic,会自动提示elasticsearch, 等等   
-案例创建索引首先,需要创建索引的时候,设置completion12345678910111213141516
+          服务治理服务治理可以说是微服务架构中最为核心和基础的模块,它主要用来实现各个微服务实例的自动化注册与发现.  
+那么为什么需要服务治理呢?  
+举个例子,某个系统在最初开始构建微服务系统的时候可能服务并不多,我们可以通过做一些静态配置来完成服务的调用.比如,有两个服务 A 和 B, 其中服务 A 需
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/21/Elasticsearch-95-基于completion-suggest实现搜索提示/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-1-服务治理与Eureka/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -730,7 +729,7 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/21/Elasticsearch-94-search-template搜索模板化/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-0-什么是微服务架构/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -749,7 +748,7 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/21/Elasticsearch-94-search-template搜索模板化/" itemprop="url">Elasticsearch-94-search template搜索模板化</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-0-什么是微服务架构/" itemprop="url">Spring Cloud-0-什么是微服务架构</a></h1>
         
 
         <div class="post-meta">
@@ -761,8 +760,8 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-21T11:59:20+08:00">
-                2019-01-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:05:54+08:00">
+                2019-04-10
               </time>
             
 
@@ -784,8 +783,8 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -823,12 +822,12 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
       
         
           
-          简介search template 搜索模板,可以将一些常用的搜索模板化,每次要执行这个搜索的时候,就直接调用模板,然后传入参数就好了    
-入门先写一个简单的模板1234567891011121314GET /blog_website/blogs/_search/template&#123;  
+          什么是微服务架构简单说,微服务是系统架构上的一种设计风格,它的主旨是将一个原本独立的系统拆分成多个小型服务,这些小型服务在各自的进程中运行,服务与服务之间通过HTTP的RESTful API进行通信.   
+比如说一个商城,可以将购买流程拆分成 登陆 选择商品 下单 商品发货 订单完成 等多个服务.
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/21/Elasticsearch-94-search-template搜索模板化/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-Cloud-0-什么是微服务架构/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -879,7 +878,7 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/18/Elasticsearch-93-深入剖析搜索结果的高亮显示/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Elasticsearch-110-production-mode下启动时的bootstrap-check/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -898,7 +897,7 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/18/Elasticsearch-93-深入剖析搜索结果的高亮显示/" itemprop="url">Elasticsearch-93-深入剖析搜索结果的高亮显示</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Elasticsearch-110-production-mode下启动时的bootstrap-check/" itemprop="url">Elasticsearch-110-production mode下启动时的bootstrap check</a></h1>
         
 
         <div class="post-meta">
@@ -910,8 +909,8 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T17:03:33+08:00">
-                2019-01-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T15:54:53+08:00">
+                2019-04-10
               </time>
             
 
@@ -972,12 +971,11 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
       
         
           
-          搜索结果高亮显示先来看一个最基本的高亮案例   
-首先创建一个索引1234567891011121314151617PUT /blog_website&#123;  &quot;mappings&quot;: &#123;    &quot;blogs&quot;: &#123;      &quo
+          bootstrap check经常会碰到一些es的用户,遇到一些奇怪的问题,主要是因为他们没有配置一些重要的设置.在es以前的老版本中,对这些设置错误的配置,会在日志里记录一些warning告警.但是有时候用户会忽略这些日志中的告警信息.为了确保说这些设置的错误配置告警信息可以引起用户的注意,es的
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/18/Elasticsearch-93-深入剖析搜索结果的高亮显示/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Elasticsearch-110-production-mode下启动时的bootstrap-check/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1028,7 +1026,7 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/18/Elasticsearch-92-查询term-vectors词条向量信息/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Elasticsearch-109-生产集群部署时对操作系统的一些设置/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1047,7 +1045,7 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/18/Elasticsearch-92-查询term-vectors词条向量信息/" itemprop="url">Elasticsearch-92-查询term vectors词条向量信息</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Elasticsearch-109-生产集群部署时对操作系统的一些设置/" itemprop="url">Elasticsearch-109-生产集群部署时对操作系统的一些设置</a></h1>
         
 
         <div class="post-meta">
@@ -1059,8 +1057,8 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T14:44:41+08:00">
-                2019-01-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T14:58:24+08:00">
+                2019-04-10
               </time>
             
 
@@ -1121,15 +1119,18 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
       
         
           
-          term vectors介绍可以理解为,关于 词 的一些统计信息.   
-可以查询到的信息比如有 
+          概述理想情况下,es应该单独在一个服务器上运行,能够使用服务器上的所有资源.为了达到上述目标,我们需要配置操作系统,来允许用户运行es并且获取比默认情况下更多的资源.  
+在生产环境中下面的一些设置必须配置一下:  
 
-词条的信息,比如position位置,start_offset开始的偏移值, end_offset结束的偏移值,词条的payLoads(主要用于自定义字段的权重)   
-词条统计,doc_freq,
+禁止swapping
+确保拥有足够的虚拟内存
+确保拥有足够的线程数量
+
+默认情况
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/18/Elasticsearch-92-查询term-vectors词条向量信息/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Elasticsearch-109-生产集群部署时对操作系统的一些设置/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1180,7 +1181,7 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/18/Elasticsearch-91-祖孙三层数据关系建模及搜索/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Elasticsearch-108-Jvm和服务器内存分配的最佳实践以及原理分析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1199,7 +1200,7 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/18/Elasticsearch-91-祖孙三层数据关系建模及搜索/" itemprop="url">Elasticsearch-91-祖孙三层数据关系建模及搜索</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Elasticsearch-108-Jvm和服务器内存分配的最佳实践以及原理分析/" itemprop="url">Elasticsearch-108-Jvm和服务器内存分配的最佳实践以及原理分析</a></h1>
         
 
         <div class="post-meta">
@@ -1211,8 +1212,8 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T10:10:11+08:00">
-                2019-01-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T14:36:21+08:00">
+                2019-04-10
               </time>
             
 
@@ -1273,11 +1274,12 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
       
         
           
-          数据建模祖孙三层的数据建模12345678910111213141516PUT /company&#123;  &quot;mappings&quot;: &#123;    &quot;country&quot;: &#123;&#125;,    &quot;rd_center&quot;: &
+          概述前文中,说了一些针对es集群可能会出现的一些问题的配置,本文来说一下如何合理的对es进行内存的分配,为什么?   
+Jvm Heap分配es默认会给jvm heap分配2个G的大小,对于几乎所有的生产环境来说,这个内存都太小了.如果用这个默认的heap size,那么生产环境的集群肯定表现不会太
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/18/Elasticsearch-91-祖孙三层数据关系建模及搜索/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Elasticsearch-108-Jvm和服务器内存分配的最佳实践以及原理分析/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1328,7 +1330,7 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/17/Elasticsearch-90-父子关系类型的数据建模与搜索聚合/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Elasticsearch-107-不要随意调节JVM和Thread-Pool的原因/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1347,7 +1349,7 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/17/Elasticsearch-90-父子关系类型的数据建模与搜索聚合/" itemprop="url">Elasticsearch-90-父子关系类型的数据建模与搜索聚合</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Elasticsearch-107-不要随意调节JVM和Thread-Pool的原因/" itemprop="url">Elasticsearch-107-不要随意调节JVM和Thread Pool的原因</a></h1>
         
 
         <div class="post-meta">
@@ -1359,8 +1361,8 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-17T17:56:22+08:00">
-                2019-01-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T11:43:28+08:00">
+                2019-04-10
               </time>
             
 
@@ -1421,12 +1423,12 @@ geo_point地理位置数据类型geo_point,就是一个地理位置坐标点,记
       
         
           
-          parent child建模之前用的nested object的建模方式,有个不好的地方,就是采取类似冗余数据的方式,将多个数据都放在了一起,维护成本比较高   
-parent child建模方式,采用的是类似数据库三范式的建模,多个实体都分割开来,每个实体之间都通过一些关联的方式,进行了父子关系的
+          概述es中有很多配置我们可以去调节,但是在99.99%的情况下,对于es来说,大部分的参数保留为默认的就可以了,因为这些参数经常被滥用和错误的调节,继而导致严重的稳定性问题以及性能的急剧下降.  
+Jvm GCes默认用的垃圾回收器是CMS,jvm使用垃圾回收器来释放掉不用的内存,千万不要去调节默认
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/17/Elasticsearch-90-父子关系类型的数据建模与搜索聚合/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Elasticsearch-107-不要随意调节JVM和Thread-Pool的原因/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1477,7 +1479,7 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/17/Elasticsearch-89-针对nested-object的聚合分析案例/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Elasticsearch-106-针对集群重启时shard恢复耗时过长问题的参数设置/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1496,7 +1498,7 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/17/Elasticsearch-89-针对nested-object的聚合分析案例/" itemprop="url">Elasticsearch-89-针对nested object的聚合分析案例</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Elasticsearch-106-针对集群重启时shard恢复耗时过长问题的参数设置/" itemprop="url">Elasticsearch-106-针对集群重启时shard恢复耗时过长问题的参数设置</a></h1>
         
 
         <div class="post-meta">
@@ -1508,8 +1510,8 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-17T15:55:06+08:00">
-                2019-01-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T11:42:48+08:00">
+                2019-04-10
               </time>
             
 
@@ -1570,12 +1572,12 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
       
         
           
-          对于nested object里面的数据,如何做聚合分析呢? 以上文的数据作为背景 来看两个案例   
-案例一需求: 按照评论日期进行划分bucket,拿到每个月评论的stars的平均值请求123456789101112131415161718192021222324252627GET /websi
+          问题在集群重启的时候,有一些配置会影响shard的恢复,首先,我们需要理解默认配置下,shard恢复过程会发生什么事情.  
+假设集群中有10个node,每个node上面有一个shard, 可能是primary shard也可能是replica shard,就比如说我们有一个index,有5个pri
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/17/Elasticsearch-89-针对nested-object的聚合分析案例/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Elasticsearch-106-针对集群重启时shard恢复耗时过长问题的参数设置/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1626,7 +1628,7 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/17/Elasticsearch-88-nested-object数据结构/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/09/Elasticsearch-105-针对集群脑裂问题定制的重要参数/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1645,7 +1647,7 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/17/Elasticsearch-88-nested-object数据结构/" itemprop="url">Elasticsearch-88-nested object数据结构</a></h1>
+                <a class="post-title-link" href="/2019/04/09/Elasticsearch-105-针对集群脑裂问题定制的重要参数/" itemprop="url">Elasticsearch-105-针对集群脑裂问题定制的重要参数</a></h1>
         
 
         <div class="post-meta">
@@ -1657,8 +1659,8 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-17T10:54:24+08:00">
-                2019-01-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-09T17:29:18+08:00">
+                2019-04-09
               </time>
             
 
@@ -1719,11 +1721,13 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
       
         
           
-          普通object类型用冗余数据的方式来建模,其实用的就是object类型,来看一个数据12345678910111213141516171819202122PUT /website/blogs/6&#123;  &quot;title&quot;: &quot;花无缺发表的一篇帖子&quot;,  
+          概念首先,来认识一下什么是集群脑裂,假设我们现在有一个集群,里面有三个节点,一个是master两个data,如下图:  
+假设现在出现了网络故障,导致一个集群被划分成了两片,两片中的节点无法相互通信,如下图:  
+如图就出现了两个netword partition, 图中在左边这个network p
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/17/Elasticsearch-88-nested-object数据结构/#more" rel="contents">
+            <a class="btn" href="/2019/04/09/Elasticsearch-105-针对集群脑裂问题定制的重要参数/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1765,7 +1769,7 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/16/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/18/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/16/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/18/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1811,7 +1815,7 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">258</span>
+                  <span class="site-state-item-count">275</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1822,7 +1826,7 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1833,7 +1837,7 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1901,7 +1905,7 @@ parent child建模方式,采用的是类似数据库三范式的建模,多个实
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共288.8k字</span>
+  <span class="post-count">博客全站共309k字</span>
 </div>
         
 

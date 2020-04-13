@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-22-Spring-Security-OAuth-简介/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-0-系统初始化器/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-22-Spring-Security-OAuth-简介/" itemprop="url">Spring Security-22-Spring Security OAuth 简介</a></h1>
+                <a class="post-title-link" href="/2020/03/07/Spring-Boot-0-系统初始化器/" itemprop="url">Spring Boot-0-系统初始化器</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:55:01+08:00">
-                2019-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:28:25+08:00">
+                2020-03-07
               </time>
             
 
@@ -336,8 +336,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Security</span>
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
                   </a>
                 </span>
 
@@ -375,12 +375,13 @@
       
         
           
-          述之前的 Spring Social 中,我们是去访问别人的 OAuth 服务,在我们自己的系统中,客户端访问服务还是基于 session 的,结构大致如下:   
-如果是前后端分离开发,再按上面这种方式开发就比较繁琐,而且安全性和客户体验差, 一旦 JSESSIONID 泄露,那可能就会被伪造身份
+          述在Spring Boot项目的启动过程中,我们可以手动的去通过系统初始化器,往容器中设置系统变量,或者是进行一些其他的操作,本文将看一下系统初始化器的几种定义方式.  
+准备工作首先新建一个空白的Spring Boot项目,启动测试没问题之后,开始下面的操作.  
+第一种方式首先新建一个类 Fir
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-22-Spring-Security-OAuth-简介/#more" rel="contents">
+            <a class="btn" href="/2020/03/07/Spring-Boot-0-系统初始化器/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -431,7 +432,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-21-退出登录/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-使用-AOP-切片拦截请求/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -450,7 +451,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-21-退出登录/" itemprop="url">Spring Security-21-退出登录</a></h1>
+                <a class="post-title-link" href="/2020/03/07/Spring-Boot-使用-AOP-切片拦截请求/" itemprop="url">Spring Boot-使用 AOP 切片拦截请求</a></h1>
         
 
         <div class="post-meta">
@@ -462,8 +463,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:54:54+08:00">
-                2019-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:26:48+08:00">
+                2020-03-07
               </time>
             
 
@@ -485,8 +486,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Security</span>
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
                   </a>
                 </span>
 
@@ -524,12 +525,11 @@
       
         
           
-          述退出登录的功能,Spring Security 也提供了默认的实现, 接口是 /logout, 直接访问 http://www.pinzhi365.com/logout 接口效果如下:   
-这里会挑战到 /authentication/require?logout 这个请求里面,原因是默认的注销
+          AOPAOP即面向切面编程,在一个web服务中,比如说我们需要每次记录请求的处理时间,或者要记录日志等等功能的时候,如果要把这些写在代码中的话,就很麻烦,产生很多相同的代码,这时候就可以使用AOP, 通过对现有的程序定义一个切入点，然后在其前后切入不同的执行内容,下面来看一个简单的例子,就比如要记录
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-21-退出登录/#more" rel="contents">
+            <a class="btn" href="/2020/03/07/Spring-Boot-使用-AOP-切片拦截请求/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -580,7 +580,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-20-Session管理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/25/Nginx-记录一次部署项目的经过/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -599,7 +599,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-20-Session管理/" itemprop="url">Spring Security-20-Session管理</a></h1>
+                <a class="post-title-link" href="/2019/10/25/Nginx-记录一次部署项目的经过/" itemprop="url">Nginx-记录一次部署项目的经过</a></h1>
         
 
         <div class="post-meta">
@@ -611,8 +611,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:54:46+08:00">
-                2019-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-25T18:02:52+08:00">
+                2019-10-25
               </time>
             
 
@@ -634,8 +634,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Security</span>
+                  <a href="/categories/Nginx/" itemprop="url" rel="index">
+                    <span itemprop="name">Nginx</span>
                   </a>
                 </span>
 
@@ -673,18 +673,13 @@
       
         
           
-          述在之前我们已经实现了三种方式的用户登录:  
-
-用户名密码登录
-短信验证码登录
-第三方社交网站登录   
-
-前面两种是使用表单提交的方式登录,后面一种是走 OAuth 流程登录, 但是不管是哪种类型的登陆,最后的用户认证信息都会放到 session 中去    
-对于session的一些配置,比如
+          述上文中,安装配置好了nginx,然后下面就可以去使用了   
+我这里打算是部署一个VUE的前端项目,然后还有一个 Spring Boot 的 jar 包, vue是需要用到nginx部署的, nginx的端口需要是80,或者https要443, 这里就以http的为例   
+nginx 用了80端
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-20-Session管理/#more" rel="contents">
+            <a class="btn" href="/2019/10/25/Nginx-记录一次部署项目的经过/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -735,7 +730,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-19-绑定和解绑处理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/25/Nginx-通过docker安装使用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -754,7 +749,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-19-绑定和解绑处理/" itemprop="url">Spring Security-19-绑定和解绑处理</a></h1>
+                <a class="post-title-link" href="/2019/10/25/Nginx-通过docker安装使用/" itemprop="url">Nginx-通过docker安装使用</a></h1>
         
 
         <div class="post-meta">
@@ -766,8 +761,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:54:36+08:00">
-                2019-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-25T18:02:25+08:00">
+                2019-10-25
               </time>
             
 
@@ -789,8 +784,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Security</span>
+                  <a href="/categories/Nginx/" itemprop="url" rel="index">
+                    <span itemprop="name">Nginx</span>
                   </a>
                 </span>
 
@@ -828,12 +823,12 @@
       
         
           
-          述在使用第三方登录时,有一个常见的场景就是用户登录完成之后,再去绑定/解绑第三方社交账号   
-绑定也是需要走一下 OAuth 流程,用户授权完成之后,将第三方的用户信息与当前系统的用户信息做一个绑定, 这里和登录不同的地方是, 登录是不知道当前用户信息的,需要先拿到第三方用户信息然后去 userc
+          述最近打算部署一个个人的网站,由于之前做的都是后端的事情,部署个jar包就可以了,也没有完整的部署过一个项目,然后就去了解了一些nginx的用法,这里做一下记录   
+首先还是打算用docker安装, 比较方便,之后挂载一下文件以及配置的目录就可以了,不了解docker的同学,可以先去熟悉一下,下面
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-19-绑定和解绑处理/#more" rel="contents">
+            <a class="btn" href="/2019/10/25/Nginx-通过docker安装使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -884,7 +879,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-18-开发微信登录/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/08/Spring-Security-35-跨域问题及解决方案/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -903,7 +898,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-18-开发微信登录/" itemprop="url">Spring Security-18-开发微信登录</a></h1>
+                <a class="post-title-link" href="/2019/10/08/Spring-Security-35-跨域问题及解决方案/" itemprop="url">Spring Security-35-跨域问题及解决方案</a></h1>
         
 
         <div class="post-meta">
@@ -915,8 +910,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:54:26+08:00">
-                2019-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-08T12:08:00+08:00">
+                2019-10-08
               </time>
             
 
@@ -977,13 +972,12 @@
       
         
           
-          述上文中实现了整个QQ登录的流程,本文来实现以下微信的授权登录, 总体逻辑是和QQ一样的,部分地方有所区别   
-ServiceProvider构建构建 ServiceProvider 需要 API 和 OAuth2Operations  
-微信API新建接口 WeChat12345678publi
+          述最近在使用过程中,遇到了这样一个问题,就是跨域的处理,算是踩的一个坑,记录一下   
+Spring boot 中跨域的处理Spring boot中处理跨域的方式有很多种,这里不去一个一个细说,只写一个我用的解决方案,部分代码如下:123456789101112131415@Beanpublic W
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-18-开发微信登录/#more" rel="contents">
+            <a class="btn" href="/2019/10/08/Spring-Security-35-跨域问题及解决方案/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1034,7 +1028,7 @@ ServiceProvider构建构建 ServiceProvider 需要 API 和 OAuth2Operations
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-17-处理注册逻辑/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/08/Spring-Security-34-自定义403返回/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1053,7 +1047,7 @@ ServiceProvider构建构建 ServiceProvider 需要 API 和 OAuth2Operations
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-17-处理注册逻辑/" itemprop="url">Spring Security-17-处理注册逻辑</a></h1>
+                <a class="post-title-link" href="/2019/10/08/Spring-Security-34-自定义403返回/" itemprop="url">Spring Security-34-自定义403返回</a></h1>
         
 
         <div class="post-meta">
@@ -1065,8 +1059,8 @@ ServiceProvider构建构建 ServiceProvider 需要 API 和 OAuth2Operations
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:54:19+08:00">
-                2019-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-08T12:04:28+08:00">
+                2019-10-08
               </time>
             
 
@@ -1127,12 +1121,13 @@ ServiceProvider构建构建 ServiceProvider 需要 API 和 OAuth2Operations
       
         
           
-          述上文中,最后QQ授权成功,获取到用户信息之后,是跳转到了一个 /sign/up 的请求上去, 下面首先看一下为什么会跳转到注册页面上去   
-首先,按照 security 的登录流程, 上文中获取到了 QQ 信息,然后组成一个未认证的 SocialAuthenticationToken 对象, 然
+          述之后的文章会记录一些在日常使用过程中遇到的一些问题  
+假设有如下一段配置:1.antMatchers(&quot;/test/*&quot;).hasRole(&quot;USER&quot;)
+表示 /test/* 这种请求只有在是USER角色的情况下才能访问,这时候如果使用了一个没有USER
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-17-处理注册逻辑/#more" rel="contents">
+            <a class="btn" href="/2019/10/08/Spring-Security-34-自定义403返回/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1183,7 +1178,7 @@ ServiceProvider构建构建 ServiceProvider 需要 API 和 OAuth2Operations
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-16-开发QQ登录-下/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-33-权限配置分离/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1202,7 +1197,7 @@ ServiceProvider构建构建 ServiceProvider 需要 API 和 OAuth2Operations
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-16-开发QQ登录-下/" itemprop="url">Spring Security-16-开发QQ登录(下)</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-33-权限配置分离/" itemprop="url">Spring Security-33-权限配置分离</a></h1>
         
 
         <div class="post-meta">
@@ -1214,7 +1209,7 @@ ServiceProvider构建构建 ServiceProvider 需要 API 和 OAuth2Operations
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:54:06+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:56:49+08:00">
                 2019-09-10
               </time>
             
@@ -1276,15 +1271,12 @@ ServiceProvider构建构建 ServiceProvider 需要 API 和 OAuth2Operations
       
         
           
-          述上文中,整个QQ登录的流程的代码已经写完了,可以启动项目试一下, 点QQ登录,效果如下:   
-   
-可以看下QQ的文档, 就是回调地址不合法   
-这只是一个问题,在运行代码的过程中还会有几个问题,下面来看一下   
-回调地址上面的问题就是回调地址不对, 在QQ互联里面,需要在自己应用中去配置
+          述之前的权限配置中,遗留了一个问题,就是在我们公用模块的配置中,有如下的配置   
+这里这个 /user/register 的配置其实是调用方的url, 在我们的公用项目里面,并不知道这些路径,所以我们需要实现的功能就是,调用方去自己的项目里面配置他的权限,然后我们把这些配置集中起来加到 Sprin
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-16-开发QQ登录-下/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-33-权限配置分离/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1335,7 +1327,7 @@ ServiceProvider构建构建 ServiceProvider 需要 API 和 OAuth2Operations
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-15-开发QQ登录-中/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-32-授权部分源码跟踪/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1354,7 +1346,7 @@ ServiceProvider构建构建 ServiceProvider 需要 API 和 OAuth2Operations
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-15-开发QQ登录-中/" itemprop="url">Spring Security-15-开发QQ登录(中)</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-32-授权部分源码跟踪/" itemprop="url">Spring Security-32-授权部分源码跟踪</a></h1>
         
 
         <div class="post-meta">
@@ -1366,7 +1358,7 @@ ServiceProvider构建构建 ServiceProvider 需要 API 和 OAuth2Operations
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:53:58+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:56:28+08:00">
                 2019-09-10
               </time>
             
@@ -1428,12 +1420,16 @@ ServiceProvider构建构建 ServiceProvider 需要 API 和 OAuth2Operations
       
         
           
-          述上文中实现了 ServiceProvider 的部分, 然后剩下就是 ConnectionFactory 创建 Connection 的部分还有与数据量交互的部分   
-ConnectionFactory 构建适配器实现要构建 ConnectionFactory 就需要 ServiceProvid
+          述上文中介绍了授权的一些基本的使用,本文来看一下, Spring Security 的授权部分的源码   
+首先来看一下流程图,如下:    
+这里的重点是最后面的三个拦截器  
+
+AnonymousAuthenticationFilter: 如果用户没有认证,给一个匿名的认证信息
+Exceptio
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-15-开发QQ登录-中/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-32-授权部分源码跟踪/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1484,7 +1480,7 @@ ConnectionFactory 构建适配器实现要构建 ConnectionFactory 就需要 Ser
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-14-开发QQ登录-上/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-31-授权的使用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1503,7 +1499,7 @@ ConnectionFactory 构建适配器实现要构建 ConnectionFactory 就需要 Ser
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-14-开发QQ登录-上/" itemprop="url">Spring Security-14-开发QQ登录(上)</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-31-授权的使用/" itemprop="url">Spring Security-31-授权的使用</a></h1>
         
 
         <div class="post-meta">
@@ -1515,7 +1511,7 @@ ConnectionFactory 构建适配器实现要构建 ConnectionFactory 就需要 Ser
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:53:48+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:56:20+08:00">
                 2019-09-10
               </time>
             
@@ -1577,12 +1573,12 @@ ConnectionFactory 构建适配器实现要构建 ConnectionFactory 就需要 Ser
       
         
           
-          述本文开始,实现一个第三方登录,以QQ为例,首先需要去QQ互联里面,申请开发者认证,然后创建应用,搞到AppId,和AppKey   
-实现流程按照上文中的实现流程,先是构建 ServiceProvider ,然后是 ConnectionFactory 然后 Connection 最后交互数据库  
+          述之前的部分都是说的是认证的流程,并没有详细的使用过权限,本文来看一下如何做权限控制.   
+其实在我们之前的使用中,已经用到了一部分的权限控制,如下:12345678910111213141516.authorizeRequests()    // 匹配的是登录页的话放行    .antMatch
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-14-开发QQ登录-上/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-31-授权的使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1633,7 +1629,7 @@ ConnectionFactory 构建适配器实现要构建 ConnectionFactory 就需要 Ser
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-13-OAuth2协议及Spring-Social简介/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/Spring-Security-30-单点登录案例/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1652,7 +1648,7 @@ ConnectionFactory 构建适配器实现要构建 ConnectionFactory 就需要 Ser
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/10/Spring-Security-13-OAuth2协议及Spring-Social简介/" itemprop="url">Spring Security-13-OAuth2协议及Spring Social简介</a></h1>
+                <a class="post-title-link" href="/2019/09/10/Spring-Security-30-单点登录案例/" itemprop="url">Spring Security-30-单点登录案例</a></h1>
         
 
         <div class="post-meta">
@@ -1664,7 +1660,7 @@ ConnectionFactory 构建适配器实现要构建 ConnectionFactory 就需要 Ser
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:53:38+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T15:56:12+08:00">
                 2019-09-10
               </time>
             
@@ -1726,12 +1722,12 @@ ConnectionFactory 构建适配器实现要构建 ConnectionFactory 就需要 Ser
       
         
           
-          述上文中,已经实现了短信登录的方式, 常见的登录方式还有第三方登录,比如集成微信或者QQ登录, 第三方登录我们可以使用 Spring Social 去开发, 这里首先得要了解一下 OAuth2 协议   
-OAuth协议简介以微信登录为例,使用微信登录后,通常我们需要去微信拿用户的信息, 最常见的方
+          述上文中,将默认的token替换成了 jwt ,本文将基于 jwt 实现一个单点登录的案例,流程图如下:   
+大概流程就是,应用A去请求登录,然后跳转到统一的认证服务器上去做认证,之后返回给应用A一个token, 这时候B应用去请求登录,认证服务器会发现应用A已经登录过了,那就不需要再认证了,直接
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/09/10/Spring-Security-13-OAuth2协议及Spring-Social简介/#more" rel="contents">
+            <a class="btn" href="/2019/09/10/Spring-Security-30-单点登录案例/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1773,7 +1769,7 @@ OAuth协议简介以微信登录为例,使用微信登录后,通常我们需要�
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1819,7 +1815,7 @@ OAuth协议简介以微信登录为例,使用微信登录后,通常我们需要�
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">258</span>
+                  <span class="site-state-item-count">275</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1830,7 +1826,7 @@ OAuth协议简介以微信登录为例,使用微信登录后,通常我们需要�
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1841,7 +1837,7 @@ OAuth协议简介以微信登录为例,使用微信登录后,通常我们需要�
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1909,7 +1905,7 @@ OAuth协议简介以微信登录为例,使用微信登录后,通常我们需要�
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共288.8k字</span>
+  <span class="post-count">博客全站共309k字</span>
 </div>
         
 

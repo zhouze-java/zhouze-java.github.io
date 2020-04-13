@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-16-Zuul网关配置详解/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-7-发布与订阅/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-16-Zuul网关配置详解/" itemprop="url">Spring Cloud-16-Zuul网关配置详解</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-7-发布与订阅/" itemprop="url">Redis-7-发布与订阅</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:09:55+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:16:45+08:00">
+                2019-04-27
               </time>
             
 
@@ -336,8 +336,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -375,13 +375,13 @@
       
         
           
-          述上文中初步使用了Zuul的路由和请求过滤,接下来就详细的看一下Zuul的路由配置  
-路由配置上文中,我们配置的一个路由规则是这样的:12345zuul:  routes:    api-a:      path: /api-a/**      serviceId: feign-consumer
-
+          述前面,都是说了一些基础数据类型的一些常用的命令,本文来看一下redis中的发布与订阅   
+发布订阅reids中的发布与订阅类似于生活中的电台, 电台可以在某一个频率上发广播,而我们可以接收任何一个频率的广播   
+下面来看一下具体是如何使用的, 首先需要打开一个redis-cli,然后连接我们的
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-16-Zuul网关配置详解/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-7-发布与订阅/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -432,7 +432,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-15-Zuul网关使用及请求过滤/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-6-针对散列和有序集合的常用命令/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -451,7 +451,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-15-Zuul网关使用及请求过滤/" itemprop="url">Spring Cloud-15-Zuul网关使用及请求过滤</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-6-针对散列和有序集合的常用命令/" itemprop="url">Redis-6-针对散列和有序集合的常用命令</a></h1>
         
 
         <div class="post-meta">
@@ -463,8 +463,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:09:44+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:16:34+08:00">
+                2019-04-27
               </time>
             
 
@@ -486,8 +486,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -525,12 +525,13 @@
       
         
           
-          述微服务,就是把一个大的项目拆分成多个独立的模块,然后通过服务治理让这些独立的模块配合工作,随着业务的扩展,整个系统越来越大,随之带来的也会有很多问题  
-比如说,我的项目中有很多个独立服务都要对外提供服务,那么对于开发和运维人员来说,这些接口应该怎么管理?在微服务中,一个独立的系统被拆分成很多个模
+          述上文中,介绍了list和set的一些常用的命令,下面再来看一下散列和有序集合的一些常用的命令   
+散列(hash)和java中的hashmap其实是差不多的,redis其实就是存放的键值对,散列也是存放的键值对,,下面来具体看下一下一些常用的操作   
+hsethset用来设置key指定的哈希集
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-15-Zuul网关使用及请求过滤/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-6-针对散列和有序集合的常用命令/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -581,7 +582,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-14-Feign配置详解/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-5-列表与集合的一些常用命令/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -600,7 +601,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-14-Feign配置详解/" itemprop="url">Spring Cloud-14-Feign配置详解</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-5-列表与集合的一些常用命令/" itemprop="url">Redis-5-列表与集合的一些常用命令</a></h1>
         
 
         <div class="post-meta">
@@ -612,8 +613,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:09:27+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:16:21+08:00">
+                2019-04-27
               </time>
             
 
@@ -635,8 +636,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -674,12 +675,14 @@
       
         
           
-          述之前有说过,Fegin是整合了Ribbon和Hystrix的,下面就看一下在Feign中是如何配置Ribbon和Hystrix的  
-Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接超时时间  ConnectTimeout: 600
+          述前文中,介绍了String数据类型的一些常用的命令,那么下面来看一下一些针对列表与集合的常用命令   
+列表(list)列表是Redis中另外一种数据类型,下面我们来看看列表中一些基本的操作命令  
+lpush语法如下:1LPUSH key value [value ...]
+将一个或多个值插入到
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-14-Feign配置详解/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-5-列表与集合的一些常用命令/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -730,7 +733,7 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-13-Feign的继承特性/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-4-针对String数据类型中Bit的相关命令/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -749,7 +752,7 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-13-Feign的继承特性/" itemprop="url">Spring Cloud-13-Feign的继承特性</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-4-针对String数据类型中Bit的相关命令/" itemprop="url">Redis-4-针对String数据类型中Bit的相关命令</a></h1>
         
 
         <div class="post-meta">
@@ -761,8 +764,8 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:08:27+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:16:00+08:00">
+                2019-04-27
               </time>
             
 
@@ -784,8 +787,8 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -823,12 +826,13 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
       
         
           
-          述上文中,初步的使用了Feign,在写HelloService接口的时候,可以发现,代码可以直接从服务提供者中复制过来.   
-这些可以复制的代码Spring Cloud Feign对它进行了进一步的抽象,这里就用到了Feign的继承特性,那么下面就来看下如何使用Feign的继承特性,进一步简化代码
+          概述上篇文章我们对String数据类型中一些基本的命令进行了介绍,但是没有涉及到Bit相关的命令,本文我们就来看看几个和Bit相关的命令.  
+redis中的字符串都是以二进制的方式进行存储的,举个例子,执行以下命令:12172.16.12.3:6379&gt; set k1 aOK
+a对应的ASC
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-13-Feign的继承特性/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-4-针对String数据类型中Bit的相关命令/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -879,7 +883,7 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-12-Feign入门/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-3-针对String数据类型的一些操作/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -898,7 +902,7 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-12-Feign入门/" itemprop="url">Spring Cloud-12-Feign入门</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-3-针对String数据类型的一些操作/" itemprop="url">Redis-3-针对String数据类型的一些操作</a></h1>
         
 
         <div class="post-meta">
@@ -910,8 +914,8 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:08:18+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:15:48+08:00">
+                2019-04-27
               </time>
             
 
@@ -933,8 +937,8 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -972,11 +976,12 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
       
         
           
-          述前面,我们使用了Ribbon,RestTemplate,Hystrix这些组件,都是spring cloud的一些非常基础的组件,在使用过程中,这些东西都是同时出现的,而且配置也差不多,每次开发都有很多相同的代码,因此Spring Cloud基于Netflix Feign整合了Ribbon和Hys
+          概述上文中,我们看了一些所有数据类型都通用的一些命令,下面再来看一下一些针对String类型独有的命令  
+操作String类型数据的一些命令append追加字符串,如果key存在的话,就直接在value后面追加内容,如果key不存在,就会先创建一个value是空字符串的数据,然后再追加,具体使用方
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-12-Feign入门/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-3-针对String数据类型的一些操作/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1027,7 +1032,7 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-11-Hystrix仪表盘与Turbine集群监控/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-2-数据类型与常用命令/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1046,7 +1051,7 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-11-Hystrix仪表盘与Turbine集群监控/" itemprop="url">Spring Cloud-11-Hystrix仪表盘与Turbine集群监控</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-2-数据类型与常用命令/" itemprop="url">Redis-2-数据类型与常用命令</a></h1>
         
 
         <div class="post-meta">
@@ -1058,8 +1063,8 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:08:09+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:15:18+08:00">
+                2019-04-27
               </time>
             
 
@@ -1081,8 +1086,8 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -1120,13 +1125,12 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
       
         
           
-          述Hystrix仪表盘,主要用来监控Hystrix的实时运行状态,通过仪表盘可以看到Hystrix的各项指标信息,从而快速发现系统中存在的问题, 记下来就来看一下具体如何使用  
-本文主要通过两个方面来使用Hystrix仪表盘,一个是单体应用的监控,另一个是整合Turbine对集群进行监控.  
-单
+          reids中的数据类型redis中的数据都是以key-value的形式存储的,数据类型其实是说value的数据类型,一共有以下几种数据类型:  
+String(字符串)String是redis中的最基本的数据类型,string类型是二进制安全的,意思是redis的string可以包含任何数据,比如j
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-11-Hystrix仪表盘与Turbine集群监控/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-2-数据类型与常用命令/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1177,7 +1181,7 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-10-Hystrix请求合并/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-1-远程连接/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1196,7 +1200,7 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-10-Hystrix请求合并/" itemprop="url">Spring Cloud-10-Hystrix请求合并</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-1-远程连接/" itemprop="url">Redis-1-远程连接</a></h1>
         
 
         <div class="post-meta">
@@ -1208,8 +1212,8 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:08:00+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:14:00+08:00">
+                2019-04-27
               </time>
             
 
@@ -1231,8 +1235,8 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -1270,12 +1274,15 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
       
         
           
-          述在微服务的架构中,各个模块是通过互相请求来进行通信的,在高并发的情况下,通信次数的增加会导致总的通信时间增加,同时线程池的资源也是有限的,高并发的环境下,会有大量的线程处于等待状态,进而导致了响应延迟,要解决这些问题就可以使用Hystrix的请求合并.  
-具体原理是怎样的呢? Hystrix中的
+          远程连接我们在linux上装好redis服务之后,希望在windows端或者是Java应用中远程连接redis,就需要做出一些配置  
+配置文件修改修改redis.conf文件,具体如下:  
+
+bind 127.0.0.1,在配置文件中找到这个配置,注释掉
+requirepass foobared
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-10-Hystrix请求合并/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-1-远程连接/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1326,7 +1333,7 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-9-Hystrix请求缓存/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/Redis-0-简介与环境搭建/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1345,7 +1352,7 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-9-Hystrix请求缓存/" itemprop="url">Spring Cloud-9-Hystrix请求缓存</a></h1>
+                <a class="post-title-link" href="/2019/04/27/Redis-0-简介与环境搭建/" itemprop="url">Redis-0-简介与环境搭建</a></h1>
         
 
         <div class="post-meta">
@@ -1357,8 +1364,8 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:07:48+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T16:13:42+08:00">
+                2019-04-27
               </time>
             
 
@@ -1380,8 +1387,8 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -1419,13 +1426,12 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
       
         
           
-          述在高并发的情况下,处理好缓存,就能有效的降低服务器的压力,Spring Cloud的Hystrix也提供了请求缓存的能力,接下来,我们来看一下如何开启.   
-环境准备还是基于之前的服务注册中心,提供者和消费者, 先把服务注册中心开启, 服务提供者和消费者需要修改.   
-通过方法重载开启缓存当我
+          简介REmote DIctionary Server(Redis) 是一个由Salvatore Sanfilippo写的key-value存储系统.  
+Redis是一个开源的使用ANSI C语言编写,遵守BSD协议,支持网络,可基于内存亦可持久化的日志型Key-Value数据库,并提供多种语言的A
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-9-Hystrix请求缓存/#more" rel="contents">
+            <a class="btn" href="/2019/04/27/Redis-0-简介与环境搭建/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1476,7 +1482,7 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-8-Hystrix的服务降级与异常处理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-事务传播性/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1495,7 +1501,7 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-8-Hystrix的服务降级与异常处理/" itemprop="url">Spring Cloud-8-Hystrix的服务降级与异常处理</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-事务传播性/" itemprop="url">Spring-事务传播性</a></h1>
         
 
         <div class="post-meta">
@@ -1507,7 +1513,7 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:07:39+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:33:28+08:00">
                 2019-04-10
               </time>
             
@@ -1530,8 +1536,8 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
                   </a>
                 </span>
 
@@ -1569,12 +1575,12 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
       
         
           
-          之前我们用过了fallbackMethod这个东西,本文将详细说一下这个东西,也就是服务降级   
-服务降级前文中,fallbackMethod所描述的函数,就是一个备胎,用来实现服务的降级处理,在@HystrixCommand注解中,可以通过fallbackMethod来指定请求失败后调用的方法,
+          事务传播性事务的传播性一般是在事务嵌套的时候使用,比如方法A是事务管理的,方法B也是有事务管理的,然后方法A中调用了方法B,那么这两个事务是各自作为独立的事务提交呢还是内层的事务合并到外层一起提交,这就是事务传播性要确定的问题.  
+场景有如下两个方法12345@Transactionalpubli
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-8-Hystrix的服务降级与异常处理/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-事务传播性/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1625,7 +1631,7 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-Cloud-7-自定义Hystrix请求命令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Spring-事务隔离性/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1644,7 +1650,7 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/10/Spring-Cloud-7-自定义Hystrix请求命令/" itemprop="url">Spring Cloud-7-自定义Hystrix请求命令</a></h1>
+                <a class="post-title-link" href="/2019/04/10/Spring-事务隔离性/" itemprop="url">Spring-事务隔离性</a></h1>
         
 
         <div class="post-meta">
@@ -1656,7 +1662,7 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:07:27+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T17:33:12+08:00">
                 2019-04-10
               </time>
             
@@ -1679,8 +1685,8 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
                   </a>
                 </span>
 
@@ -1718,12 +1724,14 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
       
         
           
-          上文中,介绍了Hystrix断路器的简单使用,是通过注解的方式去实现的, 我们也可以通过继承类的方式来实现.   
-自定义HystrixCommand除了使用@HystrixCommand注解,也可以自定义类,继承HystrixCommand类. 如下:12345678910111213141516
+          事务隔离性事务隔离性是指多个事务并发执行的时候互相之间不受彼此的干扰,是事务ACID中的I,根据隔离程度会对隔离性有分类.   
+数据库并发操作存在的几个问题在说事务隔离性之前,需要知道的几个名词,如下:   
+脏读脏读是指一个事务中访问到了另一个事务未提交的数据.  
+举个例子,假设现在有两个事务
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/10/Spring-Cloud-7-自定义Hystrix请求命令/#more" rel="contents">
+            <a class="btn" href="/2019/04/10/Spring-事务隔离性/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1765,7 +1773,7 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/13/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/15/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/13/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/15/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1811,7 +1819,7 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">258</span>
+                  <span class="site-state-item-count">275</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1822,7 +1830,7 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1833,7 +1841,7 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1901,7 +1909,7 @@ Ribbon配置在application.yml中的配置如下:1234567891011ribbon:  # 连接�
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共288.8k字</span>
+  <span class="post-count">博客全站共309k字</span>
 </div>
         
 

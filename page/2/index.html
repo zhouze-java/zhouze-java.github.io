@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-13-Spring-Profile解析/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/13/JUC-锁-1-锁的分类/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/07/Spring-Boot-13-Spring-Profile解析/" itemprop="url">Spring Boot-13-Spring Profile解析</a></h1>
+                <a class="post-title-link" href="/2020/04/13/JUC-锁-1-锁的分类/" itemprop="url">JUC-锁-1-锁的分类</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:38:19+08:00">
-                2020-03-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-13T13:46:50+08:00">
+                2020-04-13
               </time>
             
 
@@ -336,8 +336,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Boot</span>
+                  <a href="/categories/JUC/" itemprop="url" rel="index">
+                    <span itemprop="name">JUC</span>
                   </a>
                 </span>
 
@@ -375,11 +375,14 @@
       
         
           
-          述在日常开发中,有这样一种情况,就是开发环境,测试环境,生产环境,所需要的配置不同,我们通常会使用不同的配置文件来解决这个问题,比如开发环境我们有一个 application-dev.yml 的配置,然后生产环境有一个 application-prod.yml 的配置, 然后再不同的环境中,我们可以
+          述Java 锁有很多种,从不通的角度来看,锁大概有以下几种分类   
+   
+下面分别看一下这几种锁   
+悲观锁和乐观锁简单来说,悲观锁就是面对同步资源的时候,首先认为会有别的线程会来修改数据,所以先上锁,锁住之后再去修改资源,上面提到的 synchronized 和 Lock 就都是悲观锁   
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/07/Spring-Boot-13-Spring-Profile解析/#more" rel="contents">
+            <a class="btn" href="/2020/04/13/JUC-锁-1-锁的分类/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -430,7 +433,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-12-属性加载解析/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/13/JUC-锁-0-Lock的基本使用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -449,7 +452,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/07/Spring-Boot-12-属性加载解析/" itemprop="url">Spring Boot-12-属性加载解析</a></h1>
+                <a class="post-title-link" href="/2020/04/13/JUC-锁-0-Lock的基本使用/" itemprop="url">JUC-锁-0-Lock的基本使用</a></h1>
         
 
         <div class="post-meta">
@@ -461,8 +464,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:38:02+08:00">
-                2020-03-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-13T13:46:40+08:00">
+                2020-04-13
               </time>
             
 
@@ -484,8 +487,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Boot</span>
+                  <a href="/categories/JUC/" itemprop="url" rel="index">
+                    <span itemprop="name">JUC</span>
                   </a>
                 </span>
 
@@ -523,11 +526,12 @@
       
         
           
-          述上文中了解了如何通过 Spring Aware 来获取属性,最终其实是使用 Environment 对象来获取系统中的属性的,那么 Environment 对象是怎么来的, Spring Boot 是如何将我们的属性配置,转成一个 Environment 对象的, 下面来看一下获取 Environ
+          述在并发开发中,锁也是经常使用的一个工具,主要是用于对并发资源的访问,常用的锁就是 Lock 和 synchronized ,这两个锁都可以达到线程安全的目的,但是在使用上有较大差别.   
+Lock 和 synchronizedLock 一般情况用于 synchronized 不满足要求或者不合适
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/07/Spring-Boot-12-属性加载解析/#more" rel="contents">
+            <a class="btn" href="/2020/04/13/JUC-锁-0-Lock的基本使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -578,7 +582,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-11-Spring-Aware解析/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/13/JUC-ThreadLocal-1-原理解析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -597,7 +601,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/07/Spring-Boot-11-Spring-Aware解析/" itemprop="url">Spring Boot-11-Spring Aware解析</a></h1>
+                <a class="post-title-link" href="/2020/04/13/JUC-ThreadLocal-1-原理解析/" itemprop="url">JUC-ThreadLocal-1-原理解析</a></h1>
         
 
         <div class="post-meta">
@@ -609,8 +613,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:37:22+08:00">
-                2020-03-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-13T13:46:22+08:00">
+                2020-04-13
               </time>
             
 
@@ -632,8 +636,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Boot</span>
+                  <a href="/categories/JUC/" itemprop="url" rel="index">
+                    <span itemprop="name">JUC</span>
                   </a>
                 </span>
 
@@ -671,12 +675,12 @@
       
         
           
-          述上文中,介绍了几种 Spring Boot 中的属性配置方式,那么配置完成之后,要在系统里面怎么获取,下面来介绍一种通过 Spring Aware 获取属性的方式   
-获取属性这里利用之前学过的启动加载器去打印要获取的属性, 这里还是创建一个类 EnvironmentApplicationRun
+          述上文中了解了 ThreadLocal 的常用场景和最基本的用法之后再来看一下它的原理以及一些要注意的事项   
+Thread,ThreadLocal,ThreadLocalMap首先需要了解一下 Thread ,ThreadLocal ,ThreadLocalMap 这三个类之间的关系,如图   
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/07/Spring-Boot-11-Spring-Aware解析/#more" rel="contents">
+            <a class="btn" href="/2020/04/13/JUC-ThreadLocal-1-原理解析/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -727,7 +731,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-10-属性配置/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/13/JUC-ThreadLocal-0-基本使用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -746,7 +750,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/07/Spring-Boot-10-属性配置/" itemprop="url">Spring Boot-10-属性配置</a></h1>
+                <a class="post-title-link" href="/2020/04/13/JUC-ThreadLocal-0-基本使用/" itemprop="url">JUC-ThreadLocal-0-基本使用</a></h1>
         
 
         <div class="post-meta">
@@ -758,8 +762,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:33:07+08:00">
-                2020-03-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-13T13:46:12+08:00">
+                2020-04-13
               </time>
             
 
@@ -781,8 +785,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Boot</span>
+                  <a href="/categories/JUC/" itemprop="url" rel="index">
+                    <span itemprop="name">JUC</span>
                   </a>
                 </span>
 
@@ -820,12 +824,14 @@
       
         
           
-          述在项目开发过程中,有很多工作是针对配置文件的,比如 Spring Boot 提供的一些属性,还有我们自定义的一些配置,下面就来了解一下 Spring Boot 中的属性配置的几种方式   
-命令行配置方式我们在服务器中手动启动一个jar包的时候,用的命令,比如是 java -jar xxx.jar
+          述了解了线程池之后,再来看一个常用的类,就是 ThreadLocal 这个类在面试中也是很常见的,下面来看一下这个类常见的使用场景   
+常见使用场景ThreadLocal 比较常见的有两个地方   
+
+每个线程都需要一个独享的对象,通常是工具类,比如经常用的 SimpleDateFormat 和 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/07/Spring-Boot-10-属性配置/#more" rel="contents">
+            <a class="btn" href="/2020/04/13/JUC-ThreadLocal-0-基本使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -876,7 +882,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-9-启动加载器/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/13/JUC-线程池-2-钩子方法的使用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -895,7 +901,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/07/Spring-Boot-9-启动加载器/" itemprop="url">Spring Boot-9-启动加载器</a></h1>
+                <a class="post-title-link" href="/2020/04/13/JUC-线程池-2-钩子方法的使用/" itemprop="url">JUC-线程池-2-钩子方法的使用</a></h1>
         
 
         <div class="post-meta">
@@ -907,8 +913,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:32:31+08:00">
-                2020-03-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-13T13:46:04+08:00">
+                2020-04-13
               </time>
             
 
@@ -930,8 +936,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Boot</span>
+                  <a href="/categories/JUC/" itemprop="url" rel="index">
+                    <span itemprop="name">JUC</span>
                   </a>
                 </span>
 
@@ -969,13 +975,13 @@
       
         
           
-          述在我们的日常开发中,可能需要在容器启动之后,立马做一些事情,这时候就可以借助 Spring Boot 的启动加载器去实现.   
-启动加载器启动加载器有两种方式实现,分别是实现 CommandLineRunner 和 ApplicationRunner ,然后重写里面的 run 方法   
-实现C
+          述上文提到了线程池的钩子方法,其实就是线程池在执行每个任务的前后执行一些操作,还有线程池的暂停与继续,等等一些辅助功能,下面看一下如何使用   
+钩子方法的使用ThreadPoolExecutor 提供了3个钩子方法,需要子类去根据自己的需要重写,三个方法如下:  
+123protected voi
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/07/Spring-Boot-9-启动加载器/#more" rel="contents">
+            <a class="btn" href="/2020/04/13/JUC-线程池-2-钩子方法的使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1026,7 +1032,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-8-Banner解析/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/13/JUC-线程池-1-创建及使用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1045,7 +1051,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/07/Spring-Boot-8-Banner解析/" itemprop="url">Spring Boot-8-Banner解析</a></h1>
+                <a class="post-title-link" href="/2020/04/13/JUC-线程池-1-创建及使用/" itemprop="url">JUC-线程池-1-创建及使用</a></h1>
         
 
         <div class="post-meta">
@@ -1057,8 +1063,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:32:19+08:00">
-                2020-03-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-13T13:45:57+08:00">
+                2020-04-13
               </time>
             
 
@@ -1080,8 +1086,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Boot</span>
+                  <a href="/categories/JUC/" itemprop="url" rel="index">
+                    <span itemprop="name">JUC</span>
                   </a>
                 </span>
 
@@ -1119,12 +1125,12 @@
       
         
           
-          述上文中,分析了Spring容器的 refresh 流程,还有 Bean 的实例化流程,本文来了解一下 Spring Boot 中的 Banner 的解析,还有他的原理    
-自定义Banner Spring Boot 默认的 Banner 图如下: 1234567   .   ____     
+          述上文中对线程池做了一个基本的了解,说了这么多,如何去创建一个线程池呢? JUC 包里面给我们提供了一个工具类就是 java.util.concurrent.Executors ,通过这个类我们就可以创建几种不同类型的线程池,来看一下这个类中常用的几个方法  
+固定数量线程池通过 Executors
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/07/Spring-Boot-8-Banner解析/#more" rel="contents">
+            <a class="btn" href="/2020/04/13/JUC-线程池-1-创建及使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1175,7 +1181,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-7-Bean实例化流程/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/13/JUC-线程池-0-介绍/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1194,7 +1200,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/07/Spring-Boot-7-Bean实例化流程/" itemprop="url">Spring Boot-7-Bean实例化流程</a></h1>
+                <a class="post-title-link" href="/2020/04/13/JUC-线程池-0-介绍/" itemprop="url">JUC-线程池-0-介绍</a></h1>
         
 
         <div class="post-meta">
@@ -1206,8 +1212,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:31:57+08:00">
-                2020-03-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-13T13:45:49+08:00">
+                2020-04-13
               </time>
             
 
@@ -1229,8 +1235,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Boot</span>
+                  <a href="/categories/JUC/" itemprop="url" rel="index">
+                    <span itemprop="name">JUC</span>
                   </a>
                 </span>
 
@@ -1268,12 +1274,11 @@
       
         
           
-          述上文中大致了解了Spring容器的refresh的过程,其中 finishBeanFactoryInitialization() 方法没有详细说明, 这个方法就是 Spring 容器实例化 Bean 的方法, 下面来详细看一下这个方法   
-Spring容器Bean实例化流程首先,进入 finis
+          述在日常开发中,当我们需要使用多线程来处理一些任务的时候,可以创建一个线程,然后去调用 start() 启动,这种方式比较简单,但是同时也带来一些问题,比如在任务数量多的情况下,频繁的创建销毁线程,就会给服务器带来较大的压力,处理效率也不是特别高, 所以在这种情况下,我们就可以使用线程池来处理这些任
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/07/Spring-Boot-7-Bean实例化流程/#more" rel="contents">
+            <a class="btn" href="/2020/04/13/JUC-线程池-0-介绍/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1324,7 +1329,7 @@ Spring容器Bean实例化流程首先,进入 finis
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-6-refresh方法解析/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-23-自定义starter/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1343,7 +1348,7 @@ Spring容器Bean实例化流程首先,进入 finis
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/07/Spring-Boot-6-refresh方法解析/" itemprop="url">Spring Boot-6-refresh方法解析</a></h1>
+                <a class="post-title-link" href="/2020/03/07/Spring-Boot-23-自定义starter/" itemprop="url">Spring Boot-23-自定义starter</a></h1>
         
 
         <div class="post-meta">
@@ -1355,7 +1360,7 @@ Spring容器Bean实例化流程首先,进入 finis
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:31:43+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:41:24+08:00">
                 2020-03-07
               </time>
             
@@ -1417,11 +1422,12 @@ Spring容器Bean实例化流程首先,进入 finis
       
         
           
-          述前面介绍了一些Spring容器在初始化时的系统初始化器以及监听器的加载等,Spring容器创建之后,会调用它的refresh方法,refresh的时候会做很多事情:比如完成配置类的解析.各种 BeanFactoryPostProcessor 和 BeanPostProcessor 的注册、国际化配
+          述本文来了解一下 Spring Boot 中的 starter, starter 是 Spring Boot 中的一个可拔插的插件,需要使用的时候只要引入对应的包, 比如我们要使用web环境,就会引入 spring-boot-starter-web   
+starter 和 jar包导入的区别就是 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/07/Spring-Boot-6-refresh方法解析/#more" rel="contents">
+            <a class="btn" href="/2020/03/07/Spring-Boot-23-自定义starter/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1472,7 +1478,7 @@ Spring容器Bean实例化流程首先,进入 finis
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-5-自定义监听器/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-22-Conditional注解使用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1491,7 +1497,7 @@ Spring容器Bean实例化流程首先,进入 finis
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/07/Spring-Boot-5-自定义监听器/" itemprop="url">Spring Boot-5-自定义监听器</a></h1>
+                <a class="post-title-link" href="/2020/03/07/Spring-Boot-22-Conditional注解使用/" itemprop="url">Spring Boot-22-@Conditional注解使用</a></h1>
         
 
         <div class="post-meta">
@@ -1503,7 +1509,7 @@ Spring容器Bean实例化流程首先,进入 finis
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:30:56+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:41:12+08:00">
                 2020-03-07
               </time>
             
@@ -1565,13 +1571,11 @@ Spring容器Bean实例化流程首先,进入 finis
       
         
           
-          述了解了监听器的工作原理之后,我们来看一下自定义的监听器如何实现   
-监听器的实现跟之前的系统初始化器的实现基本是一致的   
-第一种方式创建监听器,实现 ApplicationListener ,泛型是些对应的感兴趣的事件,如下:12345678910@Order(1)@Slf4jpublic 
+          述在我们 Spring Boot 项目中,很多地方都用到了 @Conditional 注解用来指定一些条件, 这个注解的作用是根据是否满足某一个特定的条件来决定是否创建某个 Bean ,这个注解的存在也是 Spring Boot 实现自动配置的关键基础能力,比如我们在 web 工厂类加载的部分就遇到
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/07/Spring-Boot-5-自定义监听器/#more" rel="contents">
+            <a class="btn" href="/2020/03/07/Spring-Boot-22-Conditional注解使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1622,7 +1626,7 @@ Spring容器Bean实例化流程首先,进入 finis
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-4-监听器实现/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Spring-Boot-21-web个性化配置原理解析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="周泽">
@@ -1641,7 +1645,7 @@ Spring容器Bean实例化流程首先,进入 finis
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/07/Spring-Boot-4-监听器实现/" itemprop="url">Spring Boot-4-监听器实现</a></h1>
+                <a class="post-title-link" href="/2020/03/07/Spring-Boot-21-web个性化配置原理解析/" itemprop="url">Spring Boot-21-web个性化配置原理解析</a></h1>
         
 
         <div class="post-meta">
@@ -1653,7 +1657,7 @@ Spring容器Bean实例化流程首先,进入 finis
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:30:17+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-07T15:40:55+08:00">
                 2020-03-07
               </time>
             
@@ -1715,20 +1719,14 @@ Spring容器Bean实例化流程首先,进入 finis
       
         
           
-          述上文中用一个简单的案例,来了解了一下监听器的实现,下面再来看一下监听器在Spring Boot框架中的实现,围绕以下四个方面来看以下:  
-
-事件
-监听器
-广播器
-触发机制
-
-监听器ApplicationListener 这个类,就是系统监听器的实现,代码如下:   
-  
-这里就是一个函数式接口
+          述在项目中,我们可以自定义一些 web 容器的配置,比如最常见的端口号,我们可以通过 server.port 配置,那么这些自定义的配置,是如何被应用到web容器中的, 下面来看一下 web 容器的个性化配置原理解析   
+源码解析首先进入 createWebServer() 方法中  
+   
+然
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/07/Spring-Boot-4-监听器实现/#more" rel="contents">
+            <a class="btn" href="/2020/03/07/Spring-Boot-21-web个性化配置原理解析/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1770,7 +1768,7 @@ Spring容器Bean实例化流程首先,进入 finis
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1816,7 +1814,7 @@ Spring容器Bean实例化流程首先,进入 finis
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">258</span>
+                  <span class="site-state-item-count">275</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1827,7 +1825,7 @@ Spring容器Bean实例化流程首先,进入 finis
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1838,7 +1836,7 @@ Spring容器Bean实例化流程首先,进入 finis
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1906,7 +1904,7 @@ Spring容器Bean实例化流程首先,进入 finis
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共288.8k字</span>
+  <span class="post-count">博客全站共309k字</span>
 </div>
         
 
